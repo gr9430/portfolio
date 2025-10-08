@@ -1,88 +1,46 @@
 ---
 ---
-
-@import 'minima';
-
-
-
 header {
-
-    background: black;
-
+background: black;
 }
-
 p {
-  color: rgb(172, 72, 172);
+color: rgb(172, 72, 172);
 }
-
 header a.button {
-
-    background: green;
-
+background: green;
 }
-
 aside a.button {
-
-    background: darkgreen;
-
+background: darkgreen;
 }
-
 #main-content h2:before {
-
-    color: lightgreen;
-
+color: lightgreen;
 }
-
 #main-content h1:before {
-
-    color: lightgreen;
-
+color: lightgreen;
 }
-
 #main-content h3 {
-
-    color: lightgreen;
-
-  }
-
-  #main-content h4 {
-
-    color: lightgreen;
-
-  }
-
-  #main-content h6 {
-
-    color: lightgreen;
-
-  }
-
-
-/* ==== Original (static version) ==== */
-/* #home {
-  background: #333;
-  color: white;
-  padding: 20px;
-  text-align: center;
+color: lightgreen;
  }
- */
-
-/* ==== Animated version ==== */
+#main-content h4 {
+color: lightgreen;
+ }
+#main-content h6 {
+color: lightgreen;
+ }
 
 #home {
-  background: linear-gradient(135deg, #ff6ec4, #7873f5); 
-  color: white; 
-  text-align: center;
-  padding: 40px;
-  border-radius: 20px;
-  border: 4px dashed yellow;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-  font-size: 3em;
-  transform: rotate(-2deg); 
-  animation: bounce 1.5s infinite alternate;
+background: linear-gradient(135deg, #ff6ec4, #7873f5);
+color: white;
+text-align: center;
+padding: 40px;
+border-radius: 20px;
+border: 4px dashed yellow;
+text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+font-size: 3em;
+transform: rotate(-2deg);
+animation: bounce 1.5s infinite alternate;
 }
-
 @keyframes bounce {
-  from { transform: translateY(0) rotate(-2deg); }
-  to   { transform: translateY(-10px) rotate(2deg); }
+from { transform: translateY(0) rotate(-2deg); }
+to { transform: translateY(-10px) rotate(2deg); }
 }
