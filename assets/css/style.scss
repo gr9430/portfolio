@@ -1,52 +1,84 @@
 ---
 ---
-
 @import "{{ site.theme }}";
 
-/* Add proper margins and spacing */
+/* Center content and add margins */
 .wrapper {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 60px;
+  max-width: 900px !important;
+  margin: 0 auto !important;
+  padding: 0 60px !important;
 }
 
+/* Remove extra body padding that might interfere */
 body {
-  padding: 20px;
+  margin: 0;
 }
 
-/* Your custom styles */
-header {
+/* Minima-specific header styling */
+.site-header {
   background: rgb(248,248,255);
+  border-bottom: 2px solid rgb(122, 6, 97);
 }
 
+/* Style all text */
 p {
   color: rgb(0, 0, 0);
 }
 
-header a.button {
-  background: rgb(122, 6, 97);
-}
-
-aside a.button {
-  background: rgb(122, 6, 97);
-}
-
-#main-content h1 {
+/* Style headings - these work in Minima */
+.post-content h1,
+.page-content h1,
+h1 {
   color: rgb(122, 6, 97);
 }
 
-#main-content h2 {
+.post-content h2,
+.page-content h2,
+h2 {
   color: rgb(122, 6, 97);
 }
 
-#main-content h3 {
+.post-content h3,
+.page-content h3,
+h3 {
   color: rgb(122, 6, 97);
 }
 
-#main-content h4 {
+.post-content h4,
+.page-content h4,
+h4 {
   color: rgb(122, 6, 97);
 }
 
-#main-content h6 {
+.post-content h5,
+.page-content h5,
+h5 {
   color: rgb(122, 6, 97);
+}
+
+.post-content h6,
+.page-content h6,
+h6 {
+  color: rgb(122, 6, 97);
+}
+
+/* Style links in header */
+.site-header a {
+  color: rgb(122, 6, 97);
+}
+
+.site-header a:hover {
+  text-decoration: underline;
+}
+
+/* Add spacing to content */
+.page-content {
+  padding: 30px 0;
+}
+
+/* Center images */
+img {
+  display: block;
+  max-width: 100%;
+  margin: 20px auto;
 }
