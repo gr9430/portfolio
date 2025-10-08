@@ -16,11 +16,11 @@ body {
 
 /* Your custom styles */
 header {
-  background: black;
+  background: rgb(248,248,255);
 }
 
 p {
-  color: rgb(172, 72, 172);
+  color: rgb(0, 0, 0);
 }
 
 header a.button {
@@ -31,33 +31,33 @@ aside a.button {
   background: darkgreen;
 }
 
-#main-content h2:before {
-  color: lightgreen;
+#main-content h1:before {
+  color: rgb(122, 6, 97);
 }
 
-#main-content h1:before {
-  color: lightgreen;
+#main-content h2:before {
+  color: rgb(122, 6, 97);
 }
 
 #main-content h3 {
-  color: lightgreen;
+  color: rgb(122, 6, 97);
 }
 
 #main-content h4 {
-  color: lightgreen;
+  color: rgb(122, 6, 97);
 }
 
 #main-content h6 {
-  color: lightgreen;
+  color: rgb(122, 6, 97);
 }
 
 #home {
   background: linear-gradient(135deg, #ff6ec4, #7873f5);
-  color: white;
+  color: rgb(248,248,255);
   text-align: center;
   padding: 40px;
   border-radius: 20px;
-  border: 4px dashed yellow;
+  border: 4px dashed rgb(248,248,255);
   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
   font-size: 3em;
   transform: rotate(-2deg);
