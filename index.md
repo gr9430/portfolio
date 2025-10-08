@@ -3,6 +3,8 @@ layout: default
 title: Home
 ---
 
+
+
 # Glenn S. Ritchey III
 
 I'm a PhD student, teacher, and artist investigating how communities resist cultural and technological colonization. My work asks: Who gets to make meaning and why? How do we democratize this process?
