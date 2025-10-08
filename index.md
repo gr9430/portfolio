@@ -3,7 +3,9 @@ layout: default
 title: Home
 ---
 
+<img title="Paul Graham, ‘Graffiti, Ballysillan Estate, Belfast, 1986’, from Troubled Land (MACK, 2022)." alt="Graffitti reading 'BEWARE' on the wall of a housing estate in Belfast, NI, taken by Paul Graham in 1986." src="assets/images/graham-beware.jpg" width="800">
 
+#### Paul Graham, ‘Graffiti, Ballysillan Estate, Belfast, 1986’, from _Troubled Land_ (MACK, 2022).
 
 # Glenn S. Ritchey III
 
