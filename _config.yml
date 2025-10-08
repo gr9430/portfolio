@@ -1,1 +1,5 @@
-theme: minima
+remote_theme: pages-themes/minimal
+plugins:
+- jekyll-remote-theme
+title: Sample Portfolio for ENG 6800
+description: Sample Portfolio for ENG 6800
