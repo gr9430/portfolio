@@ -1,5 +1,32 @@
 ---
 ---
+
+.wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+.page-content {
+  padding: 30px 0;
+}
+
+.post-content {
+  margin-bottom: 50px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Add spacing to images */
+img {
+  max-width: 100%;
+  height: auto;
+  margin: 20px 0;
+}
+
 header {
 background: black;
 }
