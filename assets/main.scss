@@ -1,0 +1,39 @@
+---
+---
+
+@import "minima";
+
+/* Custom styles */
+.wrapper {
+  max-width: 600px !important;
+  margin: 0 auto !important;
+  padding: 0 20px !important;
+}
+
+.site-header {
+  background: rgb(248,248,255);
+  border-bottom: 2px solid rgb(122, 6, 97);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: rgb(122, 6, 97) !important;
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.page-content h1,
+.page-content h2,
+.page-content h3 {
+  color: rgb(122, 6, 97) !important;
+}
+
+.site-header a {
+  color: rgb(122, 6, 97);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  margin: 20px auto;
+}
