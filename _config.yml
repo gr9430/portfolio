@@ -1,1 +1,5 @@
 theme: minima
+title: General Portfolio
+description: Academic and creative works of Glenn S. Ritchey III
+header_pages: []
+baseurl: "/portfolio"
