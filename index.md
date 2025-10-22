@@ -2,14 +2,7 @@
 layout: default
 title: Home
 ---
-
-<nav style="text-align: center; padding: 20px 0; border-bottom: 2px solid rgb(122, 6, 97); margin-bottom: 30px;">
-  <a href="/" style="margin: 0 15px; color: rgb(122, 6, 97); font-weight: bold;">Home</a>
-  <a href="teaching" style="margin: 0 15px; color: rgb(122, 6, 97); font-weight: bold;">Teaching</a>
-  <a href="projects" style="margin: 0 15px; color: rgb(122, 6, 97); font-weight: bold;">Projects</a>
-</nav>
-
-<img title="Paul Graham, ‘Graffiti, Ballysillan Estate, Belfast, 1986’, from Troubled Land (MACK, 2022)." alt="Graffitti reading 'BEWARE' on the wall of a housing estate in Belfast, NI, taken by Paul Graham in 1986." src="assets/images/graham-beware.jpg" width="800">
+![Featured Image](assets/images/graham-beware.jpg)
 
 <center><small>Paul Graham, ‘Graffiti, Ballysillan Estate, Belfast, 1986’, from <i>Troubled Land</i> (MACK, 2022).</small></center>
 
