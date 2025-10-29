@@ -2,49 +2,20 @@
 layout: default
 title: Glenn S. Ritchey III - Academic Portfolio
 ---
-# Glenn S. Ritchey III, 2025-2026.
-[Contact](mailto:glenn.ritchey@ucf.edu)
-### Socials
-[IG](https://instagram.com/dotactiveresearch) | [LinkedIn](https://www.linkedin.com/in/glennritchey3) | [Codeberg (Main, or so-called 'True')](https://codeberg.org/limbfun)
+# 2025 - 2026.
 ## Contents
-- [Current Position](#current-academic-statusemployment)
-
+- [Current Status](#current-academic-statusemployment)
 - [Education](#education)
-
 - [Research Interests](#research-interests)
-
 - [Teaching Experience](#teaching-experience)
-  - [Instructor of Record](#instructor-of-record)
-  - [Graduate Teaching Assistant](#graduate-teaching-assistant)
-
 - [Awards and Honors](#awards-and-honors)
-  - [University of Central Florida](#university-of-central-florida)
-    - [Fellowships](#fellowships)
-    - [Grants and Scholarships](#grants-and-scholarships)
-    - [Other Awards](#other-awards)
-
 - [Professional Activities](#professional-activities)
-
-- [Digital Humanities Contributions](#digital-humanities-contributions)
-
 - [Technical Skills](#technical-skills)
-
 - [Professional Affiliations](#professional-affiliations)
-
 - [Conferences](#conferences)
-  - [International Conferences](#international-conferences)
-  - [National Conferences](#national-conferences)
-  - [Regional Conferences](#regional-conferences)
-
 - [Invited Presentations](#invited-presentations)
-  - [Panel Chair](#panel-chair)
-  - [Panelist](#panelist)
-
 - [Academic Podcasting](#academic-podcasting)
-  - [Host & Interviewer](#host--interviewer)
-  - [Interviewee](#interviewee)
 ---
-<br>
 
 ## Current Academic Status/Employment
 __Ph.D. Texts & Technology__, University of Central Florida (expected 2029)
@@ -66,15 +37,17 @@ __B.A. English Literature__, University of Central Florida (2023)
     - _Advisors_: Stephen C.E. Hopkins, Ph.D (Chair), Alison Hudson, D.Phil, Christian Beck, Ph.D.
 
 ## Research Interests
-Adaptation Studies; Cinema Studies; Cultural Studies; Decolonial Studies; Digital Humanities; Early Irish Literature; Kashmiri Studies; Postcolonial Studies; Remix Studies
+Cultural Studies; Decolonialism; Digital Humanities; Irish Studies; Kashmiri Studies; Postcolonialism
 
 ## Teaching Experience
 ### Instructor of Record
+
 - ENC 1101: Sociocultural Construct for Community Situated Writing.
-  - Fall, 2025 (1) Section; Fall 2024, (2) Sections.
+  - Spring, 2026 (3) Sections, Mixed-Mode; Fall, 2025 (1) Section, Face-to-Face; Fall 2024, (2) Sections, Face-to-Face.
+
 
 - ENC 1102: Sociocultural Construct for Research Writing.
-  - Fall 2025, (2) sections; Spring 2025, (2) Sections.
+   - Fall 2025, (2) sections; Spring 2025, (2) Sections.
 
 ### Graduate Teaching Assistant
 - Joyner, Veronica. ENC 4280: Technical Writing Style, Spring 2024.
@@ -86,8 +59,7 @@ Adaptation Studies; Cinema Studies; Cultural Studies; Decolonial Studies; Digita
 - Pugh, Tison. LIT 3132: Legend and Literature of King Arthur, Fall 2023.
 
 ## Awards and Honors
-### University of Central Florida
-#### Fellowships
+### Fellowships
 - Graduate Presentation Fellowship, Fall 2025. $500.
 
 - Graduate Dean’s Fellowship, 2023-2024. $5,000.
@@ -98,17 +70,35 @@ Adaptation Studies; Cinema Studies; Cultural Studies; Decolonial Studies; Digita
 
 - Summer Undergraduate Research Fellowship, Office of Undergraduate Research, Summer 2022. $2,000.
 
-#### Grants and Scholarships
+### Grants and Scholarships
 - Patricia Angley Memorial Scholarship, Department of English, Fall 2023. $1,000.
 
-#### Other Awards
+### Other Awards
 
 - Excellence in Undergraduate Research, Department of English, Spring 2023.
 
 - Outstanding Digital Humanist, Department of English, Spring 2023.
 
 ## Professional Activities
-
+- Treasurer, _Texts & Technology Student Organization_, October 2025 - Current.
+    - Responsibilities included but are not limited to:
+ 
+        - Keeping an accurate account of all funds received and expended.
+ 
+        - Presenting a budget report of deposits and expenditures to the membership at least once per month, and as requested by the President, Vice President, advisor, or Office of Student Involvement.
+ 
+        - One of three signers on financial documents.
+ 
+        - Collecting dues and notifying members who are delinquent in their payments.
+ 
+        - Creating a budget at the beginning of each fall and spring semester, in conjunction with the President.
+ 
+        - Providing financial records sufficient to allow the Vice President to perform audits.
+ 
+        - Providing all documents and records pertaining to their responsibilities to the newly-elected Treasurer.
+ 
+        - Assisting in special projects as assigned by the President.
+<br>
 - __Organizer__. _2025 English Symposium_, University of Central Florida, March 2025.
 
   - Thematic development for the conference and CFP.
@@ -133,7 +123,7 @@ Adaptation Studies; Cinema Studies; Cultural Studies; Decolonial Studies; Digita
 
   - Co-lead interviews and co-selected the final candidate with the Faculty Editor.
 
-## Digital Humanities Contributions
+### Digital Humanities Contributions
 
 - Select XML entries in Johnson's Dictionary Online, a complete, searchable online edition of Samuel Johnson's A Dictionary of the English Language, 1st and 4th folio editions (1755 and 1773).
 
@@ -147,15 +137,12 @@ Adaptation Studies; Cinema Studies; Cultural Studies; Decolonial Studies; Digita
 - __Publishing & Content Management__: Markdown, Cargo Collective
 
 ## Professional Affiliations
-- American Society for Irish Medieval Studies (ASIMS)
 
 - Electronic Literature Organization (ELO)
 
 - Modern Language Association (MLA)
 
 - Society for Cinema and Media Studies (SCMS)
-
-- Southeastern Medieval Association (SEMA)
 
 ## Conferences
 ### International Conferences
@@ -164,7 +151,11 @@ Adaptation Studies; Cinema Studies; Cultural Studies; Decolonial Studies; Digita
 - "Seen, Not Consumed: Decolonial Aesthetics and Refusing Dominant Framing from Kashmir to Belfast," _Early Researcher Conclave and Colloquium 2025: South Asia Research at the Crossroads: Current World Order, New Horizons and Theorisations_, Institute of Language Studies and Research, Kolkata, 23-24 June 2025.
 
 ### National Conferences
-- **In Progress.** "From Kashmiri Theatre to Netflix: Hamid's Colonial Relations, State-Mediated Cultural Productions, and Cinematic Propaganda," _Annual Conference on South Asia, University of Wisconsin-Madison_, 22-25 October 2025.
+- ___In Progress, Pending Acceptance___. “Critical Making's Debts and Extensions: Engaging Decolonial Epistemologies as Predicate,” _Global Digital Humanities Symposium 2026_, Michigan State University, 13-17 April 2026.
+
+- ___In Progress, Pending Acceptance___. “Francoism: Markov-noveling for Decoding Eurotrash and Encoding Feminism in Jess Franco’s Cinema,” _Society For Cinema and Media Studies_, Chicago, IL, 26-29 March 2025.
+
+- "From Kashmiri Theatre to Netflix: Hamid's Colonial Relations, State-Mediated Cultural Productions, and Cinematic Propaganda," _Annual Conference on South Asia, University of Wisconsin-Madison_, 22-25 October 2025.
 
 - "A Fluid Archives of Power: EPCOT's World Showcase and Necropolitics, the Perception Machine of Global Cultures," _Bridges and Borders: The Archive, Carnegie Mellon University_, Virtual, April 2025.
 
@@ -204,7 +195,3 @@ Adaptation Studies; Cinema Studies; Cultural Studies; Decolonial Studies; Digita
 
 ### Interviewee
 - "Episode 34: History Research Projects/Posters at the 2023 UCF Student Scholar Symposium Event," [*Knights HistoryCast*](https://stars.library.ucf.edu/knightshistorycast/34), from the UCF Department of History, published 21 May 2023.
-
----
-<br>
-If you are interested in my creative work, which I find important to my academic work, please visit my <a href="/creativecv.md">Creative CV</a> section for more info regarding my practice.
