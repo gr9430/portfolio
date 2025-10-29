@@ -1,8 +1,7 @@
 ---
 layout: default
-title: Glenn S. Ritchey III - Creative Portfolio
+title: Ritchey Creative CV 2025-26.
 ---
-# 2025-2026.
 
 ---
 
@@ -13,6 +12,7 @@ title: Glenn S. Ritchey III - Creative Portfolio
 - [Publications](#publications)
 
 ---
+# 2025-2026.
 
 ## Media Coverage
 ### Ad Nauseum

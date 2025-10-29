@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Contact
+title: Glenn S. Ritchey III - Contact
 ---
 # Contact
 ## Email

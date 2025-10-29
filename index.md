@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Home
+title: Glenn S. Ritchey III - Home
 ---
 ![Featured Image](assets/images/graham-beware.jpg)
 
