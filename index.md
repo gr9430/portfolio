@@ -15,23 +15,22 @@ I'm a PhD student, teacher, and 'artist' investigating how communities resist cu
 This question animates my research in decolonial aesthetics (focusing on critical intercultural solidarities with Kashmir and Northern Ireland as my focus), my creative practice in generative literature and critical making, and my teaching in composition and digital literacies.
 
 ## Research Work
+Rather than buzzwords, my work might be best illuminated by these questions I ask as I develop my scholarly practice:
 
-- __Decolonial and postcolonial theory__
+- How may we implement visual and digital culture to expand how we understand narrativity?
 
-    How do occupied communities use visual and digital culture to resist dominant narratives?
+- Are there alternative tools we can develop to decentralize that expanded narrativity?
 
-- __Algorithmic creativity and democratic technology__
-
-    Who controls the tools that shape language, and how can we build alternatives?
-
-- __Critical making and open-source practice__
-    
-    What does it mean to create art and scholarship using accessible, non-commercial tools?
+- What does it mean, if anything, to create art and scholarship using accessible, non-commercial tools?
 
 ## Teaching Work
+
+In my teaching work, I generally find myself concerned with the following questions:
 
 - How do digital platforms transform what it means to “write”?
 
 - What new literacies emerge in online, interactive, or algorithmic spaces?
 
 - How can we teach writing that prepares students for a post-print world?
+
+Please see my [teaching statement](/teaching/index.md) for more info.

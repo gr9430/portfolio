@@ -3,6 +3,9 @@ layout: default
 title: Glenn S. Ritchey III - Academic Portfolio
 ---
 # 2025 - 2026.
+
+---
+
 ## Contents
 - [Current Status](#current-academic-statusemployment)
 - [Education](#education)
@@ -38,7 +41,7 @@ __B.A. English Literature__, University of Central Florida (2023)
     - _Advisors_: Stephen C.E. Hopkins, Ph.D (Chair), Alison Hudson, D.Phil, Christian Beck, Ph.D.
 
 ## Research Interests
-Cultural Studies; Decolonialism; Digital Humanities; Irish Studies; Kashmiri Studies; Postcolonialism
+Cultural Studies; Digital Humanities; Irish Studies; South Asian Studies
 
 ## Teaching Experience
 ### Instructor of Record

@@ -3,6 +3,9 @@ layout: default
 title: Glenn S. Ritchey III - Creative Portfolio
 ---
 # 2025-2026.
+
+---
+
 ## Contents
 - [Media Coverage](#media-coverage)
 - [Place-Based Projects](#place-based-projects)
