@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Glenn S. Ritchey III - Teaching Statement
+title: Ritchey Teaching Statement - 2025-26.
 ---
 # 2025-2026.
 My teaching begins with a straightforward belief: writing is a skill that extends far beyond the classroom and students already use to navigate, understand, and shape the world around them. In my First-Year Composition courses, I approach writing as a technical and expressive practice under the belief that writing is a tool that allow students to analyze how meaning is made in their daily lives and highlight how they participate in that meaning-making themselves. My goal is to help students develop sharpened media literacy skills that give them the critical awareness to understand how writing, images, and digital texts function in the contexts they already inhabit: social media, media consumption, community participation, professional communication, and personal expression.

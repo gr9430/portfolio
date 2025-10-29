@@ -1,9 +1,7 @@
 ---
 layout: default
-title: Glenn S. Ritchey III - Academic Portfolio
+title: Ritchey Academic CV 2025-26.
 ---
-# 2025 - 2026.
-
 ---
 
 ## Contents
@@ -20,6 +18,7 @@ title: Glenn S. Ritchey III - Academic Portfolio
 - [Academic Podcasting](#academic-podcasting)
 
 ---
+# 2025 - 2026.
 
 ## Current Academic Status/Employment
 __Ph.D. Texts & Technology__, University of Central Florida (expected 2029)
