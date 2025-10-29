@@ -15,6 +15,7 @@ title: Glenn S. Ritchey III - Academic Portfolio
 - [Conferences](#conferences)
 - [Invited Presentations](#invited-presentations)
 - [Academic Podcasting](#academic-podcasting)
+
 ---
 
 ## Current Academic Status/Employment
