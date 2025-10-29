@@ -8,7 +8,9 @@ title: Glenn S. Ritchey III - Creative Portfolio
 - [Place-Based Projects](#place-based-projects)
 - [Residencies](#residencies)
 - [Publications](#publications)
+
 ---
+
 ## Media Coverage
 ### Ad Nauseum
 - Le-Huu, Bao. "Orlando sludge band Ad Nauseum drop surprise 'new' songs after years of silence," _Orlando Weekly_, October 9, 2024, [[link]](https://www.orlandoweekly.com/music/orlando-sludge-band-ad-nauseum-drop-surprise-new-songs-after-years-of-silence-37964391). Last Accessed: 25 Oct 2025.
