@@ -10,12 +10,12 @@ title: Home
 
 ## About
 
-I'm a PhD student, teacher, and 'artist' investigating how communities resist cultural and technological colonization. My work asks: Who gets to make meaning and why? How do we democratize this process?
+I'm a PhD student, teacher, and 'artist' investigating how communities resist cultural and technological colonization. The basics of my work resides in the questions: Who gets to make meaning and why? How do we democratize this process?
 
-This question animates my research in decolonial aesthetics (focusing on critical intercultural solidarities with Kashmir and Northern Ireland as my focus), my creative practice in generative literature and critical making, and my teaching in composition and digital literacies.
+This question animates my research in critical intercultural solidarities with Kashmir and Northern Ireland as my focus, my creative practice in generative literature and critical making, and my teaching in first-year composition.
 
 ## Research Work
-Rather than buzzwords, my work might be best illuminated by these questions I ask as I develop my scholarly practice:
+Rather than theoretical buzzwords, my work might be best illuminated by these questions I ask as I develop my scholarly practice:
 
 - How may we implement visual and digital culture to expand how we understand narrativity?
 
