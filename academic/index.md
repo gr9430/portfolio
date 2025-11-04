@@ -4,7 +4,7 @@ title: Ritchey Academic CV 2025-26.
 ---
 ---
 
-## Contents
+# Contents
 - [Current Status](#current-academic-statusemployment)
 - [Education](#education)
 - [Research Interests](#research-interests)
