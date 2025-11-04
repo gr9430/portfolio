@@ -26,9 +26,9 @@ title: Ritchey Creative CV 2025-26.
 - Singer, Patricia. "Creecher Double Feature at Cinematique Theater," _Humid Being_, May 9, 2019, [[link]](https://www.humidbeing.com/featured-stories/2019/4/29/creecher-double-feature). Last Accessed: 25 Oct 2025.
 
 ### Florida is Loud Fest
-- ~~"Glenn Stefani Interview," _The Vinyl Warhol_, July 9, 2018, [[link]](https://www.thevinylwarhol.com/season-1/glenn-stefani-interview).~~ Defunct as of last check on 25 Oct 2025.
+- "Glenn Stefani Interview," _The Vinyl Warhol_, July 9, 2018, Defunct as of last check on 25 Oct 2025.
 
-- ~~"Best New Music Festival - Best of Orlando 2017," _Orlando Weekly_, December 31, 2017, [[link]](https://www.orlandoweekly.com/best-of/2017/music-and-nightlife/best-new-music-festival-6219906).~~ Defunct as of last check on 25 Oct 2025.
+- "Best New Music Festival - Best of Orlando 2017," _Orlando Weekly_, December 31, 2017, Defunct as of last check on 25 Oct 2025.
 
 - Le-Huu, Bao. "Why Florida is Loud Fest Needs to Be a Recurring Thing," _Orlando Weekly_, December 20, 2016, [[link]](https://www.orlandoweekly.com/music/why-florida-is-loud-fest-needs-to-be-a-recurring-thing-2549100). Last Accessed: 25 Oct 2025.
 
