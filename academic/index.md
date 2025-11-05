@@ -24,6 +24,9 @@ title: Ritchey Academic CV 2025-26.
 __Ph.D. Texts & Technology__, University of Central Florida (expected 2029)
 -   _Specialization_: Digital Humanities
 
+__Graduate Certificate, Digital Humanities in the Age of AI__, University of Central Florida (expected 2027)
+
+
 __Adjunct Professor__. Department of Writing and Rhetoric, University of Central Florida, August 2024-Present.
 
 ## Education
