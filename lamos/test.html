@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grain Image Test</title>
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            color: #fff;
+            font-family: monospace;
+            padding: 20px;
+        }
+        
+        #test1 {
+            width: 500px;
+            height: 300px;
+            background: #222;
+            margin: 20px;
+            position: relative;
+        }
+        
+        #test1::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("http://glennritchey.com/lamos/assets/28_PNG_Free_Film_Grain.jpg");
+            background-size: cover;
+            opacity: 0.5;
+        }
+        
+        #test2 {
+            margin: 20px;
+        }
+        
+        #test2 img {
+            max-width: 500px;
+            border: 2px solid yellow;
+        }
+    </style>
+</head>
+<body>
+    <h1>GRAIN IMAGE LOADING TEST</h1>
+    
+    <h2>Test 1: As CSS Background (like your project)</h2>
+    <div id="test1"></div>
+    <p id="status1">Testing...</p>
+    
+    <h2>Test 2: As Direct Image</h2>
+    <div id="test2">
+        <img id="img" src="http://glennritchey.com/lamos/assets/28_PNG_Free_Film_Grain.jpg" alt="grain">
+    </div>
+    <p id="status2">Testing...</p>
+    
+    <h2>Console Output (Press F12)</h2>
+    <pre id="console"></pre>
+    
+    <script>
+        let output = [];
+        
+        // Test the image URL
+        let testImg = new Image();
+        
+        testImg.onload = function() {
+            document.getElementById('status1').innerHTML = '✓ CSS Background: IMAGE LOADED';
+            document.getElementById('status1').style.color = 'lime';
+            output.push('✓ Image loaded successfully');
+            output.push('Size: ' + this.width + 'x' + this.height);
+            document.getElementById('console').textContent = output.join('\n');
+        };
+        
+        testImg.onerror = function() {
+            document.getElementById('status1').innerHTML = '✗ CSS Background: IMAGE FAILED';
+            document.getElementById('status1').style.color = 'red';
+            output.push('✗ Image failed to load');
+            output.push('Possible reasons:');
+            output.push('  - File does not exist at URL');
+            output.push('  - Incorrect filename/path');
+            output.push('  - Server blocking requests');
+            output.push('  - CORS policy blocking');
+            document.getElementById('console').textContent = output.join('\n');
+        };
+        
+        testImg.src = 'http://glennritchey.com/lamos/assets/28_PNG_Free_Film_Grain.jpg';
+        
+        // Test direct img element
+        document.getElementById('img').onload = function() {
+            document.getElementById('status2').innerHTML = '✓ Direct Image: IMAGE LOADED';
+            document.getElementById('status2').style.color = 'lime';
+        };
+        
+        document.getElementById('img').onerror = function() {
+            document.getElementById('status2').innerHTML = '✗ Direct Image: IMAGE FAILED';
+            document.getElementById('status2').style.color = 'red';
+        };
+    </script>
+</body>
+</html>
