@@ -86,7 +86,7 @@ Cultural Studies; Digital Humanities; Irish Studies; South Asian Studies
 - Outstanding Digital Humanist, Department of English, Spring 2023.
 
 ## Professional Activities
-- __Treasurer__, _Texts & Technology Student Organization_, October 2025 - Current.
+- __Treasurer__. _Texts & Technology Student Organization_, October 2025 - Current.
     - Responsibilities included but are not limited to:
 
 - __Organizer__. _2025 English Symposium_, University of Central Florida, March 2025.
