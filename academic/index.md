@@ -88,8 +88,7 @@ Cultural Studies; Digital Humanities; Irish Studies; South Asian Studies
 ## Professional Activities
 - Treasurer, _Texts & Technology Student Organization_, October 2025 - Current.
     - Responsibilities included but are not limited to:
-      
-<br>
+
 - __Organizer__. _2025 English Symposium_, University of Central Florida, March 2025.
 
   - Thematic development for the conference and CFP.
