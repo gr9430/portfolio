@@ -89,7 +89,7 @@ Cultural Studies; Digital Humanities; Irish Studies; South Asian Studies
 - __Treasurer__. _Texts & Technology Student Organization_, October 2025 - Current.
     - Responsibilities included but are not limited to:
 
-- __Organizer__. _2025 English Symposium_, University of Central Florida, March 2025.
+- __Organizer__. _2025 English Symposium_, University of Central Florida, August 2024 - March 2025.
 
   - Thematic development for the conference and CFP.
 
