@@ -88,22 +88,7 @@ Cultural Studies; Digital Humanities; Irish Studies; South Asian Studies
 ## Professional Activities
 - Treasurer, _Texts & Technology Student Organization_, October 2025 - Current.
     - Responsibilities included but are not limited to:
- 
-        - Keeping an accurate account of all funds received and expended.
- 
-        - Presenting a budget report of deposits and expenditures to the membership at least once per month, and as requested by the President, Vice President, advisor, or Office of Student Involvement.
- 
-        - One of three signers on financial documents.
- 
-        - Collecting dues and notifying members who are delinquent in their payments.
- 
-        - Creating a budget at the beginning of each fall and spring semester, in conjunction with the President.
- 
-        - Providing financial records sufficient to allow the Vice President to perform audits.
- 
-        - Providing all documents and records pertaining to their responsibilities to the newly-elected Treasurer.
- 
-        - Assisting in special projects as assigned by the President.
+      
 <br>
 - __Organizer__. _2025 English Symposium_, University of Central Florida, March 2025.
 
