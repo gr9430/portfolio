@@ -141,9 +141,8 @@ Cultural Studies; Digital Humanities; Irish Studies; South Asian Studies
 - "Seen, Not Consumed: Decolonial Aesthetics and Refusing Dominant Framing from Kashmir to Belfast," _Early Researcher Conclave and Colloquium 2025: South Asia Research at the Crossroads: Current World Order, New Horizons and Theorisations_, Institute of Language Studies and Research, Kolkata, 23-24 June 2025.
 
 ### National Conferences
-- ___In Progress, Pending Acceptance___. “Critical Making's Debts and Extensions: Engaging Decolonial Epistemologies as Predicate,” _Global Digital Humanities Symposium 2026_, Michigan State University, 13-17 April 2026.
 
-- ___In Progress, Pending Acceptance___. “Francoism: Markov-noveling for Decoding Eurotrash and Encoding Feminism in Jess Franco’s Cinema,” _Society For Cinema and Media Studies_, Chicago, IL, 26-29 March 2025.
+- __In Progress__. “Francoism: Markov-noveling for Decoding Eurotrash and Encoding Feminism in Jess Franco’s Cinema,” _Society For Cinema and Media Studies_, Chicago, IL, 26-29 March 2025.
 
 - "From Kashmiri Theatre to Netflix: Hamid's Colonial Relations, State-Mediated Cultural Productions, and Cinematic Propaganda," _Annual Conference on South Asia, University of Wisconsin-Madison_, 22-25 October 2025.
 
