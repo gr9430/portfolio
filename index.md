@@ -2,7 +2,7 @@
 layout: default
 title: Glenn S. Ritchey III - Home
 ---
-![Featured Image](assets/images/graham-beware.jpg)
+![Featured Image](assets/images/DSCF0085.JPG)
 
 <center><small>Paul Graham, ‘Graffiti, Ballysillan Estate, Belfast, 1986’, from <i>Troubled Land</i> (MACK, 2022).</small></center>
 
