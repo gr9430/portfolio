@@ -4,10 +4,6 @@ title: Glenn S. Ritchey III - Home
 ---
 ![Featured Image](assets/images/DSCF0085.JPG)
 
-<center><small>Paul Graham, ‘Graffiti, Ballysillan Estate, Belfast, 1986’, from <i>Troubled Land</i> (MACK, 2022).</small></center>
-
-<br>
-
 ## About
 
 I'm a PhD student, teacher, and 'artist' investigating how communities resist cultural and technological colonization. The basics of my work resides in the questions: Who gets to make meaning and why? How do we democratize this process?
