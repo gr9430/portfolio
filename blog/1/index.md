@@ -1,7 +1,5 @@
 # Writing bullshit through some chairs.
 
-    Half-writing. Half-attentioning. Half-efforting. Half-blogging. Form-halfing.
-
 Looking at softcore pornography in the random warehouse late into the night now and a shirtless teenager was drinking with a shirtless older man teacher. He has alcohol poisoning now but she doesn't so her day will just start now. They're all at their limit and members always come.
 
 Vomiting to ensure nothing goes Ron.
