@@ -1,5 +1,3 @@
-# Blog(?).
-
 Half-writing. Half-attentioning. Half-efforting. Half-blogging. Form-halfing.
 
 ## 2026
