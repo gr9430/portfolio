@@ -59,7 +59,7 @@ title: Ritchey Creative CV 2025-26.
 
 ## Place-Based Projects
 
-### Baking 
+### BAKE 
 (Performance; 2023 – _Ongoing_)
 
 Inspired by the work of Bill Drummond, this project explored critical making, community orature, and ephemeral cultural practices through baking scones and making jam upon request. Over the course of 2023, individuals could request scones and jam with a month's notice, at no cost. Centered around sharing food, the gatherings emphasized oral storytelling and embodied cultural transmission, recalling traditions of orature where cultural memory and social bonds are formed through direct, personal interaction.
