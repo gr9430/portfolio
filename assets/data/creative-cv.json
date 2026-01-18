@@ -1,0 +1,217 @@
+{
+  "media_coverage": [
+    {
+      "title": "Orlando sludge band Ad Nauseum drop surprise 'new' songs after years of silence",
+      "type": "creative",
+      "category": "media",
+      "date": "2024-10",
+      "description": "Orlando Weekly coverage of Ad Nauseum band's return with new material after extended hiatus.",
+      "tags": ["media", "music", "ad-nauseum", "orlando"],
+      "url": null
+    },
+    {
+      "title": "Band of the Week: Ad Nauseum",
+      "type": "creative",
+      "category": "media",
+      "date": "2017-08",
+      "description": "Orlando Weekly featured profile highlighting Ad Nauseum as their weekly band spotlight.",
+      "tags": ["media", "music", "ad-nauseum", "orlando"],
+      "url": null
+    },
+    {
+      "title": "22 Orlando Bands You Should Keep an Eye and Ear Out for in 2017",
+      "type": "creative",
+      "category": "media",
+      "date": "2016-11",
+      "description": "Ad Nauseum included in Orlando Weekly's annual list of promising local bands.",
+      "tags": ["media", "music", "ad-nauseum", "orlando"],
+      "url": null
+    },
+    {
+      "title": "Creecher Double Feature at Cinematique Theater",
+      "type": "creative",
+      "category": "media",
+      "date": "2019-05",
+      "description": "Humid Being coverage of AWG INC's film screening event at Cinematique Theater.",
+      "tags": ["media", "film", "awg-inc", "cinematique"],
+      "url": null
+    },
+    {
+      "title": "Glenn Stefani Interview",
+      "type": "creative",
+      "category": "media",
+      "date": "2018-07",
+      "description": "Interview coverage in The Vinyl Warhol about Florida is Loud Fest organizing.",
+      "tags": ["media", "interview", "florida-loud", "festival"],
+      "url": null
+    },
+    {
+      "title": "Best New Music Festival - Best of Orlando 2017",
+      "type": "creative",
+      "category": "media",
+      "date": "2017-12",
+      "description": "Orlando Weekly recognition for Florida is Loud Fest as best new music festival.",
+      "tags": ["media", "award", "florida-loud", "festival"],
+      "url": null
+    },
+    {
+      "title": "Why Florida is Loud Fest Needs to Be a Recurring Thing",
+      "type": "creative",
+      "category": "media",
+      "date": "2016-12",
+      "description": "Orlando Weekly editorial advocating for the continuation of Florida is Loud Fest.",
+      "tags": ["media", "editorial", "florida-loud", "festival"],
+      "url": null
+    },
+    {
+      "title": "Florida is Loud Fest Takes Over Mills Avenue All Weekend",
+      "type": "creative",
+      "category": "media",
+      "date": "2017-12",
+      "description": "Orlando Weekly preview coverage of Florida is Loud Fest weekend programming.",
+      "tags": ["media", "preview", "florida-loud", "festival"],
+      "url": null
+    },
+    {
+      "title": "Florida is Loud Fest to Return to Orlando This December",
+      "type": "creative",
+      "category": "media",
+      "date": "2017-09",
+      "description": "Orlando Weekly announcement of Florida is Loud Fest return for 2017 edition.",
+      "tags": ["media", "announcement", "florida-loud", "festival"],
+      "url": null
+    },
+    {
+      "title": "A New Orlando DIY Fest Offers Up All the Varying Flavors of Southern Heaviness",
+      "type": "creative",
+      "category": "media",
+      "date": "2016-12",
+      "description": "Orlando Weekly feature on inaugural Florida is Loud Fest and its DIY approach to heavy music.",
+      "tags": ["media", "feature", "florida-loud", "festival", "diy"],
+      "url": null
+    },
+    {
+      "title": "Band of the Week: Flying Limbs",
+      "type": "creative",
+      "category": "media",
+      "date": "2019-12",
+      "description": "Orlando Weekly featured profile highlighting Flying Limbs as their weekly band spotlight.",
+      "tags": ["media", "music", "flying-limbs", "orlando"],
+      "url": null
+    },
+    {
+      "title": "14 Local Artists Who Are Reshaping Orlando Music Scene",
+      "type": "creative",
+      "category": "media",
+      "date": "2017-11",
+      "description": "Flying Limbs included in Orlando Weekly's annual list of influential local musicians.",
+      "tags": ["media", "music", "flying-limbs", "orlando"],
+      "url": null
+    },
+    {
+      "title": "Debuts of Counterweight and Florida is Loud Fest Prove Good Harbingers of 2017",
+      "type": "creative",
+      "category": "media",
+      "date": "2016-12",
+      "description": "Orlando Weekly year-end review highlighting Temperament's involvement in successful events.",
+      "tags": ["media", "review", "temperament", "florida-loud"],
+      "url": null
+    },
+    {
+      "title": "Time Waste Management and TMD Debut Fascinating Audiovisual Series",
+      "type": "creative",
+      "category": "media",
+      "date": "2016-12",
+      "description": "Orlando Weekly coverage of Temperament's collaborative audiovisual performance series.",
+      "tags": ["media", "audiovisual", "temperament", "performance"],
+      "url": null
+    },
+    {
+      "title": "Bad Balloon Rising in the Scene Debuts Tampa Noise Rockers Vacancy",
+      "type": "creative",
+      "category": "media",
+      "date": "2017-12",
+      "description": "Orlando Weekly review introducing Vacancy alongside other experimental acts.",
+      "tags": ["media", "music", "vacancy", "noise"],
+      "url": null
+    }
+  ],
+  "projects": [
+    {
+      "title": "BAKE",
+      "type": "creative",
+      "category": "performance",
+      "date": "2023-01",
+      "description": "Ongoing performance project exploring critical making, community orature, and ephemeral cultural practices through baking.",
+      "tags": ["performance", "making", "decolonial", "community", "orature"],
+      "url": "/creative/bake/"
+    },
+    {
+      "title": "Marie, Mon Amour",
+      "type": "creative",
+      "category": "film",
+      "date": "2018-01",
+      "description": "Short film combining iPhone footage with distorted B-movie clips, inspired by 1980s direct-to-video aesthetics.",
+      "tags": ["film", "experimental", "b-movie", "vhs", "memory"],
+      "url": "/creative/marie-mon-amour/"
+    }
+  ],
+  "residencies": [
+    {
+      "title": "CASTLE FREAK: A Remote Residency for Generative Digital Composition",
+      "type": "creative",
+      "category": "residency",
+      "date": "2025-11",
+      "description": "Selected for Inside the Castle's inaugural residency focused on innovative, generative literature and computational composition.",
+      "tags": ["computational", "procedural", "generative", "residency", "inside-the-castle"],
+      "url": "/creative/castle-freak/"
+    }
+  ],
+  "publications": [
+    {
+      "title": "Oil Spill",
+      "type": "creative",
+      "category": "publication",
+      "date": "2024-10",
+      "description": "Edited, designed, and coordinated publication process for John Hoffman's horror short story collection.",
+      "tags": ["editing", "design", "horror", "publishing", "sifting-press"],
+      "url": "/creative/oil-spill/"
+    },
+    {
+      "title": "Lebor II",
+      "type": "creative",
+      "category": "publication",
+      "date": "2023-07",
+      "description": "Self-published experimental pamphlet featuring fragmented writing described as 'first part of a two-part exorcism, presented in reverse order.'",
+      "tags": ["experimental", "publishing", "gothic", "scots", "lebor-publications"],
+      "url": "/creative/lebor-ii/"
+    },
+    {
+      "title": "Lebor I",
+      "type": "creative",
+      "category": "publication",
+      "date": "2023-06",
+      "description": "Self-published experimental pamphlet with custom typeface Amalgam by Benjamin Tuttle, described as 'unmixed, unmastered, non-existing dance mix single.'",
+      "tags": ["experimental", "publishing", "typography", "lebor-publications", "collaboration"],
+      "url": "/creative/lebor-i/"
+    },
+    {
+      "title": "Vacances de Printemps sans Mon Amour",
+      "type": "creative",
+      "category": "publication",
+      "date": "2019-12",
+      "description": "Farcical meditation on writing published in SR50 Magazine, reimagining Beach Party series as abstract slasher.",
+      "tags": ["experimental", "genre", "awg-inc", "writing", "beach-party"],
+      "url": "/creative/vacances-de-printemps/"
+    },
+    {
+      "title": "M. Accelerated: A Deconstruction of the 'Spaghetti Western' and Failed Cinema",
+      "type": "creative",
+      "category": "publication",
+      "date": "2019-11",
+      "description": "Genre deconstruction reimagining spaghetti western through fragmented narrative style of Marguerite Duras and Sergio Leone imagery.",
+      "tags": ["experimental", "genre", "awg-inc", "western", "duras", "leone"],
+      "url": "/creative/m-accelerated/"
+    }
+  ]
+}

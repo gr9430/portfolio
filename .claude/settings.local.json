@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ruby --version:*)",
+      "Bash(bundler:*)",
+      "Bash(jekyll:*)",
+      "Bash(sudo apt update:*)",
+      "Bash(bundle install:*)",
+      "Bash(bundle exec jekyll serve:*)",
+      "Bash(curl:*)"
+    ]
+  }
+}

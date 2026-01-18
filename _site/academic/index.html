@@ -9,48 +9,82 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="The academic and creative works." />
 <meta property="og:description" content="The academic and creative works." />
-<link rel="canonical" href="http://localhost:4000/academic/" />
-<meta property="og:url" content="http://localhost:4000/academic/" />
+<link rel="canonical" href="http://0.0.0.0:4000/academic/" />
+<meta property="og:url" content="http://0.0.0.0:4000/academic/" />
 <meta property="og:site_name" content="Glenn S. Ritchey III" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Ritchey Academic CV 2025-26." />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","description":"The academic and creative works.","headline":"Ritchey Academic CV 2025-26.","url":"http://localhost:4000/academic/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","description":"The academic and creative works.","headline":"Ritchey Academic CV 2025-26.","url":"http://0.0.0.0:4000/academic/"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Glenn S. Ritchey III" /></head>
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://0.0.0.0:4000/feed.xml" title="Glenn S. Ritchey III" /></head>
 <body>
-<header class="site-header" style="background-color: #fdfdfd; border: none; padding: 30px 0; text-align: center;">
-<h1 style="color: rgb(0, 0, 0); margin: 0; font-size: 2.5em;">Glenn S. Ritchey III</h1>
-<nav style="text-align: center; padding: 10px 0; margin-bottom: 10px;">
-<a href="/" style="margin: 0 15px; color: rgb(122, 6, 97); font-weight: bold;">Home</a>
-<a href="/academic" style="margin: 0 15px; color: rgb(122, 6, 97); font-weight: bold;">Academic CV</a>
-<a href="/creative" style="margin: 0 15px; color: rgb(122, 6, 97); font-weight: bold;">Creative CV</a>
-<a href="/fail" style="margin: 0 15px; color: rgb(122, 6, 97); font-weight: bold;">Fail CV</a>
-<a href="/teaching" style="margin: 0 15px; color: rgb(122, 6, 97); font-weight: bold;">Teaching Statement</a>
-<a href="/contact" style="margin: 0 15px; color: rgb(122, 6, 97); font-weight: bold;">Contact</a>
-</nav>
+<header class="site-header">
+  <div class="wrapper">
+    <h1 class="animated-header thermal-text" id="site-title">Glenn S. Ritchey III</h1>
+
+    <div class="cv-navigation">
+      <ul>
+        <li class="nav-dropdown-container">
+          <button class="nav-dropdown-btn animated-link" id="cvs-dropdown-btn">
+            CVs
+            <span class="dropdown-arrow">▼</span>
+          </button>
+          <div class="nav-dropdown" id="cvs-dropdown">
+            <a href="/academic/" class="nav-option">Academic</a>
+            <a href="/creative/" class="nav-option">Creative</a>
+            <a href="#" class="nav-option" id="complete-cv-option">Complete</a>
+          </div>
+        </li>
+        <li><a href="/blog/" class="animated-link">Blog</a></li>
+        <li class="nav-dropdown-container">
+          <button class="nav-dropdown-btn animated-link" id="teaching-dropdown-btn">
+            Teaching
+            <span class="dropdown-arrow">▼</span>
+          </button>
+          <div class="nav-dropdown" id="teaching-dropdown">
+            <a href="/teaching/statement/" class="nav-option">Teaching Statement</a>
+            <a href="/teaching/syllabi/" class="nav-option">Syllabi</a>
+            <a href="/teaching/zines/" class="nav-option">Zine Library</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 </header>
 <main class="page-content" aria-label="Content">
 <div class="wrapper">
-        <hr />
+        <div class="contents-dropdown">
+  <select id="contents-nav" onchange="navigateToSection(this.value)">
+    <option value="">Navigate to section...</option>
+    <option value="#current-academic-statusemployment">Current Status</option>
+    <option value="#education">Education</option>
+    <option value="#research-interests">Research Interests</option>
+    <option value="#teaching-experience">Teaching Experience</option>
+    <option value="#awards-and-honors">Awards and Honors</option>
+    <option value="#professional-activities">Professional Activities</option>
+    <option value="#technical-skills">Technical Skills</option>
+    <option value="#professional-affiliations">Professional Affiliations</option>
+    <option value="#conferences">Conferences</option>
+    <option value="#invited-presentations">Invited Presentations</option>
+    <option value="#academic-podcasting">Academic Podcasting</option>
+  </select>
+</div>
 
-<h2 id="contents">Contents</h2>
-<ul>
-  <li><a href="#current-academic-statusemployment">Current Status</a></li>
-  <li><a href="#education">Education</a></li>
-  <li><a href="#research-interests">Research Interests</a></li>
-  <li><a href="#teaching-experience">Teaching Experience</a></li>
-  <li><a href="#awards-and-honors">Awards and Honors</a></li>
-  <li><a href="#professional-activities">Professional Activities</a></li>
-  <li><a href="#technical-skills">Technical Skills</a></li>
-  <li><a href="#professional-affiliations">Professional Affiliations</a></li>
-  <li><a href="#conferences">Conferences</a></li>
-  <li><a href="#invited-presentations">Invited Presentations</a></li>
-  <li><a href="#academic-podcasting">Academic Podcasting</a></li>
-</ul>
+<script>
+function navigateToSection(anchor) {
+  if (anchor) {
+    document.location.hash = anchor;
+  }
+}
+</script>
 
-<hr />
+<div class="cv-blend-controls">
+  <button id="blend-with-creative" class="blend-btn">Blend this with Creative CV for a Clear View</button>
+  <button id="restore-original" class="blend-btn secondary" style="display: none;">Back to Academic CV</button>
+</div>
+
 <h1 id="2025---2026">2025 - 2026.</h1>
 
 <h2 id="current-academic-statusemployment">Current Academic Status/Employment</h2>
@@ -58,6 +92,8 @@
 <ul>
   <li><em>Specialization</em>: Digital Humanities</li>
 </ul>
+
+<p><strong>Graduate Certificate, Digital Humanities in the Age of AI</strong>, University of Central Florida (expected 2027)</p>
 
 <p><strong>Adjunct Professor</strong>. Department of Writing and Rhetoric, University of Central Florida, August 2024-Present.</p>
 
@@ -159,43 +195,13 @@
 
 <h2 id="professional-activities">Professional Activities</h2>
 <ul>
-  <li>Treasurer, <em>Texts &amp; Technology Student Organization</em>, October 2025 - Current.
+  <li><strong>Treasurer</strong>. <em>Texts &amp; Technology Student Organization</em>, October 2025 - Current.
     <ul>
-      <li>
-        <p>Responsibilities included but are not limited to:</p>
-
-        <ul>
-          <li>
-            <p>Keeping an accurate account of all funds received and expended.</p>
-          </li>
-          <li>
-            <p>Presenting a budget report of deposits and expenditures to the membership at least once per month, and as requested by the President, Vice President, advisor, or Office of Student Involvement.</p>
-          </li>
-          <li>
-            <p>One of three signers on financial documents.</p>
-          </li>
-          <li>
-            <p>Collecting dues and notifying members who are delinquent in their payments.</p>
-          </li>
-          <li>
-            <p>Creating a budget at the beginning of each fall and spring semester, in conjunction with the President.</p>
-          </li>
-          <li>
-            <p>Providing financial records sufficient to allow the Vice President to perform audits.</p>
-          </li>
-          <li>
-            <p>Providing all documents and records pertaining to their responsibilities to the newly-elected Treasurer.</p>
-          </li>
-          <li>
-            <p>Assisting in special projects as assigned by the President.
-<br /></p>
-          </li>
-        </ul>
-      </li>
+      <li>Responsibilities included but are not limited to:</li>
     </ul>
   </li>
   <li>
-    <p><strong>Organizer</strong>. <em>2025 English Symposium</em>, University of Central Florida, March 2025.</p>
+    <p><strong>Organizer</strong>. <em>2025 English Symposium</em>, University of Central Florida, August 2024 - March 2025.</p>
 
     <ul>
       <li>
@@ -286,12 +292,10 @@
 </ul>
 
 <h3 id="national-conferences">National Conferences</h3>
+
 <ul>
   <li>
-    <p><strong><em>In Progress, Pending Acceptance</em></strong>. “Critical Making’s Debts and Extensions: Engaging Decolonial Epistemologies as Predicate,” <em>Global Digital Humanities Symposium 2026</em>, Michigan State University, 13-17 April 2026.</p>
-  </li>
-  <li>
-    <p><strong><em>In Progress, Pending Acceptance</em></strong>. “Francoism: Markov-noveling for Decoding Eurotrash and Encoding Feminism in Jess Franco’s Cinema,” <em>Society For Cinema and Media Studies</em>, Chicago, IL, 26-29 March 2025.</p>
+    <p><strong>In Progress</strong>. “Francoism: Markov-noveling for Decoding Eurotrash and Encoding Feminism in Jess Franco’s Cinema,” <em>Society For Cinema and Media Studies</em>, Chicago, IL, 26-29 March 2025.</p>
   </li>
   <li>
     <p>“From Kashmiri Theatre to Netflix: Hamid’s Colonial Relations, State-Mediated Cultural Productions, and Cinematic Propaganda,” <em>Annual Conference on South Asia, University of Wisconsin-Madison</em>, 22-25 October 2025.</p>
@@ -365,13 +369,38 @@
 </ul>
 
 </div>
-</main><footer class=""site-footer">
-<div class=""wrapper">
-<p style ="text-align: center; color: #828282";">
-Glenn S. Ritchey III: The academic and creative works. Maintained by <a href="https://github.com/gr9430">gr9430</a>.
-</p>"
+</main><footer class="site-footer">
+<div class="wrapper">
+<p style="text-align: center; color: #828282;">
+Academic and creative works. Maintained by <a href="https://github.com/gr9430">gr9430</a>.
+</p>
 </div>
-</footer><button id="scrollToTop" style="
+</footer><!-- Floating Action Buttons -->
+<div class="floating-buttons">
+  <div class="floating-btn-container email-dropdown-container">
+    <button class="floating-btn email-btn" id="email-dropdown-btn" title="Email me">
+      <span class="btn-icon">✉</span>
+      <span class="dropdown-arrow">▼</span>
+    </button>
+    <div class="email-dropdown" id="email-dropdown">
+      <a href="mailto:glenn.ritchey@ucf.edu" class="email-option">Professional</a>
+      <a href="mailto:glenn@limb.fun" class="email-option">Creative</a>
+    </div>
+  </div>
+
+  <div class="floating-btn-container cv-dropdown-container">
+    <button class="floating-btn cv-btn" id="cv-dropdown-btn" title="Download CV">
+      <span class="btn-icon">CV</span>
+      <span class="dropdown-arrow">▼</span>
+    </button>
+    <div class="cv-dropdown" id="cv-dropdown">
+      <a href="/assets/pdfs/academic-cv.pdf" class="cv-option" target="_blank">Academic CV</a>
+      <a href="/assets/pdfs/creative-cv.pdf" class="cv-option" target="_blank">Creative CV</a>
+    </div>
+  </div>
+</div>
+
+<button id="scrollToTop" style="
       display: none;
       position: fixed;
       bottom: 20px;
@@ -400,6 +429,135 @@ Glenn S. Ritchey III: The academic and creative works. Maintained by <a href="ht
       document.getElementById("scrollToTop").onclick = function() {
         window.scrollTo({top: 0, behavior: 'smooth'});
       };
+
+      // Make site title clickable after thermal printing animation completes
+      document.addEventListener('DOMContentLoaded', function() {
+        var siteTitle = document.getElementById('site-title');
+        if (siteTitle) {
+          // Wait for the animation to complete (2s thermal-print duration)
+          setTimeout(function() {
+            siteTitle.style.cursor = 'pointer';
+            siteTitle.classList.add('clickable-title');
+            siteTitle.onclick = function() {
+              window.location.href = '/';
+            };
+          }, 2000); // Match the 2s animation duration
+        }
+      });
+
+      // Floating buttons functionality
+      // Email dropdown
+      const emailDropdownBtn = document.getElementById('email-dropdown-btn');
+      const emailDropdown = document.getElementById('email-dropdown');
+
+      if (emailDropdownBtn && emailDropdown) {
+        emailDropdownBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          emailDropdown.classList.toggle('show');
+          // Close CV dropdown if open
+          const cvDropdown = document.getElementById('cv-dropdown');
+          if (cvDropdown) {
+            cvDropdown.classList.remove('show');
+          }
+        });
+      }
+
+      // CV dropdown
+      const cvDropdownBtn = document.getElementById('cv-dropdown-btn');
+      const cvDropdown = document.getElementById('cv-dropdown');
+
+      if (cvDropdownBtn && cvDropdown) {
+        cvDropdownBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          cvDropdown.classList.toggle('show');
+          // Close email dropdown if open
+          if (emailDropdown) {
+            emailDropdown.classList.remove('show');
+          }
+        });
+      }
+
+      // CVs nav dropdown
+      const cvsDropdownBtn = document.getElementById('cvs-dropdown-btn');
+      const cvsDropdown = document.getElementById('cvs-dropdown');
+      const completeCvOption = document.getElementById('complete-cv-option');
+
+      if (cvsDropdownBtn && cvsDropdown) {
+        cvsDropdownBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          cvsDropdown.classList.toggle('show');
+          // Close other dropdowns if open
+          if (emailDropdown) {
+            emailDropdown.classList.remove('show');
+          }
+          if (cvDropdown) {
+            cvDropdown.classList.remove('show');
+          }
+          if (teachingDropdown) {
+            teachingDropdown.classList.remove('show');
+          }
+        });
+      }
+
+      // Complete CV option triggers blended view
+      if (completeCvOption) {
+        completeCvOption.addEventListener('click', function(e) {
+          e.preventDefault();
+          renderBlendedView('navigation');
+          cvsDropdown.classList.remove('show');
+        });
+      }
+
+      // Teaching nav dropdown
+      const teachingDropdownBtn = document.getElementById('teaching-dropdown-btn');
+      const teachingDropdown = document.getElementById('teaching-dropdown');
+
+      if (teachingDropdownBtn && teachingDropdown) {
+        teachingDropdownBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          teachingDropdown.classList.toggle('show');
+          // Close other dropdowns if open
+          if (emailDropdown) {
+            emailDropdown.classList.remove('show');
+          }
+          if (cvDropdown) {
+            cvDropdown.classList.remove('show');
+          }
+          if (cvsDropdown) {
+            cvsDropdown.classList.remove('show');
+          }
+        });
+      }
+
+      // Close dropdowns when clicking outside
+      document.addEventListener('click', function(e) {
+        // Close email dropdown if clicking outside
+        if (emailDropdownBtn && emailDropdown &&
+            !emailDropdownBtn.contains(e.target) && !emailDropdown.contains(e.target)) {
+          emailDropdown.classList.remove('show');
+        }
+
+        // Close floating CV dropdown if clicking outside
+        if (cvDropdownBtn && cvDropdown &&
+            !cvDropdownBtn.contains(e.target) && !cvDropdown.contains(e.target)) {
+          cvDropdown.classList.remove('show');
+        }
+
+        // Close CVs nav dropdown if clicking outside
+        if (cvsDropdownBtn && cvsDropdown &&
+            !cvsDropdownBtn.contains(e.target) && !cvsDropdown.contains(e.target)) {
+          cvsDropdown.classList.remove('show');
+        }
+
+        // Close teaching nav dropdown if clicking outside
+        if (teachingDropdownBtn && teachingDropdown &&
+            !teachingDropdownBtn.contains(e.target) && !teachingDropdown.contains(e.target)) {
+          teachingDropdown.classList.remove('show');
+        }
+      });
     </script>
+
+    <!-- CV Blender functionality -->
+    <script src="/assets/js/cv-blender.js"></script>
 </body>
 </html>

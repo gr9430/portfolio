@@ -2,22 +2,37 @@
 layout: default
 title: Ritchey Academic CV 2025-26.
 ---
----
 
-# Contents
-- [Current Status](#current-academic-statusemployment)
-- [Education](#education)
-- [Research Interests](#research-interests)
-- [Teaching Experience](#teaching-experience)
-- [Awards and Honors](#awards-and-honors)
-- [Professional Activities](#professional-activities)
-- [Technical Skills](#technical-skills)
-- [Professional Affiliations](#professional-affiliations)
-- [Conferences](#conferences)
-- [Invited Presentations](#invited-presentations)
-- [Academic Podcasting](#academic-podcasting)
+<div class="contents-dropdown">
+  <select id="contents-nav" onchange="navigateToSection(this.value)">
+    <option value="">Navigate to section...</option>
+    <option value="#current-academic-statusemployment">Current Status</option>
+    <option value="#education">Education</option>
+    <option value="#research-interests">Research Interests</option>
+    <option value="#teaching-experience">Teaching Experience</option>
+    <option value="#awards-and-honors">Awards and Honors</option>
+    <option value="#professional-activities">Professional Activities</option>
+    <option value="#technical-skills">Technical Skills</option>
+    <option value="#professional-affiliations">Professional Affiliations</option>
+    <option value="#conferences">Conferences</option>
+    <option value="#invited-presentations">Invited Presentations</option>
+    <option value="#academic-podcasting">Academic Podcasting</option>
+  </select>
+</div>
 
----
+<script>
+function navigateToSection(anchor) {
+  if (anchor) {
+    document.location.hash = anchor;
+  }
+}
+</script>
+
+<div class="cv-blend-controls">
+  <button id="blend-with-creative" class="blend-btn">Blend this with Creative CV for a Clear View</button>
+  <button id="restore-original" class="blend-btn secondary" style="display: none;">Back to Academic CV</button>
+</div>
+
 # 2025 - 2026.
 
 ## Current Academic Status/Employment

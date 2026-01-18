@@ -2,10 +2,15 @@
 layout: default
 title: Glenn S. Ritchey III - Home
 ---
+
 ![Featured Image](assets/images/DSCF0085.JPG)
 
 ## About
 
-Presently, I make poetry and fiction with rule-based systems - Markov chains, cut-up algorithms, constrained generation. This work concerns what happens when we open the black box and embrace algorithmic authorship as a transparent process rather than corporate "magic."
+I make poetry, fiction, and physical artifacts with rule-based systems—<a href="/creative/" class="animated-link">Markov chains, cut-up algorithms, constrained generation</a>. These works investigate what happens when we open the black box: treating algorithmic authorship as a transparent, deliberate process rather than corporate "magic." My practice includes generative text devices with thermal printers, conceptual sculpture engaging right-to-repair advocacy, data visualizations pairing political data with grassroots visual culture, and independent publishing through zines and small press.
 
-I'm a PhD student in Texts & Technology at UCF and teach first-year composition. Questioning how to democratize who gets to make meaning animates my work and operates across my creative practice (designing generative systems that make process visible), my scholarly research (examining computational literature and procedural authorship) and my teaching (helping students navigate what "writing" means, whether working inside or outside algorithmic spaces).
+I'm a PhD student in <a href="/academic/" class="animated-link">Texts & Technology at UCF</a>, where my research examines constraint-based literature and procedural authorship. My scholarly work explores how communities maintain narrative control in contested spaces—particularly through visual culture in Belfast and Kashmir—while my creative practice builds generative tools that make process visible and accessible.
+
+A central question animates both trajectories: How do we democratize who gets to make meaning?
+
+This operates across my creative work (designing open-source generative systems), my research (examining who controls narrative technologies), and my <a href="/teaching/" class="animated-link">teaching</a> (helping first-year composition students navigate what "writing" means inside and outside algorithmic spaces).

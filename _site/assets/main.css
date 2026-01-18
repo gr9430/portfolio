@@ -646,6 +646,11 @@ table td {
   color: #099;
 }
 
+/* Global font family */
+body, html {
+  font-family: "Liberation Mono", "Courier New", Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace !important;
+}
+
 /* Custom styles */
 .wrapper {
   max-width: 600px !important;
@@ -656,10 +661,48 @@ table td {
 .site-header {
   background: rgb(248, 248, 255);
   border-bottom: 2px solid rgb(122, 6, 97);
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.site-header .wrapper {
+  max-width: 800px !important;
+  margin: 0 auto !important;
+  padding: 0 20px !important;
+}
+
+.site-header .animated-header {
+  margin-bottom: 1.5rem;
+  font-size: 2.5rem;
+}
+
+.site-header .cv-navigation {
+  margin: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
   color: rgb(122, 6, 97) !important;
+}
+
+/* Improved heading spacing */
+h1 {
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  margin-top: 2rem;
+  margin-bottom: 1.2rem;
+}
+
+h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+h4, h5, h6 {
+  margin-top: 1.2rem;
+  margin-bottom: 0.8rem;
 }
 
 .post-content h1,
@@ -679,6 +722,639 @@ img {
   display: block;
   max-width: 100%;
   margin: 20px auto;
+}
+
+/* ===== ANIMATIONS ===== */
+/* Thermal printer effect for text */
+@keyframes thermal-print {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+@keyframes thermal-cursor {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+.thermal-text {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: thermal-print 2s steps(20, end) forwards;
+  position: relative;
+}
+
+.thermal-text::after {
+  content: "|";
+  color: rgb(122, 6, 97);
+  animation: thermal-cursor 1s infinite;
+  position: absolute;
+  right: -2px;
+}
+
+/* Animated header */
+.animated-header {
+  font-family: inherit;
+  color: rgb(122, 6, 97) !important;
+  border-bottom: 2px solid rgb(122, 6, 97);
+  padding-bottom: 0.5rem;
+  margin-bottom: 2rem;
+  transition: opacity 0.3s ease;
+}
+
+/* Clickable title after animation */
+.clickable-title:hover {
+  opacity: 0.8;
+}
+
+/* Link underline slide-in animation */
+.animated-link {
+  position: relative;
+  text-decoration: none !important;
+  color: rgb(122, 6, 97);
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.animated-link::before {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: rgb(122, 6, 97);
+  transition: width 0.4s ease;
+}
+
+.animated-link:hover {
+  color: rgb(122, 6, 97);
+}
+
+.animated-link:hover::before {
+  width: 100%;
+}
+
+/* CV Navigation Links */
+.cv-navigation {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.cv-navigation ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.cv-navigation li {
+  margin: 0;
+}
+
+.cv-navigation .animated-link {
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid rgb(122, 6, 97);
+  border-radius: 4px;
+  display: inline-block;
+  transition: all 0.3s ease;
+  background-color: transparent;
+}
+
+.cv-navigation .animated-link:hover {
+  background-color: rgb(122, 6, 97);
+  color: white !important;
+  transform: translateY(-2px);
+}
+
+.cv-navigation .animated-link::before {
+  display: none; /* Remove underline for navigation buttons */
+}
+
+/* Navigation dropdown styling */
+.nav-dropdown-container {
+  position: relative;
+}
+
+.nav-dropdown-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: inherit;
+}
+
+.nav-dropdown-btn .dropdown-arrow {
+  font-size: 0.7rem;
+  transition: transform 0.3s ease;
+}
+
+.nav-dropdown-btn:hover .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.nav-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border: 2px solid rgb(122, 6, 97);
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(122, 6, 97, 0.2);
+  min-width: 160px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 1001;
+  margin-top: 8px;
+}
+
+.nav-dropdown.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.nav-option {
+  display: block;
+  padding: 12px 16px;
+  color: rgb(122, 6, 97);
+  text-decoration: none;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(122, 6, 97, 0.1);
+  transition: all 0.3s ease;
+}
+
+.nav-option:last-child {
+  border-bottom: none;
+  border-radius: 0 0 6px 6px;
+}
+
+.nav-option:first-child {
+  border-radius: 6px 6px 0 0;
+}
+
+.nav-option:hover {
+  background-color: rgb(122, 6, 97);
+  color: white;
+  text-decoration: none;
+}
+
+/* Contents dropdown styling */
+.contents-dropdown {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.contents-dropdown select {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  border: 2px solid rgb(122, 6, 97);
+  border-radius: 4px;
+  background-color: white;
+  color: rgb(122, 6, 97);
+  min-width: 250px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.contents-dropdown select:hover {
+  background-color: rgb(248, 248, 255);
+  box-shadow: 0 2px 8px rgba(122, 6, 97, 0.15);
+}
+
+.contents-dropdown select:focus {
+  background-color: rgb(122, 6, 97);
+  color: white;
+  box-shadow: 0 0 0 3px rgba(122, 6, 97, 0.2);
+}
+
+.contents-dropdown option {
+  background-color: white;
+  color: rgb(122, 6, 97);
+  padding: 0.5rem;
+}
+
+/* ===== FLOATING ACTION BUTTONS ===== */
+/* Floating buttons container */
+.floating-buttons {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1000;
+}
+
+/* Individual floating button containers */
+.floating-btn-container {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Base floating button styles */
+.floating-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border: 2px solid rgb(122, 6, 97);
+  border-radius: 50%;
+  background-color: white;
+  color: rgb(122, 6, 97);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+.floating-btn:hover {
+  background-color: rgb(122, 6, 97);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(122, 6, 97, 0.3);
+}
+
+/* Email and CV button specific styling */
+.email-btn,
+.cv-btn {
+  width: auto;
+  min-width: 50px;
+  padding: 0 12px;
+  border-radius: 25px;
+  gap: 5px;
+}
+
+.btn-icon {
+  font-size: 1rem;
+}
+
+.dropdown-arrow {
+  font-size: 0.7rem;
+  transition: transform 0.3s ease;
+}
+
+.email-btn:hover .dropdown-arrow,
+.email-btn.active .dropdown-arrow,
+.cv-btn:hover .dropdown-arrow,
+.cv-btn.active .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+/* Email and CV Dropdowns */
+.email-dropdown-container,
+.cv-dropdown-container {
+  position: relative;
+}
+
+.email-dropdown,
+.cv-dropdown {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background-color: white;
+  border: 2px solid rgb(122, 6, 97);
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(122, 6, 97, 0.2);
+  min-width: 140px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 1001;
+}
+
+.email-dropdown.show,
+.cv-dropdown.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.email-option,
+.cv-option {
+  display: block;
+  padding: 12px 16px;
+  color: rgb(122, 6, 97);
+  text-decoration: none;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(122, 6, 97, 0.1);
+  transition: all 0.3s ease;
+}
+
+.email-option:last-child,
+.cv-option:last-child {
+  border-bottom: none;
+  border-radius: 0 0 6px 6px;
+}
+
+.email-option:first-child,
+.cv-option:first-child {
+  border-radius: 6px 6px 0 0;
+}
+
+.email-option:hover,
+.cv-option:hover {
+  background-color: rgb(122, 6, 97);
+  color: white;
+  text-decoration: none;
+}
+
+/* Email button specific styling */
+.email-btn .btn-icon {
+  font-size: 1.2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .floating-buttons {
+    top: 15px;
+    right: 15px;
+    gap: 8px;
+  }
+  .floating-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 0.8rem;
+  }
+  .email-btn,
+  .cv-btn {
+    min-width: 45px;
+    padding: 0 10px;
+  }
+  .email-dropdown,
+  .cv-dropdown {
+    right: -10px;
+    min-width: 120px;
+  }
+}
+/* Ensure buttons don't interfere with existing content */
+@media (max-width: 480px) {
+  .floating-buttons {
+    top: 10px;
+    right: 10px;
+  }
+  .email-dropdown,
+  .cv-dropdown {
+    right: -20px;
+  }
+}
+/* ===== CV BLENDING INTERFACE ===== */
+/* Blend controls */
+.cv-blend-controls {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.blend-btn {
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid rgb(122, 6, 97);
+  border-radius: 4px;
+  background-color: transparent;
+  color: rgb(122, 6, 97);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0 0.5rem;
+}
+
+.blend-btn:hover {
+  background-color: rgb(122, 6, 97);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(122, 6, 97, 0.2);
+}
+
+.blend-btn.secondary {
+  background-color: rgb(122, 6, 97);
+  color: white;
+}
+
+.blend-btn.secondary:hover {
+  background-color: rgb(98, 5, 78);
+}
+
+/* Blend stats */
+.blend-stats {
+  font-style: italic;
+  color: rgb(85, 85, 85);
+  text-align: center;
+  margin: 1.5rem 0 2.5rem 0;
+  padding: 1rem;
+  background-color: rgb(248, 248, 255);
+  border: 1px solid rgba(122, 6, 97, 0.2);
+  border-radius: 4px;
+}
+
+/* Blend timeline */
+.blend-timeline {
+  margin: 2rem 0;
+}
+
+/* Individual blend entries */
+.blend-entry {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 6px;
+  background-color: rgb(253, 253, 253);
+  transition: all 0.3s ease;
+}
+
+.blend-entry:hover {
+  border-color: rgba(122, 6, 97, 0.4);
+  box-shadow: 0 2px 8px rgba(122, 6, 97, 0.1);
+}
+
+/* Entry header */
+.entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.entry-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: rgb(122, 6, 97);
+  margin: 0;
+  flex: 1;
+}
+
+/* Entry meta information */
+.entry-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.entry-date {
+  font-size: 0.9rem;
+  color: rgb(85, 85, 85);
+  font-style: italic;
+}
+
+.entry-badge {
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  letter-spacing: 0.5px;
+}
+
+/* Academic vs Creative badges */
+.entry-badge.academic {
+  background-color: rgba(122, 6, 97, 0.1);
+  color: rgb(122, 6, 97);
+  border: 1px solid rgba(122, 6, 97, 0.3);
+}
+
+.entry-badge.creative {
+  background-color: rgba(6, 97, 122, 0.1);
+  color: rgb(6, 97, 122);
+  border: 1px solid rgba(6, 97, 122, 0.3);
+}
+
+/* Entry description */
+.entry-description {
+  margin: 0.75rem 0;
+  line-height: 1.5;
+  color: rgb(51, 51, 51);
+}
+
+/* Entry footer */
+.entry-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.75rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.entry-tags {
+  font-size: 0.85rem;
+  color: rgb(102, 102, 102);
+  flex: 1;
+}
+
+.entry-footer .animated-link {
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+/* Academic entries styling */
+.blend-entry.academic {
+  border-left: 4px solid rgb(122, 6, 97);
+}
+
+/* Creative entries styling */
+.blend-entry.creative {
+  border-left: 4px solid rgb(6, 97, 122);
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 600px) {
+  .entry-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .entry-meta {
+    justify-content: space-between;
+  }
+  .entry-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  .blend-btn {
+    display: block;
+    margin: 0.5rem auto;
+  }
+}
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .thermal-text {
+    animation: none;
+    width: 100%;
+    opacity: 1;
+  }
+  .thermal-text::after {
+    animation: none;
+    opacity: 0;
+  }
+  .animated-link::before {
+    transition: none;
+  }
+  .cv-navigation .animated-link {
+    transition: none;
+  }
+  .cv-navigation .animated-link:hover {
+    transform: none;
+  }
+  .contents-dropdown select {
+    transition: none;
+  }
+  .blend-btn {
+    transition: none;
+  }
+  .blend-btn:hover {
+    transform: none;
+  }
+  .blend-entry {
+    transition: none;
+  }
+  .floating-btn {
+    transition: none;
+  }
+  .floating-btn:hover {
+    transform: none;
+  }
+  .dropdown-arrow {
+    transition: none;
+  }
+  .email-dropdown,
+  .cv-dropdown,
+  .nav-dropdown {
+    transition: none;
+  }
+  .nav-dropdown-btn .dropdown-arrow {
+    transition: none;
+  }
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -9,42 +9,75 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="The academic and creative works." />
 <meta property="og:description" content="The academic and creative works." />
-<link rel="canonical" href="http://localhost:4000/creative/" />
-<meta property="og:url" content="http://localhost:4000/creative/" />
+<link rel="canonical" href="http://0.0.0.0:4000/creative/" />
+<meta property="og:url" content="http://0.0.0.0:4000/creative/" />
 <meta property="og:site_name" content="Glenn S. Ritchey III" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Ritchey Creative CV 2025-26." />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","description":"The academic and creative works.","headline":"Ritchey Creative CV 2025-26.","url":"http://localhost:4000/creative/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","description":"The academic and creative works.","headline":"Ritchey Creative CV 2025-26.","url":"http://0.0.0.0:4000/creative/"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Glenn S. Ritchey III" /></head>
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://0.0.0.0:4000/feed.xml" title="Glenn S. Ritchey III" /></head>
 <body>
-<header class="site-header" style="background-color: #fdfdfd; border: none; padding: 30px 0; text-align: center;">
-<h1 style="color: rgb(0, 0, 0); margin: 0; font-size: 2.5em;">Glenn S. Ritchey III</h1>
-<nav style="text-align: center; padding: 10px 0; margin-bottom: 10px;">
-<a href="/" style="margin: 0 15px; color: rgb(122, 6, 97); font-weight: bold;">Home</a>
-<a href="/academic" style="margin: 0 15px; color: rgb(122, 6, 97); font-weight: bold;">Academic CV</a>
-<a href="/creative" style="margin: 0 15px; color: rgb(122, 6, 97); font-weight: bold;">Creative CV</a>
-<a href="/fail" style="margin: 0 15px; color: rgb(122, 6, 97); font-weight: bold;">Fail CV</a>
-<a href="/teaching" style="margin: 0 15px; color: rgb(122, 6, 97); font-weight: bold;">Teaching Statement</a>
-<a href="/contact" style="margin: 0 15px; color: rgb(122, 6, 97); font-weight: bold;">Contact</a>
-</nav>
-</header>
+<header class="site-header">
+  <div class="wrapper">
+    <h1 class="animated-header thermal-text" id="site-title">Glenn S. Ritchey III</h1>
+
+    <div class="cv-navigation">
+      <ul>
+        <li class="nav-dropdown-container">
+          <button class="nav-dropdown-btn animated-link" id="cvs-dropdown-btn">
+            CVs
+            <span class="dropdown-arrow">▼</span>
+          </button>
+          <div class="nav-dropdown" id="cvs-dropdown">
+            <a href="/academic/" class="nav-option">Academic</a>
+            <a href="/creative/" class="nav-option">Creative</a>
+            <a href="#" class="nav-option" id="complete-cv-option">Complete</a>
+          </div>
+        </li>
+        <li><a href="/blog/" class="animated-link">Blog</a></li>
+        <li class="nav-dropdown-container">
+          <button class="nav-dropdown-btn animated-link" id="teaching-dropdown-btn">
+            Teaching
+            <span class="dropdown-arrow">▼</span>
+          </button>
+          <div class="nav-dropdown" id="teaching-dropdown">
+            <a href="/teaching/statement/" class="nav-option">Teaching Statement</a>
+            <a href="/teaching/syllabi/" class="nav-option">Syllabi</a>
+            <a href="/teaching/zines/" class="nav-option">Zine Library</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 </header>
 <main class="page-content" aria-label="Content">
 <div class="wrapper">
-        <hr />
+        <div class="contents-dropdown">
+  <select id="contents-nav" onchange="navigateToSection(this.value)">
+    <option value="">Navigate to section...</option>
+    <option value="#media-coverage">Media Coverage</option>
+    <option value="#place-based-projects">Place-Based Projects</option>
+    <option value="#residencies">Residencies</option>
+    <option value="#publications">Publications</option>
+  </select>
+</div>
 
-<h2 id="contents">Contents</h2>
-<ul>
-  <li><a href="#media-coverage">Media Coverage</a></li>
-  <li><a href="#place-based-projects">Place-Based Projects</a></li>
-  <li><a href="#residencies">Residencies</a></li>
-  <li><a href="#publications">Publications</a></li>
-</ul>
+<script>
+function navigateToSection(anchor) {
+  if (anchor) {
+    document.location.hash = anchor;
+  }
+}
+</script>
 
-<hr />
+<div class="cv-blend-controls">
+  <button id="blend-with-academic" class="blend-btn">Blend this with Academic CV for a Clear View</button>
+  <button id="restore-original" class="blend-btn secondary" style="display: none;">Back to Creative CV</button>
+</div>
+
 <h1 id="2025-2026">2025-2026.</h1>
 
 <h2 id="media-coverage">Media Coverage</h2>
@@ -69,10 +102,10 @@
 <h3 id="florida-is-loud-fest">Florida is Loud Fest</h3>
 <ul>
   <li>
-    <p><del>“Glenn Stefani Interview,” <em>The Vinyl Warhol</em>, July 9, 2018, <a href="https://www.thevinylwarhol.com/season-1/glenn-stefani-interview">[link]</a>.</del> Defunct as of last check on 25 Oct 2025.</p>
+    <p>“Glenn Stefani Interview,” <em>The Vinyl Warhol</em>, July 9, 2018, Defunct as of last check on 25 Oct 2025.</p>
   </li>
   <li>
-    <p><del>“Best New Music Festival - Best of Orlando 2017,” <em>Orlando Weekly</em>, December 31, 2017, <a href="https://www.orlandoweekly.com/best-of/2017/music-and-nightlife/best-new-music-festival-6219906">[link]</a>.</del> Defunct as of last check on 25 Oct 2025.</p>
+    <p>“Best New Music Festival - Best of Orlando 2017,” <em>Orlando Weekly</em>, December 31, 2017, Defunct as of last check on 25 Oct 2025.</p>
   </li>
   <li>
     <p>Le-Huu, Bao. “Why Florida is Loud Fest Needs to Be a Recurring Thing,” <em>Orlando Weekly</em>, December 20, 2016, <a href="https://www.orlandoweekly.com/music/why-florida-is-loud-fest-needs-to-be-a-recurring-thing-2549100">[link]</a>. Last Accessed: 25 Oct 2025.</p>
@@ -81,7 +114,7 @@
     <p>Moyer, Matthew. “Florida is Loud Fest Takes Over Mills Avenue All Weekend,” <em>Orlando Weekly</em>, December 14, 2017, <a href="https://www.orlandoweekly.com/music/florida-is-loud-fest-takes-over-mills-avenue-all-weekend-9276293">[link]</a>. Last Accessed: 25 Oct 2025.</p>
   </li>
   <li>
-    <p>Moyer, Matthew. “Florida is Loud Fest to Return to Orlando This December,” <em>Orlando Weekly</em>, September 22, 2017, <a href="https://www.orlandoweekly.com/music/florida-is-loud-fest-to-return-to-orlando-this-december-7003890">[link]</a>. Last Accessed: 25 Oct 2025. Last Accessed: 25 Oct 2025.</p>
+    <p>Moyer, Matthew. “Florida is Loud Fest to Return to Orlando This December,” <em>Orlando Weekly</em>, September 22, 2017, <a href="https://www.orlandoweekly.com/music/florida-is-loud-fest-to-return-to-orlando-this-december-7003890">[link]</a>. Last Accessed: 25 Oct 2025.</p>
   </li>
   <li>
     <p>Moyer, Matthew. “A New Orlando DIY Fest Offers Up All the Varying Flavors of Southern Heaviness,” <em>Orlando Weekly</em>, December 14, 2016, <a href="https://www.orlandoweekly.com/music/a-new-orlando-diy-fest-offers-up-all-the-varying-flavors-of-southern-heaviness-2547512">[link]</a>. Last Accessed: 25 Oct 2025.</p>
@@ -108,113 +141,86 @@
   </li>
 </ul>
 
-<h3 id="witchbender">Witchbender</h3>
+<h3 id="vacancy">Vacancy</h3>
 <ul>
-  <li>
-    <p>Moyer, Matthew. “Noise-core Band Witchbender Plays Two Sets at The Intimate Nook on Robinson,” <em>Orlando Weekly</em>, June 5, 2019, <a href="https://www.orlandoweekly.com/music/noise-core-band-witchbender-plays-two-sets-at-the-intimate-nook-on-robinson-25427058">[link]</a>. Last Accessed: 25 Oct 2025.</p>
-  </li>
-  <li>
-    <p>Le-Huu, Bao. “Hot Snakes Make an Astonishing Comeback at The Abbey,” <em>Orlando Weekly</em>, May 4, 2019, <a href="https://www.orlandoweekly.com/music/hot-snakes-make-an-astonishing-comeback-at-the-abbey-25263748">[link]</a>. Last Accessed: 25 Oct 2025.</p>
-  </li>
-  <li>
-    <p>Ferguson, Jason. “Band of the Week: Witchbender,” <em>Orlando Weekly</em>, February 5, 2018, <a href="https://www.orlandoweekly.com/music/band-of-the-week-witchbender-10502926">[link]</a>. Last Accessed: 25 Oct 2025.</p>
-  </li>
-  <li>
-    <p>Le-Huu, Bao. “Bad Balloon Rising in the Scene Debuts Tampa Noise Rockers Vacancy”, <em>Orlando Weekly</em>, December 1, 2017, <a href="https://www.orlandoweekly.com/music/bad-balloon-rising-in-the-scene-debuts-tampa-noise-rockers-vacancy-alongside-uh-witchbender-and-throwin-up-8956382">[link]</a>. Last Accessed: 25 Oct 2025.</p>
-  </li>
+  <li>Le-Huu, Bao. “Bad Balloon Rising in the Scene Debuts Tampa Noise Rockers Vacancy”, <em>Orlando Weekly</em>, December 1, 2017, <a href="https://www.orlandoweekly.com/music/bad-balloon-rising-in-the-scene-debuts-tampa-noise-rockers-vacancy-alongside-uh-witchbender-and-throwin-up-8956382">[link]</a>. Last Accessed: 25 Oct 2025.</li>
 </ul>
 
 <h2 id="place-based-projects">Place-Based Projects</h2>
-
-<h3 id="baking">Baking</h3>
-<p>(Performance; 2023 – <em>Ongoing</em>)</p>
-
-<p>Inspired by the work of Bill Drummond, this project explored critical making, community orature, and ephemeral cultural practices through baking scones and making jam upon request. Over the course of 2023, individuals could request scones and jam with a month’s notice, at no cost. Centered around sharing food, the gatherings emphasized oral storytelling and embodied cultural transmission, recalling traditions of orature where cultural memory and social bonds are formed through direct, personal interaction.</p>
-
-<p>By positioning baking as performance and food preparation as composition, the project bridged theories of composition studies, Old Irish oral traditions, and decolonial practice, critiquing digital dependency and commodification. Like Drummond’s work, it prioritized process over product, fostering communal presence and relationality over mediated interaction.</p>
-
-<p>Managed all aspects of production, from sourcing ingredients to coordinating requests and facilitating gatherings, with scones and jam distributed exclusively during in-person events.</p>
-
-<h3 id="marie-mon-amour">Marie, Mon Amour</h3>
-<p>Self-released, limited VHS run, 2018.</p>
-
-<p>An short film combining iPhone footage with distorted ‘B-movie’ clips, inspired by 1980s direct-to-video thrillers and filmmakers such as Dietmar Brehm, Cecilia Condit, Marguerite Duras, and Alain Robbe-Grillet. The film follows a memory living in an off-season beach town searching for a lost lover, with intercut cemetery footage implying an unsolved murder.</p>
-
-<h4 id="screenings">Screenings</h4>
 <ul>
   <li>
-    <p>Manes Emporium of Doubt, October 28, 2018. <em>Invited</em>.</p>
+    <p>BAKE. Performance; 2023 – Ongoing, <a href="/creative/bake/">[details]</a>.</p>
   </li>
   <li>
-    <p>Cinematique Theater, 2019 — during the COVID-19 lockdown as a conceptual installation for an empty audience. <em>Instigated</em>.</p>
+    <p>Marie, Mon Amour. Short Film; Self-released, limited VHS run, 2018, <a href="/creative/marie-mon-amour/">[details]</a>.</p>
   </li>
 </ul>
 
 <h2 id="residencies">Residencies</h2>
-
-<p>CASTLE FREAK: A Remote Residency for Generative Digital Composition</p>
-
-<p>Inside the Castle, November 2025 (publication: November 2026)</p>
-
-<p>Selected for Inside the Castle’s inaugural CASTLE FREAK remote residency program, a competitive annual residency focused on innovative, generative literature and computational composition methods. The residency involves creating a 100,000-word generative work over five days using systematic or algorithmic processes, challenging traditional notions of authorship and exploring the intersection of human intuition and machine logic. The resulting book, <em>Francosim</em>, will be published by Inside the Castle as part of their ongoing exploration of experimental, process-driven literature that “can only be books.”</p>
-
-<p>Read More about the Castle Freak Residency <a href="https://www.insidethecastle.org/castle-freak/">[here]</a>.</p>
+<ul>
+  <li>CASTLE FREAK: A Remote Residency for Generative Digital Composition. Inside the Castle, November 2025 (publication: November 2026), <a href="/creative/castle-freak/">[details]</a>.</li>
+</ul>
 
 <h2 id="publications">Publications</h2>
 
 <h3 id="edited--designed">Edited &amp; Designed</h3>
-<p>Ritchey III, Glenn S., ed. <em>Oil Spill</em>. By John Hoffman. Sifting Press, October 2024.</p>
-
-<p>Edited, designed, and coordinated the publication process for this short story collection, contributing both editorial oversight, layout design, and the manufacturing process.</p>
-
-<p><strong>Coverage for <em><a href="https://www.goodreads.com/en/book/show/220632854-oil-spill">Oil Spill</a></em></strong></p>
 <ul>
-  <li>
-    <p>“‘OIL SPILL’ – 6 Short Horror Stories Inspired by Stephen King &amp; ‘The X-Files’ Available for Preorder!”. Bloody Disgusting, October 2024. <a href="https://bloody-disgusting.com/books/3833707/oil-spill-6-short-horror-stories-inspired-by-stephen-king-the-x-files-available-for-preorder/">[link]</a></p>
-  </li>
-  <li>
-    <p>“Weekend Nachos Vocalist John Hoffman Discusses His Debut Short Story Collection.” No Echo, September 2024. <a href="https://www.noecho.net/interviews/weekend-nachos-john-hoffman-book-interview">[link]</a></p>
-  </li>
-  <li>
-    <p>“OIL SPILL INTERVIEW.” The Lo Fi Horror Guy, September 2024. <a href="https://www.instagram.com/p/C_16dzPsWIB/">[link]</a></p>
-  </li>
-  <li>
-    <p>“Worshipping Fear, Absorbing Terror: An Interview with JOHN HOFFMAN About His Short Story Collection OIL SPILL.” Cvlt Nation, August 2024. <a href="https://cvltnation.com/john-hoffman-oil-spill/">[link]</a></p>
-  </li>
+  <li>Ritchey III, Glenn S., ed. <em>Oil Spill</em>. By John Hoffman. Sifting Press, October 2024, <a href="/creative/oil-spill/">[details]</a>.</li>
 </ul>
 
 <h3 id="independent-publications-as-self">Independent Publications, as Self</h3>
-
-<p><em>Lebor II</em>
-Self-published as Lebor Publications, limited pamphlet run, July 2023.</p>
-
-<p>Limited-edition pamphlet featuring fragmented experimental writing and abstract storytelling, described as “the first part of a two-part exorcism, presented in reverse order.” It blends chaotic temporal loops, decaying structures, and surreal postmodern landscapes with gothic minimalism and blending of Central Scots. Written, edited, and designed by Glenn S. Ritchey III. Managed all aspects of production, from content to exclusive distribution at Topos Bookstore, Brooklyn, NY.</p>
-
-<p><em>Lebor I</em>
-Self-published as Lebor Publications, limited pamphlet run, June 2023.</p>
-
-<p>Limited-edition pamphlet featuring experimental writing and object design, published to incite new ideas and retire old ones. Described as “an unmixed, unmastered, non-existing dance mix single with a bloated preamble,” it blends conceptual critique with farcical reflection. Written, edited, and designed by Glenn S. Ritchey III, with implementation of the custom typeface Amalgam by Benjamin Tuttle. Managed all aspects of production, from content to exclusive distribution at Topos Bookstore, Brooklyn, NY.</p>
+<ul>
+  <li>
+    <p><em>Lebor II</em>. Self-published as Lebor Publications, limited pamphlet run, July 2023, <a href="/creative/lebor-ii/">[details]</a>.</p>
+  </li>
+  <li>
+    <p><em>Lebor I</em>. Self-published as Lebor Publications, limited pamphlet run, June 2023, <a href="/creative/lebor-i/">[details]</a>.</p>
+  </li>
+</ul>
 
 <h3 id="publications-as-awg-inc">Publications, as AWG INC</h3>
-<p>“Vacances de Printemps sans Mon Amour.” 
-<em>SR50 Magazine</em>, December 2019.</p>
-
-<p>A farcical meditation on writing that blends genre disruption with surreal imagery. Drawing on Marguerite Duras and Alain Robbe-Grillet’s narrative techniques, the story reimagines the Beach Party series as an abstract, de-facto slasher, subverting genre conventions and audience expectations in arts and culture media.</p>
-
-<p>“M. Accelerated: A Deconstruction of the ‘Spaghetti Western’ and Failed Cinema.”</p>
-
-<p><em>Pallor Pink Vol. 6: This Ain’t My First Rodeo</em>, November 2019. <a href="https://yewonkwon.com/PP-COWBOYS">[link]</a></p>
-
-<p>A genre deconstruction reimagining the spaghetti western through the fragmented narrative style of Marguerite Duras and the iconic imagery of Sergio Leone. The work juxtaposes surreal visuals with reflective text, exploring the tension between genre conventions and personal, process-driven creation.</p>
+<ul>
+  <li>
+    <p>“Vacances de Printemps sans Mon Amour.” <em>SR50 Magazine</em>, December 2019, <a href="/creative/vacances-de-printemps/">[details]</a>.</p>
+  </li>
+  <li>
+    <p>“M. Accelerated: A Deconstruction of the ‘Spaghetti Western’ and Failed Cinema.” <em>Pallor Pink Vol. 6: This Ain’t My First Rodeo</em>, November 2019, <a href="/creative/m-accelerated/">[details]</a>.</p>
+  </li>
+</ul>
 
 </div>
-</main><footer class=""site-footer">
-<div class=""wrapper">
-<p style ="text-align: center; color: #828282";">
-Glenn S. Ritchey III: The academic and creative works. Maintained by <a href="https://github.com/gr9430">gr9430</a>.
-</p>"
+</main><footer class="site-footer">
+<div class="wrapper">
+<p style="text-align: center; color: #828282;">
+Academic and creative works. Maintained by <a href="https://github.com/gr9430">gr9430</a>.
+</p>
 </div>
-</footer><button id="scrollToTop" style="
+</footer><!-- Floating Action Buttons -->
+<div class="floating-buttons">
+  <div class="floating-btn-container email-dropdown-container">
+    <button class="floating-btn email-btn" id="email-dropdown-btn" title="Email me">
+      <span class="btn-icon">✉</span>
+      <span class="dropdown-arrow">▼</span>
+    </button>
+    <div class="email-dropdown" id="email-dropdown">
+      <a href="mailto:glenn.ritchey@ucf.edu" class="email-option">Professional</a>
+      <a href="mailto:glenn@limb.fun" class="email-option">Creative</a>
+    </div>
+  </div>
+
+  <div class="floating-btn-container cv-dropdown-container">
+    <button class="floating-btn cv-btn" id="cv-dropdown-btn" title="Download CV">
+      <span class="btn-icon">CV</span>
+      <span class="dropdown-arrow">▼</span>
+    </button>
+    <div class="cv-dropdown" id="cv-dropdown">
+      <a href="/assets/pdfs/academic-cv.pdf" class="cv-option" target="_blank">Academic CV</a>
+      <a href="/assets/pdfs/creative-cv.pdf" class="cv-option" target="_blank">Creative CV</a>
+    </div>
+  </div>
+</div>
+
+<button id="scrollToTop" style="
       display: none;
       position: fixed;
       bottom: 20px;
@@ -243,6 +249,135 @@ Glenn S. Ritchey III: The academic and creative works. Maintained by <a href="ht
       document.getElementById("scrollToTop").onclick = function() {
         window.scrollTo({top: 0, behavior: 'smooth'});
       };
+
+      // Make site title clickable after thermal printing animation completes
+      document.addEventListener('DOMContentLoaded', function() {
+        var siteTitle = document.getElementById('site-title');
+        if (siteTitle) {
+          // Wait for the animation to complete (2s thermal-print duration)
+          setTimeout(function() {
+            siteTitle.style.cursor = 'pointer';
+            siteTitle.classList.add('clickable-title');
+            siteTitle.onclick = function() {
+              window.location.href = '/';
+            };
+          }, 2000); // Match the 2s animation duration
+        }
+      });
+
+      // Floating buttons functionality
+      // Email dropdown
+      const emailDropdownBtn = document.getElementById('email-dropdown-btn');
+      const emailDropdown = document.getElementById('email-dropdown');
+
+      if (emailDropdownBtn && emailDropdown) {
+        emailDropdownBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          emailDropdown.classList.toggle('show');
+          // Close CV dropdown if open
+          const cvDropdown = document.getElementById('cv-dropdown');
+          if (cvDropdown) {
+            cvDropdown.classList.remove('show');
+          }
+        });
+      }
+
+      // CV dropdown
+      const cvDropdownBtn = document.getElementById('cv-dropdown-btn');
+      const cvDropdown = document.getElementById('cv-dropdown');
+
+      if (cvDropdownBtn && cvDropdown) {
+        cvDropdownBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          cvDropdown.classList.toggle('show');
+          // Close email dropdown if open
+          if (emailDropdown) {
+            emailDropdown.classList.remove('show');
+          }
+        });
+      }
+
+      // CVs nav dropdown
+      const cvsDropdownBtn = document.getElementById('cvs-dropdown-btn');
+      const cvsDropdown = document.getElementById('cvs-dropdown');
+      const completeCvOption = document.getElementById('complete-cv-option');
+
+      if (cvsDropdownBtn && cvsDropdown) {
+        cvsDropdownBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          cvsDropdown.classList.toggle('show');
+          // Close other dropdowns if open
+          if (emailDropdown) {
+            emailDropdown.classList.remove('show');
+          }
+          if (cvDropdown) {
+            cvDropdown.classList.remove('show');
+          }
+          if (teachingDropdown) {
+            teachingDropdown.classList.remove('show');
+          }
+        });
+      }
+
+      // Complete CV option triggers blended view
+      if (completeCvOption) {
+        completeCvOption.addEventListener('click', function(e) {
+          e.preventDefault();
+          renderBlendedView('navigation');
+          cvsDropdown.classList.remove('show');
+        });
+      }
+
+      // Teaching nav dropdown
+      const teachingDropdownBtn = document.getElementById('teaching-dropdown-btn');
+      const teachingDropdown = document.getElementById('teaching-dropdown');
+
+      if (teachingDropdownBtn && teachingDropdown) {
+        teachingDropdownBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          teachingDropdown.classList.toggle('show');
+          // Close other dropdowns if open
+          if (emailDropdown) {
+            emailDropdown.classList.remove('show');
+          }
+          if (cvDropdown) {
+            cvDropdown.classList.remove('show');
+          }
+          if (cvsDropdown) {
+            cvsDropdown.classList.remove('show');
+          }
+        });
+      }
+
+      // Close dropdowns when clicking outside
+      document.addEventListener('click', function(e) {
+        // Close email dropdown if clicking outside
+        if (emailDropdownBtn && emailDropdown &&
+            !emailDropdownBtn.contains(e.target) && !emailDropdown.contains(e.target)) {
+          emailDropdown.classList.remove('show');
+        }
+
+        // Close floating CV dropdown if clicking outside
+        if (cvDropdownBtn && cvDropdown &&
+            !cvDropdownBtn.contains(e.target) && !cvDropdown.contains(e.target)) {
+          cvDropdown.classList.remove('show');
+        }
+
+        // Close CVs nav dropdown if clicking outside
+        if (cvsDropdownBtn && cvsDropdown &&
+            !cvsDropdownBtn.contains(e.target) && !cvsDropdown.contains(e.target)) {
+          cvsDropdown.classList.remove('show');
+        }
+
+        // Close teaching nav dropdown if clicking outside
+        if (teachingDropdownBtn && teachingDropdown &&
+            !teachingDropdownBtn.contains(e.target) && !teachingDropdown.contains(e.target)) {
+          teachingDropdown.classList.remove('show');
+        }
+      });
     </script>
+
+    <!-- CV Blender functionality -->
+    <script src="/assets/js/cv-blender.js"></script>
 </body>
 </html>
