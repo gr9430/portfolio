@@ -7,7 +7,15 @@
       "Bash(sudo apt update:*)",
       "Bash(bundle install:*)",
       "Bash(bundle exec jekyll serve:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(bundle exec jekyll build:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(gh:*)",
+      "Bash(sudo apt install:*)",
+      "Bash(git config:*)",
+      "Bash(snap:*)"
     ]
   }
 }
