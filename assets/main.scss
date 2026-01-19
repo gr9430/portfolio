@@ -539,7 +539,7 @@ img {
   margin: 1.5rem 0 2.5rem 0;
   padding: 1rem;
   background-color: rgb(248, 248, 255);
-  border: 1px solid rgb(122, 6, 97, 0.2);
+  border: 1px solid rgba(122, 6, 97, 0.2);
   border-radius: 4px;
 }
 
@@ -559,7 +559,7 @@ img {
 }
 
 .blend-entry:hover {
-  border-color: rgb(122, 6, 97, 0.4);
+  border-color: rgba(122, 6, 97, 0.4);
   box-shadow: 0 2px 8px rgba(122, 6, 97, 0.1);
 }
 
@@ -608,13 +608,13 @@ img {
 .entry-badge.academic {
   background-color: rgba(122, 6, 97, 0.1);
   color: rgb(122, 6, 97);
-  border: 1px solid rgb(122, 6, 97, 0.3);
+  border: 1px solid rgba(122, 6, 97, 0.3);
 }
 
 .entry-badge.creative {
-  background-color: rgb(6, 97, 122, 0.1);
+  background-color: rgba(6, 97, 122, 0.1);
   color: rgb(6, 97, 122);
-  border: 1px solid rgb(6, 97, 122, 0.3);
+  border: 1px solid rgba(6, 97, 122, 0.3);
 }
 
 /* Entry description */
