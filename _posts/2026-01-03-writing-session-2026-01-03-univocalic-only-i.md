@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Writing Session: 2026-01-03 [Univocalic (only 'I')]
+title: "Writing Session: 2026-01-03 [Univocalic (only 'I')]"
 date: 2026-01-03 14:56:50 
 categories:
   - writing
