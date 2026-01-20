@@ -29,12 +29,22 @@ function navigateToSection(anchor) {
 # 2025-2026.
 
 ## Media Coverage
-### Ad Nauseum
+### [Ad Nauseum](adnauseum.bandcamp.com)
 - Le-Huu, Bao. "Orlando sludge band Ad Nauseum drop surprise 'new' songs after years of silence," _Orlando Weekly_, October 9, 2024, [[link]](https://www.orlandoweekly.com/music/orlando-sludge-band-ad-nauseum-drop-surprise-new-songs-after-years-of-silence-37964391). Last Accessed: 25 Oct 2025.
 
 - Ferguson, Jason. "Band of the Week: Ad Nauseum," _Orlando Weekly_, August 14, 2017, [[link]](https://www.orlandoweekly.com/music/band-of-the-week-ad-nauseum-6100165). Last Accessed: 25 Oct 2025.
 
 - Le-Huu, Bao and Matthew Moyer. "22 Orlando Bands You Should Keep an Eye and Ear Out for in 2017," _Orlando Weekly_, November 30, 2016, [[link]](https://www.orlandoweekly.com/music/22-orlando-bands-you-should-keep-an-eye-and-ear-out-for-in-2017-2544612). Last Accessed: 25 Oct 2025.
+
+#### Discography
+- [2017](https://adnauseum.bandcamp.com/album/2017), September 2024.
+  - Guitar and development.
+
+- [EP](https://adnauseum.bandcamp.com/album/ep), January 2017.
+  - Guitar
+
+- [Discography (2014-2015)](https://adnauseum.bandcamp.com/album/discography-2014-2015)
+  - Guitar, logo design.
 
 ### AWG INC
 - Singer, Patricia. "Creecher Double Feature at Cinematique Theater," _Humid Being_, May 9, 2019, [[link]](https://www.humidbeing.com/featured-stories/2019/4/29/creecher-double-feature). Last Accessed: 25 Oct 2025.
@@ -52,18 +62,41 @@ function navigateToSection(anchor) {
 
 - Moyer, Matthew. "A New Orlando DIY Fest Offers Up All the Varying Flavors of Southern Heaviness," _Orlando Weekly_, December 14, 2016, [[link]](https://www.orlandoweekly.com/music/a-new-orlando-diy-fest-offers-up-all-the-varying-flavors-of-southern-heaviness-2547512). Last Accessed: 25 Oct 2025.
 
-### Flying Limbs
+### [Flying Limbs](https://mokitapes.bandcamp.com/track/spiritual-cramp)
 - Ferguson, Jason "Band of the Week: Flying Limbs," _Orlando Weekly_, December 9, 2019, [[link]](https://www.orlandoweekly.com/music/band-of-the-week-flying-limbs-26432149), Last Accessed: 25 Oct 2025.
 
 - Le-Huu, Bao, and Matthew Moyer. "14 Local Artists Who Are Reshaping Orlando Music Scene," _Orlando Weekly_, November 29, 2017, [[link]](https://www.orlandoweekly.com/music/14-local-artists-who-are-reshaping-orlando-music-scene-8909807?storyPage=4). Last Accessed: 25 Oct 2025.
 
-### Temperament
+### [Temperament](https://temperamentfl.bandcamp.com/album/a-crypt-tresspassed)
 - Le-Huu, Bao. "Debuts of Counterweight and Florida is Loud Fest Prove Good Harbingers of 2017," _Orlando Weekly_, December 28, 2016, [[link]](https://www.orlandoweekly.com/music/debuts-of-counterweight-and-florida-is-loud-fest-prove-good-harbingers-of-2017-2550203). Last Accessed: 25 Oct 2025.
 
 - Le-Huu, Bao. "Time Waste Management and TMD Debut Fascinating Audiovisual Series," _Orlando Weekly_, December 17, 2016, [[link]](https://www.orlandoweekly.com/music/time-waste-management-and-tmd-debut-fascinating-audiovisual-series-counterbalance-in-a-church-2548561). Last Accessed: 25 Oct 2025.
 
-### Vacancy
+### Witchbender
+- Moyer, Matthew. "Noise-core band Witchbender plays two sets at the intimate Nook on Robinson", _Orlando Weekly_, June 5 2019, [link](https://www.orlandoweekly.com/music/noise-core-band-witchbender-plays-two-sets-at-the-intimate-nook-on-robinson-25427058/). Last Accessed: 19 January 2026.
+
+- Le-Huu, Bao. "Hot Snakes make an astonishing comeback at the Abbey", _Orlando Weekly_, May 4 2019, [link](https://www.orlandoweekly.com/music/hot-snakes-make-an-astonishing-comeback-at-the-abbey-25263748/). Last Accessed: 19 January 2026.
+
+- OW Staff. "Keep your ears open to these Orlando bands", _Orlando Weekly_, August 10 2018, [link](https://www.orlandoweekly.com/music/hot-snakes-make-an-astonishing-comeback-at-the-abbey-25263748/). Last Accessed 19 January 2026.
+
+- Ferguson, Jason. "Band of the Week: Witchbender", _Orlando Weekly_, February 5 2018, [link](https://www.orlandoweekly.com/music/band-of-the-week-witchbender-10502926/). Last Accessed: 19 January 2026.
+
 - Le-Huu, Bao. "Bad Balloon Rising in the Scene Debuts Tampa Noise Rockers Vacancy", _Orlando Weekly_, December 1, 2017, [[link]](https://www.orlandoweekly.com/music/bad-balloon-rising-in-the-scene-debuts-tampa-noise-rockers-vacancy-alongside-uh-witchbender-and-throwin-up-8956382). Last Accessed: 25 Oct 2025.
+
+#### Discography (feat. Glenn S. Ritchey III, Credited as Glenn Stefani)
+- [Crush pt. 2](https://mokitapes.bandcamp.com/track/crush-pt-2), featured on _...third_, Moki Tapes. Decembber 2021. 
+  - Guitar, developed concept for "remix".
+
+- ["Wolverine Blues" (Entombed Cover)](https://mokitapes.bandcamp.com/track/wolverine-blues), featured on _SCREAM! It's Halloween!_. October 2020.
+  - Guitar and Backing Vocals.
+
+- [Broke b/w Human Lip Ring](https://witchbender.bandcamp.com/album/the-wave-b-w-on-me), June 2020.
+  - Guitar (written), art direction.
+
+- [The Wave b/w On Me](https://witchbender.bandcamp.com/album/the-wave-b-w-on-me), May 2020.
+  - Guitar (written), art direction, and concept for a slasher movie inspired by _Beach Party_ (1963).
+
+- [Crush](https://witchbender.bandcamp.com/album/crush-2), Lil Fat Tapes, May 2018.
 
 ## Place-Based Projects
 - BAKE. Performance; 2023 – Ongoing, [[details]](/creative/bake/).
