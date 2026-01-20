@@ -1,0 +1,42 @@
+[
+  {
+    "name": "uBlock Origin",
+    "url": "https://ublockorigin.com",
+    "description": "Comprehensive content blocker"
+  },
+  {
+    "name": "Privacy Badger",
+    "url": "https://privacybadger.org",
+    "description": "Automatically blocks trackers"
+  },
+  {
+    "name": "Tor Browser",
+    "url": "https://torproject.org",
+    "description": "Anonymous web browsing"
+  },
+  {
+    "name": "Privacy Guides",
+    "url": "https://privacyguides.org",
+    "description": "Comprehensive privacy resources"
+  },
+  {
+    "name": "Firefox",
+    "url": "https://firefox.com",
+    "description": "Privacy-focused browser"
+  },
+  {
+    "name": "DuckDuckGo",
+    "url": "https://duckduckgo.com",
+    "description": "Search engine that doesn't track you"
+  },
+  {
+    "name": "Signal",
+    "url": "https://signal.org",
+    "description": "Private messaging"
+  },
+  {
+    "name": "Brave Browser",
+    "url": "https://brave.com",
+    "description": "Browser with built-in ad/tracker blocking"
+  }
+]

@@ -16,6 +16,13 @@ An experimental interactive fiction piece built with SugarCube. A meditation on 
 
 _Originally developed from "The Cypress Dome," a creative piece from April 2021._
 
+### What you and I know about you
+A surveillance poetry widget that transforms browser tracking data into live, accumulating verse. The piece operates entirely client-side—no data is transmitted—revealing the usually invisible mechanics of web surveillance through experimental literature.
+
+[Click Here to see how you've been experiencing "What you and I know about you"](/elit/wwkay/) | *Widget active on this site*
+
+_A transparency/e-lit piece that exposes browser metrics as code-comment styled poetry._
+
 ---
 
 ## About elit

@@ -1183,7 +1183,7 @@ img {
 #scrollToTop {
   display: none;
   position: fixed;
-  bottom: 20px;
+  bottom: 90px;
   right: 20px;
   background-color: rgb(122, 6, 97);
   color: white;
@@ -1194,7 +1194,7 @@ img {
   font-size: 20px;
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  z-index: 1000;
+  z-index: 10000;
   transition: all 0.3s ease;
 }
 
@@ -1209,7 +1209,7 @@ img {
     width: 40px;
     height: 40px;
     font-size: 16px;
-    bottom: 15px;
+    bottom: 75px;
     right: 15px;
   }
 }
@@ -1218,7 +1218,7 @@ img {
     width: 35px;
     height: 35px;
     font-size: 14px;
-    bottom: 10px;
+    bottom: 65px;
     right: 10px;
   }
 }
