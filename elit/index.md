@@ -12,7 +12,7 @@ Experimental literature and interactive fiction projects that explore computatio
 ### Like a Mountain of Sleep
 An experimental interactive fiction piece built with SugarCube. A meditation on memory, place, and the weight of dreams.
 
-[Play _Like a Mountain of Sleep_](/lamos/){:target="_blank"} | [View Development Details](/lamos/versions/)
+[Play _Like a Mountain of Sleep_](/lamos/){:target="_blank"} | [Project Context](/lamos/context/)
 
 _Originally developed from "The Cypress Dome," a creative piece from April 2021._
 

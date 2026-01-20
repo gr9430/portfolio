@@ -455,6 +455,22 @@ img {
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
+  /* Header optimizations */
+  .site-header {
+    padding: 1.5rem 0;
+  }
+
+  .site-header .animated-header {
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+  }
+
+  /* Navigation button optimizations */
+  .cv-navigation .animated-link {
+    font-size: 1rem;
+    padding: 0.4rem 0.8rem;
+  }
+
   .floating-buttons {
     top: 15px;
     right: 15px;
@@ -480,8 +496,39 @@ img {
   }
 }
 
-/* Ensure buttons don't interfere with existing content */
+/* Extra small devices - aggressive mobile optimizations */
 @media (max-width: 480px) {
+  /* Header further reduced */
+  .site-header {
+    padding: 1rem 0;
+  }
+
+  .site-header .animated-header {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Navigation buttons stack better */
+  .cv-navigation ul {
+    gap: 0.8rem;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cv-navigation .animated-link {
+    font-size: 0.9rem;
+    padding: 0.4rem 1rem;
+    min-width: 120px;
+    text-align: center;
+  }
+
+  /* Contents dropdown more aggressive reduction */
+  .contents-dropdown select {
+    min-width: 180px;
+    font-size: 0.85rem;
+    padding: 0.5rem 0.7rem;
+  }
+
   .floating-buttons {
     top: 10px;
     right: 10px;
@@ -490,6 +537,68 @@ img {
   .email-dropdown,
   .cv-dropdown {
     right: -20px;
+  }
+}
+
+/* Very small devices */
+@media (max-width: 360px) {
+  .site-header .animated-header {
+    font-size: 1.4rem;
+  }
+
+  .contents-dropdown select {
+    min-width: 160px;
+    font-size: 0.8rem;
+  }
+
+  .cv-navigation .animated-link {
+    font-size: 0.85rem;
+    padding: 0.35rem 0.8rem;
+  }
+}
+
+/* Mobile-optimized scroll-to-top button */
+#scrollToTop {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: rgb(122, 6, 97);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+#scrollToTop:hover {
+  background-color: rgb(98, 5, 78);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(122, 6, 97, 0.4);
+}
+
+@media (max-width: 600px) {
+  #scrollToTop {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  #scrollToTop {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+    bottom: 10px;
+    right: 10px;
   }
 }
 
@@ -657,6 +766,31 @@ img {
 
 /* Responsive design for smaller screens */
 @media (max-width: 600px) {
+  /* Fix navigation dropdown positioning for mobile */
+  .nav-dropdown {
+    left: 0;
+    transform: translateX(0);
+    right: auto;
+    min-width: 140px;
+  }
+
+  .nav-dropdown.show {
+    transform: translateX(0) translateY(0);
+  }
+
+  /* Reduce navigation gap on mobile */
+  .cv-navigation ul {
+    gap: 1rem;
+  }
+
+  /* Reduce contents dropdown width */
+  .contents-dropdown select {
+    min-width: 200px;
+    font-size: 0.9rem;
+    padding: 0.6rem 0.8rem;
+  }
+
+  /* CV Blend entries */
   .entry-header {
     flex-direction: column;
     align-items: stretch;

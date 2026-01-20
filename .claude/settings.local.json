@@ -15,7 +15,9 @@
       "Bash(gh:*)",
       "Bash(sudo apt install:*)",
       "Bash(git config:*)",
-      "Bash(snap:*)"
+      "Bash(snap:*)",
+      "Bash(gem list:*)",
+      "Bash(ruby:*)"
     ]
   }
 }
