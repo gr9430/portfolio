@@ -78,7 +78,7 @@ class WWKAYWidget {
       </div>
       <div id="wwkay-expanded" class="wwkay-expanded" style="display: none;">
         <div class="wwkay-header">
-          <h3>What you and <a href="/" style="color: #7A0661; text-decoration: none;">I</a> know about you</h3>
+          <h3>What we know about you</h3>
           <button class="wwkay-close" id="wwkay-close">×</button>
         </div>
         <div class="wwkay-poem-container" id="wwkay-poem"></div>
@@ -109,7 +109,7 @@ class WWKAYWidget {
     collapsed.addEventListener('mouseenter', () => {
       if (!this.isExpanded) {
         this.pauseRotation();
-        document.getElementById('wwkay-rotating').textContent = 'CLICK TO SEE WHAT WE REALLY KNOW';
+        document.getElementById('wwkay-rotating').textContent = 'What we know about you';
         collapsed.classList.add('wwkay-hover');
       }
     });
@@ -611,11 +611,17 @@ class WWKAYWidget {
     document.getElementById('wwkay-close').focus();
   }
 
+
   collapse() {
     this.isExpanded = false;
 
     document.getElementById('wwkay-expanded').style.display = 'none';
-    document.getElementById('wwkay-collapsed').style.display = 'block';
+    const collapsed = document.getElementById('wwkay-collapsed');
+    collapsed.style.display = 'block';
+
+    // Reset any animation-related styles that might affect text alignment
+    collapsed.style.transform = '';
+    collapsed.style.position = 'relative';
 
     this.stopPrivacyToolRotation();
     this.startRotation();
@@ -734,7 +740,7 @@ class WWKAYWidget {
     const timestamp = new Date().toISOString().slice(0, 16).replace(/[:.]/g, '-');
     const filename = `wwkay-${timestamp}.txt`;
 
-    let poemContent = 'WHAT YOU AND I KNOW ABOUT YOU\n';
+    let poemContent = 'WHAT WE KNOW ABOUT YOU\n';
     poemContent += `Generated: ${new Date().toLocaleString()}\n\n`;
 
     // Add completed stanzas
@@ -763,6 +769,7 @@ class WWKAYWidget {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   }
+
 
   // LocalStorage persistence
   savePoem() {

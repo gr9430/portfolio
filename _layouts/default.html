@@ -213,8 +213,10 @@
     <!-- CV Blender functionality -->
     <script src="{{ site.baseurl }}/assets/js/cv-blender.js"></script>
 
-    <!-- WWKAY Surveillance Poetry Widget -->
+    <!-- WWKAY Surveillance Poetry Widget (exclude from wwkay page itself) -->
+    {% unless page.url contains '/elit/wwkay/' %}
     <link rel="stylesheet" href="{{ site.baseurl }}/elit/wwkay/wwkay.css">
     <script src="{{ site.baseurl }}/elit/wwkay/wwkay.js"></script>
+    {% endunless %}
 </body>
 </html>
