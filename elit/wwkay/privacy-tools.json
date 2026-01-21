@@ -1,9 +1,8 @@
 [
-    {
+  {
     "name": "Privacy Guides",
     "url": "https://privacyguides.org",
-    "description": "Comprehensive privacy resources",
-    "detectkey": "privacy"
+    "description": "Comprehensive privacy resources"
   },
   {
     "name": "uBlock Origin",
@@ -38,19 +37,11 @@
   {
     "name": "Proton VPN",
     "url": "https://protonvpn.com/",
-    "description": "A fast and secure VPN based out of the EU",
-    "detectKey": "protonvpn"
+    "description": "A fast and secure VPN based out of the EU"
   },
   {
     "name": "Signal",
     "url": "https://signal.org",
-    "description": "Private messaging",
-    "detectKey": "signal"
-  },
-  {
-    "name": "Brave Browser",
-    "url": "https://brave.com",
-    "description": "Browser with built-in ad/tracker blocking",
-    "detectKey": "brave"
+    "description": "Private messaging"
   }
 ]

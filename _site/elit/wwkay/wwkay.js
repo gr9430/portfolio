@@ -538,29 +538,96 @@ class WWKAYWidget {
       ublock: this.detectUBlockOrigin(),
       brave: this.detectBrave(),
       firefox: this.detectFirefox(),
-      tor: this.detectTorBrowser()
+      tor: this.detectTorBrowser(),
+      mullvad: this.detectMullvadBrowser()
     };
   }
 
   detectUBlockOrigin() {
-    // Create a bait element that ad blockers typically hide
+    // Use multiple detection methods for reliability
     try {
+      // Method 1: Bait div with ad-related classes
       const bait = document.createElement('div');
-      bait.className = 'ad-banner adsbox ad-placeholder';
-      bait.style.cssText = 'position:absolute;top:-9999px;left:-9999px;height:1px;width:1px;';
+      bait.id = 'ad-banner';
+      bait.className = 'adsbox ad ads ad-placement carbon-ads';
+      bait.style.cssText = 'position:absolute;top:0;left:0;height:10px;width:10px;background:transparent;pointer-events:none;opacity:0;';
       bait.innerHTML = '&nbsp;';
       document.body.appendChild(bait);
 
-      // Check after a brief delay if element was hidden/removed
-      const isBlocked = bait.offsetHeight === 0 ||
-                        bait.offsetParent === null ||
-                        window.getComputedStyle(bait).display === 'none';
+      // Wait for next frame
+      void bait.offsetHeight;
+
+      const styles = window.getComputedStyle(bait);
+      const isHidden = styles.display === 'none' ||
+                       styles.visibility === 'hidden' ||
+                       bait.offsetHeight === 0 ||
+                       bait.offsetParent === null;
 
       document.body.removeChild(bait);
-      return isBlocked;
+
+      if (isHidden) return true;
+
+      // Method 2: Check for BlockAdBlock-style detection
+      // Create an element that mimics actual ad content
+      const adDiv = document.createElement('div');
+      adDiv.innerHTML = '<div class="textads banner-ads adsense google-ads"><a href="#">Ad</a></div>';
+      adDiv.style.cssText = 'position:absolute;left:-9999px;';
+      document.body.appendChild(adDiv);
+
+      void adDiv.offsetHeight;
+
+      const adChild = adDiv.querySelector('.textads');
+      const adBlocked = !adChild ||
+                        window.getComputedStyle(adChild).display === 'none' ||
+                        adChild.offsetHeight === 0;
+
+      document.body.removeChild(adDiv);
+
+      return adBlocked;
     } catch (e) {
       return false;
     }
+  }
+
+  // Async version using multiple methods
+  detectAdBlockerAsync() {
+    return new Promise((resolve) => {
+      let resolved = false;
+
+      const done = (result) => {
+        if (!resolved) {
+          resolved = true;
+          resolve(result);
+        }
+      };
+
+      // Method 1: Try loading ad script
+      const script = document.createElement('script');
+      script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+      script.async = true;
+      script.onload = () => { script.remove(); done(false); };
+      script.onerror = () => { script.remove(); done(true); };
+      document.head.appendChild(script);
+
+      // Method 2: Try loading a tracking pixel
+      const img = document.createElement('img');
+      img.style.display = 'none';
+      img.src = 'https://www.google-analytics.com/collect?v=1&t=pageview&tid=UA-XXXXX-Y&cid=test';
+      img.onload = () => { img.remove(); };
+      img.onerror = () => { img.remove(); done(true); };
+      document.body.appendChild(img);
+
+      // Method 3: Check ifDoubleClick is blocked
+      const dc = document.createElement('img');
+      dc.style.display = 'none';
+      dc.src = 'https://ad.doubleclick.net/favicon.ico?cachebust=' + Date.now();
+      dc.onload = () => { dc.remove(); };
+      dc.onerror = () => { dc.remove(); done(true); };
+      document.body.appendChild(dc);
+
+      // Timeout fallback
+      setTimeout(() => done(false), 3000);
+    });
   }
 
   detectBrave() {
@@ -602,6 +669,30 @@ class WWKAYWidget {
 
       // High confidence only if multiple signals present
       return isTorUA && isUTC && hasStandardSize;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  detectMullvadBrowser() {
+    // Mullvad Browser is Firefox-based with Tor-like fingerprint resistance
+    // Key difference from Tor: does NOT force UTC timezone
+    try {
+      const ua = navigator.userAgent;
+      const isFirefoxBased = ua.includes('Firefox/');
+
+      // Mullvad uses letterboxing like Tor (window sizes in 100px or 200px increments)
+      const hasStandardSize = window.innerWidth % 100 === 0 && window.innerHeight % 100 === 0;
+
+      // NOT UTC timezone (distinguishes from Tor Browser)
+      const isNotUTC = new Date().getTimezoneOffset() !== 0;
+
+      // Check for resist fingerprinting indicators
+      // Mullvad spoofs screen dimensions to match window
+      const screenMatchesWindow = window.screen.width === window.outerWidth;
+
+      // High confidence: Firefox + letterboxing + not UTC + screen spoofing
+      return isFirefoxBased && hasStandardSize && isNotUTC && screenMatchesWindow;
     } catch (e) {
       return false;
     }
@@ -777,8 +868,22 @@ class WWKAYWidget {
       ];
     }
 
-    // Run detection for tools that have detectKey
-    this.detectedTools = this.detectPrivacyTools();
+    // Run detection after a short delay to let ad blockers initialize
+    setTimeout(async () => {
+      this.detectedTools = this.detectPrivacyTools();
+      console.log('[WWKAY] Sync detection results:', this.detectedTools);
+
+      // Also try async detection for ad blockers (more reliable)
+      const asyncAdBlock = await this.detectAdBlockerAsync();
+      console.log('[WWKAY] Async ad blocker detection:', asyncAdBlock);
+
+      if (asyncAdBlock && !this.detectedTools.ublock) {
+        this.detectedTools.ublock = true;
+        console.log('[WWKAY] Updated ublock detection to true');
+      }
+
+      console.log('[WWKAY] Final detected tools:', this.detectedTools);
+    }, 500);
   }
 
   startPrivacyToolRotation() {
@@ -788,7 +893,7 @@ class WWKAYWidget {
 
     this.privacyToolInterval = setInterval(() => {
       this.displayPrivacyTool();
-    }, 10000);
+    }, 5000);
   }
 
   stopPrivacyToolRotation() {
