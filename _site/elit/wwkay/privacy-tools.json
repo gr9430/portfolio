@@ -1,42 +1,56 @@
 [
+    {
+    "name": "Privacy Guides",
+    "url": "https://privacyguides.org",
+    "description": "Comprehensive privacy resources",
+    "detectkey": "privacy"
+  },
   {
     "name": "uBlock Origin",
     "url": "https://ublockorigin.com",
-    "description": "Comprehensive content blocker"
-  },
-  {
-    "name": "Privacy Badger",
-    "url": "https://privacybadger.org",
-    "description": "Automatically blocks trackers"
+    "description": "Comprehensive content blocker",
+    "detectKey": "ublock"
   },
   {
     "name": "Tor Browser",
     "url": "https://torproject.org",
-    "description": "Anonymous web browsing"
+    "description": "Anonymous web browsing",
+    "detectKey": "tor"
   },
   {
-    "name": "Privacy Guides",
-    "url": "https://privacyguides.org",
-    "description": "Comprehensive privacy resources"
+    "name": "Mullvad Browser",
+    "url": "https://mullvad.net/en/browser",
+    "description": "Browser collaboratively developed by Mullvad VPN and Tor.",
+    "detectKey": "mullvad"
   },
   {
     "name": "Firefox",
     "url": "https://firefox.com",
-    "description": "Privacy-focused browser"
+    "description": "Alternative to Chromium browsers with strong privacy settings",
+    "detectKey": "firefox"
   },
   {
-    "name": "DuckDuckGo",
-    "url": "https://duckduckgo.com",
-    "description": "Search engine that doesn't track you"
+    "name": "Brave",
+    "url": "https://brave.com",
+    "description": "Browser with built-in ad/tracker blocking",
+    "detectKey": "brave"
+  },
+  {
+    "name": "Proton VPN",
+    "url": "https://protonvpn.com/",
+    "description": "A fast and secure VPN based out of the EU",
+    "detectKey": "protonvpn"
   },
   {
     "name": "Signal",
     "url": "https://signal.org",
-    "description": "Private messaging"
+    "description": "Private messaging",
+    "detectKey": "signal"
   },
   {
     "name": "Brave Browser",
     "url": "https://brave.com",
-    "description": "Browser with built-in ad/tracker blocking"
+    "description": "Browser with built-in ad/tracker blocking",
+    "detectKey": "brave"
   }
 ]

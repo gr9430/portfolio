@@ -181,6 +181,11 @@
   color: #7A0661;
 }
 
+.wwkay-detected {
+  color: #2e7d32;
+  font-style: italic;
+}
+
 /* Button Container */
 .wwkay-button-container {
   display: flex;

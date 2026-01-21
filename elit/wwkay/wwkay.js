@@ -17,6 +17,7 @@ class WWKAYWidget {
     this.privacyTools = [];
     this.privacyToolIndex = 0;
     this.privacyToolInterval = null;
+    this.detectedTools = {};
 
     // Behavioral tracking
     this.keystrokes = 0;
@@ -159,7 +160,6 @@ class WWKAYWidget {
         audio_signature: this.getAudioFingerprint(),
         // Advanced metrics
         touch_support: this.getTouchSupport(),
-        battery_status: this.getBatteryStatus(),
         connection_type: this.getConnectionType(),
         fonts_detected: this.getFontFingerprint(),
         // Behavioral tracking
@@ -316,17 +316,17 @@ class WWKAYWidget {
 
   getCPUCores() {
     try {
-      return navigator.hardwareConcurrency ? `${navigator.hardwareConcurrency} cores` : 'unknown';
+      return navigator.hardwareConcurrency ? `${navigator.hardwareConcurrency} cores` : 'not available';
     } catch (e) {
-      return 'unknown';
+      return 'not available';
     }
   }
 
   getDeviceMemory() {
     try {
-      return navigator.deviceMemory ? `${navigator.deviceMemory}GB RAM` : 'unknown';
+      return navigator.deviceMemory ? `${navigator.deviceMemory}GB RAM` : 'not available';
     } catch (e) {
-      return 'unknown';
+      return 'not available';
     }
   }
 
@@ -335,7 +335,7 @@ class WWKAYWidget {
       const screen = window.screen;
       return `${screen.width}×${screen.height} (${screen.colorDepth}-bit)`;
     } catch (e) {
-      return 'unknown';
+      return 'not available';
     }
   }
 
@@ -343,7 +343,7 @@ class WWKAYWidget {
     try {
       return `${window.devicePixelRatio || 1}x pixel ratio`;
     } catch (e) {
-      return 'unknown';
+      return 'not available';
     }
   }
 
@@ -356,46 +356,31 @@ class WWKAYWidget {
       const sign = offset <= 0 ? '+' : '-';
       return `${tz} (UTC${sign}${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')})`;
     } catch (e) {
-      return 'unknown';
+      return 'not available';
     }
   }
 
   getLanguage() {
     try {
-      return `${navigator.language} (${navigator.languages ? navigator.languages.join(', ') : 'unknown'})`;
+      return `${navigator.language} (${navigator.languages ? navigator.languages.join(', ') : 'not available'})`;
     } catch (e) {
-      return 'unknown';
+      return 'not available';
     }
   }
 
   getPlatform() {
     try {
-      return navigator.platform || 'unknown';
+      return navigator.platform || 'not available';
     } catch (e) {
-      return 'unknown';
+      return 'not available';
     }
   }
 
   getTouchSupport() {
     try {
-      return 'ontouchstart' in window ? `${navigator.maxTouchPoints || 'unknown'} touch points` : 'no touch';
+      return 'ontouchstart' in window ? `${navigator.maxTouchPoints || 'some'} touch points` : 'no touch';
     } catch (e) {
-      return 'unknown';
-    }
-  }
-
-  getBatteryStatus() {
-    try {
-      // Battery API is deprecated but might still work in some browsers
-      if ('getBattery' in navigator) {
-        navigator.getBattery().then(battery => {
-          // This would update async, but for simplicity we'll just indicate it's available
-        });
-        return 'battery API available';
-      }
-      return 'battery API blocked';
-    } catch (e) {
-      return 'battery API blocked';
+      return 'not available';
     }
   }
 
@@ -405,9 +390,9 @@ class WWKAYWidget {
         const conn = navigator.connection;
         return `${conn.effectiveType || 'unknown'} (${conn.downlink || '?'} Mbps)`;
       }
-      return 'connection info blocked';
+      return 'not available';
     } catch (e) {
-      return 'connection info blocked';
+      return 'not available';
     }
   }
 
@@ -415,17 +400,25 @@ class WWKAYWidget {
     try {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
+      if (!ctx) return 'your browser is blocking this';
+
       canvas.width = 200;
       canvas.height = 50;
 
       // Draw unique pattern for fingerprinting
       ctx.textBaseline = 'top';
       ctx.font = '14px Arial';
-      ctx.fillText('Surveillance Poetry 🕵️', 2, 2);
+      ctx.fillText('Surveillance Poetry', 2, 2);
       ctx.fillStyle = 'rgba(122, 6, 97, 0.5)';
       ctx.fillRect(50, 10, 100, 30);
 
       const dataURL = canvas.toDataURL();
+
+      // Check if canvas is blank (fingerprinting blocked)
+      if (dataURL === 'data:,' || dataURL.length < 100) {
+        return 'your browser is blocking this';
+      }
+
       // Get short hash of canvas data
       let hash = 0;
       for (let i = 0; i < dataURL.length; i++) {
@@ -435,7 +428,7 @@ class WWKAYWidget {
       }
       return `canvas_${Math.abs(hash).toString(16).substr(0, 8)}`;
     } catch (e) {
-      return 'canvas_blocked';
+      return 'your browser is blocking this';
     }
   }
 
@@ -444,23 +437,26 @@ class WWKAYWidget {
       const canvas = document.createElement('canvas');
       const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
 
-      if (!gl) return 'WebGL not available';
+      if (!gl) return 'your browser is blocking this';
 
       const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
       if (debugInfo) {
         const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
-        return renderer || 'renderer masked';
+        return renderer || 'your browser is masking this';
       }
 
-      return 'WebGL available (renderer masked)';
+      return 'your browser is masking this';
     } catch (e) {
-      return 'WebGL blocked';
+      return 'your browser is blocking this';
     }
   }
 
   getAudioFingerprint() {
     try {
-      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return 'your browser is blocking this';
+
+      const audioContext = new AudioContext();
       const oscillator = audioContext.createOscillator();
       const analyser = audioContext.createAnalyser();
       const gainNode = audioContext.createGain();
@@ -488,7 +484,7 @@ class WWKAYWidget {
 
       return `audio_${fingerprint.split('_').map(x => parseInt(x) || 0).reduce((a, b) => a + b, 0).toString(16).substr(0, 8)}`;
     } catch (e) {
-      return 'audio_blocked';
+      return 'your browser is blocking this';
     }
   }
 
@@ -525,9 +521,89 @@ class WWKAYWidget {
         }
       }
 
+      if (detectedFonts.length === 0) {
+        return 'your browser is blocking this';
+      }
       return `${detectedFonts.length} fonts (${detectedFonts.slice(0, 3).join(', ')}...)`;
     } catch (e) {
-      return 'font detection blocked';
+      return 'your browser is blocking this';
+    }
+  }
+
+  // === PRIVACY TOOL DETECTION ===
+  // Only detect tools where we have high confidence
+
+  detectPrivacyTools() {
+    return {
+      ublock: this.detectUBlockOrigin(),
+      brave: this.detectBrave(),
+      firefox: this.detectFirefox(),
+      tor: this.detectTorBrowser()
+    };
+  }
+
+  detectUBlockOrigin() {
+    // Create a bait element that ad blockers typically hide
+    try {
+      const bait = document.createElement('div');
+      bait.className = 'ad-banner adsbox ad-placeholder';
+      bait.style.cssText = 'position:absolute;top:-9999px;left:-9999px;height:1px;width:1px;';
+      bait.innerHTML = '&nbsp;';
+      document.body.appendChild(bait);
+
+      // Check after a brief delay if element was hidden/removed
+      const isBlocked = bait.offsetHeight === 0 ||
+                        bait.offsetParent === null ||
+                        window.getComputedStyle(bait).display === 'none';
+
+      document.body.removeChild(bait);
+      return isBlocked;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  detectBrave() {
+    // Brave exposes navigator.brave API
+    try {
+      return navigator.brave !== undefined && typeof navigator.brave.isBrave === 'function';
+    } catch (e) {
+      return false;
+    }
+  }
+
+  detectFirefox() {
+    // Check user agent for Firefox
+    try {
+      return navigator.userAgent.includes('Firefox/');
+    } catch (e) {
+      return false;
+    }
+  }
+
+  detectTorBrowser() {
+    // Tor Browser has specific characteristics:
+    // 1. User agent often says Firefox but with specific patterns
+    // 2. Timezone is UTC
+    // 3. Screen dimensions are standardized
+    // 4. Many APIs return spoofed values
+    try {
+      const ua = navigator.userAgent;
+      const isTorUA = ua.includes('Firefox/') && (
+        // Tor Browser spoofs to specific Firefox ESR versions
+        ua.includes('Windows NT 10.0') || ua.includes('Windows NT 6.1')
+      );
+
+      // Tor Browser forces timezone to UTC
+      const isUTC = new Date().getTimezoneOffset() === 0;
+
+      // Tor Browser uses standard window sizes (common: 1000x900 inner)
+      const hasStandardSize = window.innerWidth % 100 === 0 && window.innerHeight % 100 === 0;
+
+      // High confidence only if multiple signals present
+      return isTorUA && isUTC && hasStandardSize;
+    } catch (e) {
+      return false;
     }
   }
 
@@ -700,6 +776,9 @@ class WWKAYWidget {
         { name: 'Privacy Guides', url: 'https://privacyguides.org' }
       ];
     }
+
+    // Run detection for tools that have detectKey
+    this.detectedTools = this.detectPrivacyTools();
   }
 
   startPrivacyToolRotation() {
@@ -723,8 +802,15 @@ class WWKAYWidget {
     if (!toolsContainer || this.privacyTools.length === 0) return;
 
     const tool = this.privacyTools[this.privacyToolIndex];
+
+    // Check if this tool has detection and if user has it
+    let statusText = '';
+    if (tool.detectKey && this.detectedTools[tool.detectKey]) {
+      statusText = ' <span class="wwkay-detected">(You have this. Nice.)</span>';
+    }
+
     toolsContainer.innerHTML = `
-      → Consider: <a href="${tool.url}" target="_blank" rel="noopener">${tool.name}</a>
+      → Consider: <a href="${tool.url}" target="_blank" rel="noopener">${tool.name}</a>${statusText}
     `;
 
     this.privacyToolIndex = (this.privacyToolIndex + 1) % this.privacyTools.length;

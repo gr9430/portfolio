@@ -17,7 +17,9 @@
       "Bash(git config:*)",
       "Bash(snap:*)",
       "Bash(gem list:*)",
-      "Bash(ruby:*)"
+      "Bash(ruby:*)",
+      "Bash(lsof:*)",
+      "Bash(ss:*)"
     ]
   }
 }
