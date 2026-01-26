@@ -3,20 +3,20 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Teaching - Glenn S. Ritchey III | Glenn S. Ritchey III</title>
+<title>25 Jan 2026 - Blog | Glenn S. Ritchey III</title>
 <meta name="generator" content="Jekyll v4.4.1" />
-<meta property="og:title" content="Teaching - Glenn S. Ritchey III" />
+<meta property="og:title" content="25 Jan 2026 - Blog" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="The academic and creative works." />
 <meta property="og:description" content="The academic and creative works." />
-<link rel="canonical" href="http://localhost:4000/teaching/" />
-<meta property="og:url" content="http://localhost:4000/teaching/" />
+<link rel="canonical" href="http://localhost:4000/blog/2/" />
+<meta property="og:url" content="http://localhost:4000/blog/2/" />
 <meta property="og:site_name" content="Glenn S. Ritchey III" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Teaching - Glenn S. Ritchey III" />
+<meta property="twitter:title" content="25 Jan 2026 - Blog" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","description":"The academic and creative works.","headline":"Teaching - Glenn S. Ritchey III","url":"http://localhost:4000/teaching/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","description":"The academic and creative works.","headline":"25 Jan 2026 - Blog","url":"http://localhost:4000/blog/2/"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Glenn S. Ritchey III" /></head>
 <body>
@@ -56,25 +56,365 @@
 </header>
 <main class="page-content" aria-label="Content">
 <div class="wrapper">
-        <h1 id="teaching">Teaching</h1>
+        <h1 id="an-ongoing-software---hardware-project">An Ongoing Software -&gt; Hardware Project</h1>
+<p>This is just some alpha testing for a project I am working on. Right now it is only a terminal-runnning python script I have collaboratively coded using Claude Sonnet 4.5. I am sure you get the point of what is going on here if you are looking at this.</p>
 
-<p>Explore my teaching philosophy, course materials, and classroom projects:</p>
+<h2 id="poem">POEM</h2>
 
-<h2 id="teaching-materials">Teaching Materials</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>user-home@user:~/Documents/poetrysynth$ python3 main.py
+Corpus loaded: 11545 words from glitch_poetry_corpus.txt
+Welcome to Glitch Poetry Synthesizer [Alpha]
+Loaded corpus: 11545 words
 
-<div class="cv-navigation">
-  <ul>
-    <li><a href="/teaching/statement/" class="animated-link">Teaching Statement</a></li>
-    <li><a href="/teaching/syllabi/" class="animated-link">Course Syllabi</a></li>
-    <li><a href="/teaching/zines/" class="animated-link">DIY Zine Library</a></li>
-  </ul>
-</div>
+Commands:
+gen              - Generate new clean base poem
+set &lt;param&gt; &lt;n&gt;  - Apply glitch parameter to current poem (1-10)
+                    Parameters: select|filter1|filter2|emphasis1|emphasis2|mod|wavex|wavey|wavez
+reset            - Reset all parameters to 1 (clean)
+show             - Show current parameter values
+help             - Show this help
+quit             - Exit
 
-<h2 id="philosophy">Philosophy</h2>
+Parameter Scale:
+1 = Clean/Normal (no effects)
+2-10 = Escalating corruption intensity
 
-<p>My teaching begins with a straightforward belief: students are already writers. In my First-Year Composition courses, I help students recognize and sharpen the sophisticated literacies they already possess, applying those skills deliberately in academic contexts.</p>
+Workflow:
+1. Use 'gen' to create a new clean poem
+2. Use 'set &lt;param&gt; &lt;value&gt;' to apply glitch effects (1=clean, 10=extreme)
+3. Adjust multiple parameters to experiment with combinations
+4. Use 'reset' to return to clean version of same poem
+5. Use 'gen' again for a fresh poem when ready
 
-<p>I design courses around questions of language, identity, and power, treating writing as one literacy among many and emphasizing collaborative, process-based work that builds genuine classroom community.</p>
+&gt; gen
+NEW POEM GENERATED
+========================================
+POEM
+diagram
+met eroded
+waters icanforget
+doyoualways evening-dress
+property
+GENERATED 25 JAN 2026 No. 1
+
+Meter: cinquain
+Base syllables: 22
+
+Parameters reset to clean (1). Use 'set &lt;param&gt; &lt;value&gt;' to apply glitch effects.
+
+&gt; set WaveX 3
+wavex set to 3
+POEM
+d i a g r a m 
+m e t      e r o d e d 
+w a t e r s      i c a n f o r g e t 
+d o y o u a l w a y s      e v e n i n g - d r e s s 
+p r o p e r t y 
+GENERATED 25 JAN 2026 No. 1
+
+Current parameters: [1,1,1,1,1,1,3,1,1]
+Meter: cinquain
+Base syllables: 22
+
+Logged generation #1 to generation_log.json
+&gt; set WaveX 4
+wavex set to 4
+POEM
+diagram
+met   eroded
+waters   icanforget
+doyoualways   evening-dress
+property
+GENERATED 25 JAN 2026 No. 1
+
+Current parameters: [1,1,1,1,1,1,4,1,1]
+Meter: cinquain
+Base syllables: 22
+
+Logged generation #1 to generation_log.json
+&gt; Set WaveY 4
+wavey set to 4
+POEM
+diagram
+
+
+met   eroded
+
+
+waters   icanforget
+
+
+doyoualways   evening-dress
+
+
+property
+GENERATED 25 JAN 2026 No. 1
+
+Current parameters: [1,1,1,1,1,1,4,4,1]
+Meter: cinquain
+Base syllables: 22
+
+Logged generation #1 to generation_log.json
+&gt; set WaveZ 8
+wavez set to 8
+POEM
+diagram
+
+
+met   eroded
+
+
+    waters   icanforget
+
+
+doyoualways   evening-dress
+
+
+            property
+GENERATED 25 JAN 2026 No. 1
+
+Current parameters: [1,1,1,1,1,1,4,4,8]
+Meter: cinquain
+Base syllables: 22
+
+Logged generation #1 to generation_log.json
+&gt; set Filter2 2
+filter2 set to 2
+POEM
+            diagram
+
+
+        met   ▀roded
+
+
+    w▌ters   icanfor#et
+
+
+    ?o▀oua▐▀ays   evening-d▓ess
+
+
+property
+GENERATED 25 JAN 2026 No. 1
+
+Current parameters: [1,1,2,1,1,1,4,4,8]
+Meter: cinquain
+Base syllables: 22
+
+Logged generation #1 to generation_log.json
+&gt; set Filter1 8
+filter1 set to 8
+POEM
+        dia#r0x4Am
+
+
+    m▄t   ero▌ed
+
+
+        waters   ic▄?\x4*%░xDEADget
+
+
+        do?x00oualways   e\xFFening-d\▐00es\x3F
+
+
+p▇op0xDEADrty
+GENERATED 25 JAN 2026 No. 1
+
+Current parameters: [1,8,2,1,1,1,4,4,8]
+Meter: cinquain
+Base syllables: 22
+
+Logged generation #1 to generation_log.json
+&gt; set Filter1 1
+filter1 set to 1
+POEM
+            diagr▀m
+
+
+    ▄et   eroded
+
+
+            waters   icanf▇rge▀
+
+
+    doyoual?ays   evening-dress
+
+
+            pro░erty
+GENERATED 25 JAN 2026 No. 1
+
+Current parameters: [1,1,2,1,1,1,4,4,8]
+Meter: cinquain
+Base syllables: 22
+
+Logged generation #1 to generation_log.json
+&gt; set Emphasis1 8
+emphasis1 set to 8
+POEM
+            diagra░   met   eroded   eroded   eroded   wate▒s   wate▒s   wate▒s   ica░fo▐get   doyoualways   evening-dr▆ss   pro▇e%ty
+GENERATED 25 JAN 2026 No. 1
+
+Current parameters: [1,1,2,8,1,1,4,4,8]
+Meter: cinquain
+Base syllables: 22
+
+Logged generation #1 to generation_log.json
+&gt; set Emphasis1 1
+emphasis1 set to 1
+POEM
+    diag▀am
+
+
+    met   ero█ed
+
+
+    *▌ters   ica█fo▒get
+
+
+    d?youalways   evening-dress
+
+
+            propert▐
+GENERATED 25 JAN 2026 No. 1
+
+Current parameters: [1,1,2,1,1,1,4,4,8]
+Meter: cinquain
+Base syllables: 22
+
+Logged generation #1 to generation_log.json
+&gt; Set Mod 6
+mod set to 6
+POEM
+    dia▄ram
+
+
+    ▄▇█   ▒roded
+
+
+#aters   ▒can*o▐ge▒
+
+
+    ▒░▌o▐%lwa▒s   e█enin#-dr▆ss
+
+
+prop%?ty
+GENERATED 25 JAN 2026 No. 1
+
+Current parameters: [1,1,2,1,1,6,4,4,8]
+Meter: cinquain
+Base syllables: 22
+
+Logged generation #1 to generation_log.json
+&gt; dry Mod 1
+Unknown command. Type 'help' for commands.
+&gt; set Mod 1
+mod set to 1
+POEM
+diagram
+
+
+met   eroded
+
+
+    waters   ▄can%orget
+
+
+    doyoualways   evening-dres▐
+
+
+p▓oper#y
+GENERATED 25 JAN 2026 No. 1
+
+Current parameters: [1,1,2,1,1,1,4,4,8]
+Meter: cinquain
+Base syllables: 22
+
+Logged generation #1 to generation_log.json
+&gt; set Emphasis2 4
+emphasis2 set to 4
+POEM
+        ḑ▆a▓ř̛̘ȧ̛m̻̿̀
+
+
+            m̶̾̅̆e̛t̃   e?od̺̜̻̾ê̢̘̜*
+
+
+            w▄t̿▓r̸̥̀̀s̺̋   ic̣̙̼̽an̐̑̑forg̺e̢̦̊̅t̗̅
+
+
+    dȯ̧̑̽ȳ̝̼̌ọ̶̻▀a̻̽▌w̎ǎ̶y̐s̟   e̻̼v̦̻̅̄e̺̿nị̼̻́ng-ḑ̖̏▓ê̖̹̑s̀s̹̃
+
+
+pr̈̇ō̻̻p̶̞̻̆ert̸y̜̟̎̐
+GENERATED 25 JAN 2026 No. 1
+
+Current parameters: [1,1,2,1,4,1,4,4,8]
+Meter: cinquain
+Base syllables: 22
+
+Logged generation #1 to generation_log.json
+&gt; set Emphasis2 2
+emphasis2 set to 2
+POEM
+        di̿̌a̞gr̹█ṃ
+
+
+▐e̶̾t   é̥r̿od̶̙e̾̆d
+
+
+▇àt̆er̤s̥̊   i▇a̽ṅf̊̅o̹rgê̗t
+
+
+d̻o̡y̏ò̌u̹a̽lẇ̖ay̿̆s̼̃   ĕ̚ve̷̽n̼ińg̍-d̠r̷̉e̥s̟ŝ
+
+
+        p̽ro̹per̽ty
+GENERATED 25 JAN 2026 No. 1
+
+Current parameters: [1,1,2,1,2,1,4,4,8]
+Meter: cinquain
+Base syllables: 22
+
+Logged generation #1 to generation_log.json
+&gt; set Emphasis2 1    
+emphasis2 set to 1
+POEM
+            #iagram
+
+
+    m▓t   er▐ded
+
+
+    wa%ers   ica░for?et
+
+
+doyoualways   ev▄ning-dre▐s
+
+
+property
+GENERATED 25 JAN 2026 No. 1
+
+Current parameters: [1,1,2,1,1,1,4,4,8]
+Meter: cinquain
+Base syllables: 22
+
+Logged generation #1 to generation_log.json
+&gt; reset     
+All parameters reset to 1 (clean)
+POEM
+diagram
+met eroded
+waters icanforget
+doyoualways evening-dress
+property
+GENERATED 25 JAN 2026 No. 1
+
+Current parameters: [1,1,1,1,1,1,1,1,1]
+Meter: cinquain
+Base syllables: 22
+
+Logged generation #1 to generation_log.json
+&gt;
+</code></pre></div></div>
 
 </div>
 </main><footer class="site-footer">
