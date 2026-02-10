@@ -3,108 +3,184 @@ layout: default
 title: Teaching - Glenn S. Ritchey III
 ---
 
-## Embracing the Messy Process
-### Week 2 Class 2
+## Building a Classroom Community
+### Week 2 Class 1
 
-Professor Ritchey
+## Quick Recap: Last Class
 
-## All Good Writers Write Them
-- "Shitty first drafts"—Lamott's thesis
-- Every successful writer starts with terrible first attempts
+- Rhetoric isn't dirty—it's civic participation
 
-*The fantasy of the perfect first draft is exactly that: fantasy*
+- You already make rhetorical choices daily
 
-## The Fantasy vs. Reality
-- **Fantasy**: Writers sit down feeling confident and type perfect prose
-- **Reality**: Writers feel anxious, write garbage, then revise
+- Transfer requires practice in new genres
 
-*"Very few writers really know what they are doing until they've done it"*
+- *Williams was right: students write MORE than ever*
 
-## Lamott's Food Review Process
-- Days 1-2: Panic, write terrible draft
-- Day 3: Cut ruthlessly, find new lead, shape it
-- Result: A good finished piece
+## You Are a Writer
 
-*Same anxiety every single time*
+Lester et al.'s main argument:
 
-## The Child's Draft
-- Let it all pour out
-- Let it romp all over the place
-- No one is going to see it
+- Writing you do for yourself = real writing
 
-*You can shape it later*
+- Writing for school = real writing
 
-## The Three Drafts
-- **Down draft**: You just get it down
-- **Up draft**: You fix it up
-- **Dental draft**: You check every tooth
+- ALL of it counts
 
-## Quieting the Voices
-- Everyone has critics in their head:
-	- The harsh Reader Lady
-	- Your judgmental parents
-	- Writers you admire
-	- William Burroughs, dozing off
+## The Ana Story
 
-*Writing means learning to work despite them*
+- Ana claimed they had no writing experience
 
-## The Mouse People Exercise
-- Close your eyes, notice the chatter
-	- Imagine each voice as a mouse
-	- Drop each mouse into a jar
-	- Turn down the volume
-- Get back to your shitty first draft
+- But Ana wrote in an art therapy program
 
-## Why This Matters for You
-- You don't have to write perfectly on the first try
-- Revision is where real writing happens
-- Anxiety is normal—even professionals feel it
+- Ana didn't see that as "real writing"
 
-*Give yourself permission to write badly first*
+- *Sound familiar?*
 
-## Connecting to Our Readings
-- **Lester et al.**: You're a real writer
-- **Amicucci**: You have transferable skills
-- **Lamott**: Real writers write terrible first drafts
+## Writing for Personal Agency
 
-*All three say: You belong here*
+- **Personal agency**: your capability to originate and direct actions for purposes
 
-## What This Means for Your Work
-- Draft without self-censoring
-- Expect your first attempts to be messy
-- Revision is where you discover what you're really saying
+- Writing helps you:
+	- Discover feelings through self-expression
+	- Communicate thoughts to others
+	- Achieve goals and track growth
 
-*The process is the point*
+## The "So What?" Question
 
-## Group Discussion
+- Taylor's teacher asked: "So what?"
 
-### Format
-- **Groups of 3-4**
-	- **5 minutes**: Share one insight from Lamott that changes how you think about writing
-	- **5 minutes**: We'll hear from each group
+- The question pushes you beyond grades
 
-### Whole Class Debrief
-- Each group: Share ONE key takeaway
+- Forces you to consider:
+	- What do YOU want from this writing?
+	- What matters to you personally?
 
-*How does Lamott's process challenge or confirm your assumptions about writing?*
+## Writing for Resilience
 
-## Building Our Writing Community
-- We're all learning this process together
-- Some drafts will be disasters
-- That's not failure—that's how writing works
+- Sydney's marathon metaphor:
+	- Training requires building stamina slowly
+	- Writing requires the same kind of practice
+	- Three steps: **Begin. Work and Rework. Finish.**
 
-*This classroom is a safe space for messy drafts*
+## Writing for Social Engagement
 
-## Preparing for Harrison + Dentith
-**You'll read Monday (Week 3): Harrison's poetry + Dentith's analysis**
-- These readings examine how dialect and class affect who gets to access "Literature" with a capital L.
+- Alison's insight:
+	- Personal writing has intrinsic benefits
+	- But sharing writing creates impact
+	- Your words can educate, persuade, connect with communities, and empower others
+
+## Pause and Reflect
+
+### Think
+
+- **3 minutes**: Which type of writerly identity resonates most with you right now?
+	- Writing for agency?
+	- Writing for resilience?
+	- Writing for social engagement?
+
+### Turn and Talk
+
+- **2 minutes**: Share with a neighbor
+
+- **3 minutes**: We'll hear from a few people
+
+## Social Media Knows Rhetoric
+
+Amicucci's central claim:
+
+- You're already a rhetorical composer
+
+- Social media writing = complex choices
+
+- *You've been practicing transfer all along*
+
+## Intertextuality
+
+**Explicitly** borrowing from other texts:
+
+- Quoting someone's words
+
+- Using someone else's images
+
+- Referencing songs, movies, books
+
+## Interdiscursivity
+
+**Implicitly** borrowing rhetorical moves:
+
+- Formatting your paper a certain way
+
+- Using hashtags on Instagram
+
+- Starting with a quote because articles do
+
+*These moves put you in conversation with other writers*
+
+## Riff Off a Challenge
+
+- Pick a "challenge essay" you admire
+
+- Study its moves: How does it start? What does it do repeatedly? How does it end?
+
+- Replicate those moves in your own way
+
+## Know Your Hashtag Audiences
+
+- Every hashtag represents a discourse community
+
+- Your writing reaches multiple overlapping groups
+
+- Think: What hashtags would label your essay?
+
+ *Who are you writing to, and what do they care about?*
+
+## Pick Your Filters
+
+- Your ethos = how you present yourself
+
+- Just like choosing Snapchat filters
+
+- Decide: What version of yourself appears in this essay?
+
+ *Language choices shape your character as a writer*
+
+## Say More Through Symbols
+
+- Punctuation works like emoji
+
+- Em dashes, ellipses, italics—all rhetorical choices
+
+- Each choice adds layers of meaning
+
+*How you say it matters as much as what you say*
+
+## The One Thing Social Media Can't Teach
+
+- Social media: post an idea without explaining
+
+- Academic writing: you MUST include the why
+
+- After every sentence, ask yourself: How? Why?
+
+## Connecting the Readings
+
+- **Lester et al.**: You're already a writer
+
+- **Amicucci**: Your social media skills transfer
+
+*Both argue: You know more than you think*
+
+## Preparing for Lamott
+
+- **By Friday you'll read: "Shitty First Drafts"**
+	- Lamott will argue that ALL good writers write terrible first drafts.
 
 - **As you read, think about:**
-	- What language did you grow up speaking?
-	- Have you ever been told you speak "incorrectly"?
+	- How does this challenge your assumptions about "real" writers?
+	- What does your own drafting process look like?
 
-- Harrison writes poetry in the Yorkshire, English dialect—the language he was told wasn't "proper" for literature.
+- The reading will be blunt and honest about writing anxiety.
 
-- Dentith analyzes how Harrison, Heaney, and Walcott use their working-class languages as acts of resistance.
+- Lamott describes the inner critics every writer faces and how to quiet them.
 
-- **Watch for:** How language connects to identity and power.
+- **Watch for:** Her "three drafts" process (down draft, up draft, dental draft)

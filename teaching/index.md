@@ -12,6 +12,7 @@ Explore my teaching philosophy, course materials, and classroom projects:
 <div class="cv-navigation">
   <ul>
     <li><a href="{{ site.baseurl }}/teaching/statement/" class="animated-link">Teaching Statement</a></li>
+    <li><a href="{{ site.baseurl }}/teaching/lectures/" class="animated-link">Lecture Notes</a></li>
     <li><a href="{{ site.baseurl }}/teaching/syllabi/" class="animated-link">Course Syllabi</a></li>
     <li><a href="{{ site.baseurl }}/teaching/zines/" class="animated-link">DIY Zine Library</a></li>
   </ul>

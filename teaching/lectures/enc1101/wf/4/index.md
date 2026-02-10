@@ -3,102 +3,108 @@ layout: default
 title: Teaching - Glenn S. Ritchey III
 ---
 
-## Language, Class, and Power
-### Week 3 Class 1
+## Embracing the Messy Process
+### Week 2 Class 2
 
 Professor Ritchey
 
-### Quick Recap: Harrison
+## All Good Writers Write Them
+- "Shitty first drafts"—Lamott's thesis
+- Every successful writer starts with terrible first attempts
 
-- You read "Them and [uz]" on Monday.
-- Harrison's experience:
-	- Spoke Yorkshire working-class dialect at home
-	- Required to speak RP (Received Pronunciation) at school
-	- Told his language wasn't fit for literature
+*The fantasy of the perfect first draft is exactly that: fantasy*
 
-### The [ʌz] vs. [ʊs] Divide
-- [ʌz] = "us" in RP (Received Pronunciation)
-- [ʊs] = "us" in Yorkshire dialect
-- This tiny difference marked class distinction
+## The Fantasy vs. Reality
+- **Fantasy**: Writers sit down feeling confident and type perfect prose
+- **Reality**: Writers feel anxious, write garbage, then revise
 
-*One sound = who gets access to "Literature"*
+*"Very few writers really know what they are doing until they've done it"*
 
-### Harrison's Claim
-- "My roots / my background / my dialect / are integral to who I am as a poet"
-- He refuses to abandon Yorkshire to write "proper" poetry
+## Lamott's Food Review Process
+- Days 1-2: Panic, write terrible draft
+- Day 3: Cut ruthlessly, find new lead, shape it
+- Result: A good finished piece
 
-*Language = identity*
+*Same anxiety every single time*
 
-## Dentith: Three Working-Class Poets
-- Dentith analyzes:
-    - **Tony Harrison** (Yorkshire, England)
-    - **Seamus Heaney** (Northern Ireland)
-    - **Derek Walcott** (Caribbean)
+## The Child's Draft
+- Let it all pour out
+- Let it romp all over the place
+- No one is going to see it
 
-- All three write in their "improper" dialects as acts of resistance
+*You can shape it later*
 
-### The Key Question
-- Who decides what language counts as "literary"?
-    - The dominant culture (upper-class British in this case)
-    - Working-class speakers are excluded unless they abandon their voices
-    - These poets refuse to comply
+## The Three Drafts
+- **Down draft**: You just get it down
+- **Up draft**: You fix it up
+- **Dental draft**: You check every tooth
 
-### The Elizabethan English Myth
-- Common claim: Appalachian speakers sound like Shakespeare
-- Why this myth exists:
-	- Makes the dialect seem "frozen in time"
-	- Suggests speakers are backward, primitive
-	- Erases the dialect's actual complexity and evolution
+## Quieting the Voices
+- Everyone has critics in their head:
+	- The harsh Reader Lady
+	- Your judgmental parents
+	- Writers you admire
+	- William Burroughs, dozing off
 
-### The Reality: AAVE Influence
-- Luu's research shows:
-	- Appalachian English borrowed from AAVE (African American Vernacular English)
-	- Features like "liketa" come from Black linguistic innovations
-	- The dialect is diverse and constantly changing
+*Writing means learning to work despite them*
 
-*This challenges who we think shaped "white" mountain speech*
+## The Mouse People Exercise
+- Close your eyes, notice the chatter
+	- Imagine each voice as a mouse
+	- Drop each mouse into a jar
+	- Turn down the volume
+- Get back to your shitty first draft
 
-### Language Features That Follow Rules
-- Examples from Luu:
-	- "A-huntin'" = present progressive with specific meaning
-	- "Liketa" = nearly, almost (marks unsuccessful attempt)
-	- Both follow grammatical patterns—they're not mistakes
-- Just because dominant culture doesn't use these features doesn't make them wrong
+## Why This Matters for You
+- You don't have to write perfectly on the first try
+- Revision is where real writing happens
+- Anxiety is normal—even professionals feel it
 
-*Different ≠ deficient*
+*Give yourself permission to write badly first*
 
-### ~~The Video: Southern Accents~~
-- ~~The video you watched showed:~~
-	- ~~- Southern accents face immediate judgment~~
-	- ~~- Speakers are assumed to be less intelligent~~
-	- ~~This prejudice affects job opportunities, education, credibility~~
+## Connecting to Our Readings
+- **Lester et al.**: You're a real writer
+- **Amicucci**: You have transferable skills
+- **Lamott**: Real writers write terrible first drafts
 
-### Connecting All Three Readings
-- **Harrison**: Yorkshire excluded from literature
-- **Dentith**: Working-class poets resist by writing in their dialects
-- **Luu + video**: Appalachian/Southern speakers face the same prejudice
+*All three say: You belong here*
 
-*This isn't about correctness—it's about power*
+## What This Means for Your Work
+- Draft without self-censoring
+- Expect your first attempts to be messy
+- Revision is where you discover what you're really saying
 
-## Rhetorical Inventory
-### Think
-- **5 minutes**: What dialect(s) do you speak?
-- Consider:
-	- Regional accent (Southern, Northern, Midwestern)
-	- Cultural background (multilingual households)
-	- Code-switching between formal/casual settings
-### Pair
-- **5 minutes**: Share with a partner
-	- When have you had to change how you speak?
-	- What judgments have you faced (or witnessed others facing)?
-	- How does this connect to Harrison, Luu, and the video?
-### Share
-- **3 minutes**: Volunteers share insights with the class
+*The process is the point*
 
-### Why This Matters for MA1
-- Your literacy narrative could examine:
-	- How you learned to code-switch
-	- Moments when your language was judged
-	- What literacy practices taught you about "proper" language
+## Group Discussion
 
-*These readings help you analyze power dynamics in your own story*
+### Format
+- **Groups of 3-4**
+	- **5 minutes**: Share one insight from Lamott that changes how you think about writing
+	- **5 minutes**: We'll hear from each group
+
+### Whole Class Debrief
+- Each group: Share ONE key takeaway
+
+*How does Lamott's process challenge or confirm your assumptions about writing?*
+
+## Building Our Writing Community
+- We're all learning this process together
+- Some drafts will be disasters
+- That's not failure—that's how writing works
+
+*This classroom is a safe space for messy drafts*
+
+## Preparing for Harrison + Dentith
+**You'll read Monday (Week 3): Harrison's poetry + Dentith's analysis**
+- These readings examine how dialect and class affect who gets to access "Literature" with a capital L.
+
+- **As you read, think about:**
+	- What language did you grow up speaking?
+	- Have you ever been told you speak "incorrectly"?
+
+- Harrison writes poetry in the Yorkshire, English dialect—the language he was told wasn't "proper" for literature.
+
+- Dentith analyzes how Harrison, Heaney, and Walcott use their working-class languages as acts of resistance.
+
+- **Watch for:** How language connects to identity and power.

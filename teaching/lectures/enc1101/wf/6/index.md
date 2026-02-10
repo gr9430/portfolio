@@ -3,7 +3,10 @@ layout: default
 title: Teaching - Glenn S. Ritchey III
 ---
 
-# Translation and Linguistic Displacement
+## Translation and Linguistic Displacement
+### Week 3 Class 2
+
+Professor Ritchey
 
 ## Quick Recap: This Week
 

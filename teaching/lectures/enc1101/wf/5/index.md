@@ -3,106 +3,102 @@ layout: default
 title: Teaching - Glenn S. Ritchey III
 ---
 
-## Translation and Linguistic Displacement
-### Week 3 Class 2
+## Language, Class, and Power
+### Week 3 Class 1
 
 Professor Ritchey
 
-## Quick Recap: This Week
+### Quick Recap: Harrison
 
-- We've been building an argument about language and power:
-    - **Harrison**: Yorkshire excluded from literature
-    - **Luu**: Appalachian English dismissed as backward
-    - **Today**: What happens when an entire language is displaced?
+- You read "Them and [uz]" on Monday.
+- Harrison's experience:
+	- Spoke Yorkshire working-class dialect at home
+	- Required to speak RP (Received Pronunciation) at school
+	- Told his language wasn't fit for literature
 
-## De Paor: "Disappearing Language"
-- Irish language history:
-    - Once the primary language of Ireland
-    - English colonization suppressed Irish
-    - Today: Irish speakers are a minority in their own country
+### The [ʌz] vs. [ʊs] Divide
+- [ʌz] = "us" in RP (Received Pronunciation)
+- [ʊs] = "us" in Yorkshire dialect
+- This tiny difference marked class distinction
 
-*This is linguistic violence*
+*One sound = who gets access to "Literature"*
 
-## What Gets Lost in Translation
-- De Paor argues:
-    - Poetry in Irish carries cultural meaning tied to the language
-    - Translating Irish → English changes the meaning
-    - Some concepts don't have English equivalents
+### Harrison's Claim
+- "My roots / my background / my dialect / are integral to who I am as a poet"
+- He refuses to abandon Yorkshire to write "proper" poetry
 
-## What Gets Lost in Translation
-- The sound, rhythm, and wordplay disappear
-- Cultural context gets flattened
-- Translation can't capture the original's full resonance
+*Language = identity*
 
-*Translation is never neutral—it's always an act of power*
+## Dentith: Three Working-Class Poets
+- Dentith analyzes:
+    - **Tony Harrison** (Yorkshire, England)
+    - **Seamus Heaney** (Northern Ireland)
+    - **Derek Walcott** (Caribbean)
 
-## The Irish Song: Three Versions
-- You listened to three versions of the same song:
-1. Original Irish version
-2. English translation
-3. Contemporary adaptation
+- All three write in their "improper" dialects as acts of resistance
 
-**What changed across versions?**
+### The Key Question
+- Who decides what language counts as "literary"?
+    - The dominant culture (upper-class British in this case)
+    - Working-class speakers are excluded unless they abandon their voices
+    - These poets refuse to comply
 
-- The melody might stay the same, but the meaning shifts
-- Cultural references that made sense in Irish don't translate
-- Each version speaks to a different audience
+### The Elizabethan English Myth
+- Common claim: Appalachian speakers sound like Shakespeare
+- Why this myth exists:
+	- Makes the dialect seem "frozen in time"
+	- Suggests speakers are backward, primitive
+	- Erases the dialect's actual complexity and evolution
 
-*This is what Harrison and Luu were describing—code-switching across languages*
+### The Reality: AAVE Influence
+- Luu's research shows:
+	- Appalachian English borrowed from AAVE (African American Vernacular English)
+	- Features like "liketa" come from Black linguistic innovations
+	- The dialect is diverse and constantly changing
 
-## The Documentary
-- The documentary showed:
-    - Efforts to revive Irish language
-    - Challenges when English dominates
-    - What it means to lose your language
+*This challenges who we think shaped "white" mountain speech*
 
-## Connecting to Harrison
-- **Harrison**: Had to "translate" Yorkshire → RP to access literature
-- **De Paor**: Irish → English translation displaces the original
+### Language Features That Follow Rules
+- Examples from Luu:
+	- "A-huntin'" = present progressive with specific meaning
+	- "Liketa" = nearly, almost (marks unsuccessful attempt)
+	- Both follow grammatical patterns—they're not mistakes
+- Just because dominant culture doesn't use these features doesn't make them wrong
 
-- Both examine:
-    - What you lose when you abandon your language
-    - How translation is an act of power
-    - Who gets to decide which language counts
+*Different ≠ deficient*
 
-## Think-Pair-Share: Translation in Your Life
+### ~~The Video: Southern Accents~~
+- ~~The video you watched showed:~~
+	- ~~- Southern accents face immediate judgment~~
+	- ~~- Speakers are assumed to be less intelligent~~
+	- ~~This prejudice affects job opportunities, education, credibility~~
+
+### Connecting All Three Readings
+- **Harrison**: Yorkshire excluded from literature
+- **Dentith**: Working-class poets resist by writing in their dialects
+- **Luu + video**: Appalachian/Southern speakers face the same prejudice
+
+*This isn't about correctness—it's about power*
+
+## Rhetorical Inventory
 ### Think
-**5 minutes**: Have you ever had to "translate" yourself?
+- **5 minutes**: What dialect(s) do you speak?
 - Consider:
-    - Speaking differently at home vs. school
-    - Code-switching between communities
-    - Explaining cultural practices to outsiders
+	- Regional accent (Southern, Northern, Midwestern)
+	- Cultural background (multilingual households)
+	- Code-switching between formal/casual settings
 ### Pair
-**5 minutes**: Share with a partner
-- What did you have to change?
-- What got lost in that translation?
-- How does this connect to De Paor's argument?
+- **5 minutes**: Share with a partner
+	- When have you had to change how you speak?
+	- What judgments have you faced (or witnessed others facing)?
+	- How does this connect to Harrison, Luu, and the video?
 ### Share
-**3 minutes**: Volunteers share insights with class
-## Why This Matters for MA1
-- Your literacy narrative could explore:
-    - How you learned to code-switch or translate yourself
-    - What gets lost when you move between languages/dialects
-    - Moments when translation felt like violence
+- **3 minutes**: Volunteers share insights with the class
 
-*De Paor gives you a framework for analyzing linguistic displacement*
+### Why This Matters for MA1
+- Your literacy narrative could examine:
+	- How you learned to code-switch
+	- Moments when your language was judged
+	- What literacy practices taught you about "proper" language
 
-## Preparing for Suarez
-**You'll read Monday: "Critical Language Awareness: Spanglish"**
-Suarez argues that Spanglish is legitimate—not "broken" English or "bad" Spanish
-
-**As you read, think about:**
-- How is Spanglish similar to the Irish/English situation?
-- What does code-switching look like in practice?
-
-- Suarez will show:
-    - Code-switching follows rules
-    - It's strategic, not confused
-    - Bilingual speakers make conscious choices
-**Watch for:** Examples like "parquin" (parking) and "linkear" (click)
-
-## Connecting Suarez to This Week
-- **Harrison**: Had to "translate" Yorkshire → RP
-- **De Paor**: Translation from Irish → English displaces the original
-- **Suarez**: Spanglish speakers navigate between two codes constantly
-*All three examine what happens when you live between languages*
+*These readings help you analyze power dynamics in your own story*
