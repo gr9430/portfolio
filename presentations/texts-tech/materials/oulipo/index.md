@@ -1,3 +1,8 @@
+---
+layout: default
+title: Presentation Materials - OULIPO - Glenn S. Ritchey III
+---
+
 # Introduction
 > [!PDF|yellow] [[Waldrip-Fruin-Montfort-New-Media-Reader.pdf#page=167&selection=112,51,123,66&color=yellow|p.147]]
 > > The idea of potential literature is to both analyze and synthesize constraints—drawn from current mathematics as well as from older writing techniques that never entered the literary mainstream. One such technique is the lipogram, in which a certain letter of the alphabet may not be used; another is the palindrome.

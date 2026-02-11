@@ -4,7 +4,7 @@ title: Presentation Materials - Glenn S. Ritchey III
 ---
 
 <div class="cv-navigation">
-<ul><a href="{{ site.baseurl }}presentations/texts-tech/materials/12.Six Selections by the Oulipo.md" class="animated-link">12.Six Selections by the Oulipo.md</a></ul>
+<ul><a href="{{ site.baseurl }}presentations/texts-tech/materials/oulipo/index.md" class="animated-link">12.Six Selections by the Oulipo.md</a></ul>
 </div>
 <div class="cv-navigation">
 <ul><a href="{{ site.baseurl }}presentations/texts-tech/materials/38. Laurel.md" class="animated-link">38. Laurel</a></ul>
