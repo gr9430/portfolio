@@ -1,4 +1,4 @@
-<!doctype html><html><head><title>Discourse Communities</title><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><script type="module" crossorigin>
+<!doctype html><html><head><title>Discourse Communities &amp; Language Negotiation</title><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><script type="module" crossorigin>
 var Wn=Object.defineProperty;var Zn=(n,e,t)=>e in n?Wn(n,e,{enumerable:!0,configurable:!0,writable:!0,value:t}):n[e]=t;var U=(n,e,t)=>(Zn(n,typeof e!="symbol"?e+"":e,t),t),St=(n,e,t)=>{if(!e.has(n))throw TypeError("Cannot "+t)};var pe=(n,e,t)=>(St(n,e,"read from private field"),t?t.call(n):e.get(n)),Et=(n,e,t)=>{if(e.has(n))throw TypeError("Cannot add the same private member more than once");e instanceof WeakSet?e.add(n):e.set(n,t)},_t=(n,e,t,r)=>(St(n,e,"write to private field"),r?r.call(n,t):e.set(n,t),t);(function(){const e=document.createElement("link").relList;if(e&&e.supports&&e.supports("modulepreload"))return;for(const i of document.querySelectorAll('link[rel="modulepreload"]'))r(i);new MutationObserver(i=>{for(const s of i)if(s.type==="childList")for(const a of s.addedNodes)a.tagName==="LINK"&&a.rel==="modulepreload"&&r(a)}).observe(document,{childList:!0,subtree:!0});function t(i){const s={};return i.integrity&&(s.integrity=i.integrity),i.referrerPolicy&&(s.referrerPolicy=i.referrerPolicy),i.crossOrigin==="use-credentials"?s.credentials="include":i.crossOrigin==="anonymous"?s.credentials="omit":s.credentials="same-origin",s}function r(i){if(i.ep)return;i.ep=!0;const s=t(i);fetch(i.href,s)}})();const Gn={"config.logger.show.parse":!1,"config.logger.show.render":!1,"config.logger.show.sound":!1,"config.logger.show.state":!1,"config.logger.show.story":!1,"config.logger.show.style":!1};function Jt(n){return n+": "}const Me={inserts:!0};function Jn(n){Me[n]=!1}function Xn(n){Me[n]=!0}function Xt(n,e){Me[n]&&(console.log(Jt(n)+e),window.dispatchEvent(new CustomEvent("log-info",{detail:{message:e,source:n}})))}function Qt(n,e){Me[n]&&(console.warn(Jt(n)+e),window.dispatchEvent(new CustomEvent("log-warning",{detail:{message:e,source:n}})))}function F(n){return{log(e){Xt(n,e)},warn(e){Qt(n,e)}}}function Qn(){window.addEventListener("state-change",n=>{const e=/^config\.logger\.show\.(.+)$/.exec(n.detail.name);e&&e[1]&&(n.detail.value?Xn(e[1]):Jn(e[1]))})}var Kn=typeof global=="object"&&global&&global.Object===Object&&global;const Yn=Kn;var er=typeof self=="object"&&self&&self.Object===Object&&self,tr=Yn||er||Function("return this")();const it=tr;var nr=it.Symbol;const le=nr;var Kt=Object.prototype,rr=Kt.hasOwnProperty,ir=Kt.toString,ge=le?le.toStringTag:void 0;function sr(n){var e=rr.call(n,ge),t=n[ge];try{n[ge]=void 0;var r=!0}catch{}var i=ir.call(n);return r&&(e?n[ge]=t:delete n[ge]),i}var or=Object.prototype,ar=or.toString;function lr(n){return ar.call(n)}var cr="[object Null]",ur="[object Undefined]",Tt=le?le.toStringTag:void 0;function Yt(n){return n==null?n===void 0?ur:cr:Tt&&Tt in Object(n)?sr(n):lr(n)}function dr(n){return n!=null&&typeof n=="object"}var fr="[object Symbol]";function st(n){return typeof n=="symbol"||dr(n)&&Yt(n)==fr}function hr(n,e){for(var t=-1,r=n==null?0:n.length,i=Array(r);++t<r;)i[t]=e(n[t],t,n);return i}var pr=Array.isArray;const ot=pr;var gr=1/0,Ct=le?le.prototype:void 0,At=Ct?Ct.toString:void 0;function en(n){if(typeof n=="string")return n;if(ot(n))return hr(n,en)+"";if(st(n))return At?At.call(n):"";var e=n+"";return e=="0"&&1/n==-gr?"-0":e}function Pe(n){var e=typeof n;return n!=null&&(e=="object"||e=="function")}var mr="[object AsyncFunction]",br="[object Function]",yr="[object GeneratorFunction]",wr="[object Proxy]";function kr(n){if(!Pe(n))return!1;var e=Yt(n);return e==br||e==yr||e==mr||e==wr}var xr=it["__core-js_shared__"];const Fe=xr;var Lt=function(){var n=/[^.]+$/.exec(Fe&&Fe.keys&&Fe.keys.IE_PROTO||"");return n?"Symbol(src)_1."+n:""}();function vr(n){return!!Lt&&Lt in n}var $r=Function.prototype,Sr=$r.toString;function Er(n){if(n!=null){try{return Sr.call(n)}catch{}try{return n+""}catch{}}return""}var _r=/[\\^$.*+?()[\]{}|]/g,Tr=/^\[object .+?Constructor\]$/,Cr=Function.prototype,Ar=Object.prototype,Lr=Cr.toString,zr=Ar.hasOwnProperty,Pr=RegExp("^"+Lr.call(zr).replace(_r,"\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g,"$1.*?")+"$");function Or(n){if(!Pe(n)||vr(n))return!1;var e=kr(n)?Pr:Tr;return e.test(Er(n))}function Ir(n,e){return n==null?void 0:n[e]}function at(n,e){var t=Ir(n,e);return Or(t)?t:void 0}var Nr=function(){try{var n=at(Object,"defineProperty");return n({},"",{}),n}catch{}}();const zt=Nr;var Rr=9007199254740991,Mr=/^(?:0|[1-9]\d*)$/;function Dr(n,e){var t=typeof n;return e=e??Rr,!!e&&(t=="number"||t!="symbol"&&Mr.test(n))&&n>-1&&n%1==0&&n<e}function jr(n,e,t){e=="__proto__"&&zt?zt(n,e,{configurable:!0,enumerable:!0,value:t,writable:!0}):n[e]=t}function tn(n,e){return n===e||n!==n&&e!==e}var qr=Object.prototype,Hr=qr.hasOwnProperty;function Fr(n,e,t){var r=n[e];(!(Hr.call(n,e)&&tn(r,t))||t===void 0&&!(e in n))&&jr(n,e,t)}var Br=/\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,Ur=/^\w*$/;function Vr(n,e){if(ot(n))return!1;var t=typeof n;return t=="number"||t=="symbol"||t=="boolean"||n==null||st(n)?!0:Ur.test(n)||!Br.test(n)||e!=null&&n in Object(e)}var Wr=at(Object,"create");const we=Wr;function Zr(){this.__data__=we?we(null):{},this.size=0}function Gr(n){var e=this.has(n)&&delete this.__data__[n];return this.size-=e?1:0,e}var Jr="__lodash_hash_undefined__",Xr=Object.prototype,Qr=Xr.hasOwnProperty;function Kr(n){var e=this.__data__;if(we){var t=e[n];return t===Jr?void 0:t}return Qr.call(e,n)?e[n]:void 0}var Yr=Object.prototype,ei=Yr.hasOwnProperty;function ti(n){var e=this.__data__;return we?e[n]!==void 0:ei.call(e,n)}var ni="__lodash_hash_undefined__";function ri(n,e){var t=this.__data__;return this.size+=this.has(n)?0:1,t[n]=we&&e===void 0?ni:e,this}function ee(n){var e=-1,t=n==null?0:n.length;for(this.clear();++e<t;){var r=n[e];this.set(r[0],r[1])}}ee.prototype.clear=Zr;ee.prototype.delete=Gr;ee.prototype.get=Kr;ee.prototype.has=ti;ee.prototype.set=ri;function ii(){this.__data__=[],this.size=0}function De(n,e){for(var t=n.length;t--;)if(tn(n[t][0],e))return t;return-1}var si=Array.prototype,oi=si.splice;function ai(n){var e=this.__data__,t=De(e,n);if(t<0)return!1;var r=e.length-1;return t==r?e.pop():oi.call(e,t,1),--this.size,!0}function li(n){var e=this.__data__,t=De(e,n);return t<0?void 0:e[t][1]}function ci(n){return De(this.__data__,n)>-1}function ui(n,e){var t=this.__data__,r=De(t,n);return r<0?(++this.size,t.push([n,e])):t[r][1]=e,this}function de(n){var e=-1,t=n==null?0:n.length;for(this.clear();++e<t;){var r=n[e];this.set(r[0],r[1])}}de.prototype.clear=ii;de.prototype.delete=ai;de.prototype.get=li;de.prototype.has=ci;de.prototype.set=ui;var di=at(it,"Map");const fi=di;function hi(){this.size=0,this.__data__={hash:new ee,map:new(fi||de),string:new ee}}function pi(n){var e=typeof n;return e=="string"||e=="number"||e=="symbol"||e=="boolean"?n!=="__proto__":n===null}function je(n,e){var t=n.__data__;return pi(e)?t[typeof e=="string"?"string":"hash"]:t.map}function gi(n){var e=je(this,n).delete(n);return this.size-=e?1:0,e}function mi(n){return je(this,n).get(n)}function bi(n){return je(this,n).has(n)}function yi(n,e){var t=je(this,n),r=t.size;return t.set(n,e),this.size+=t.size==r?0:1,this}function re(n){var e=-1,t=n==null?0:n.length;for(this.clear();++e<t;){var r=n[e];this.set(r[0],r[1])}}re.prototype.clear=hi;re.prototype.delete=gi;re.prototype.get=mi;re.prototype.has=bi;re.prototype.set=yi;var wi="Expected a function";function lt(n,e){if(typeof n!="function"||e!=null&&typeof e!="function")throw new TypeError(wi);var t=function(){var r=arguments,i=e?e.apply(this,r):r[0],s=t.cache;if(s.has(i))return s.get(i);var a=n.apply(this,r);return t.cache=s.set(i,a)||s,a};return t.cache=new(lt.Cache||re),t}lt.Cache=re;var ki=500;function xi(n){var e=lt(n,function(r){return t.size===ki&&t.clear(),r}),t=e.cache;return e}var vi=/[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g,$i=/\\(\\)?/g,Si=xi(function(n){var e=[];return n.charCodeAt(0)===46&&e.push(""),n.replace(vi,function(t,r,i,s){e.push(i?s.replace($i,"$1"):r||t)}),e});const Ei=Si;function ct(n){return n==null?"":en(n)}function ut(n,e){return ot(n)?n:Vr(n,e)?[n]:Ei(ct(n))}var _i=1/0;function dt(n){if(typeof n=="string"||st(n))return n;var e=n+"";return e=="0"&&1/n==-_i?"-0":e}function nn(n,e){e=ut(e,n);for(var t=0,r=e.length;n!=null&&t<r;)n=n[dt(e[t++])];return t&&t==r?n:void 0}function Be(n,e,t){var r=n==null?void 0:nn(n,e);return r===void 0?t:r}function Ti(n,e,t){var r=-1,i=n.length;e<0&&(e=-e>i?0:i+e),t=t>i?i:t,t<0&&(t+=i),i=e>t?0:t-e>>>0,e>>>=0;for(var s=Array(i);++r<i;)s[r]=n[r+e];return s}function rn(n){return function(e){return n==null?void 0:n[e]}}function Ci(n){var e=n==null?0:n.length;return e?n[e-1]:void 0}var Ai={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"},Li=rn(Ai);const zi=Li;var sn=/[&<>"']/g,Pi=RegExp(sn.source);function H(n){return n=ct(n),n&&Pi.test(n)?n.replace(sn,zi):n}function Oi(n,e){return e.length<2?n:nn(n,Ti(e,0,-1))}function Ii(n,e){return e=ut(e,n),n=Oi(n,e),n==null||delete n[dt(Ci(e))]}function Ni(n,e,t,r){if(!Pe(n))return n;e=ut(e,n);for(var i=-1,s=e.length,a=s-1,l=n;l!=null&&++i<s;){var o=dt(e[i]),u=t;if(o==="__proto__"||o==="constructor"||o==="prototype")return n;if(i!=a){var c=l[o];u=r?r(c,o,l):void 0,u===void 0&&(u=Pe(c)?c:Dr(e[i+1])?[]:{})}Fr(l,o,u),l=l[o]}return n}function ft(n,e,t){return n==null?n:Ni(n,e,t)}var Ri={"&amp;":"&","&lt;":"<","&gt;":">","&quot;":'"',"&#39;":"'"},Mi=rn(Ri);const Di=Mi;var on=/&(?:amp|lt|gt|quot|#39);/g,ji=RegExp(on.source);function qi(n){return n=ct(n),n&&ji.test(n)?n.replace(on,Di):n}function Hi(n,e){return n==null?!0:Ii(n,e)}const an=F("story"),P={customScripts:[],customStyles:[],passages:[]};function ln(n){for(const r of["name","creator","ifid","options"])P[r]=n.getAttribute(r)??void 0;const e=parseInt(n.getAttribute("startnode")??"");isNaN(e)||(P.startNode=e),P.creatorVersion=n.getAttribute("creator-version")??void 0;const t=r=>[...r].map(i=>i.textContent??"");P.customScripts=t(n.querySelectorAll('[type="text/twine-javascript"]')),P.customStyles=t(n.querySelectorAll('[type="text/twine-css"]')),P.passages=[...n.querySelectorAll("tw-passagedata")].map(r=>{const i=parseInt(r.getAttribute("pid")??""),s=r.getAttribute("tags");return{id:isNaN(i)?void 0:i,name:r.getAttribute("name")??void 0,source:r.textContent??"",tags:s?s.split(" "):[]}})}function cn(){const n=pt();if(!n||!n.name)throw new Error("There is no starting passage for this story, or it has no name.");ie({trail:[n.name],"config.testing":typeof P.options=="string"&&P.options.indexOf("debug")!==-1||!1}),P.name&&(document.title=P.name)}function un(){an.log(`Running custom scripts (${P.customScripts.length})`);for(const n of P.customScripts)new Function(n).apply(window)}function dn(){an.log(`Adding custom styles (${P.customStyles.length})`);for(const n of P.customStyles){const e=document.createElement("style");e.innerHTML=n,document.head.appendChild(e)}}function fn(){return P.ifid}function ht(){return P.name}function Fi(){return P.passages}function pt(){return P.passages.find(n=>n.id===P.startNode)}function Se(n){return P.passages.find(e=>e.name===n)}function Bi(n){return P.passages.find(e=>e.id===n)}function hn(n){let e=[],t=!1;return async(...r)=>{t||(t=!0,Promise.resolve().then(()=>{try{n(e),e=[],t=!1}catch(i){window.setTimeout(()=>{throw i})}})),e.push(r)}}function ke(n,e,t=[]){const r=document.createElement(n);if(e)for(const i of Object.keys(e))e[i]!==void 0&&r.setAttribute(i,e[i]);for(const i of t)typeof i=="string"||typeof i=="number"?r.appendChild(document.createTextNode(i.toString())):r.appendChild(i);return r}function R(...n){return ke(...n).outerHTML}function Je(n){return Array.isArray(n)?n.every(Je):n===null?!0:typeof n=="object"?Object.getPrototypeOf(n)!==Object.prototype?!1:Object.values(n).every(Je):typeof n=="number"?isFinite(n)&&!isNaN(n):["boolean","string","undefined"].includes(typeof n)}const{log:Q,warn:Ui}=F("state");let te;const gt={},pn={},ce={};function mt(n,e){if(n[e])return;Object.defineProperty(n,e,{get(){return p(e)},set(r){$(e,r)},configurable:!0});const t=e.split(".");t.length>1&&(t.pop(),mt(n,t.join(".")))}function Vi(n,e){if(n[e])return;const t=e.split("."),r=t[t.length-1];for(let i=0;i<t.length-1;i++)n[t[i]]=n[t[i]]||{},n=n[t[i]];Object.defineProperty(n,r,{get(){return p(e)},set(){throw new Error("Chapbook lookup variables may only be read.")},configurable:!0})}function Wi(n,e){Hi(n,e)}function gn(){const n=fn(),e=ht();if(e===void 0)throw new Error("Cannot set up state: the story has no name");te=`chapbook-${e}-${n}`,qe("config.state.autosave",!0)}function bt(){function n(e,t){Object.keys(e).forEach(r=>{const i=t===""?r:`${t}.${r}`;if(typeof e[r]=="object"&&!Array.isArray(e[r]))n(e[r],i);else{const s=e[r];delete e[r],Wi(window,t),window.dispatchEvent(new CustomEvent("state-change",{detail:{name:i,value:p(i),previous:s}}))}})}n(ce,""),window.dispatchEvent(new CustomEvent("state-reset")),p("config.state.autosave")&&yt()}function $(n,e){const t=p(n);Je(e)||Ui(`Setting ${n} to ${JSON.stringify(e)} can't be saved permanently. This will work in the current session, but will not persist between sessions.`),ft(ce,n,e),mt(window,n),e!==t&&window.dispatchEvent(new CustomEvent("state-change",{detail:{previous:t,name:n,value:e}})),p("config.state.autosave")&&yt()}function qe(n,e){const t=p(n);Q(`Defaulting "${n}" to ${JSON.stringify(e)}`),ft(gt,n,e),mt(window,n),t==null&&window.dispatchEvent(new CustomEvent("state-change",{detail:{previous:t,name:n,value:e}}))}function ie(n){for(const e in n)qe(e,n[e])}function _(n,e){const t=p(n);Q(`Adding lookup variable ${n}`),ft(pn,n,e),Vi(window,n),t==null&&window.dispatchEvent(new CustomEvent("state-change",{detail:{previous:t,name:n,value:p(n)}}))}function p(n){const e=Be(pn,n);if(typeof e=="function")return e(p,$);const t=Be(ce,n),r=Be(gt,n);if(t==null)return r;if(typeof t=="object"&&t!==null&&!Array.isArray(t)&&typeof r=="object"&&r!==null&&!Array.isArray(r)){const i={},s=[...Object.keys(r),...Object.keys(t)];for(const a of s)Object.defineProperty(i,a,{get(){return p(n+"."+a)},set(l){$(n+"."+a,l)},configurable:!0,enumerable:!0});return i}return t}function xe(){return{...ce}}function Ee(n){bt();for(const e in n)$(e,n[e])}function mn(){try{return window.localStorage.setItem("chapbook-test","a"),window.localStorage.removeItem("chapbook-test"),!0}catch{return!1}}function yt(){Q("Saving to local storage: "+JSON.stringify(xe())),window.localStorage.setItem(te,JSON.stringify(xe())),Q("Save complete")}function bn(){return mn()&&window.localStorage.getItem(te)!==null}function yn(){Q("Restoring variables from local storage");const n=window.localStorage.getItem(te);if(!n)throw new Error(`No value is set in local storage at "${te}"`);Ee(JSON.parse(n)),Q("Restore complete")}function wn(n){n||Q("Purging variables from local storage");const e=window.localStorage.getItem(te);if(!e)throw new Error(`No value is set in local storage at "${te}"`);Ee(JSON.parse(e)),n||Q("Purge complete")}function ve(n){function e(t,r,i=[]){return Object.keys(t).reduce((s,a)=>{if(typeof t[a]=="object"&&t[a]&&!Array.isArray(t[a]))e(t[a],r?`${r}.${a}`:a,s);else{const l=r?`${r}.${a}`:a;s.includes(l)||s.push(l)}return s},i)}return n?e(gt,void 0,e(ce)).sort():e(ce).sort()}const Zi=Object.freeze(Object.defineProperty({__proto__:null,canRestoreFromStorage:bn,canSaveToStorage:mn,get:p,initState:gn,purgeFromStorage:wn,reset:bt,restoreFromObject:Ee,restoreFromStorage:yn,saveToObject:xe,saveToStorage:yt,set:$,setDefault:qe,setDefaults:ie,setLookup:_,varNames:ve},Symbol.toStringTag,{value:"Module"})),Gi=Object.freeze(Object.defineProperty({__proto__:null,addCustomStyles:dn,ifid:fn,initStory:cn,loadFromData:ln,name:ht,passageNamed:Se,passageWithId:Bi,passages:Fi,runCustomScripts:un,startPassage:pt},Symbol.toStringTag,{value:"Module"})),{log:kn}=F("actions");function xn(n){kn(`Going to passage "${n}"`);const e=Se(n);if(!e)throw new Error(`There is no passage with the name "${n}"`);document.activeElement instanceof HTMLElement&&document.activeElement.blur();const t=p("trail");if(!Array.isArray(t))throw new Error(`The trail variable has been set to a ${typeof t}, not an array.`);$("trail",[...t,e.name])}function vn(){kn("Restarting"),bt(),window.location.reload()}let X=[],Oe=!0;function Ji(){Oe&&(X=[],window.dispatchEvent(new CustomEvent("backstage-state-recorder-update")))}function Xi({detail:n}){if(!Oe)return;X.length===p("config.backstage.trail.maxLength")&&X.shift();const{name:e,value:t}=n;X.push({change:{name:e,value:t},state:xe()}),window.dispatchEvent(new CustomEvent("backstage-state-recorder-update"))}function Qi(){return[...X]}function Ki(n){if(!X[n])throw new Error(`There is no history at index ${n} to rewind to.`);Oe=!1,Ee(X[n].state),X.length=n+1,Oe=!0,window.dispatchEvent(new CustomEvent("backstage-state-recorder-update"))}function Yi(){qe("config.backstage.trail.maxLength",100),window.addEventListener("state-change",Xi),window.addEventListener("state-reset",Ji)}let V=[];function es(n){V.push({name:n,state:xe()}),$n(),window.dispatchEvent(new CustomEvent("backstage-state-snapshots-update"))}function ts(n){const e=V.find(t=>t.name===n);if(!e)throw new Error(`There is no snapshot named "${n}".`);Ee(e.state)}function ns(n){V=V.filter(({name:e})=>n!==e),$n(),window.dispatchEvent(new CustomEvent("backstage-state-snapshots-update"))}function rs(){try{V=JSON.parse(window.localStorage.getItem(`chapbookbackstage-snapshots-${p("config.state.saveKey")}`)),Array.isArray(V)||(V=[])}catch{V=[]}}function $n(){window.localStorage.setItem(`chapbookbackstage-snapshots-${p("config.state.saveKey")}`,JSON.stringify(V))}function Pt(){return V.map(({name:n})=>n)}function is(){rs()}function wt(n){for(const e in n)window.customElements.get(e)||window.customElements.define(e,n[e])}class z extends HTMLElement{defaultHtml(e){this.innerHTML.trim()===""&&(this.innerHTML=e)}delegate(e,t,r){this.addEventListener(e,i=>{if(!i.target)return;const s=i.target.closest(t);s&&r(i,s)})}query(e){const t=this.querySelector(e);if(!t)throw new Error(`Couldn't find element matching "${e}"`);return t}queryAll(e){return[...this.querySelectorAll(e)]}}class Sn extends z{constructor(){super(),this.addEventListener("click",e=>{e.target.closest("[data-toggle-collapsed]")&&(this.hasAttribute("collapsed")?this.removeAttribute("collapsed"):this.setAttribute("collapsed",""))})}connectedCallback(){this.innerHTML=`
 			<button data-toggle-collapsed></button>
 			<div class="content">
@@ -218,7 +218,7 @@ ${i}`),b(i)}function $e(n,e=!1){return Ko(zo(n),An(),Pn(),e)}class Yo extends fe
 </script><style>
 :root{--font-monospace: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono", "Courier New", monospace;--font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif}*{box-sizing:border-box}body{margin:0;padding:0}code{font-family:var(--font-monospace)}img{max-width:100%;height:auto}input[type=text],select{padding:.25em}noscript{align-items:center;background:black;color:#fff;display:flex;height:100vh;font-family:var(--font-system);justify-content:center;width:100vw}pre{font-family:var(--font-monospace);white-space:pre-wrap}tw-storydata{display:none}body.backstage-visible #backdrop{max-width:67vw}backstage-sidebar{--backstage-grid: 10px;background:var(--color-gray-2);border-left:1px solid var(--color-gray-3);bottom:0;color:var(--color-gray-5);display:block;font-family:var(--font-system);font-size:13px;position:fixed;top:0;right:0;width:33vw}backstage-sidebar .content{overflow:auto;padding:var(--backstage-grid);height:100%;width:100%}backstage-sidebar[collapsed]{width:0}backstage-sidebar button[data-toggle-collapsed]{background:var(--color-gray-2);border-bottom:1px solid var(--color-gray-3);border-left:1px solid var(--color-gray-3);border-right:none;border-top:1px solid var(--color-gray-3);border-radius:60px 0 0 60px;color:var(--color-gray-5);font-size:20px;height:60px;min-width:30px;padding:0;position:absolute;top:50%;left:-30px;transform:translateY(-50%);width:30px}backstage-sidebar button[data-toggle-collapsed]:hover{background:var(--color-gray-1);cursor:pointer}backstage-sidebar button{background:var(--color-gray-1);border:1px solid var(--color-gray-3);border-radius:var(--backstage-grid);color:var(--color-gray-5);cursor:pointer;font-size:100%;min-width:40px;padding:calc(var(--backstage-grid) / 2)}backstage-sidebar button:disabled{color:var(--color-gray-3);cursor:not-allowed}backstage-sidebar button:not(:disabled):hover{background:white}backstage-sidebar details summary{cursor:pointer;font-size:110%;font-variant:small-caps;padding:calc(var(--backstage-grid) / 2) 0;text-transform:lowercase}backstage-sidebar input,backstage-sidebar textarea{background:var(--color-gray-1);border:1px solid var(--color-gray-3);color:var(--color-gray-5);font:100% var(--font-system);padding:calc(var(--backstage-grid) / 2)}backstage-sidebar table{max-width:100%;width:100%}backstage-history-table button{display:block;width:100%}backstage-history-table table{border-collapse:collapse;margin:var(--backstage-grid) 0;table-layout:fixed}backstage-history-table thead{height:1px;left:-10000px;overflow:hidden;position:absolute;top:auto;width:1px}backstage-history-table tr:not(:last-child){border-bottom:1px solid var(--oc-gray-8)}backstage-history-table td{text-overflow:ellipsis;overflow-wrap:break-word;padding:calc(var(--backstage-grid) / 2);vertical-align:top}backstage-history-table td:first-child{border-right:1px solid var(--oc-gray-8);width:45%}backstage-notes label{display:block;margin-top:var(--backstage-grid)}backstage-notes textarea{height:10em;margin:var(--backstage-grid) 0;width:100%}backstage-notes .actions{display:flex;gap:var(--backstage-grid)}backstage-notes .actions button{flex-grow:1}backstage-state-snapshots button[data-add-snapshot]{width:100%}backstage-state-snapshots .snapshot-button{display:flex;margin-bottom:var(--backstage-grid)}backstage-state-snapshots .snapshot-button [data-restore]{flex-grow:1;border-right-color:var(--oc-gray-4);border-bottom-right-radius:0;border-top-right-radius:0}backstage-state-snapshots .snapshot-button [data-remove]{border-left:none;border-bottom-left-radius:0;border-top-left-radius:0}backstage-state-variables .variables{display:flex;flex-direction:column;gap:calc(var(--backstage-grid) / 2);margin:calc(var(--backstage-grid)) 0}backstage-state-variables .variables label{align-items:center;display:grid;gap:var(--backstage-grid);grid-template-columns:15em 1fr}backstage-style-config textarea{height:10em;margin:var(--backstage-grid) 0;width:100%}backstage-style-group label{display:grid;gap:.25em;margin-bottom:.5em}backstage-style-theme p{margin:0 0 .5em}backstage-tab{border-left:1px solid var(--color-gray-3);cursor:pointer;flex-grow:1;padding:calc(var(--backstage-grid) / 2);text-align:center}backstage-tab:hover{background:white}backstage-tab:first-child{border-left:none;border-bottom-left-radius:var(--backstage-grid);border-top-left-radius:var(--backstage-grid)}backstage-tab:last-child{border-bottom-right-radius:var(--backstage-grid);border-top-right-radius:var(--backstage-grid)}backstage-tab[aria-selected=true]{background-color:#fff;cursor:default;font-weight:700}backstage-tab-panel{display:block;padding:calc(var(--backstage-grid) / 2) 0}backstage-tab-panel[hidden]{display:none}backstage-tabs{background:var(--color-gray-1);border:1px solid var(--color-gray-3);border-radius:var(--backstage-grid);display:flex}backstage-variable-input input{display:inline-block;width:100%}#backdrop{align-items:center;background-color:var(--backdrop-color);display:flex;justify-content:center;min-height:100vh}#page>header,#page>footer{display:flex;justify-content:space-between}#page>header[hidden],#page>footer[hidden]{border:none}#page>header .center,#page>footer .center{text-align:center}#page>header .right,#page>footer .right{text-align:right}#page>footer{background-color:var(--page-footer-background-color);border-top:var(--page-footer-border);color:var(--page-footer-color);font-family:var(--page-footer-font-family);font-size:var(--page-footer-font-size);font-style:var(--page-footer-font-style);font-variant:var(--page-footer-font-variant);font-weight:var(--page-footer-font-weight);text-decoration:var(--page-footer-text-decoration);text-decoration-color:var(--page-footer-text-decoration-color);text-transform:var(--page-footer-text-transform)}#page>footer .link{background-color:var(--page-footer-link-background-color);color:var(--page-footer-link-color);font-family:var(--page-footer-link-font-family);font-size:var(--page-footer-link-font-size);font-style:var(--page-footer-link-font-style);font-variant:var(--page-footer-link-font-variant);font-weight:var(--page-footer-link-font-weight);text-decoration:var(--page-footer-link-text-decoration);text-decoration-color:var(--page-footer-link-text-decoration-color);text-transform:var(--page-footer-link-text-transform)}#page>footer .link:hover{background-color:var(--page-footer-link-active-background-color);color:var(--page-footer-link-active-color);font-family:var(--page-footer-link-active-font-family);font-size:var(--page-footer-link-active-font-size);font-style:var(--page-footer-link-active-font-style);font-variant:var(--page-footer-link-active-font-variant);font-weight:var(--page-footer-link-active-font-weight);text-decoration:var(--page-footer-link-active-text-decoration);text-decoration-color:var( --page-footer-link-active-text-decoration-color );text-transform:var(--page-footer-link-active-text-transform)}#page>header{background-color:var(--page-header-background-color);border-bottom:var(--page-header-border);color:var(--page-header-color);font-family:var(--page-header-font-family);font-size:var(--page-header-font-size);font-style:var(--page-header-font-style);font-variant:var(--page-header-font-variant);font-weight:var(--page-header-font-weight);text-decoration:var(--page-header-text-decoration);text-decoration-color:var(--page-header-text-decoration-color);text-transform:var(--page-header-text-transform)}#page>header .link{background-color:var(--page-header-link-background-color);color:var(--page-header-link-color);font-family:var(--page-header-link-font-family);font-size:var(--page-header-link-font-size);font-style:var(--page-header-link-font-style);font-variant:var(--page-header-link-font-variant);font-weight:var(--page-header-link-font-weight);text-decoration:var(--page-header-link-text-decoration);text-decoration-color:var(--page-header-link-text-decoration-color);text-transform:var(--page-header-link-text-transform)}#page>header .link:hover{background-color:var(--page-header-link-active-background-color);color:var(--page-header-link-active-color);font-family:var(--page-header-link-active-font-family);font-size:var(--page-header-link-active-font-size);font-style:var(--page-header-link-active-font-style);font-variant:var(--page-header-link-active-font-variant);font-weight:var(--page-header-link-active-font-weight);text-decoration:var(--page-header-link-active-text-decoration);text-decoration-color:var( --page-header-link-active-text-decoration-color );text-transform:var(--page-header-link-active-text-transform)}#page{background-color:var(--page-background-color);border:var(--page-border);border-radius:3px;box-shadow:var(--page-box-shadow);color:var(--page-color);display:grid;font-family:var(--page-font-family);font-size:var(--page-font-size);font-style:var(--page-font-style);font-variant:var(--page-font-variant);font-weight:var(--page-font-weight);grid-template-areas:"header" "body" "footer";grid-template-rows:min-content 1fr min-content;line-height:150%;margin:1em;max-width:calc(100vw - 2em);min-height:calc(100vh - 2em);padding:2em 4em;position:relative;text-decoration:var(--page-text-decoration);text-transform:var(--page-text-transform);width:40em}#page hr{border:none}#page hr:after{content:"* \a0* \a0*";display:block;text-align:center}#page page-skip-indicator{position:absolute;bottom:0;right:0}#page .fork p{display:flex;flex-direction:column;width:100%}#page .fork p .link{display:block;flex-grow:1;text-align:center;padding:.5em}#page .fork p .link+.link{border-top:var(--page-fork-divider-size) var(--page-fork-divider-style) var(--page-fork-divider-color)}#page .link{background-color:var(--page-link-background-color);color:var(--page-link-color);cursor:pointer;font-family:var(--page-link-font-family);font-size:var(--page-link-font-size);font-style:var(--page-link-font-style);font-variant:var(--page-link-font-variant);font-weight:var(--page-link-font-weight);text-decoration:var(--page-link-text-decoration);text-decoration-color:var(--page-link-text-decoration-color);text-transform:var(--page-link-text-transform)}#page .link:hover{background-color:var(--page-link-active-background-color);color:var(--page-link-active-color);font-family:var(--page-link-font-family);font-size:var(--page-link-font-size);font-style:var(--page-link-font-style);font-variant:var(--page-link-font-variant);font-weight:var(--page-link-font-weight);text-decoration:var(--page-link-text-decoration);text-decoration-color:var(--page-link-text-decoration-color);text-transform:var(--page-link-text-transform)}#page .small-caps{font-variant:small-caps;text-transform:lowercase}#page>footer{grid-area:footer}#page>header{grid-area:header}#page>article{display:flex;flex-direction:column;flex-grow:1;grid-area:body;justify-content:var(--page-current-passage-justify-content)}#page>error-handler{grid-area:body;position:relative;z-index:2}@media screen and (max-width: 768px){#page{margin:0;width:100vw;max-width:100vw;min-height:100vh;padding:1em}}.fade-in{opacity:0;animation:fade-in 1s ease-out forwards}.fade-out{animation:fade-in 1s ease-out reverse forwards}@keyframes fade-in{0%{opacity:0}to{opacity:1}}error-handler{display:none}error-handler.active{background:var(--color-red-1);color:var(--color-red-5);display:block;font-family:var(--font-system);font-size:max(90%,16px);padding:.5em;border-left:4px solid var(--color-red-2);position:relative;margin:1em 0;overflow:auto}error-handler pre{font-size:90%}error-handler a{color:var(--color-red-4)}error-handler button{appearance:none;background:none;border:none;color:var(--color-red-4);cursor:pointer;padding:0}external-fonts{display:none}page-skip{display:block}page-skip-indicator{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3e%09%3crect width='38' height='72' x='31' y='14' fill='%23fff' rx='4' /%3e%09%3ccircle cx='50' cy='50' r='28' fill='%23fff' /%3e%09%3crect%09%09width='30'%09%09height='64'%09%09x='35'%09%09y='18'%09%09fill='%23fff'%09%09stroke='%23000'%09%09stroke-width='2'%09%09rx='4'%09/%3e%09%3ccircle%09%09cx='50'%09%09cy='50'%09%09r='20'%09%09fill='%23fff'%09%09stroke='%23000'%09%09stroke-width='2'%09/%3e%09%3cpath%09%09stroke='%23000'%09%09stroke-linecap='round'%09%09stroke-width='2'%09%09d='M50 50V37'%09%3e%09%09%3canimateTransform%09%09%09attributeName='transform'%09%09%09begin='0s'%09%09%09dur='20s'%09%09%09from='0 50 50'%09%09%09repeatCount='indefinite'%09%09%09to='360 50 50'%09%09%09type='rotate'%09%09/%3e%09%3c/path%3e%09%3cpath%09%09stroke='%23000'%09%09stroke-linecap='round'%09%09stroke-width='2'%09%09d='M50 50h-8'%09%3e%09%09%3canimateTransform%09%09%09attributeName='transform'%09%09%09begin='0s'%09%09%09dur='120s'%09%09%09from='0 50 50'%09%09%09repeatCount='indefinite'%09%09%09to='360 50 50'%09%09%09type='rotate'%09%09/%3e%09%3c/path%3e%3c/svg%3e");background-size:contain;display:block;height:50px;opacity:0;pointer-events:none;transition:opacity .3s;width:50px}page-skip-indicator[active]{opacity:1}::view-transition-old(root),::view-transition-new(root){animation-duration:var(--page-transition-duration)}page-transition{display:block}:root{--oc-white: #ffffff;--oc-white-rgb: 255, 255, 255;--oc-black: #000000;--oc-black-rgb: 0, 0, 0;--oc-gray-0: #f8f9fa;--oc-gray-0-rgb: 248, 249, 250;--oc-gray-1: #f1f3f5;--oc-gray-1-rgb: 241, 243, 245;--oc-gray-2: #e9ecef;--oc-gray-2-rgb: 233, 236, 239;--oc-gray-3: #dee2e6;--oc-gray-3-rgb: 222, 226, 230;--oc-gray-4: #ced4da;--oc-gray-4-rgb: 206, 212, 218;--oc-gray-5: #adb5bd;--oc-gray-5-rgb: 173, 181, 189;--oc-gray-6: #868e96;--oc-gray-6-rgb: 134, 142, 150;--oc-gray-7: #495057;--oc-gray-7-rgb: 73, 80, 87;--oc-gray-8: #343a40;--oc-gray-8-rgb: 52, 58, 64;--oc-gray-9: #212529;--oc-gray-9-rgb: 33, 37, 41;--oc-red-0: #fff5f5;--oc-red-0-rgb: 255, 245, 245;--oc-red-1: #ffe3e3;--oc-red-1-rgb: 255, 227, 227;--oc-red-2: #ffc9c9;--oc-red-2-rgb: 255, 201, 201;--oc-red-3: #ffa8a8;--oc-red-3-rgb: 255, 168, 168;--oc-red-4: #ff8787;--oc-red-4-rgb: 255, 135, 135;--oc-red-5: #ff6b6b;--oc-red-5-rgb: 255, 107, 107;--oc-red-6: #fa5252;--oc-red-6-rgb: 250, 82, 82;--oc-red-7: #f03e3e;--oc-red-7-rgb: 240, 62, 62;--oc-red-8: #e03131;--oc-red-8-rgb: 224, 49, 49;--oc-red-9: #c92a2a;--oc-red-9-rgb: 201, 42, 42;--oc-pink-0: #fff0f6;--oc-pink-0-rgb: 255, 240, 246;--oc-pink-1: #ffdeeb;--oc-pink-1-rgb: 255, 222, 235;--oc-pink-2: #fcc2d7;--oc-pink-2-rgb: 252, 194, 215;--oc-pink-3: #faa2c1;--oc-pink-3-rgb: 250, 162, 193;--oc-pink-4: #f783ac;--oc-pink-4-rgb: 247, 131, 172;--oc-pink-5: #f06595;--oc-pink-5-rgb: 240, 101, 149;--oc-pink-6: #e64980;--oc-pink-6-rgb: 230, 73, 128;--oc-pink-7: #d6336c;--oc-pink-7-rgb: 214, 51, 108;--oc-pink-8: #c2255c;--oc-pink-8-rgb: 194, 37, 92;--oc-pink-9: #a61e4d;--oc-pink-9-rgb: 166, 30, 77;--oc-grape-0: #f8f0fc;--oc-grape-0-rgb: 248, 240, 252;--oc-grape-1: #f3d9fa;--oc-grape-1-rgb: 243, 217, 250;--oc-grape-2: #eebefa;--oc-grape-2-rgb: 238, 190, 250;--oc-grape-3: #e599f7;--oc-grape-3-rgb: 229, 153, 247;--oc-grape-4: #da77f2;--oc-grape-4-rgb: 218, 119, 242;--oc-grape-5: #cc5de8;--oc-grape-5-rgb: 204, 93, 232;--oc-grape-6: #be4bdb;--oc-grape-6-rgb: 190, 75, 219;--oc-grape-7: #ae3ec9;--oc-grape-7-rgb: 174, 62, 201;--oc-grape-8: #9c36b5;--oc-grape-8-rgb: 156, 54, 181;--oc-grape-9: #862e9c;--oc-grape-9-rgb: 134, 46, 156;--oc-violet-0: #f3f0ff;--oc-violet-0-rgb: 243, 240, 255;--oc-violet-1: #e5dbff;--oc-violet-1-rgb: 229, 219, 255;--oc-violet-2: #d0bfff;--oc-violet-2-rgb: 208, 191, 255;--oc-violet-3: #b197fc;--oc-violet-3-rgb: 177, 151, 252;--oc-violet-4: #9775fa;--oc-violet-4-rgb: 151, 117, 250;--oc-violet-5: #845ef7;--oc-violet-5-rgb: 132, 94, 247;--oc-violet-6: #7950f2;--oc-violet-6-rgb: 121, 80, 242;--oc-violet-7: #7048e8;--oc-violet-7-rgb: 112, 72, 232;--oc-violet-8: #6741d9;--oc-violet-8-rgb: 103, 65, 217;--oc-violet-9: #5f3dc4;--oc-violet-9-rgb: 95, 61, 196;--oc-indigo-0: #edf2ff;--oc-indigo-0-rgb: 237, 242, 255;--oc-indigo-1: #dbe4ff;--oc-indigo-1-rgb: 219, 228, 255;--oc-indigo-2: #bac8ff;--oc-indigo-2-rgb: 186, 200, 255;--oc-indigo-3: #91a7ff;--oc-indigo-3-rgb: 145, 167, 255;--oc-indigo-4: #748ffc;--oc-indigo-4-rgb: 116, 143, 252;--oc-indigo-5: #5c7cfa;--oc-indigo-5-rgb: 92, 124, 250;--oc-indigo-6: #4c6ef5;--oc-indigo-6-rgb: 76, 110, 245;--oc-indigo-7: #4263eb;--oc-indigo-7-rgb: 66, 99, 235;--oc-indigo-8: #3b5bdb;--oc-indigo-8-rgb: 59, 91, 219;--oc-indigo-9: #364fc7;--oc-indigo-9-rgb: 54, 79, 199;--oc-blue-0: #e7f5ff;--oc-blue-0-rgb: 231, 245, 255;--oc-blue-1: #d0ebff;--oc-blue-1-rgb: 208, 235, 255;--oc-blue-2: #a5d8ff;--oc-blue-2-rgb: 165, 216, 255;--oc-blue-3: #74c0fc;--oc-blue-3-rgb: 116, 192, 252;--oc-blue-4: #4dabf7;--oc-blue-4-rgb: 77, 171, 247;--oc-blue-5: #339af0;--oc-blue-5-rgb: 51, 154, 240;--oc-blue-6: #228be6;--oc-blue-6-rgb: 34, 139, 230;--oc-blue-7: #1c7ed6;--oc-blue-7-rgb: 28, 126, 214;--oc-blue-8: #1971c2;--oc-blue-8-rgb: 25, 113, 194;--oc-blue-9: #1864ab;--oc-blue-9-rgb: 24, 100, 171;--oc-cyan-0: #e3fafc;--oc-cyan-0-rgb: 227, 250, 252;--oc-cyan-1: #c5f6fa;--oc-cyan-1-rgb: 197, 246, 250;--oc-cyan-2: #99e9f2;--oc-cyan-2-rgb: 153, 233, 242;--oc-cyan-3: #66d9e8;--oc-cyan-3-rgb: 102, 217, 232;--oc-cyan-4: #3bc9db;--oc-cyan-4-rgb: 59, 201, 219;--oc-cyan-5: #22b8cf;--oc-cyan-5-rgb: 34, 184, 207;--oc-cyan-6: #15aabf;--oc-cyan-6-rgb: 21, 170, 191;--oc-cyan-7: #1098ad;--oc-cyan-7-rgb: 16, 152, 173;--oc-cyan-8: #0c8599;--oc-cyan-8-rgb: 12, 133, 153;--oc-cyan-9: #0b7285;--oc-cyan-9-rgb: 11, 114, 133;--oc-teal-0: #e6fcf5;--oc-teal-0-rgb: 230, 252, 245;--oc-teal-1: #c3fae8;--oc-teal-1-rgb: 195, 250, 232;--oc-teal-2: #96f2d7;--oc-teal-2-rgb: 150, 242, 215;--oc-teal-3: #63e6be;--oc-teal-3-rgb: 99, 230, 190;--oc-teal-4: #38d9a9;--oc-teal-4-rgb: 56, 217, 169;--oc-teal-5: #20c997;--oc-teal-5-rgb: 32, 201, 151;--oc-teal-6: #12b886;--oc-teal-6-rgb: 18, 184, 134;--oc-teal-7: #0ca678;--oc-teal-7-rgb: 12, 166, 120;--oc-teal-8: #099268;--oc-teal-8-rgb: 9, 146, 104;--oc-teal-9: #087f5b;--oc-teal-9-rgb: 8, 127, 91;--oc-green-0: #ebfbee;--oc-green-0-rgb: 235, 251, 238;--oc-green-1: #d3f9d8;--oc-green-1-rgb: 211, 249, 216;--oc-green-2: #b2f2bb;--oc-green-2-rgb: 178, 242, 187;--oc-green-3: #8ce99a;--oc-green-3-rgb: 140, 233, 154;--oc-green-4: #69db7c;--oc-green-4-rgb: 105, 219, 124;--oc-green-5: #51cf66;--oc-green-5-rgb: 81, 207, 102;--oc-green-6: #40c057;--oc-green-6-rgb: 64, 192, 87;--oc-green-7: #37b24d;--oc-green-7-rgb: 55, 178, 77;--oc-green-8: #2f9e44;--oc-green-8-rgb: 47, 158, 68;--oc-green-9: #2b8a3e;--oc-green-9-rgb: 43, 138, 62;--oc-lime-0: #f4fce3;--oc-lime-0-rgb: 244, 252, 227;--oc-lime-1: #e9fac8;--oc-lime-1-rgb: 233, 250, 200;--oc-lime-2: #d8f5a2;--oc-lime-2-rgb: 216, 245, 162;--oc-lime-3: #c0eb75;--oc-lime-3-rgb: 192, 235, 117;--oc-lime-4: #a9e34b;--oc-lime-4-rgb: 169, 227, 75;--oc-lime-5: #94d82d;--oc-lime-5-rgb: 148, 216, 45;--oc-lime-6: #82c91e;--oc-lime-6-rgb: 130, 201, 30;--oc-lime-7: #74b816;--oc-lime-7-rgb: 116, 184, 22;--oc-lime-8: #66a80f;--oc-lime-8-rgb: 102, 168, 15;--oc-lime-9: #5c940d;--oc-lime-9-rgb: 92, 148, 13;--oc-yellow-0: #fff9db;--oc-yellow-0-rgb: 255, 249, 219;--oc-yellow-1: #fff3bf;--oc-yellow-1-rgb: 255, 243, 191;--oc-yellow-2: #ffec99;--oc-yellow-2-rgb: 255, 236, 153;--oc-yellow-3: #ffe066;--oc-yellow-3-rgb: 255, 224, 102;--oc-yellow-4: #ffd43b;--oc-yellow-4-rgb: 255, 212, 59;--oc-yellow-5: #fcc419;--oc-yellow-5-rgb: 252, 196, 25;--oc-yellow-6: #fab005;--oc-yellow-6-rgb: 250, 176, 5;--oc-yellow-7: #f59f00;--oc-yellow-7-rgb: 245, 159, 0;--oc-yellow-8: #f08c00;--oc-yellow-8-rgb: 240, 140, 0;--oc-yellow-9: #e67700;--oc-yellow-9-rgb: 230, 119, 0;--oc-orange-0: #fff4e6;--oc-orange-0-rgb: 255, 244, 230;--oc-orange-1: #ffe8cc;--oc-orange-1-rgb: 255, 232, 204;--oc-orange-2: #ffd8a8;--oc-orange-2-rgb: 255, 216, 168;--oc-orange-3: #ffc078;--oc-orange-3-rgb: 255, 192, 120;--oc-orange-4: #ffa94d;--oc-orange-4-rgb: 255, 169, 77;--oc-orange-5: #ff922b;--oc-orange-5-rgb: 255, 146, 43;--oc-orange-6: #fd7e14;--oc-orange-6-rgb: 253, 126, 20;--oc-orange-7: #f76707;--oc-orange-7-rgb: 247, 103, 7;--oc-orange-8: #e8590c;--oc-orange-8-rgb: 232, 89, 12;--oc-orange-9: #d9480f;--oc-orange-9-rgb: 217, 72, 15}/*! reasonable colors v0.4.0 | MIT License | https://github.com/matthewhowell/reasonable-colors */:root{--color-gray-1: #f6f6f6;--color-gray-2: #e2e2e2;--color-gray-3: #8b8b8b;--color-gray-4: #6f6f6f;--color-gray-5: #3e3e3e;--color-gray-6: #222222;--color-rose-1: #fff7f9;--color-rose-2: #ffdce5;--color-rose-3: #ff3b8d;--color-rose-4: #db0072;--color-rose-5: #800040;--color-rose-6: #4c0023;--color-raspberry-1: #fff8f8;--color-raspberry-2: #ffdddf;--color-raspberry-3: #ff426c;--color-raspberry-4: #de0051;--color-raspberry-5: #82002c;--color-raspberry-6: #510018;--color-red-1: #fff8f6;--color-red-2: #ffddd8;--color-red-3: #ff4647;--color-red-4: #e0002b;--color-red-5: #830014;--color-red-6: #530003;--color-orange-1: #fff8f5;--color-orange-2: #ffded1;--color-orange-3: #fd4d00;--color-orange-4: #cd3c00;--color-orange-5: #752100;--color-orange-6: #401600;--color-cinnamon-1: #fff8f3;--color-cinnamon-2: #ffdfc6;--color-cinnamon-3: #d57300;--color-cinnamon-4: #ac5c00;--color-cinnamon-5: #633300;--color-cinnamon-6: #371d00;--color-amber-1: #fff8ef;--color-amber-2: #ffe0b2;--color-amber-3: #b98300;--color-amber-4: #926700;--color-amber-5: #523800;--color-amber-6: #302100;--color-yellow-1: #fff9e5;--color-yellow-2: #ffe53e;--color-yellow-3: #9c8b00;--color-yellow-4: #7d6f00;--color-yellow-5: #463d00;--color-yellow-6: #292300;--color-lime-1: #f7ffac;--color-lime-2: #d5f200;--color-lime-3: #819300;--color-lime-4: #677600;--color-lime-5: #394100;--color-lime-6: #222600;--color-chartreuse-1: #e5ffc3;--color-chartreuse-2: #98fb00;--color-chartreuse-3: #5c9b00;--color-chartreuse-4: #497c00;--color-chartreuse-5: #264500;--color-chartreuse-6: #182600;--color-green-1: #e0ffd9;--color-green-2: #72ff6c;--color-green-3: #00a21f;--color-green-4: #008217;--color-green-5: #004908;--color-green-6: #062800;--color-emerald-1: #dcffe6;--color-emerald-2: #5dffa2;--color-emerald-3: #00a05a;--color-emerald-4: #008147;--color-emerald-5: #004825;--color-emerald-6: #002812;--color-aquamarine-1: #daffef;--color-aquamarine-2: #42ffc6;--color-aquamarine-3: #009f78;--color-aquamarine-4: #007f5f;--color-aquamarine-5: #004734;--color-aquamarine-6: #00281b;--color-teal-1: #d7fff7;--color-teal-2: #00ffe4;--color-teal-3: #009e8c;--color-teal-4: #007c6e;--color-teal-5: #00443c;--color-teal-6: #002722;--color-cyan-1: #c4fffe;--color-cyan-2: #00fafb;--color-cyan-3: #00999a;--color-cyan-4: #007a7b;--color-cyan-5: #004344;--color-cyan-6: #002525;--color-powder-1: #dafaff;--color-powder-2: #8df0ff;--color-powder-3: #0098a9;--color-powder-4: #007987;--color-powder-5: #004048;--color-powder-6: #002227;--color-sky-1: #e3f7ff;--color-sky-2: #aee9ff;--color-sky-3: #0094b4;--color-sky-4: #007590;--color-sky-5: #00404f;--color-sky-6: #001f28;--color-cerulean-1: #e8f6ff;--color-cerulean-2: #b9e3ff;--color-cerulean-3: #0092c5;--color-cerulean-4: #00749d;--color-cerulean-5: #003c54;--color-cerulean-6: #001d2a;--color-azure-1: #e8f2ff;--color-azure-2: #c6e0ff;--color-azure-3: #008fdb;--color-azure-4: #0071af;--color-azure-5: #003b5e;--color-azure-6: #001c30;--color-blue-1: #f0f4ff;--color-blue-2: #d4e0ff;--color-blue-3: #0089fc;--color-blue-4: #006dca;--color-blue-5: #00386d;--color-blue-6: #001a39;--color-indigo-1: #f3f3ff;--color-indigo-2: #deddff;--color-indigo-3: #657eff;--color-indigo-4: #0061fc;--color-indigo-5: #00328a;--color-indigo-6: #001649;--color-violet-1: #f7f1ff;--color-violet-2: #e8daff;--color-violet-3: #9b70ff;--color-violet-4: #794aff;--color-violet-5: #2d0fbf;--color-violet-6: #0b0074;--color-purple-1: #fdf4ff;--color-purple-2: #f7d9ff;--color-purple-3: #d150ff;--color-purple-4: #b01fe3;--color-purple-5: #660087;--color-purple-6: #3a004f;--color-magenta-1: #fff3fc;--color-magenta-2: #ffd7f6;--color-magenta-3: #f911e0;--color-magenta-4: #ca00b6;--color-magenta-5: #740068;--color-magenta-6: #44003c;--color-pink-1: #fff7fb;--color-pink-2: #ffdcec;--color-pink-3: #ff2fb2;--color-pink-4: #d2008f;--color-pink-5: #790051;--color-pink-6: #4b0030}warning-list{background:var(--color-yellow-1);border-left:4px solid var(--color-yellow-2);color:var(--color-yellow-4);display:block;font-family:var(--font-system);padding:.5em}warning-list[hidden]{display:none}warning-list ul{list-style-type:none;margin:0;padding-left:0}inline-button{cursor:pointer}
 
-</style></head><body><state-css-variables><state-dark-theme-css-overrides><div id="backdrop"><page-skip><page-transition><div id="page" aria-live="polite"><header hidden></header><article></article><warning-list></warning-list><footer hidden></footer><error-handler></error-handler><page-skip-indicator></page-skip-indicator></div></page-transition></page-skip></div></state-dark-theme-css-overrides></state-css-variables><external-fonts></external-fonts><noscript>This requires JavaScript.</noscript></body><tw-storydata name="Discourse Communities" startnode="1" creator="Twine" creator-version="2.11.1" format="Chapbook" format-version="2.3.0" ifid="7A2F8B4E-1C3D-4E5F-9A6B-8C7D9E0F1A2B" options="" tags="" zoom="0.6" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* =============================================
+</style></head><body><state-css-variables><state-dark-theme-css-overrides><div id="backdrop"><page-skip><page-transition><div id="page" aria-live="polite"><header hidden></header><article></article><warning-list></warning-list><footer hidden></footer><error-handler></error-handler><page-skip-indicator></page-skip-indicator></div></page-transition></page-skip></div></state-dark-theme-css-overrides></state-css-variables><external-fonts></external-fonts><noscript>This requires JavaScript.</noscript></body><tw-storydata name="Discourse Communities &amp; Language Negotiation" startnode="1" creator="Twine" creator-version="2.11.1" format="Chapbook" format-version="2.3.0" ifid="9D3E7F2A-4B8C-5E6D-1A9F-2C8B3D4E5F6A" options="" tags="" zoom="0.6" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* =============================================
    ENC 1101 — STORY STYLESHEET
    Paste into: Story → Story Stylesheet
    ============================================= */
@@ -236,7 +236,7 @@ article[role="main"],
   max-width: 90vw;
   width: 100%;
   margin: 0 auto;
-  padding: 1.5rem 1.5rem 5rem 1.5rem; /* bottom padding clears timer */
+  padding: 1.5rem 1.5rem 5rem 1.5rem;
   box-sizing: border-box;
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -314,12 +314,11 @@ hr {
   #page article,
   .passage {
     max-width: 100vw;
-    padding: 1rem 1rem 6rem 1rem; /* extra bottom for timer */
+    padding: 1rem 1rem 6rem 1rem;
   }
 
   h1 { margin-top: 0.5em; }
 
-  /* Bigger tap targets for links */
   a {
     padding: 0.35em 0;
     min-height: 44px;
@@ -372,7 +371,6 @@ hr {
   display: block;
 }
 
-/* --- Timer: Mobile --- */
 @media (max-width: 480px) {
   .enc-timer {
     bottom: 12px;
@@ -411,7 +409,7 @@ hr {
   50% { box-shadow: 0 2px 24px rgba(74, 222, 128, 0.6); }
 }
 
-/* --- Navigation Lock --- */
+/* --- Navigation Lock (used in Discussion 2 for shareout link) --- */
 .timed-nav.locked {
   display: none;
 }
@@ -434,20 +432,26 @@ hr {
   0% { opacity: 1; }
   100% { opacity: 0; }
 }</style><script role="script" id="twine-user-script" type="text/twine-javascript">/* =============================================
-   ENC 1101 TIMER SYSTEM — JAVASCRIPT
+   ENC 1101 TIMER SYSTEM
    Paste into: Story → Story JavaScript
+
+   Timer is primarily visual — a countdown to help
+   students pace themselves. Navigation is NOT gated
+   except where a link is placed inside a timed-nav
+   div (e.g., the shareout link in Discussion 2).
+
+   Instructor override: triple-click the timer.
    ============================================= */
 (function () {
   'use strict';
 
-  /* ---- State ---- */
-  var timerState = {};       /* passageName → endTimestamp (ms) */
-  var completedState = {};   /* passageName → true */
+  var timerState = {};
+  var completedState = {};
   var intervalId = null;
-  var activePassage = null;  /* passage currently being timed */
+  var activePassage = null;
   var overrideClicks = 0;
   var overrideTimeout = null;
-  var scanning = false;      /* re-entry guard */
+  var scanning = false;
 
   /* ---- Timer UI ---- */
   var timerEl = document.createElement('div');
@@ -548,13 +552,11 @@ hr {
     stopInterval();
     activePassage = passageName;
 
-    /* Already done? Just show the result. */
     if (completedState[passageName]) {
       showCompleted();
       return;
     }
 
-    /* End timestamp: resume existing or create new */
     var endTime;
     if (timerState[passageName] && timerState[passageName] > Date.now()) {
       endTime = timerState[passageName];
@@ -563,14 +565,12 @@ hr {
       timerState[passageName] = endTime;
     }
 
-    /* Lock & show */
     lockNav(navEl);
     timerEl.className = 'enc-timer active';
     labelEl.textContent = 'Time Remaining';
 
     function tick() {
       var left = Math.max(0, Math.ceil((endTime - Date.now()) / 1000));
-
       displayEl.textContent = fmt(left);
 
       if (left <= 60 && left > 0) {
@@ -594,7 +594,6 @@ hr {
     var navEl = document.querySelector('.timed-nav');
 
     if (!navEl) {
-      /* No timed content on this page — hide timer, keep state */
       timerEl.className = 'enc-timer';
       activePassage = null;
       scanning = false;
@@ -609,7 +608,6 @@ hr {
       return;
     }
 
-    /* Same passage we're already timing? Don't restart. */
     if (passage === activePassage && intervalId) {
       scanning = false;
       return;
@@ -655,28 +653,27 @@ hr {
     characterData: false
   });
 
-  /* Initial scan */
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', scan);
   } else {
     scan();
   }
 
-})();</script><tw-passagedata pid="1" name="Start" tags="" position="100,100" size="100,100">## Discourse Communities
-
-&lt;img src=&quot;https://glennritchey.net/teaching/assets/discoursecommap.jpg&quot;&gt;
+})();</script><tw-passagedata pid="1" name="Start" tags="" position="200,100" size="100,100">## Discourse Communities &amp; Language Negotiation
 
 **Course**: ENC 1101
 
 **Instructor**: Glenn S. Ritchey III
 
-Today we&#39;re exploring how writers navigate different communities and use language strategically to participate, resist, and create change.
+Today you&#39;ll peer review Multimodal Literacy Narrative drafts and explore how writers negotiate language expectations within discourse communities—preparing you for Major Assignment 2.
 
 ### What you&#39;ll do
 
-1. Work through two focused discussions with your group
+1. Provide peer feedback on MA1 drafts using discourse community frameworks
 
-2. Share your findings with the class
+2. Apply Melzer + Tremain concepts to identify literacy practices for MA2
+
+3. Share insights about language negotiation in your communities
 
 **Which schedule are you on?**
 
@@ -684,149 +681,150 @@ Today we&#39;re exploring how writers navigate different communities and use lan
 
 [[Wednesday/Friday section →-&gt;WF-Groups]]
 
-*Need help navigating?* Here is how to [[How to use this Twine-&gt;Instructions-Node]].</tw-passagedata><tw-passagedata pid="2" name="Instructions-Node" tags="" position="300,200" size="100,100">## How to Use This Twine
+*Need help navigating?* Here is how to [[How to use this Twine-&gt;Instructions-Node]].</tw-passagedata><tw-passagedata pid="2" name="Instructions-Node" tags="" position="525,75" size="100,100">## How to Use This Twine
 
 ### Navigation
 Click blue links to move between pages; including to return to previous pages.
 
 ### Working in Groups
-Find your group number, follow your pathway (Discussion 1 → Discussion 2 → Shareout Prep), and take notes in your shared Google Doc.
+Find your group number, follow your pathway (Peer Review → Discussion 2 → Shareout Prep), and take notes in your shared Google Doc.
 
-### Discussions
-Read prompts carefully, discuss with your group, and record key insights. Times are guidelines — quality matters more than finishing.
+### Peer Review
+Read your partner&#39;s draft carefully. Use the criteria provided to give substantive, helpful feedback that prepares them for MA1 submission.
+
+### Discussion 2
+After peer review, apply today&#39;s concepts to identify potential literacy practices for Major Assignment 2.
 
 ### Reference Nodes
 These provide extra context on key concepts. Use them when you need a refresher or want to go deeper.
 
-[[← Back to start-&gt;Start]]</tw-passagedata><tw-passagedata pid="3" name="MW-Groups" tags="" position="600,200" size="100,100">## Group Assignments
+[[← Back to start-&gt;Start]]</tw-passagedata><tw-passagedata pid="3" name="MW-Groups" tags="" position="600,300" size="100,100">## Group Assignments
 
-[[Group 1: Understanding Discourse Communities →-&gt;Group1-Opening]]
+[[Group 1: Selecting Analyzable Artifacts →-&gt;Group1-Opening]]
 
-[[Group 2: Genres and Specialized Language →-&gt;Group2-Opening]]
+[[Group 2: From Description to Analysis →-&gt;Group2-Opening]]
 
-[[Group 3: Translanguaging and Code-Meshing →-&gt;Group3-Opening]]
+[[Group 3: Applying Tremain&#39;s Frameworks →-&gt;Group3-Opening]]
 
-[[Group 4: Power and Access →-&gt;Group4-Opening]]
+[[Group 4: Identifying Socio-Cultural Constraints →-&gt;Group4-Opening]]
 
-[[Group 5: Literacy Sponsorship →-&gt;Group5-Opening]]</tw-passagedata><tw-passagedata pid="4" name="WF-Groups" tags="" position="1000,200" size="100,100">## Group Assignments
+[[Group 5: Synthesizing Multiple Frameworks →-&gt;Group5-Opening]]</tw-passagedata><tw-passagedata pid="4" name="WF-Groups" tags="" position="975,300" size="100,100">## Group Assignments
 
-[[Group 1: Understanding Discourse Communities →-&gt;Group1-Opening]]
+[[Group 1: Selecting Analyzable Artifacts →-&gt;Group1-Opening]]
 
-[[Group 2: Genres and Specialized Language →-&gt;Group2-Opening]]
+[[Group 2: From Description to Analysis →-&gt;Group2-Opening]]
 
-[[Group 3: Translanguaging and Code-Meshing →-&gt;Group3-Opening]]
+[[Group 3: Applying Tremain&#39;s Frameworks →-&gt;Group3-Opening]]
 
-[[Group 4: Power and Access →-&gt;Group4-Opening]]
+[[Group 4: Identifying Socio-Cultural Constraints →-&gt;Group4-Opening]]
 
-[[Group 5: Literacy Sponsorship →-&gt;Group5-Opening]]</tw-passagedata><tw-passagedata pid="5" name="Framing" tags="" position="800,400" size="100,100">## Discourse Communities: The Big Picture
+[[Group 5: Synthesizing Multiple Frameworks →-&gt;Group5-Opening]]</tw-passagedata><tw-passagedata pid="5" name="Framing" tags="" position="800,400" size="100,100">## From Understanding to Analyzing Discourse Communities
 
-You already navigate multiple discourse communities every day—from texting your friends to emailing professors to posting on social media. Each community has different expectations for how you communicate.
+**Quick Review**: Last class, Melzer showed us that discourse communities have six characteristics (shared goals, communication mechanisms, genres, lexis, experts, feedback systems). You practiced identifying these features.
 
-**Key Concept**: Discourse Community — a group of people who share goals, methods of communication, genres, and specialized language (lexis)
+**Today&#39;s Addition**: Tremain builds on Melzer by showing us that discourse communities aren&#39;t static—they change through language negotiation. Members use translanguaging (blending languages) and code-meshing (blending dialects) to challenge expectations. But language is inseparable from power: some members&#39; language is valued, others&#39; is marginalized.
 
-**Today&#39;s Question**: How do writers navigate the language expectations of different discourse communities, and when can (or should) we challenge those expectations?
+**Key Concept**: Socio-Cultural Analysis — examining how literacy practices are shaped and constrained by social factors (power, norms, beliefs, access) and cultural factors (identity, language, community expectations)
 
-*Your group will explore this from a specific angle. The deeper context lives in your group&#39;s pathway.*
+**Today&#39;s Question**: How do you move from identifying discourse communities to analyzing how they shape literacy practices—and what artifacts would show this?
+
+*Your group will develop analytical skills for Major Assignment 2.*
 
 [[← Back to MW Groups-&gt;MW-Groups]]
 
-[[← Back to WF Groups-&gt;WF-Groups]]</tw-passagedata><tw-passagedata pid="6" name="Group1-Opening" tags="" position="400,600" size="100,100">## Group 1: Understanding Discourse Communities
+[[← Back to WF Groups-&gt;WF-Groups]]</tw-passagedata><tw-passagedata pid="6" name="Group1-Opening" tags="" position="400,600" size="100,100">## Group 1: Selecting Analyzable Artifacts
 
-Your group explores Melzer&#39;s six characteristics of discourse communities and applies them to communities you belong to.
+Your group explores what makes an artifact rich enough to analyze for MA2—and what&#39;s too simple or too broad.
 
-*Why this matters*: Before you can strategically navigate or challenge a discourse community&#39;s expectations, you need to understand what makes it a discourse community in the first place.
+*Why this matters*: MA2 requires 2+ artifacts demonstrating literacy practices. Not all artifacts reveal socio-cultural constraints equally well. You need to choose artifacts that actually have something to analyze.
 
 ### Your Pathway
 
-1. **Discussion 1**: What are the six characteristics of a discourse community?
+1. **Peer Review**: Give feedback on MA1 drafts focusing on artifact quality
 
-2. **Discussion 2**: How do these characteristics apply to communities you belong to?
+2. **Discussion 2**: Evaluate potential artifacts for MA2 analysis
 
-3. **Shareout Prep**: Organize your findings to share with the class.
+3. **Shareout Prep**: Organize insights to share with the class
 
 #### Navigation
 
 [[Whole-class framing (review)-&gt;Framing]]
 
-[[Start Discussion 1 →-&gt;Group1-Discussion-1]]
+[[Start Peer Review →-&gt;Group1-Peer-Review]]
 
 #### Reference
-[[Swales&#39; Six Characteristics-&gt;Group1-Reference]]</tw-passagedata><tw-passagedata pid="7" name="Group1-Discussion-1" tags="" position="400,800" size="100,100">## Group 1 — Discussion 1: Swales&#39; Six Characteristics
+[[What Makes an Artifact Analyzable?-&gt;Group1-Reference]]</tw-passagedata><tw-passagedata pid="7" name="Group1-Peer-Review" tags="" position="400,800" size="100,100">## Group 1 — Peer Review: MA1 Draft Feedback
 
-**Goal**: Understand and explain the six characteristics that define a discourse community
+**Goal**: Provide substantive feedback that helps your peer strengthen their Multimodal Literacy Narrative
 
-### Context
+### Exchange Drafts
 
-John Swales argues that discourse communities have six key features. Melzer uses his acoustic guitar jam group as an example to show how these features work in practice. Understanding these characteristics helps you identify discourse communities and analyze how they function.
+Partner up within your group. Read your partner&#39;s draft carefully (8-10 minutes).
 
-**The six characteristics**:
-1. Broadly agreed-upon common goals
+### Feedback Criteria
 
-2. Mechanisms of intercommunication
+As you read, focus on these elements:
 
-3. Use of communication to provide information and feedback
+**1. Theoretical Framework Application**
+Does the draft effectively use frameworks from our readings (Melzer, Tremain, Anzaldúa, etc.)? Are the concepts applied accurately to their literacy experience?
 
-4. One or more genres that help achieve community goals
+**2. Discourse Community Awareness**
+Can you identify what discourse community/communities their literacy practice belongs to? Do they explain the language expectations, genres, or specialized vocabulary of that community?
 
-5. A specific lexis (specialized language)
+**3. Artifact Description Quality**
+Are the examples and artifacts described with enough specific detail that you can visualize them? Do they support the analysis?
 
-6. A threshold level of expert members
+**4. Argument About Writing Identity**
+Does the draft answer &quot;How have past literacy experiences impacted your present writing identity?&quot; Is the claim clear and supported?
 
-### Questions
+### Written Feedback
 
-Work through these individually. Simply write down  your responses in any way you find relevant: think free-writing, or just bulleting out ideas. Prepare to talk through your responses with your group.
+Provide 2-3 concrete suggestions focusing on the criteria above. Be specific: not &quot;good job&quot; but &quot;your analysis of how your family&#39;s code-meshing created belonging would be stronger if you explained what languages were blended and why that mattered.&quot;
 
-**1. In your own words, what does each characteristic mean?**
-Go through all six and make sure everyone understands them. Use Melzer&#39;s guitar jam example if helpful.
+[[Reference: Discourse Communities &amp; Swales&#39; Characteristics-&gt;Group1-Reference]]
 
-**2. Why does Swales say &quot;guitar players&quot; is NOT a discourse community?**
-What&#39;s the difference between a broad category of people and an actual discourse community?
-
-**3. Pick one characteristic that seems most important to you.**
-Why is that characteristic crucial for a community to function?
-
-[[Reference: Swales&#39; Six Characteristics-&gt;Group1-Reference]]
-
-#### *Ready to move on? Head to Discussion 2.*
+#### *Ready for Discussion 2.*
 
 [[← Back to pathway-&gt;Group1-Opening]] | [[Continue to Discussion 2 →-&gt;Group1-Discussion-2]]
 
-&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group1-Discussion-1&quot;&gt;
+&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group1-Peer-Review&quot;&gt;
 
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="8" name="Group1-Discussion-2" tags="" position="400,1000" size="100,100">## Group 1 — Discussion 2: Applying the Characteristics
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="8" name="Group1-Discussion-2" tags="" position="400,1000" size="100,100">## Group 1 — Discussion 2: What Makes Artifacts Analyzable?
 
-**Goal**: Use Swales&#39; characteristics to analyze a discourse community you belong to.
+**Goal**: Develop criteria for selecting artifacts that will actually support socio-cultural analysis in MA2
 
-### From Understanding to Application
+### From Peer Review to Artifact Selection
 
-You understand the six characteristics. Now test them by applying them to a real community.
+You just reviewed how your peers used artifacts in MA1. Now think critically: which artifacts would work for MA2&#39;s deeper socio-cultural analysis?
 
 ### Questions
 
-**1. Choose a discourse community you&#39;re all part of or familiar with**
-This could be: a campus club, online community, work environment, gaming group, family group chat, major/department, etc.
+**1. What&#39;s the difference between a simple artifact and a rich one?**
+Simple: A text message that says &quot;ok&quot;
+Rich: A group chat thread showing code-meshing, inside jokes (lexis), and relationship dynamics
 
-**2. Apply all six characteristics to your chosen community**
-- What are the shared goals?
-- How do members communicate?
-- What genres does the community use?
-- What specialized language (lexis) do members use?
-- Who are the expert members?
+What makes the second one more analyzable?
 
-**3. What happens if someone doesn&#39;t know the lexis or genres?**
-How does the community help new members learn? Or does it exclude them?
+**2. Brainstorm 3-5 potential artifacts from YOUR literacy practices**
+For each, ask:
+- Does it show discourse community features? (lexis, genre, power dynamics)
+- Does it reveal socio-cultural constraints? (whose language is valued, what norms shape it)
+- Can you get 2+ artifacts showing the SAME literacy practice?
+
+**3. Red flags: What artifacts won&#39;t work well?**
+Too generic, no clear discourse community, nothing to say about power/context, can&#39;t access enough examples, too private to share
 
 ### Quick Draft (if time allows)
 
 Choose one:
 
-- **Option A**: Draft a paragraph analyzing one discourse community you belong to using Swales&#39; characteristics
+- **Option A**: Describe 2 artifacts from the same literacy practice and explain what each would reveal about socio-cultural constraints
 
-- **Option B**: Explain which characteristic is hardest for new members to learn in a specific community
+- **Option B**: Compare a &quot;thin&quot; artifact (not enough to analyze) with a &quot;rich&quot; artifact (plenty to analyze) from your literacy practice
 
-- **Option C**: Compare how two different discourse communities use the same characteristic differently
+- **Option C**: List specific questions you&#39;d ask about your artifacts to generate socio-cultural analysis
 
-[[Reference: Swales&#39; Six Characteristics-&gt;Group1-Reference]]
+[[Reference: What Makes an Artifact Analyzable?-&gt;Group1-Reference]]
 
 #### *Time to prepare your shareout.*
 
@@ -840,590 +838,776 @@ Prepare a **2-3 minute** presentation for the class.
 
 ### What to Share
 
-**1. Key Insight** (1 min): What&#39;s the most important thing you learned about how discourse communities work?
+**1. Key Insight** (1 min): What makes an artifact rich enough to analyze vs. too simple?
 
-**2. Specific Example** (1 min): ONE concrete example from a discourse community you analyzed using Swales&#39; characteristics.
+**2. Specific Example** (1 min): Show a CONTRAST—one thin artifact and one rich artifact from the same literacy practice. Explain the difference.
 
-**3. Application** (30 sec): One thing the class can take away about navigating discourse communities in their own writing.
+**3. MA2 Application** (30 sec): What&#39;s one criterion classmates should use when selecting their artifacts?
 
 ### Get Organized
 - Who&#39;s presenting which part?
 
-- What specific example are you using?
+- What artifact examples will you use?
 
-- What&#39;s your takeaway for the class?
+- Can you explain why one is more analyzable than the other?
 
-*Keep it tight — 2-3 minutes. Specifics over generalities.*
+*Keep it tight — 2-3 minutes. Give classmates concrete selection criteria.*
 
 #### *Ready to share with the class.*
 
 [[← Back to pathway-&gt;Group1-Opening]] | [[Ready for synthesis →-&gt;Collective-Synthesis]]
 
 &lt;div class=&quot;timed-nav&quot; data-timer=&quot;240&quot; data-passage=&quot;Group1-Shareout-Prep&quot;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="10" name="Group1-Reference" tags="" position="600,900" size="100,100">## Reference: Swales&#39; Six Characteristics
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="10" name="Group1-Reference" tags="" position="600,800" size="100,100">## Reference: What Makes an Artifact Analyzable?
 
-**What it is**: A framework for identifying and analyzing discourse communities
+**What it is**: An artifact is an object produced through literacy practices. For MA2, you need artifacts that reveal how social and cultural factors shape literacy.
 
-**Why it matters for your writing**: Every time you write, you&#39;re writing for a specific discourse community with specific expectations. Understanding these characteristics helps you figure out what those expectations are.
+**Why it matters for MA2**: Not all artifacts are equally rich. Some show clear socio-cultural constraints; others don&#39;t give you much to analyze.
 
-### The Six Characteristics
-1. **Broadly agreed-upon common goals** — Members share purposes
+### Criteria for Strong Artifacts
 
-2. **Mechanisms of intercommunication** — Ways members talk to each other
+**Rich artifacts show:**
+- Clear discourse community features (lexis, genre, goals)
+- Evidence of language choices/negotiation (translanguaging, code-meshing, style shifts)
+- Power dynamics (whose language is valued, who has access)
+- Social/cultural norms shaping the practice
+- Relationships between participants
+- Multiple modes working together (if multimodal)
 
-3. **Use of communication to provide information/feedback** — Members actively share knowledge
+**Weak artifacts lack:**
+- Clear discourse community context
+- Interesting language features to analyze
+- Evidence of constraints or power
+- Enough complexity to support 4-5 pages of analysis
 
-4. **Genres that help achieve goals** — Specific types of communication the community uses
+### Examples
 
-5. **Specific lexis** — Specialized vocabulary or language
+**Too Simple**: A one-word text response &quot;ok&quot;
+**Rich**: A group chat thread showing inside jokes, code-meshing between languages, and relationship dynamics
 
-6. **Threshold of expert members** — Experienced people who maintain standards
-
-### Example
-Melzer&#39;s guitar jam group has shared goals (learn songs, have fun), uses Meetup.com to communicate, shares chord sheets as a genre, uses musician&#39;s vocabulary (capo, minor pentatonic scale), and has experienced players who teach beginners.
+**Too Simple**: A grocery list
+**Rich**: Recipe annotations showing family culinary traditions and language preservation
 
 ### How to Apply This
-When entering a new discourse community (like a college major), identify these six characteristics to understand how the community works and what&#39;s expected of you.
 
-[[← Back to pathway-&gt;Group1-Opening]]</tw-passagedata><tw-passagedata pid="11" name="Group2-Opening" tags="" position="700,600" size="100,100">## Group 2: Genres and Specialized Language
+Look at potential artifacts and ask: Can I identify the discourse community? Can I analyze language choices? Can I discuss power/constraints? Can I get 2+ examples of the same practice? If yes, you have analyzable artifacts.
 
-Your group explores how discourse communities use specific genres and specialized language (lexis) to achieve their goals.
+---
 
-*Why this matters*: Genres and lexis are two of the most visible ways discourse communities communicate. Understanding how they work helps you adapt your writing to different contexts.
+[[← Back to pathway-&gt;Group1-Opening]]</tw-passagedata><tw-passagedata pid="11" name="Group2-Opening" tags="" position="800,600" size="100,100">## Group 2: From Description to Analysis
+
+Your group explores how to move beyond describing artifacts to actually analyzing how socio-cultural factors shape them.
+
+*Why this matters*: MA2 isn&#39;t a report about your artifacts. It&#39;s an analysis of how social actors interacted with them and how they were shaped by context. That requires different writing moves.
 
 ### Your Pathway
 
-1. **Discussion 1**: How do genres and lexis function in discourse communities?
+1. **Peer Review**: Give feedback on MA1 drafts focusing on analytical depth
 
-2. **Discussion 2**: How do you navigate genre and lexis expectations in your own communities?
+2. **Discussion 2**: Practice analytical moves for MA2
 
-3. **Shareout Prep**: Organize your findings to share with the class.
+3. **Shareout Prep**: Organize insights to share with the class
 
 #### Navigation
 
 [[Whole-class framing (review)-&gt;Framing]]
 
-[[Start Discussion 1 →-&gt;Group2-Discussion-1]]
+[[Start Peer Review →-&gt;Group2-Peer-Review]]
 
-#### Reference*
-[[Genres and Lexis-&gt;Group2-Reference]]</tw-passagedata><tw-passagedata pid="12" name="Group2-Discussion-1" tags="" position="700,800" size="100,100">## Group 2 — Discussion 1: Genres and Lexis in Action
+#### Reference
+[[Description vs. Analysis-&gt;Group2-Reference]]</tw-passagedata><tw-passagedata pid="12" name="Group2-Peer-Review" tags="" position="800,800" size="100,100">## Group 2 — Peer Review: MA1 Draft Feedback
 
-**Goal**: Understand how genres and specialized language function in discourse communities
+**Goal**: Provide substantive feedback that helps your peer strengthen their Multimodal Literacy Narrative
 
-### Context
+### Exchange Drafts
 
-Discourse communities use specific genres—recurring types of communication—to get work done. They also develop specialized vocabulary (lexis) that helps members communicate efficiently but can exclude outsiders.
+Partner up within your group. Read your partner&#39;s draft carefully (8-10 minutes).
 
-Melzer&#39;s guitar jam group shares chord sheets (a genre) and uses terms like &quot;capo&quot; and &quot;minor pentatonic scale&quot; (lexis). Academic discourse communities use genres like research articles, conference presentations, and lab reports, with specialized terminology from their fields.
+### Feedback Criteria
 
-**Key insight**: Genres and lexis aren&#39;t just about being formal or technical—they&#39;re about participating effectively in a community&#39;s shared work.
+As you read, focus on these elements:
 
-### Questions
+**1. Language and Identity Analysis**
+Does the draft explore how language shapes identity? Do they discuss how different discourse communities expected different language use?
 
-Work through these together. Take notes in your shared doc.
+**2. Translanguaging or Code-Meshing Examples**
+Can you identify moments where they describe language blending or negotiation? (Even if they don&#39;t use those terms.) Do they explain what those moments reveal?
 
-**1. What&#39;s the difference between a genre and just &quot;a type of writing&quot;?**
-How do genres help discourse communities achieve their goals?
+**3. Power Dynamics**
+Does the draft address who had language power in their literacy experience? Do they discuss expectations about &quot;correct&quot; or &quot;acceptable&quot; language?
 
-**2. Pick a discourse community you know well. What are its key genres?**
-What makes those genres different from similar types of communication in other contexts?
+**4. Connection to Writing Identity**
+How do language experiences connect to their current writing identity? Is this relationship explained clearly?
 
-**3. How does specialized language (lexis) work in that community?**
-What terms do insiders use that outsiders wouldn&#39;t understand? Why do they use those specific terms instead of simpler language?
+### Written Feedback
 
-[[Reference: Genres and Lexis-&gt;Group2-Reference]]
+Provide 2-3 concrete suggestions. For example: &quot;You mention switching between Spanish and English with your grandmother—explain what each language allowed you to express that the other didn&#39;t. This would strengthen your identity analysis.&quot;
 
-#### *Ready to move on? Head to Discussion 2.*
+[[Reference: Translanguaging &amp; Code-Meshing-&gt;Group2-Reference]]
+
+#### *Ready for Discussion 2.*
 
 [[← Back to pathway-&gt;Group2-Opening]] | [[Continue to Discussion 2 →-&gt;Group2-Discussion-2]]
 
-&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group2-Discussion-1&quot;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="13" name="Group2-Discussion-2" tags="" position="700,1000" size="100,100">## Group 2 — Discussion 2: Navigating Genre and Lexis Expectations
+&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group2-Peer-Review&quot;&gt;
 
-**Goal**: Apply your understanding of genres and lexis to your own writing contexts
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="13" name="Group2-Discussion-2" tags="" position="800,1000" size="100,100">## Group 2 — Discussion 2: Practicing Analytical Moves
+
+**Goal**: Learn to recognize the difference between description and analysis—and practice making analytical claims
+
+### From Observation to Interpretation
+
+MA2 asks you to &quot;make an argument about the effect/effectiveness of artifacts on the socio-cultural context.&quot; That means moving from WHAT happened to WHY it matters and WHAT it reveals.
 
 ### Questions
 
-**1. Think about a time you had to learn a new genre or specialized language.**
-What community were you trying to join? How did you learn the expected genres and lexis?
+**1. Practice the difference**
+Take a simple artifact (a meme, a text exchange, a social media post).
 
-**2. What&#39;s at stake when you don&#39;t know the genre conventions or lexis?**
-Can you still participate in the community? What do you risk?
+**Description**: &quot;This meme uses bad grammar and a cat.&quot;
+**Analysis**: &quot;This meme uses intentional misspellings (&#39;haz,&#39; &#39;plz&#39;) to establish membership in internet culture and challenge standard English expectations—revealing how discourse communities negotiate language norms through humor.&quot;
 
-**3. For your Multimodal Literacy Narrative, which discourse community&#39;s genres and lexis will you analyze?**
-How will you explain the specialized language or genre conventions to readers who don&#39;t belong to that community?
+Try this with an artifact from your literacy practice. What&#39;s the description? What&#39;s the analysis?
+
+**2. What analytical questions unlock deeper thinking?**
+Instead of &quot;What does this say?&quot; ask:
+- What power dynamics does this reveal?
+- Whose language is valued here? Whose isn&#39;t?
+- What norms/beliefs/structures shaped this?
+- How do social actors interact with this?
+- What would happen if someone violated these expectations?
+
+**3. Choose one artifact you might use for MA2**
+Practice asking ALL the analytical questions above. Which ones generate the most interesting insights?
 
 ### Quick Draft (if time allows)
 
 Choose one:
-- **Option A**: Draft a paragraph explaining a specialized term from your discourse community to an outsider
-- **Option B**: Describe the genre conventions of one type of communication in your chosen community
-- **Option C**: Analyze why a particular genre or piece of lexis exists in your community—what purpose does it serve?
 
-[[Reference: Genres and Lexis-&gt;Group2-Reference]]
+- **Option A**: Write one descriptive sentence and one analytical sentence about the same artifact—show the contrast
+
+- **Option B**: Take a simple observation and turn it into an analytical claim using Melzer or Tremain&#39;s frameworks
+
+- **Option C**: List 5 analytical questions you could ask about your chosen artifact
+
+[[Reference: Description vs. Analysis-&gt;Group2-Reference]]
 
 #### *Time to prepare your shareout.*
 
 [[← Back to pathway-&gt;Group2-Opening]]
 
 &lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group2-Discussion-2&quot;&gt;
-[[Time to prepare your shareout →-&gt;Group2-Shareout-Prep]]
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="14" name="Group2-Shareout-Prep" tags="" position="700,1200" size="100,100">## Group 2 — Shareout Prep
+[[Time to prepare your shareout→-&gt;Group2-Shareout-Prep]]
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="14" name="Group2-Shareout-Prep" tags="" position="800,1200" size="100,100">## Group 2 — Shareout Prep
 
-Prepare a **2-3 minute** presentation.
+Prepare a **2-3 minute** presentation for the class.
 
 ### What to Share
-**1. Key Insight** (1 min): What&#39;s important about how genres and lexis work in discourse communities?
 
-**2. Specific Example** (1 min): ONE concrete example of a genre or specialized term from a discourse community you analyzed.
+**1. Key Insight** (1 min): What&#39;s the difference between describing and analyzing? Why does it matter for MA2?
 
-**3. Application** (30 sec): One thing the class should remember when analyzing genres and lexis in their own communities.
+**2. Specific Example** (1 min): Show a BEFORE/AFTER—descriptive statement vs. analytical statement about the same artifact.
+
+**3. MA2 Application** (30 sec): What&#39;s one analytical question classmates should ask about their artifacts?
 
 ### Get Organized
 - Who&#39;s presenting which part?
-- What specific example are you using?
-- What&#39;s your takeaway for the class?
+
+- What example will show description vs. analysis clearly?
+
+- Can you explain what makes the analytical version stronger?
+
+*Keep it tight — 2-3 minutes. Help classmates level up their analytical thinking.*
 
 #### *Ready to share with the class.*
 
 [[← Back to pathway-&gt;Group2-Opening]] | [[Ready for synthesis →-&gt;Collective-Synthesis]]
 
 &lt;div class=&quot;timed-nav&quot; data-timer=&quot;240&quot; data-passage=&quot;Group2-Shareout-Prep&quot;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="15" name="Group2-Reference" tags="" position="900,900" size="100,100">## Reference: Genres and Lexis
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="15" name="Group2-Reference" tags="" position="1000,800" size="100,100">## Reference: Description vs. Analysis
 
-**What it is**: Two key characteristics of discourse communities
+**What it is**: Description tells what you observe. Analysis interprets what it means and why it matters.
 
-**Why it matters for your writing**: Understanding genres and lexis helps you adapt to new writing contexts and analyze how communities use language.
+**Why it matters for MA2**: The assignment asks you to &quot;make an argument about effect/effectiveness&quot; and &quot;critically examine&quot; literacy practices. That requires analysis, not just description.
 
-### Key Points
-- **Genres**: Recurring types of communication that help communities achieve goals (e.g., lab reports, memes, chord sheets, meeting agendas)
-- **Lexis**: Specialized vocabulary that insiders use (e.g., &quot;capo&quot; for guitarists, &quot;discourse community&quot; for rhetoric scholars, &quot;tank&quot; for gamers)
-- **Function**: Both genres and lexis help members communicate efficiently and signal membership
+### The Difference
 
-### Example
-Academic writing has genres like research articles (with specific sections: abstract, methods, results, discussion) and lexis like &quot;discourse community,&quot; &quot;rhetorical situation,&quot; &quot;exigence.&quot; You couldn&#39;t participate effectively in academic conversations without knowing these.
+**Description**:
+- What is happening
+- Observable features
+- Surface-level reporting
+- Example: &quot;This group chat uses emoji and abbreviations.&quot;
+
+**Analysis**:
+- What it reveals/means
+- Interpretation using frameworks
+- Connections to power/context/theory
+- Example: &quot;This group chat uses emoji and abbreviations to create intimacy and mark insider status—those who don&#39;t know the codes (like parents) are excluded, revealing how lexis functions as a gatekeeping mechanism in peer discourse communities.&quot;
+
+### Analytical Moves
+
+**Ask interpretive questions**:
+- What does this reveal about power/norms/values?
+- How does this connect to [framework from readings]?
+- What would happen if someone violated this expectation?
+- Whose interests does this serve?
+- What constraints shaped this?
+
+**Use framework terminology**: discourse community, lexis, genre, translanguaging, code-meshing, gatekeeping, negotiation, constraints
+
+**Make claims**: &quot;This reveals...&quot;, &quot;This demonstrates...&quot;, &quot;This challenges...&quot;
 
 ### How to Apply This
-When you enter a new discourse community, pay attention to what genres people use and what specialized terms they employ. Learn the conventions to participate effectively—or choose to break them strategically when you have a good reason.
+
+For each artifact, describe it briefly, then spend most of your analysis explaining what it reveals about socio-cultural factors using frameworks from our readings.
 
 ---
 
-[[← Back to pathway-&gt;Group2-Opening]]</tw-passagedata><tw-passagedata pid="16" name="Group3-Opening" tags="" position="1000,600" size="100,100">## Group 3: Translanguaging and Code-Meshing
+[[← Back to pathway-&gt;Group2-Opening]]</tw-passagedata><tw-passagedata pid="16" name="Group3-Opening" tags="" position="1200,600" size="100,100">## Group 3: Applying Tremain&#39;s Frameworks
 
-Your group explores Tremain&#39;s argument for translanguaging and code-meshing as alternatives to code-switching.
+Your group explores how to use translanguaging, code-meshing, and language negotiation as analytical lenses for MA2.
 
-*Why this matters*: Understanding different approaches to language helps you make strategic choices about how you navigate discourse community expectations—and when you might challenge them.
+*Why this matters*: Tremain gives you specific frameworks for analyzing how language works in discourse communities. These frameworks help you move beyond describing what you see to analyzing power, identity, and negotiation.
 
 ### Your Pathway
 
-1. **Discussion 1**: What are translanguaging and code-meshing, and how do they differ from code-switching?
+1. **Peer Review**: Give feedback on MA1 drafts focusing on language analysis
 
-2. **Discussion 2**: When and how might you use these approaches in your own writing?
+2. **Discussion 2**: Apply Tremain&#39;s frameworks to potential MA2 artifacts
 
-3. **Shareout Prep**: Organize your findings to share with the class.
+3. **Shareout Prep**: Organize insights to share with the class
 
 #### Navigation
 
 [[Whole-class framing (review)-&gt;Framing]]
 
-[[Start Discussion 1 →-&gt;Group3-Discussion-1]]
+[[Start Peer Review →-&gt;Group3-Peer-Review]]
 
 #### Reference
+[[Tremain&#39;s Analytical Frameworks-&gt;Group3-Reference]]</tw-passagedata><tw-passagedata pid="17" name="Group3-Peer-Review" tags="" position="1200,800" size="100,100">## Group 3 — Peer Review: MA1 Draft Feedback
 
-[[Code-Switching vs. Code-Meshing-&gt;Group3-Reference]]</tw-passagedata><tw-passagedata pid="17" name="Group3-Discussion-1" tags="" position="1000,800" size="100,100">## Group 3 — Discussion 1: Understanding Translanguaging and Code-Meshing
+**Goal**: Provide substantive feedback that helps your peer strengthen their Multimodal Literacy Narrative
 
-**Goal**: Understand what translanguaging and code-meshing mean and how they differ from code-switching
+### Exchange Drafts
 
-### Context
+Partner up within your group. Read your partner&#39;s draft carefully (8-10 minutes).
 
-Tremain distinguishes between three approaches to navigating language expectations:
+### Feedback Criteria
 
-**Code-switching**: Alternating between languages or language varieties depending on context (e.g., speaking &quot;standard English&quot; at school, speaking African American English at home)
+As you read, focus on these elements:
 
-**Translanguaging**: Drawing fluidly on all your language resources without treating them as separate systems
+**1. Specialized Language (Lexis)**
+Does the draft identify specialized vocabulary from their literacy practice? Do they explain what that language meant and how they learned it?
 
-**Code-meshing**: Intentionally blending languages or language varieties in a single piece of writing, rather than switching between them
+**2. Insider vs. Outsider Language**
+Can you tell from the draft who was an insider vs. outsider in that discourse community? How was specialized language used to include or exclude?
 
-Tremain argues that code-meshing and translanguaging resist the idea that there&#39;s one &quot;correct&quot; way to use language. They challenge the assumption that standard English is inherently better than other varieties.
+**3. Framework Terminology**
+Does the draft use concepts from our readings accurately? (e.g., discourse community, lexis, genre, literacy sponsorship)
 
-### Questions
+**4. Evidence of Learning**
+Does the draft show how they learned the specialized language of their literacy practice? What does that learning process reveal?
 
-Work through these together. Take notes in your shared doc.
+### Written Feedback
 
-**1. In your own words, what&#39;s the difference between code-switching and code-meshing?**
-Use an example to illustrate the difference.
+Provide 2-3 concrete suggestions. For example: &quot;You mention gaming language but don&#39;t explain terms like &#39;ganking&#39; or &#39;farming&#39;—showing how you learned these terms would strengthen your analysis of how you joined that community.&quot;
 
-**2. Why does Tremain argue that code-switching can be harmful?**
-What does she say is problematic about constantly switching between language varieties?
+[[Reference: Lexis and Specialized Language-&gt;Group3-Reference]]
 
-**3. What&#39;s risky about code-meshing in academic or professional contexts?**
-What might you gain? What might you lose?
-
-[[Reference: Code-Switching vs. Code-Meshing-&gt;Group3-Reference]]
-
-#### *Ready to move on? Head to Discussion 2.*
+#### *Ready for Discussion 2.*
 
 [[← Back to pathway-&gt;Group3-Opening]] | [[Continue to Discussion 2 →-&gt;Group3-Discussion-2]]
 
-&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group3-Discussion-1&quot;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="18" name="Group3-Discussion-2" tags="" position="1000,1000" size="100,100">## Group 3 — Discussion 2: Applying Code-Meshing
+&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group3-Peer-Review&quot;&gt;
 
-**Goal**: Consider when and how you might use translanguaging or code-meshing in your own writing
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="18" name="Group3-Discussion-2" tags="" position="1200,1000" size="100,100">## Group 3 — Discussion 2: Where to Look for Language Negotiation
+
+**Goal**: Practice using translanguaging, code-meshing, and language negotiation as analytical frameworks
+
+### From Concepts to Application
+
+Tremain shows that discourse communities change through language negotiation. Your job: find examples of this in your literacy practices.
 
 ### Questions
 
-**1. Think about your own language practices across different contexts.**
-Do you code-switch? How does it feel when you do? Does it ever feel like you&#39;re censoring part of yourself?
+**1. Where do you see translanguaging or code-meshing in your literacy practices?**
+Look for:
+- Blending languages (Spanglish, &quot;I googled it&quot;, multilingual family communication)
+- Blending dialects (&quot;y&#39;all&quot; in formal settings, AAVE mixed with academic English, regional terms in professional writing)
+- Internet language (&quot;plz,&quot; &quot;haz,&quot; emoji as language)
+- Specialized terms crossing into everyday speech
 
-**2. Where might code-meshing work in academic writing? Where might it not?**
-What determines whether it&#39;s an effective rhetorical choice?
+**2. What&#39;s being negotiated when language blends?**
+Is someone:
+- Claiming membership in multiple communities at once?
+- Challenging &quot;standard&quot; expectations?
+- Creating intimacy or marking insider status?
+- Preserving cultural/linguistic identity?
+- Resisting assimilation to dominant discourse?
 
-**3. For your Multimodal Literacy Narrative, how might you approach language choices?**
-Will you code-switch, code-mesh, or something else? Why?
+**3. What power dynamics does this reveal?**
+Whose language is considered &quot;correct&quot;? What would happen if you used only standard language? What would happen if you used only the non-standard form? Who benefits from current language expectations? Who is marginalized?
 
 ### Quick Draft (if time allows)
 
 Choose one:
-- **Option A**: Draft a paragraph about a personal experience using code-meshing—intentionally blend different language varieties
-- **Option B**: Revise a previous piece of writing to incorporate code-meshing where you originally code-switched
-- **Option C**: Explain when you think code-meshing is worth the risk and when it might not be
 
-[[Reference: Code-Switching vs. Code-Meshing-&gt;Group3-Reference]]
+- **Option A**: Identify a specific moment of code-meshing or translanguaging in your artifacts and analyze what&#39;s being negotiated
+
+- **Option B**: Explain how Tremain&#39;s framework reveals something about your literacy practice that Melzer&#39;s framework doesn&#39;t
+
+- **Option C**: Analyze the risks and benefits of language negotiation in your chosen discourse community
+
+[[Reference: Tremain&#39;s Analytical Frameworks-&gt;Group3-Reference]]
 
 #### *Time to prepare your shareout.*
 
 [[← Back to pathway-&gt;Group3-Opening]]
 
 &lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group3-Discussion-2&quot;&gt;
-[[Time to prepare your shareout →-&gt;Group3-Shareout-Prep]]
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="19" name="Group3-Shareout-Prep" tags="" position="1000,1200" size="100,100">## Group 3 — Shareout Prep
+[[Time to prepare your shareout→-&gt;Group3-Shareout-Prep]]
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="19" name="Group3-Shareout-Prep" tags="" position="1225,1200" size="100,100">## Group 3 — Shareout Prep
 
-Prepare a **2-3 minute** presentation.
+Prepare a **2-3 minute** presentation for the class.
 
 ### What to Share
-**1. Key Insight** (1 min): What&#39;s the key difference between code-switching and code-meshing, and why does it matter?
 
-**2. Specific Example** (1 min): ONE example of when code-meshing might be an effective rhetorical choice.
+**1. Key Insight** (1 min): How does Tremain&#39;s framework help you analyze language in ways Melzer&#39;s doesn&#39;t?
 
-**3. Application** (30 sec): One thing writers should consider when deciding whether to code-switch or code-mesh.
+**2. Specific Example** (1 min): ONE concrete example of translanguaging or code-meshing from someone&#39;s literacy practice—and what it reveals about power or negotiation.
+
+**3. MA2 Application** (30 sec): Where should classmates look for language negotiation in their artifacts?
 
 ### Get Organized
 - Who&#39;s presenting which part?
-- What specific example are you using?
-- What&#39;s your takeaway for the class?
+
+- What language blending example will you use?
+
+- Can you explain what&#39;s being negotiated and what power dynamics it reveals?
+
+*Keep it tight — 2-3 minutes. Make Tremain&#39;s concepts concrete and useful.*
 
 #### *Ready to share with the class.*
 
 [[← Back to pathway-&gt;Group3-Opening]] | [[Ready for synthesis →-&gt;Collective-Synthesis]]
 
 &lt;div class=&quot;timed-nav&quot; data-timer=&quot;240&quot; data-passage=&quot;Group3-Shareout-Prep&quot;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="20" name="Group3-Reference" tags="" position="1200,900" size="100,100">## Reference: Code-Switching vs. Code-Meshing
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="20" name="Group3-Reference" tags="" position="1400,800" size="100,100">## Reference: Tremain&#39;s Analytical Frameworks
 
-**What it is**: Two different approaches to navigating language expectations across discourse communities
+**What it is**: Tremain gives us specific frameworks for analyzing how language works in discourse communities, especially around power and negotiation.
 
-**Why it matters for your writing**: Understanding these approaches helps you make strategic choices about how to use language in different contexts.
+**Why it matters for MA2**: These frameworks help you analyze HOW social and cultural factors constrain literacy practices—specifically through language expectations and power dynamics.
 
-### Key Points
-- **Code-switching**: Alternating between language varieties depending on context
-- **Code-meshing**: Intentionally blending language varieties in a single text
-- **Translanguaging**: Drawing fluidly on all linguistic resources without treating them as separate
+### Key Frameworks
 
-### Example
-Code-switching: Writing &quot;I am going to the store&quot; in an email to a professor but texting your friend &quot;ima go to the store&quot;
+**Translanguaging**: Crossing/blending languages to communicate
+- Example: Spanglish, &quot;I googled it&quot;, multilingual family communication
+- What to analyze: What&#39;s accomplished by blending? What would be lost by using only one language?
 
-Code-meshing: Writing an academic essay that intentionally incorporates African American English, Spanish, or other language varieties alongside standard English
+**Code-meshing**: Meshing dialects/codes within one language
+- Example: &quot;Y&#39;all&quot; in academic writing, AAVE mixed with standard English, internet slang in formal contexts
+- What to analyze: What&#39;s being negotiated? What risks/benefits exist?
+
+**Language Negotiation**: The ongoing process of challenging/reinforcing language expectations
+- What to analyze: Who has power to decide what&#39;s &quot;correct&quot;? How do members resist or conform? What changes over time?
+
+### Critical Questions Tremain Enables
+
+- Whose language is valued? Whose is marginalized?
+- How does &quot;standard English&quot; uphold dominant power structures?
+- Where do writers strategically blend languages to claim multiple identities?
+- What are the consequences of conforming vs. resisting language expectations?
+- How do discourse communities change through language negotiation?
 
 ### How to Apply This
-Code-meshing is a rhetorical choice. Consider your audience, purpose, and what&#39;s at stake. Sometimes code-meshing is an effective way to resist linguistic prejudice and honor your full language repertoire. Sometimes code-switching is the strategic choice. Both are valid—it depends on your goals and what you&#39;re willing to risk.
+
+Look at your artifacts for moments of language blending, dialect mixing, or strategic language choices. Analyze what&#39;s being negotiated, what power dynamics are revealed, and what this shows about how socio-cultural factors shape literacy.
 
 ---
 
-[[← Back to pathway-&gt;Group3-Opening]]</tw-passagedata><tw-passagedata pid="21" name="Group4-Opening" tags="" position="1300,600" size="100,100">## Group 4: Power and Access
+[[← Back to pathway-&gt;Group3-Opening]]</tw-passagedata><tw-passagedata pid="21" name="Group4-Opening" tags="" position="1600,600" size="100,100">## Group 4: Identifying Socio-Cultural Constraints
 
-Your group explores the relationship between language, power, and access to discourse communities.
+Your group explores how to identify norms, beliefs, structures, and behaviors that shape and constrain literacy practices.
 
-*Why this matters*: Understanding who gets to set language standards and who gets excluded helps you recognize and challenge linguistic prejudice.
+*Why this matters*: MA2 asks you to examine how literacy practices are &quot;shaped and constrained by context.&quot; You need to identify WHAT those constraints are and HOW they operate.
 
 ### Your Pathway
 
-1. **Discussion 1**: How do language expectations create barriers to discourse communities?
+1. **Peer Review**: Give feedback on MA1 drafts focusing on contextual analysis
 
-2. **Discussion 2**: How can writers navigate or challenge these barriers?
+2. **Discussion 2**: Identify socio-cultural constraints in your literacy practices
 
-3. **Shareout Prep**: Organize your findings to share with the class.
+3. **Shareout Prep**: Organize insights to share with the class
 
 #### Navigation
 
 [[Whole-class framing (review)-&gt;Framing]]
 
-[[Start Discussion 1 →-&gt;Group4-Discussion-1]]
+[[Start Peer Review →-&gt;Group4-Peer-Review]]
 
 #### Reference
-[[Language and Power-&gt;Group4-Reference]]</tw-passagedata><tw-passagedata pid="22" name="Group4-Discussion-1" tags="" position="1300,800" size="100,100">## Group 4 — Discussion 1: Language as Gatekeeping
+[[Socio-Cultural Constraints-&gt;Group4-Reference]]</tw-passagedata><tw-passagedata pid="22" name="Group4-Peer-Review" tags="" position="1600,800" size="100,100">## Group 4 — Peer Review: MA1 Draft Feedback
 
-**Goal**: Understand how language expectations can exclude people from discourse communities
+**Goal**: Provide substantive feedback that helps your peer strengthen their Multimodal Literacy Narrative
 
-### Context
+### Exchange Drafts
 
-Tremain argues that &quot;standard English&quot; isn&#39;t inherently better or clearer than other language varieties—it&#39;s just the language variety used by people with institutional power. When discourse communities require standard English, they&#39;re creating barriers for people who grew up speaking other varieties.
+Partner up within your group. Read your partner&#39;s draft carefully (8-10 minutes).
 
-This matters because access to discourse communities often determines access to opportunities, resources, and power. If you can&#39;t use the &quot;right&quot; language, you might be excluded from academic communities, professional communities, or civic communities—even if you have valuable knowledge and skills.
+### Feedback Criteria
 
-**Key question**: Who decides what counts as &quot;correct&quot; language, and who benefits from those decisions?
+As you read, focus on these elements:
 
-### Questions
+**1. Genre Awareness**
+Does the draft identify what genre(s) their literacy practice used? (Letters, videos, texts, posts, etc.) Do they explain why that genre mattered for the community&#39;s goals?
 
-Work through these together. Take notes in your shared doc.
+**2. Multimodality**
+Does the draft discuss how different modes (visual, linguistic, spatial, etc.) worked together in their literacy experience? Is there analysis of WHY those modes mattered?
 
-**1. What does Tremain mean when she says standard English is &quot;the language of people with institutional power&quot;?**
-How did standard English become &quot;standard&quot;?
+**3. Social Action Through Genre**
+Does the draft explain what the genre ACCOMPLISHED—what social action it performed? (Building relationships, sharing information, creating art, etc.)
 
-**2. Give an example of how language expectations can exclude someone from a discourse community.**
-This could be from your own experience or from what you&#39;ve observed.
+**4. Genre Conventions**
+Can you tell what the &quot;rules&quot; or expectations were for the genre in their discourse community?
 
-**3. What&#39;s the difference between language variety and language quality?**
-Can someone be a &quot;good&quot; writer in a non-standard variety of English?
+### Written Feedback
 
-[[Reference: Language and Power-&gt;Group4-Reference]]
+Provide 2-3 concrete suggestions. For example: &quot;You describe Instagram posts but don&#39;t analyze how the visual + linguistic modes work together to create belonging in your friend group—adding this would strengthen your multimodality analysis.&quot;
 
-#### *Ready to move on? Head to Discussion 2.*
+[[Reference: Genre and Social Action-&gt;Group4-Reference]]
+
+#### *Ready for Discussion 2.*
 
 [[← Back to pathway-&gt;Group4-Opening]] | [[Continue to Discussion 2 →-&gt;Group4-Discussion-2]]
 
-&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group4-Discussion-1&quot;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="23" name="Group4-Discussion-2" tags="" position="1300,1000" size="100,100">## Group 4 — Discussion 2: Navigating and Challenging Language Barriers
+&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group4-Peer-Review&quot;&gt;
 
-**Goal**: Consider strategies for navigating or challenging language-based exclusion
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="23" name="Group4-Discussion-2" tags="" position="1600,1000" size="100,100">## Group 4 — Discussion 2: What Constrains Your Literacy Practice?
+
+**Goal**: Identify specific social and cultural factors that shape and constrain your literacy practices
+
+### From Abstract to Concrete
+
+The MA2 prompt says literacy is &quot;shaped and constrained by social and cultural factors, including norms, beliefs, interactions, structures, behaviors.&quot; What does that actually mean for YOUR literacy practice?
 
 ### Questions
 
-**1. What are the options for someone whose home language variety doesn&#39;t match a discourse community&#39;s expectations?**
-What are the costs and benefits of each approach?
+**1. Choose a literacy practice—what SOCIAL factors shape it?**
+- **Power structures**: Who has authority? Whose language/rules dominate?
+- **Interactions**: Who communicates with whom? How do relationships shape what&#39;s possible?
+- **Norms**: What&#39;s considered &quot;appropriate&quot; or &quot;correct&quot;? Says who?
+- **Access**: Who can participate fully? Who is excluded? Why?
 
-**2. When is it worth conforming to standard English expectations? When is it worth resisting?**
-What factors should influence that decision?
+**2. What CULTURAL factors shape it?**
+- **Beliefs**: What does this community believe about literacy, language, identity?
+- **Values**: What&#39;s prized? What&#39;s discouraged?
+- **Traditions**: What practices get passed down? What changes?
+- **Identity**: How does language connect to cultural/racial/regional identity?
 
-**3. How might you address language and power in your Multimodal Literacy Narrative?**
-What language choices will you make, and what do those choices communicate about your relationship to power and access?
+**3. What specific constraints can you identify?**
+Platform limitations (character counts, available modes)? Genre expectations? Language norms? Time/money/access barriers? Power hierarchies?
 
 ### Quick Draft (if time allows)
 
 Choose one:
-- **Option A**: Draft a paragraph about a time you felt excluded or judged based on how you spoke or wrote
-- **Option B**: Explain a situation where code-meshing might challenge linguistic prejudice
-- **Option C**: Analyze the power dynamics in a specific discourse community&#39;s language expectations
 
-[[Reference: Language and Power-&gt;Group4-Reference]]
+- **Option A**: List 3-5 specific constraints shaping your literacy practice and explain how each one limits what&#39;s possible
 
-[[← Back to pathway-&gt;Group4-Opening]] 
+- **Option B**: Analyze one constraint deeply—what is it, who benefits from it, who is limited by it, and what would happen without it
+
+- **Option C**: Compare constraints across two contexts (e.g., texting friends vs. emailing professors)
+
+[[Reference: Socio-Cultural Constraints-&gt;Group4-Reference]]
+
+#### *Time to prepare your shareout.*
+
+[[← Back to pathway-&gt;Group4-Opening]]
 
 &lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group4-Discussion-2&quot;&gt;
-[[Time to prepare your shareout →-&gt;Group4-Shareout-Prep]]
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="24" name="Group4-Shareout-Prep" tags="" position="1300,1200" size="100,100">## Group 4 — Shareout Prep
+[[Time to prepare your shareout→-&gt;Group4-Shareout-Prep]]
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="24" name="Group4-Shareout-Prep" tags="" position="1600,1200" size="100,100">## Group 4 — Shareout Prep
 
-Prepare a **2-3 minute** presentation.
+Prepare a **2-3 minute** presentation for the class.
 
 ### What to Share
-**1. Key Insight** (1 min): What&#39;s the relationship between language expectations and power/access?
 
-**2. Specific Example** (1 min): ONE example of how language expectations can include or exclude people from a discourse community.
+**1. Key Insight** (1 min): What does it mean for literacy to be &quot;shaped and constrained by context&quot;? Make it concrete, not abstract.
 
-**3. Application** (30 sec): One thing writers should remember when navigating language expectations in different contexts.
+**2. Specific Example** (1 min): ONE specific constraint from someone&#39;s literacy practice—what it is, how it operates, and who it affects.
+
+**3. MA2 Application** (30 sec): How can classmates identify constraints systematically in their own literacy practices?
 
 ### Get Organized
 - Who&#39;s presenting which part?
-- What specific example are you using?
-- What&#39;s your takeaway for the class?
+
+- What constraint example will make the concept clear?
+
+- Can you show both social AND cultural factors?
+
+*Keep it tight — 2-3 minutes. Make &quot;constraints&quot; feel concrete and analyzable.*
 
 #### *Ready to share with the class.*
 
-[[← Back to pathway-&gt;Group4-Opening]] } [[Ready for synthesis →-&gt;Collective-Synthesis]]
+[[← Back to pathway-&gt;Group4-Opening]] | [[Ready for synthesis →-&gt;Collective-Synthesis]]
 
 &lt;div class=&quot;timed-nav&quot; data-timer=&quot;240&quot; data-passage=&quot;Group4-Shareout-Prep&quot;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="25" name="Group4-Reference" tags="" position="1500,900" size="100,100">## Reference: Language and Power
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="25" name="Group4-Reference" tags="" position="1800,800" size="100,100">## Reference: Socio-Cultural Constraints
 
-**What it is**: The relationship between language expectations and access to opportunities/resources
+**What it is**: Constraints are the social and cultural factors that shape what&#39;s possible and what&#39;s not in your literacy practice. They limit, guide, or determine how you read, write, and communicate.
 
-**Why it matters for your writing**: Understanding how language creates or limits access helps you make informed choices about when to conform to expectations and when to challenge them.
+**Why it matters for MA2**: The assignment specifically asks you to examine how literacy practices are &quot;shaped and constrained by social and cultural factors, including norms, beliefs, interactions, structures, behaviors.&quot;
 
-### Key Points
-- Standard English isn&#39;t inherently &quot;better&quot;—it&#39;s the variety spoken by people with institutional power
-- Language expectations can function as gatekeeping mechanisms that exclude people
-- Writers face strategic choices about conforming to, negotiating with, or resisting language expectations
-- What counts as &quot;correct&quot; is determined by power, not by linguistic quality
+### Types of Constraints
 
-### Example
-A college admissions essay that uses African American English vernacular might be judged as &quot;unprofessional&quot; or &quot;incorrect&quot;—not because it&#39;s unclear or ineffective, but because it doesn&#39;t match the dominant language variety. This creates a barrier for students who grew up speaking AAVE.
+**Social Factors** (how people interact and organize):
+- Power structures and hierarchies
+- Norms about appropriateness
+- Access and exclusion
+- Institutional rules
+- Economic barriers
+- Platform/technology limitations
+
+**Cultural Factors** (shared meanings and values):
+- Beliefs about &quot;correct&quot; language
+- Values about literacy and education
+- Cultural/linguistic identity
+- Traditions and inherited practices
+- Aesthetic preferences
+
+### Examples
+
+**Instagram poetry community**:
+- Social: Platform limits (character count, image-centered), influencer hierarchies
+- Cultural: Aesthetic values (minimalism, whitespace), beliefs about accessibility vs. &quot;literary quality&quot;
+
+**Family group chat**:
+- Social: Parent authority over tone, who gets included/excluded, technology access
+- Cultural: Language preservation (using heritage language), intimacy norms (emoji use), generational expectations
 
 ### How to Apply This
-Recognize that language expectations are rhetorical and political, not just grammatical. You can choose to meet those expectations strategically while also understanding that they&#39;re not neutral. When you have the power to do so, you can also choose to challenge them—but be aware of what&#39;s at stake.
+
+Ask: What MUST you do in this literacy practice? What CAN&#39;T you do? What&#39;s preferred? What&#39;s discouraged? Who decides? These constraints reveal the socio-cultural context shaping your practice.
 
 ---
 
-[[← Back to pathway-&gt;Group4-Opening]]</tw-passagedata><tw-passagedata pid="26" name="Group5-Opening" tags="" position="1600,600" size="100,100">## Group 5: Literacy Sponsorship
+[[← Back to pathway-&gt;Group4-Opening]]</tw-passagedata><tw-passagedata pid="26" name="Group5-Opening" tags="" position="2000,600" size="100,100">## Group 5: Synthesizing Multiple Frameworks
 
-Your group explores how sponsors—people, institutions, or organizations—shape access to literacy and discourse communities.
+Your group explores how to put multiple theoretical frameworks in conversation to create richer analysis for MA2.
 
-*Why this matters*: Understanding who sponsors your literacy helps you recognize the forces that have shaped you as a writer and communicator.
+*Why this matters*: MA2 requires you to &quot;synthesize multiple textual sources (at least 2) to help you define and interpret the theoretical framework.&quot; That means using Melzer AND Tremain (and others) together, not separately.
 
 ### Your Pathway
 
-1. **Discussion 1**: What is literacy sponsorship and how does it work?
+1. **Peer Review**: Give feedback on MA1 drafts focusing on source integration
 
-2. **Discussion 2**: Who are your literacy sponsors and how have they influenced you?
+2. **Discussion 2**: Practice synthesizing frameworks for MA2
 
-3. **Shareout Prep**: Organize your findings to share with the class.
+3. **Shareout Prep**: Organize insights to share with the class
 
 #### Navigation
 
 [[Whole-class framing (review)-&gt;Framing]]
 
-[[Start Discussion 1 →-&gt;Group5-Discussion-1]]
+[[Start Peer Review →-&gt;Group5-Peer-Review]]
 
 #### Reference
-[[Literacy Sponsors-&gt;Group5-Reference]]</tw-passagedata><tw-passagedata pid="27" name="Group5-Discussion-1" tags="" position="1600,800" size="100,100">## Group 5 — Discussion 1: Understanding Literacy Sponsorship
+[[Synthesizing Frameworks-&gt;Group5-Reference]]</tw-passagedata><tw-passagedata pid="27" name="Group5-Peer-Review" tags="" position="2000,800" size="100,100">## Group 5 — Peer Review: MA1 Draft Feedback
 
-**Goal**: Understand what literacy sponsors are and how they shape access to literacy
+**Goal**: Provide substantive feedback that helps your peer strengthen their Multimodal Literacy Narrative
 
-### Context
+### Exchange Drafts
 
-Deborah Brandt defines literacy sponsors as &quot;any agents, local or distant, concrete or abstract, who enable, support, teach, model, as well as recruit, regulate, suppress, or withhold literacy—and gain advantage by it in some way.&quot;
+Partner up within your group. Read your partner&#39;s draft carefully (8-10 minutes).
 
-Sponsors can be people (teachers, parents, mentors), institutions (schools, churches, libraries), or organizations (writing programs, literacy nonprofits). They shape what kinds of literacy you develop, which discourse communities you can access, and how you use language.
+### Feedback Criteria
 
-**Key insight**: Sponsors aren&#39;t neutral. They have their own interests and agendas, even when they genuinely want to help you. Understanding sponsorship means recognizing both what sponsors give you and what they might limit or control.
+As you read, focus on these elements:
 
-### Questions
+**1. Critical Analysis of Power**
+Does the draft examine who had power in their literacy experience? Do they discuss language expectations and whose language was valued?
 
-Work through these together. Take notes in your shared doc.
+**2. Constraints and Agency**
+Does the draft show how their literacy practice was constrained (by school, family, culture, technology)? Do they also show moments of agency or resistance?
 
-**1. What does Brandt mean by saying sponsors &quot;gain advantage&quot; from providing literacy?**
-What might a sponsor get out of teaching someone to read, write, or communicate?
+**3. Identity and Belonging**
+Does the draft connect language/literacy to questions of identity and belonging? Do they examine who was included/excluded?
 
-**2. Give examples of literacy sponsors in your own life.**
-Who taught you to communicate in different ways? What did they teach you—and what might they have limited?
+**4. Socio-Cultural Context**
+Can you understand the social and cultural factors shaping their literacy experience? Is the context clear enough?
 
-**3. How do literacy sponsors relate to discourse communities?**
-Can sponsors grant or deny access to specific discourse communities?
+### Written Feedback
 
-[[Reference: Literacy Sponsors-&gt;Group5-Reference]]
+Provide 2-3 concrete suggestions. For example: &quot;You mention your teacher&#39;s rules about &#39;proper English&#39; but don&#39;t analyze whose dialect counts as proper and why—adding this critical perspective would strengthen your power analysis.&quot;
 
-#### *Ready to move on? Head to Discussion 2.*
+[[Reference: Power, Language, and Discourse Communities-&gt;Group5-Reference]]
+
+#### *Ready for Discussion 2.*
 
 [[← Back to pathway-&gt;Group5-Opening]] | [[Continue to Discussion 2 →-&gt;Group5-Discussion-2]]
 
+&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group5-Peer-Review&quot;&gt;
 
-&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group5-Discussion-1&quot;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="28" name="Group5-Discussion-2" tags="" position="1600,1000" size="100,100">## Group 5 — Discussion 2: Your Literacy Sponsors
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="28" name="Group5-Discussion-2" tags="" position="2000,1000" size="100,100">## Group 5 — Discussion 2: Putting Frameworks in Conversation
 
-**Goal**: Identify and analyze your own literacy sponsors and their influence
+**Goal**: Practice using multiple frameworks together to create layered, sophisticated analysis
+
+### From Single Framework to Synthesis
+
+Using one framework gives you one lens. Using multiple frameworks together reveals what each one alone cannot.
 
 ### Questions
 
-**1. Choose one significant literacy sponsor from your life.**
-This could be a person, institution, or organization. What did they teach you about communication? What discourse communities did they help you access?
+**1. What does each framework let you see?**
 
-**2. What were their interests or agendas?**
-What did they gain from sponsoring your literacy? (This isn&#39;t necessarily negative—sponsors can have genuine and self-interested motives simultaneously.)
+**Melzer** helps you:
+- Identify structural features (goals, genres, lexis, communication mechanisms)
+- Understand how discourse communities are organized
+- See patterns and conventions
 
-**3. What did they not teach you, intentionally or unintentionally?**
-What kinds of literacy or which discourse communities did they not prepare you for? Why might that be?
+**Tremain** helps you:
+- Analyze power dynamics and language negotiation
+- Understand how members challenge or change expectations
+- See whose language is valued and whose is marginalized
+
+**Together**, they help you show HOW structure and power interact.
+
+**2. Practice synthesis with your literacy practice**
+
+Instead of: &quot;My gaming community has specialized lexis (Melzer).&quot;
+Try: &quot;My gaming community has specialized lexis like &#39;ganking&#39; and &#39;farming&#39; (Melzer), but streamers who code-mesh this language into everyday speech challenge the boundary between gamer and mainstream discourse, revealing how language negotiation can expand or reinforce community membership (Tremain).&quot;
+
+What synthesis could you create about YOUR literacy practice?
+
+**3. What other frameworks from our readings could you add?**
+Anzaldúa (language and identity), Carroll (rhetorical analysis), Gagich (multimodality)? How would adding a third framework deepen your analysis?
 
 ### Quick Draft (if time allows)
 
 Choose one:
-- **Option A**: Draft a paragraph about a literacy sponsor and how they shaped your relationship with language
-- **Option B**: Analyze what a particular sponsor taught you versus what they didn&#39;t teach you
-- **Option C**: Explain how a sponsor helped you access (or blocked you from accessing) a specific discourse community
 
-[[Reference: Literacy Sponsors-&gt;Group5-Reference]]
+- **Option A**: Write one paragraph analyzing your literacy practice using BOTH Melzer and Tremain in conversation (not separately)
+
+- **Option B**: Show how Melzer reveals one thing about your practice and Tremain reveals something different—then explain what you see when you put them together
+
+- **Option C**: Add a third framework to Melzer + Tremain and show how all three create richer analysis
+
+[[Reference: Synthesizing Frameworks-&gt;Group5-Reference]]
+
+#### *Time to prepare your shareout.*
 
 [[← Back to pathway-&gt;Group5-Opening]]
 
 &lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group5-Discussion-2&quot;&gt;
-[[Time to prepare your shareout →-&gt;Group5-Shareout-Prep]]
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="29" name="Group5-Shareout-Prep" tags="" position="1600,1200" size="100,100">## Group 5 — Shareout Prep
+[[Time to prepare your shareout→-&gt;Group5-Shareout-Prep]]
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="29" name="Group5-Shareout-Prep" tags="" position="2000,1200" size="100,100">## Group 5 — Shareout Prep
 
-Prepare a **2-3 minute** presentation.
+Prepare a **2-3 minute** presentation for the class.
 
 ### What to Share
-**1. Key Insight** (1 min): What&#39;s important about understanding literacy sponsors and their influence?
-**2. Specific Example** (1 min): ONE concrete example of a literacy sponsor and how they shaped access to literacy or discourse communities.
-**3. Application** (30 sec): One thing writers should remember when analyzing their own literacy sponsors.
+
+**1. Key Insight** (1 min): Why use multiple frameworks together instead of separately? What does synthesis give you?
+
+**2. Specific Example** (1 min): Show synthesis in action—one statement using Melzer alone, one using Tremain alone, then one putting them in conversation.
+
+**3. MA2 Application** (30 sec): What&#39;s one strategy for synthesizing sources effectively?
 
 ### Get Organized
 - Who&#39;s presenting which part?
-- What specific example are you using?
-- What&#39;s your takeaway for the class?
+
+- Can you demonstrate what synthesis sounds like vs. separate frameworks?
+
+- What&#39;s the payoff for doing the extra work of synthesis?
+
+*Keep it tight — 2-3 minutes. Make synthesis feel doable, not overwhelming.*
 
 #### *Ready to share with the class.*
 
 [[← Back to pathway-&gt;Group5-Opening]] | [[Ready for synthesis →-&gt;Collective-Synthesis]]
 
 &lt;div class=&quot;timed-nav&quot; data-timer=&quot;240&quot; data-passage=&quot;Group5-Shareout-Prep&quot;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="30" name="Group5-Reference" tags="" position="1800,900" size="100,100">## Reference: Literacy Sponsors
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="30" name="Group5-Reference" tags="" position="2200,800" size="100,100">## Reference: Synthesizing Frameworks
 
-**What it is**: People, institutions, or organizations that enable, support, teach, regulate, or withhold literacy
+**What it is**: Synthesis means putting multiple theoretical frameworks in conversation with each other to create analysis that&#39;s richer than any single framework alone.
 
-**Why it matters for your writing**: Understanding your literacy sponsors helps you recognize who shaped you as a writer and what their influence was.
+**Why it matters for MA2**: The assignment requires you to &quot;synthesize multiple textual sources (at least 2)&quot; and use their combined insights to analyze your artifacts.
 
-### Key Points
-- Sponsors teach specific kinds of literacy for specific purposes
-- Sponsors have their own interests and agendas (not necessarily bad, but not neutral)
-- Sponsors can grant or deny access to discourse communities
-- Multiple sponsors can teach conflicting or complementary literacies
+### Synthesis vs. Summary
 
-### Example
-A high school English teacher sponsors your literacy by teaching you the five-paragraph essay and &quot;standard&quot; grammar. They help you access academic discourse communities, but they might also limit your understanding of what counts as &quot;good writing&quot; or reinforce linguistic prejudice against non-standard varieties.
+**Summary** (what NOT to do):
+&quot;Melzer says discourse communities have lexis. Tremain says language can be negotiated.&quot;
+→ These are separate statements sitting next to each other
+
+**Synthesis** (what TO do):
+&quot;While Melzer&#39;s framework helps identify specialized lexis in my gaming community, Tremain reveals that streamers who code-mesh gaming terms into mainstream content challenge these boundaries, showing how language negotiation can both expand community reach and risk insider authenticity.&quot;
+→ The frameworks work together to reveal something neither shows alone
+
+### How to Synthesize
+
+**Strategy 1: Build on**
+&quot;Melzer identifies [feature]. Building on this, Tremain helps us see how [feature] relates to power...&quot;
+
+**Strategy 2: Show tension**
+&quot;While Melzer emphasizes [structure], Tremain reminds us that [agency/change]...&quot;
+
+**Strategy 3: Layer insights**
+&quot;My artifact shows [Melzer concept], which reveals [Tremain concept], demonstrating how [combined insight].&quot;
+
+**Strategy 4: Use together**
+Apply both frameworks to the same artifact/moment and show what each reveals
+
+### Example Synthesis
+
+&quot;My family&#39;s multilingual group chat demonstrates Swales&#39; characteristic of mechanisms of intercommunication (text platform, voice notes), but Anzaldúa and Tremain help me analyze WHY we code-mesh Spanish and English—not just efficiency, but cultural identity preservation and resistance to English-only assimilation, revealing how structural features of discourse communities intersect with power dynamics around language.&quot;
 
 ### How to Apply This
-When analyzing your literacy development, identify your sponsors and consider what they taught you, what they didn&#39;t teach you, what they gained from sponsoring your literacy, and how they shaped your access to different discourse communities. This helps you understand your current relationship with language and writing.
+
+Pick 2-3 frameworks. For each artifact, ask: What does Framework A reveal? What does Framework B reveal? What do I see when I use them together that I couldn&#39;t see with just one?
 
 ---
 
-[[← Back to pathway-&gt;Group5-Opening]]</tw-passagedata><tw-passagedata pid="31" name="Collective-Synthesis" tags="" position="1000,1500" size="100,100">## Bringing It Together
+[[← Back to pathway-&gt;Group5-Opening]]</tw-passagedata><tw-passagedata pid="31" name="Collective-Synthesis" tags="" position="1200,1500" size="100,100">## Bringing It Together
 
 Each group shares (2-3 min each):
 
-Key insight → Specific example → Takeaway for the class.
+Key insight → Specific example → MA2 application.
 
 ### As You Listen
 
-- What patterns do you notice across groups?
+- What patterns do you notice about moving from Session 1 (understanding discourse communities) to Session 2 (analyzing literacy practices)?
 
-- How do the different perspectives on discourse communities connect?
+- How do the different analytical skills—artifact selection, description vs. analysis, applying frameworks, identifying constraints, synthesis—work together?
 
-- What contradictions or tensions emerged?
+- What&#39;s clearer now about how to approach MA2?
 
 ### Synthesis Questions
 
 After all groups have shared:
 
-- How does understanding discourse communities help you as a writer?
+- You now have analytical tools from both Melzer and Tremain. How will you decide which frameworks to use for your MA2 analysis?
 
-- Where do you see connections between Melzer&#39;s framework and Tremain&#39;s critical perspective on language?
+- What&#39;s the difference between identifying a discourse community (Session 1) and analyzing how it constrains literacy practices (Session 2 / MA2)?
 
-- What remains unclear or challenging about navigating discourse community expectations?
+- Which group&#39;s insight was most helpful for thinking about your own MA2 project? Why?
 
-- How will you apply these concepts to your Multimodal Literacy Narrative?
+- What&#39;s still unclear or challenging about moving from MA1 (literacy narrative) to MA2 (socio-cultural analysis)?
 
 [[Looking Ahead (MW) →-&gt;MW-Looking-Ahead]]
 
-[[Looking Ahead (WF) →-&gt;WF-Looking-Ahead]]</tw-passagedata><tw-passagedata pid="32" name="MW-Looking-Ahead" tags="" position="100,1500" size="100,100">## Looking Ahead
+[[Looking Ahead (WF) →-&gt;WF-Looking-Ahead]]</tw-passagedata><tw-passagedata pid="32" name="MW-Looking-Ahead" tags="" position="100,1400" size="100,100">## Looking Ahead
 
 **By next class**:
-- Complete your Multimodal Literacy Narrative draft for peer review
-
-- Review the peer review guidelines in Canvas
+- Continue working on your Multimodal Literacy Narrative—draft due **Friday 11:59 PM**
+- Reading Summary 3 due **Friday 8 AM**
+- Start thinking about which literacy practice you want to analyze for MA2
 
 Questions? Concerns? Use Canvas Messages anytime or stop by my office hours (on our home page).
 
-[[← Back to start-&gt;Start]]</tw-passagedata><tw-passagedata pid="33" name="WF-Looking-Ahead" tags="" position="300,1600" size="100,100">## Looking Ahead
+[[← Back to start-&gt;Start]]</tw-passagedata><tw-passagedata pid="33" name="WF-Looking-Ahead" tags="" position="225,1400" size="100,100">## Looking Ahead
 
 **By next class**:
-- Complete your Multimodal Literacy Narrative draft for peer review
-
-- Read the assignment prompt carefully and start planning your approach
+- Continue working on your Multimodal Literacy Narrative—draft due **Friday 11:59 PM**
+- Reading Summary 3 due **Friday 8 AM**
+- Start thinking about which literacy practice you want to analyze for MA2
 
 Questions? Concerns? Use Canvas Messages anytime or stop by my office hours (on our home page).
 
