@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Teaching Statement.
+title: Teaching Statement
 ---
-# 2025-2026.
+# Teaching Statement: 2025-2026
 My teaching begins with a straightforward belief: students are already writers. They understand rhetoric through the practice from their every day lives—they already adapt their communication for different audiences (home, friends, school, work), navigate genre conventions across platforms (TikTok, LinkedIn, etc.), and likewise make strategic choices about style and tone every day. In my First-Year Composition courses, my job isn't to teach students how to write but to help them recognize and sharpen the sophisticated literacies they already possess and apply those skills deliberately in their new, academic context.
 I design my courses around questions of language, identity, and power. My "Our Voices" curriculum asks students to examine how language creates and limits opportunity, how literacy practices are shaped by social and cultural contexts, and how their own voices contribute to the communities they care about. This isn't abstract theory—it's grounded in students' lived experiences with code-switching, digital communication, multilingualism, and navigating different discourse communities.
 ## Making Writing Relatable Through Multimodal Literacy

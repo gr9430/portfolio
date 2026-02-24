@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Blog - Glenn S. Ritchey III
+title: Blog
 ---
 
 ## Half-Blogging 2026

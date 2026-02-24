@@ -19,7 +19,9 @@
       "Bash(gem list:*)",
       "Bash(ruby:*)",
       "Bash(lsof:*)",
-      "Bash(ss:*)"
+      "Bash(ss:*)",
+      "Bash(tree:*)",
+      "Bash(bundle exec jekyll clean:*)"
     ]
   }
 }
