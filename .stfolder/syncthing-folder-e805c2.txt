@@ -1,5 +1,0 @@
-# This directory is a Syncthing folder marker.
-# Do not delete.
-
-folderID: kxjsc-odxbe
-created: 2025-12-02T20:21:06-05:00

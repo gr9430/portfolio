@@ -9,4 +9,5 @@ title: Twine Lectures
 <li><a href="{{ site.baseurl }}/teaching/lectures/s26/discourse-communities.html" class="animated-link">6.1. Discourse Communites</a></li>
 <li><a href="{{ site.baseurl }}/teaching/lectures/s26/discourse-communities-language-negotiation.html" class="animated-link">6.2. Discourse Communities & Language Negotiation</a></li>
 <li><a href="{{ site.baseurl }}/teaching/lectures/s26/peer-review-as-practice.html" class="animated-link">7.1. Peer Review as Practice</a></li>
+<li><a href="{{ site.baseurl }}teaching/lectures/s26/using-feedback.html" class="animated-link">7.2. Using Your Feedback</a></li>
 </ul>
