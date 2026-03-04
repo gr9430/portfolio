@@ -3,6 +3,64 @@
 
 @import "minima";
 
+/* Inline code */
+code {
+  background-color: #f6f8fa;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
+  padding: 0.2em 0.4em;
+  font-family: 'Liberation Mono', 'Courier New', Consolas, Monaco, monospace;
+  font-size: 0.9em;
+  color: #24292e;
+}
+
+/* Code blocks */
+pre {
+  background-color: #f6f8fa;
+  border: 2px solid rgb(122, 6, 97);
+  border-radius: 6px;
+  padding: 16px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  line-height: 1.45;
+}
+
+pre code {
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  font-family: 'Liberation Mono', 'Courier New', Consolas, Monaco, monospace;
+  font-size: 0.85em;
+  color: #24292e;
+  white-space: pre;
+  word-break: normal;
+  word-wrap: normal;
+}
+
+/* JSON syntax highlighting (basic) */
+pre code .s { color: #032f62; } /* strings */
+pre code .k { color: #d73a49; } /* keys */
+pre code .p { color: #24292e; } /* punctuation */
+
+/* Scrollbar styling for code blocks */
+pre::-webkit-scrollbar {
+  height: 8px;
+}
+
+pre::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+pre::-webkit-scrollbar-thumb {
+  background: rgb(122, 6, 97);
+  border-radius: 4px;
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+  background: rgb(98, 5, 78);
+}
+
 /* Global font family */
 body, html {
   font-family: 'Liberation Mono', 'Courier New', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace !important;
