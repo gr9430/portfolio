@@ -1,4 +1,4 @@
-<!doctype html><html><head><title>ENC 1101: How The KLF Did It</title><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><script type="module" crossorigin>
+<!doctype html><html><head><title>ENC 1101: Week 9, Session 2 — Performance, Literacy, and Your Work</title><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><script type="module" crossorigin>
 var Wn=Object.defineProperty;var Zn=(n,e,t)=>e in n?Wn(n,e,{enumerable:!0,configurable:!0,writable:!0,value:t}):n[e]=t;var U=(n,e,t)=>(Zn(n,typeof e!="symbol"?e+"":e,t),t),St=(n,e,t)=>{if(!e.has(n))throw TypeError("Cannot "+t)};var pe=(n,e,t)=>(St(n,e,"read from private field"),t?t.call(n):e.get(n)),Et=(n,e,t)=>{if(e.has(n))throw TypeError("Cannot add the same private member more than once");e instanceof WeakSet?e.add(n):e.set(n,t)},_t=(n,e,t,r)=>(St(n,e,"write to private field"),r?r.call(n,t):e.set(n,t),t);(function(){const e=document.createElement("link").relList;if(e&&e.supports&&e.supports("modulepreload"))return;for(const i of document.querySelectorAll('link[rel="modulepreload"]'))r(i);new MutationObserver(i=>{for(const s of i)if(s.type==="childList")for(const a of s.addedNodes)a.tagName==="LINK"&&a.rel==="modulepreload"&&r(a)}).observe(document,{childList:!0,subtree:!0});function t(i){const s={};return i.integrity&&(s.integrity=i.integrity),i.referrerPolicy&&(s.referrerPolicy=i.referrerPolicy),i.crossOrigin==="use-credentials"?s.credentials="include":i.crossOrigin==="anonymous"?s.credentials="omit":s.credentials="same-origin",s}function r(i){if(i.ep)return;i.ep=!0;const s=t(i);fetch(i.href,s)}})();const Gn={"config.logger.show.parse":!1,"config.logger.show.render":!1,"config.logger.show.sound":!1,"config.logger.show.state":!1,"config.logger.show.story":!1,"config.logger.show.style":!1};function Jt(n){return n+": "}const Me={inserts:!0};function Jn(n){Me[n]=!1}function Xn(n){Me[n]=!0}function Xt(n,e){Me[n]&&(console.log(Jt(n)+e),window.dispatchEvent(new CustomEvent("log-info",{detail:{message:e,source:n}})))}function Qt(n,e){Me[n]&&(console.warn(Jt(n)+e),window.dispatchEvent(new CustomEvent("log-warning",{detail:{message:e,source:n}})))}function F(n){return{log(e){Xt(n,e)},warn(e){Qt(n,e)}}}function Qn(){window.addEventListener("state-change",n=>{const e=/^config\.logger\.show\.(.+)$/.exec(n.detail.name);e&&e[1]&&(n.detail.value?Xn(e[1]):Jn(e[1]))})}var Kn=typeof global=="object"&&global&&global.Object===Object&&global;const Yn=Kn;var er=typeof self=="object"&&self&&self.Object===Object&&self,tr=Yn||er||Function("return this")();const it=tr;var nr=it.Symbol;const le=nr;var Kt=Object.prototype,rr=Kt.hasOwnProperty,ir=Kt.toString,ge=le?le.toStringTag:void 0;function sr(n){var e=rr.call(n,ge),t=n[ge];try{n[ge]=void 0;var r=!0}catch{}var i=ir.call(n);return r&&(e?n[ge]=t:delete n[ge]),i}var or=Object.prototype,ar=or.toString;function lr(n){return ar.call(n)}var cr="[object Null]",ur="[object Undefined]",Tt=le?le.toStringTag:void 0;function Yt(n){return n==null?n===void 0?ur:cr:Tt&&Tt in Object(n)?sr(n):lr(n)}function dr(n){return n!=null&&typeof n=="object"}var fr="[object Symbol]";function st(n){return typeof n=="symbol"||dr(n)&&Yt(n)==fr}function hr(n,e){for(var t=-1,r=n==null?0:n.length,i=Array(r);++t<r;)i[t]=e(n[t],t,n);return i}var pr=Array.isArray;const ot=pr;var gr=1/0,Ct=le?le.prototype:void 0,At=Ct?Ct.toString:void 0;function en(n){if(typeof n=="string")return n;if(ot(n))return hr(n,en)+"";if(st(n))return At?At.call(n):"";var e=n+"";return e=="0"&&1/n==-gr?"-0":e}function Pe(n){var e=typeof n;return n!=null&&(e=="object"||e=="function")}var mr="[object AsyncFunction]",br="[object Function]",yr="[object GeneratorFunction]",wr="[object Proxy]";function kr(n){if(!Pe(n))return!1;var e=Yt(n);return e==br||e==yr||e==mr||e==wr}var xr=it["__core-js_shared__"];const Fe=xr;var Lt=function(){var n=/[^.]+$/.exec(Fe&&Fe.keys&&Fe.keys.IE_PROTO||"");return n?"Symbol(src)_1."+n:""}();function vr(n){return!!Lt&&Lt in n}var $r=Function.prototype,Sr=$r.toString;function Er(n){if(n!=null){try{return Sr.call(n)}catch{}try{return n+""}catch{}}return""}var _r=/[\\^$.*+?()[\]{}|]/g,Tr=/^\[object .+?Constructor\]$/,Cr=Function.prototype,Ar=Object.prototype,Lr=Cr.toString,zr=Ar.hasOwnProperty,Pr=RegExp("^"+Lr.call(zr).replace(_r,"\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g,"$1.*?")+"$");function Or(n){if(!Pe(n)||vr(n))return!1;var e=kr(n)?Pr:Tr;return e.test(Er(n))}function Ir(n,e){return n==null?void 0:n[e]}function at(n,e){var t=Ir(n,e);return Or(t)?t:void 0}var Nr=function(){try{var n=at(Object,"defineProperty");return n({},"",{}),n}catch{}}();const zt=Nr;var Rr=9007199254740991,Mr=/^(?:0|[1-9]\d*)$/;function Dr(n,e){var t=typeof n;return e=e??Rr,!!e&&(t=="number"||t!="symbol"&&Mr.test(n))&&n>-1&&n%1==0&&n<e}function jr(n,e,t){e=="__proto__"&&zt?zt(n,e,{configurable:!0,enumerable:!0,value:t,writable:!0}):n[e]=t}function tn(n,e){return n===e||n!==n&&e!==e}var qr=Object.prototype,Hr=qr.hasOwnProperty;function Fr(n,e,t){var r=n[e];(!(Hr.call(n,e)&&tn(r,t))||t===void 0&&!(e in n))&&jr(n,e,t)}var Br=/\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,Ur=/^\w*$/;function Vr(n,e){if(ot(n))return!1;var t=typeof n;return t=="number"||t=="symbol"||t=="boolean"||n==null||st(n)?!0:Ur.test(n)||!Br.test(n)||e!=null&&n in Object(e)}var Wr=at(Object,"create");const we=Wr;function Zr(){this.__data__=we?we(null):{},this.size=0}function Gr(n){var e=this.has(n)&&delete this.__data__[n];return this.size-=e?1:0,e}var Jr="__lodash_hash_undefined__",Xr=Object.prototype,Qr=Xr.hasOwnProperty;function Kr(n){var e=this.__data__;if(we){var t=e[n];return t===Jr?void 0:t}return Qr.call(e,n)?e[n]:void 0}var Yr=Object.prototype,ei=Yr.hasOwnProperty;function ti(n){var e=this.__data__;return we?e[n]!==void 0:ei.call(e,n)}var ni="__lodash_hash_undefined__";function ri(n,e){var t=this.__data__;return this.size+=this.has(n)?0:1,t[n]=we&&e===void 0?ni:e,this}function ee(n){var e=-1,t=n==null?0:n.length;for(this.clear();++e<t;){var r=n[e];this.set(r[0],r[1])}}ee.prototype.clear=Zr;ee.prototype.delete=Gr;ee.prototype.get=Kr;ee.prototype.has=ti;ee.prototype.set=ri;function ii(){this.__data__=[],this.size=0}function De(n,e){for(var t=n.length;t--;)if(tn(n[t][0],e))return t;return-1}var si=Array.prototype,oi=si.splice;function ai(n){var e=this.__data__,t=De(e,n);if(t<0)return!1;var r=e.length-1;return t==r?e.pop():oi.call(e,t,1),--this.size,!0}function li(n){var e=this.__data__,t=De(e,n);return t<0?void 0:e[t][1]}function ci(n){return De(this.__data__,n)>-1}function ui(n,e){var t=this.__data__,r=De(t,n);return r<0?(++this.size,t.push([n,e])):t[r][1]=e,this}function de(n){var e=-1,t=n==null?0:n.length;for(this.clear();++e<t;){var r=n[e];this.set(r[0],r[1])}}de.prototype.clear=ii;de.prototype.delete=ai;de.prototype.get=li;de.prototype.has=ci;de.prototype.set=ui;var di=at(it,"Map");const fi=di;function hi(){this.size=0,this.__data__={hash:new ee,map:new(fi||de),string:new ee}}function pi(n){var e=typeof n;return e=="string"||e=="number"||e=="symbol"||e=="boolean"?n!=="__proto__":n===null}function je(n,e){var t=n.__data__;return pi(e)?t[typeof e=="string"?"string":"hash"]:t.map}function gi(n){var e=je(this,n).delete(n);return this.size-=e?1:0,e}function mi(n){return je(this,n).get(n)}function bi(n){return je(this,n).has(n)}function yi(n,e){var t=je(this,n),r=t.size;return t.set(n,e),this.size+=t.size==r?0:1,this}function re(n){var e=-1,t=n==null?0:n.length;for(this.clear();++e<t;){var r=n[e];this.set(r[0],r[1])}}re.prototype.clear=hi;re.prototype.delete=gi;re.prototype.get=mi;re.prototype.has=bi;re.prototype.set=yi;var wi="Expected a function";function lt(n,e){if(typeof n!="function"||e!=null&&typeof e!="function")throw new TypeError(wi);var t=function(){var r=arguments,i=e?e.apply(this,r):r[0],s=t.cache;if(s.has(i))return s.get(i);var a=n.apply(this,r);return t.cache=s.set(i,a)||s,a};return t.cache=new(lt.Cache||re),t}lt.Cache=re;var ki=500;function xi(n){var e=lt(n,function(r){return t.size===ki&&t.clear(),r}),t=e.cache;return e}var vi=/[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g,$i=/\\(\\)?/g,Si=xi(function(n){var e=[];return n.charCodeAt(0)===46&&e.push(""),n.replace(vi,function(t,r,i,s){e.push(i?s.replace($i,"$1"):r||t)}),e});const Ei=Si;function ct(n){return n==null?"":en(n)}function ut(n,e){return ot(n)?n:Vr(n,e)?[n]:Ei(ct(n))}var _i=1/0;function dt(n){if(typeof n=="string"||st(n))return n;var e=n+"";return e=="0"&&1/n==-_i?"-0":e}function nn(n,e){e=ut(e,n);for(var t=0,r=e.length;n!=null&&t<r;)n=n[dt(e[t++])];return t&&t==r?n:void 0}function Be(n,e,t){var r=n==null?void 0:nn(n,e);return r===void 0?t:r}function Ti(n,e,t){var r=-1,i=n.length;e<0&&(e=-e>i?0:i+e),t=t>i?i:t,t<0&&(t+=i),i=e>t?0:t-e>>>0,e>>>=0;for(var s=Array(i);++r<i;)s[r]=n[r+e];return s}function rn(n){return function(e){return n==null?void 0:n[e]}}function Ci(n){var e=n==null?0:n.length;return e?n[e-1]:void 0}var Ai={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"},Li=rn(Ai);const zi=Li;var sn=/[&<>"']/g,Pi=RegExp(sn.source);function H(n){return n=ct(n),n&&Pi.test(n)?n.replace(sn,zi):n}function Oi(n,e){return e.length<2?n:nn(n,Ti(e,0,-1))}function Ii(n,e){return e=ut(e,n),n=Oi(n,e),n==null||delete n[dt(Ci(e))]}function Ni(n,e,t,r){if(!Pe(n))return n;e=ut(e,n);for(var i=-1,s=e.length,a=s-1,l=n;l!=null&&++i<s;){var o=dt(e[i]),u=t;if(o==="__proto__"||o==="constructor"||o==="prototype")return n;if(i!=a){var c=l[o];u=r?r(c,o,l):void 0,u===void 0&&(u=Pe(c)?c:Dr(e[i+1])?[]:{})}Fr(l,o,u),l=l[o]}return n}function ft(n,e,t){return n==null?n:Ni(n,e,t)}var Ri={"&amp;":"&","&lt;":"<","&gt;":">","&quot;":'"',"&#39;":"'"},Mi=rn(Ri);const Di=Mi;var on=/&(?:amp|lt|gt|quot|#39);/g,ji=RegExp(on.source);function qi(n){return n=ct(n),n&&ji.test(n)?n.replace(on,Di):n}function Hi(n,e){return n==null?!0:Ii(n,e)}const an=F("story"),P={customScripts:[],customStyles:[],passages:[]};function ln(n){for(const r of["name","creator","ifid","options"])P[r]=n.getAttribute(r)??void 0;const e=parseInt(n.getAttribute("startnode")??"");isNaN(e)||(P.startNode=e),P.creatorVersion=n.getAttribute("creator-version")??void 0;const t=r=>[...r].map(i=>i.textContent??"");P.customScripts=t(n.querySelectorAll('[type="text/twine-javascript"]')),P.customStyles=t(n.querySelectorAll('[type="text/twine-css"]')),P.passages=[...n.querySelectorAll("tw-passagedata")].map(r=>{const i=parseInt(r.getAttribute("pid")??""),s=r.getAttribute("tags");return{id:isNaN(i)?void 0:i,name:r.getAttribute("name")??void 0,source:r.textContent??"",tags:s?s.split(" "):[]}})}function cn(){const n=pt();if(!n||!n.name)throw new Error("There is no starting passage for this story, or it has no name.");ie({trail:[n.name],"config.testing":typeof P.options=="string"&&P.options.indexOf("debug")!==-1||!1}),P.name&&(document.title=P.name)}function un(){an.log(`Running custom scripts (${P.customScripts.length})`);for(const n of P.customScripts)new Function(n).apply(window)}function dn(){an.log(`Adding custom styles (${P.customStyles.length})`);for(const n of P.customStyles){const e=document.createElement("style");e.innerHTML=n,document.head.appendChild(e)}}function fn(){return P.ifid}function ht(){return P.name}function Fi(){return P.passages}function pt(){return P.passages.find(n=>n.id===P.startNode)}function Se(n){return P.passages.find(e=>e.name===n)}function Bi(n){return P.passages.find(e=>e.id===n)}function hn(n){let e=[],t=!1;return async(...r)=>{t||(t=!0,Promise.resolve().then(()=>{try{n(e),e=[],t=!1}catch(i){window.setTimeout(()=>{throw i})}})),e.push(r)}}function ke(n,e,t=[]){const r=document.createElement(n);if(e)for(const i of Object.keys(e))e[i]!==void 0&&r.setAttribute(i,e[i]);for(const i of t)typeof i=="string"||typeof i=="number"?r.appendChild(document.createTextNode(i.toString())):r.appendChild(i);return r}function R(...n){return ke(...n).outerHTML}function Je(n){return Array.isArray(n)?n.every(Je):n===null?!0:typeof n=="object"?Object.getPrototypeOf(n)!==Object.prototype?!1:Object.values(n).every(Je):typeof n=="number"?isFinite(n)&&!isNaN(n):["boolean","string","undefined"].includes(typeof n)}const{log:Q,warn:Ui}=F("state");let te;const gt={},pn={},ce={};function mt(n,e){if(n[e])return;Object.defineProperty(n,e,{get(){return p(e)},set(r){$(e,r)},configurable:!0});const t=e.split(".");t.length>1&&(t.pop(),mt(n,t.join(".")))}function Vi(n,e){if(n[e])return;const t=e.split("."),r=t[t.length-1];for(let i=0;i<t.length-1;i++)n[t[i]]=n[t[i]]||{},n=n[t[i]];Object.defineProperty(n,r,{get(){return p(e)},set(){throw new Error("Chapbook lookup variables may only be read.")},configurable:!0})}function Wi(n,e){Hi(n,e)}function gn(){const n=fn(),e=ht();if(e===void 0)throw new Error("Cannot set up state: the story has no name");te=`chapbook-${e}-${n}`,qe("config.state.autosave",!0)}function bt(){function n(e,t){Object.keys(e).forEach(r=>{const i=t===""?r:`${t}.${r}`;if(typeof e[r]=="object"&&!Array.isArray(e[r]))n(e[r],i);else{const s=e[r];delete e[r],Wi(window,t),window.dispatchEvent(new CustomEvent("state-change",{detail:{name:i,value:p(i),previous:s}}))}})}n(ce,""),window.dispatchEvent(new CustomEvent("state-reset")),p("config.state.autosave")&&yt()}function $(n,e){const t=p(n);Je(e)||Ui(`Setting ${n} to ${JSON.stringify(e)} can't be saved permanently. This will work in the current session, but will not persist between sessions.`),ft(ce,n,e),mt(window,n),e!==t&&window.dispatchEvent(new CustomEvent("state-change",{detail:{previous:t,name:n,value:e}})),p("config.state.autosave")&&yt()}function qe(n,e){const t=p(n);Q(`Defaulting "${n}" to ${JSON.stringify(e)}`),ft(gt,n,e),mt(window,n),t==null&&window.dispatchEvent(new CustomEvent("state-change",{detail:{previous:t,name:n,value:e}}))}function ie(n){for(const e in n)qe(e,n[e])}function _(n,e){const t=p(n);Q(`Adding lookup variable ${n}`),ft(pn,n,e),Vi(window,n),t==null&&window.dispatchEvent(new CustomEvent("state-change",{detail:{previous:t,name:n,value:p(n)}}))}function p(n){const e=Be(pn,n);if(typeof e=="function")return e(p,$);const t=Be(ce,n),r=Be(gt,n);if(t==null)return r;if(typeof t=="object"&&t!==null&&!Array.isArray(t)&&typeof r=="object"&&r!==null&&!Array.isArray(r)){const i={},s=[...Object.keys(r),...Object.keys(t)];for(const a of s)Object.defineProperty(i,a,{get(){return p(n+"."+a)},set(l){$(n+"."+a,l)},configurable:!0,enumerable:!0});return i}return t}function xe(){return{...ce}}function Ee(n){bt();for(const e in n)$(e,n[e])}function mn(){try{return window.localStorage.setItem("chapbook-test","a"),window.localStorage.removeItem("chapbook-test"),!0}catch{return!1}}function yt(){Q("Saving to local storage: "+JSON.stringify(xe())),window.localStorage.setItem(te,JSON.stringify(xe())),Q("Save complete")}function bn(){return mn()&&window.localStorage.getItem(te)!==null}function yn(){Q("Restoring variables from local storage");const n=window.localStorage.getItem(te);if(!n)throw new Error(`No value is set in local storage at "${te}"`);Ee(JSON.parse(n)),Q("Restore complete")}function wn(n){n||Q("Purging variables from local storage");const e=window.localStorage.getItem(te);if(!e)throw new Error(`No value is set in local storage at "${te}"`);Ee(JSON.parse(e)),n||Q("Purge complete")}function ve(n){function e(t,r,i=[]){return Object.keys(t).reduce((s,a)=>{if(typeof t[a]=="object"&&t[a]&&!Array.isArray(t[a]))e(t[a],r?`${r}.${a}`:a,s);else{const l=r?`${r}.${a}`:a;s.includes(l)||s.push(l)}return s},i)}return n?e(gt,void 0,e(ce)).sort():e(ce).sort()}const Zi=Object.freeze(Object.defineProperty({__proto__:null,canRestoreFromStorage:bn,canSaveToStorage:mn,get:p,initState:gn,purgeFromStorage:wn,reset:bt,restoreFromObject:Ee,restoreFromStorage:yn,saveToObject:xe,saveToStorage:yt,set:$,setDefault:qe,setDefaults:ie,setLookup:_,varNames:ve},Symbol.toStringTag,{value:"Module"})),Gi=Object.freeze(Object.defineProperty({__proto__:null,addCustomStyles:dn,ifid:fn,initStory:cn,loadFromData:ln,name:ht,passageNamed:Se,passageWithId:Bi,passages:Fi,runCustomScripts:un,startPassage:pt},Symbol.toStringTag,{value:"Module"})),{log:kn}=F("actions");function xn(n){kn(`Going to passage "${n}"`);const e=Se(n);if(!e)throw new Error(`There is no passage with the name "${n}"`);document.activeElement instanceof HTMLElement&&document.activeElement.blur();const t=p("trail");if(!Array.isArray(t))throw new Error(`The trail variable has been set to a ${typeof t}, not an array.`);$("trail",[...t,e.name])}function vn(){kn("Restarting"),bt(),window.location.reload()}let X=[],Oe=!0;function Ji(){Oe&&(X=[],window.dispatchEvent(new CustomEvent("backstage-state-recorder-update")))}function Xi({detail:n}){if(!Oe)return;X.length===p("config.backstage.trail.maxLength")&&X.shift();const{name:e,value:t}=n;X.push({change:{name:e,value:t},state:xe()}),window.dispatchEvent(new CustomEvent("backstage-state-recorder-update"))}function Qi(){return[...X]}function Ki(n){if(!X[n])throw new Error(`There is no history at index ${n} to rewind to.`);Oe=!1,Ee(X[n].state),X.length=n+1,Oe=!0,window.dispatchEvent(new CustomEvent("backstage-state-recorder-update"))}function Yi(){qe("config.backstage.trail.maxLength",100),window.addEventListener("state-change",Xi),window.addEventListener("state-reset",Ji)}let V=[];function es(n){V.push({name:n,state:xe()}),$n(),window.dispatchEvent(new CustomEvent("backstage-state-snapshots-update"))}function ts(n){const e=V.find(t=>t.name===n);if(!e)throw new Error(`There is no snapshot named "${n}".`);Ee(e.state)}function ns(n){V=V.filter(({name:e})=>n!==e),$n(),window.dispatchEvent(new CustomEvent("backstage-state-snapshots-update"))}function rs(){try{V=JSON.parse(window.localStorage.getItem(`chapbookbackstage-snapshots-${p("config.state.saveKey")}`)),Array.isArray(V)||(V=[])}catch{V=[]}}function $n(){window.localStorage.setItem(`chapbookbackstage-snapshots-${p("config.state.saveKey")}`,JSON.stringify(V))}function Pt(){return V.map(({name:n})=>n)}function is(){rs()}function wt(n){for(const e in n)window.customElements.get(e)||window.customElements.define(e,n[e])}class z extends HTMLElement{defaultHtml(e){this.innerHTML.trim()===""&&(this.innerHTML=e)}delegate(e,t,r){this.addEventListener(e,i=>{if(!i.target)return;const s=i.target.closest(t);s&&r(i,s)})}query(e){const t=this.querySelector(e);if(!t)throw new Error(`Couldn't find element matching "${e}"`);return t}queryAll(e){return[...this.querySelectorAll(e)]}}class Sn extends z{constructor(){super(),this.addEventListener("click",e=>{e.target.closest("[data-toggle-collapsed]")&&(this.hasAttribute("collapsed")?this.removeAttribute("collapsed"):this.setAttribute("collapsed",""))})}connectedCallback(){this.innerHTML=`
 			<button data-toggle-collapsed></button>
 			<div class="content">
@@ -218,549 +218,85 @@ ${i}`),b(i)}function $e(n,e=!1){return Ko(zo(n),An(),Pn(),e)}class Yo extends fe
 </script><style>
 :root{--font-monospace: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono", "Courier New", monospace;--font-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif}*{box-sizing:border-box}body{margin:0;padding:0}code{font-family:var(--font-monospace)}img{max-width:100%;height:auto}input[type=text],select{padding:.25em}noscript{align-items:center;background:black;color:#fff;display:flex;height:100vh;font-family:var(--font-system);justify-content:center;width:100vw}pre{font-family:var(--font-monospace);white-space:pre-wrap}tw-storydata{display:none}body.backstage-visible #backdrop{max-width:67vw}backstage-sidebar{--backstage-grid: 10px;background:var(--color-gray-2);border-left:1px solid var(--color-gray-3);bottom:0;color:var(--color-gray-5);display:block;font-family:var(--font-system);font-size:13px;position:fixed;top:0;right:0;width:33vw}backstage-sidebar .content{overflow:auto;padding:var(--backstage-grid);height:100%;width:100%}backstage-sidebar[collapsed]{width:0}backstage-sidebar button[data-toggle-collapsed]{background:var(--color-gray-2);border-bottom:1px solid var(--color-gray-3);border-left:1px solid var(--color-gray-3);border-right:none;border-top:1px solid var(--color-gray-3);border-radius:60px 0 0 60px;color:var(--color-gray-5);font-size:20px;height:60px;min-width:30px;padding:0;position:absolute;top:50%;left:-30px;transform:translateY(-50%);width:30px}backstage-sidebar button[data-toggle-collapsed]:hover{background:var(--color-gray-1);cursor:pointer}backstage-sidebar button{background:var(--color-gray-1);border:1px solid var(--color-gray-3);border-radius:var(--backstage-grid);color:var(--color-gray-5);cursor:pointer;font-size:100%;min-width:40px;padding:calc(var(--backstage-grid) / 2)}backstage-sidebar button:disabled{color:var(--color-gray-3);cursor:not-allowed}backstage-sidebar button:not(:disabled):hover{background:white}backstage-sidebar details summary{cursor:pointer;font-size:110%;font-variant:small-caps;padding:calc(var(--backstage-grid) / 2) 0;text-transform:lowercase}backstage-sidebar input,backstage-sidebar textarea{background:var(--color-gray-1);border:1px solid var(--color-gray-3);color:var(--color-gray-5);font:100% var(--font-system);padding:calc(var(--backstage-grid) / 2)}backstage-sidebar table{max-width:100%;width:100%}backstage-history-table button{display:block;width:100%}backstage-history-table table{border-collapse:collapse;margin:var(--backstage-grid) 0;table-layout:fixed}backstage-history-table thead{height:1px;left:-10000px;overflow:hidden;position:absolute;top:auto;width:1px}backstage-history-table tr:not(:last-child){border-bottom:1px solid var(--oc-gray-8)}backstage-history-table td{text-overflow:ellipsis;overflow-wrap:break-word;padding:calc(var(--backstage-grid) / 2);vertical-align:top}backstage-history-table td:first-child{border-right:1px solid var(--oc-gray-8);width:45%}backstage-notes label{display:block;margin-top:var(--backstage-grid)}backstage-notes textarea{height:10em;margin:var(--backstage-grid) 0;width:100%}backstage-notes .actions{display:flex;gap:var(--backstage-grid)}backstage-notes .actions button{flex-grow:1}backstage-state-snapshots button[data-add-snapshot]{width:100%}backstage-state-snapshots .snapshot-button{display:flex;margin-bottom:var(--backstage-grid)}backstage-state-snapshots .snapshot-button [data-restore]{flex-grow:1;border-right-color:var(--oc-gray-4);border-bottom-right-radius:0;border-top-right-radius:0}backstage-state-snapshots .snapshot-button [data-remove]{border-left:none;border-bottom-left-radius:0;border-top-left-radius:0}backstage-state-variables .variables{display:flex;flex-direction:column;gap:calc(var(--backstage-grid) / 2);margin:calc(var(--backstage-grid)) 0}backstage-state-variables .variables label{align-items:center;display:grid;gap:var(--backstage-grid);grid-template-columns:15em 1fr}backstage-style-config textarea{height:10em;margin:var(--backstage-grid) 0;width:100%}backstage-style-group label{display:grid;gap:.25em;margin-bottom:.5em}backstage-style-theme p{margin:0 0 .5em}backstage-tab{border-left:1px solid var(--color-gray-3);cursor:pointer;flex-grow:1;padding:calc(var(--backstage-grid) / 2);text-align:center}backstage-tab:hover{background:white}backstage-tab:first-child{border-left:none;border-bottom-left-radius:var(--backstage-grid);border-top-left-radius:var(--backstage-grid)}backstage-tab:last-child{border-bottom-right-radius:var(--backstage-grid);border-top-right-radius:var(--backstage-grid)}backstage-tab[aria-selected=true]{background-color:#fff;cursor:default;font-weight:700}backstage-tab-panel{display:block;padding:calc(var(--backstage-grid) / 2) 0}backstage-tab-panel[hidden]{display:none}backstage-tabs{background:var(--color-gray-1);border:1px solid var(--color-gray-3);border-radius:var(--backstage-grid);display:flex}backstage-variable-input input{display:inline-block;width:100%}#backdrop{align-items:center;background-color:var(--backdrop-color);display:flex;justify-content:center;min-height:100vh}#page>header,#page>footer{display:flex;justify-content:space-between}#page>header[hidden],#page>footer[hidden]{border:none}#page>header .center,#page>footer .center{text-align:center}#page>header .right,#page>footer .right{text-align:right}#page>footer{background-color:var(--page-footer-background-color);border-top:var(--page-footer-border);color:var(--page-footer-color);font-family:var(--page-footer-font-family);font-size:var(--page-footer-font-size);font-style:var(--page-footer-font-style);font-variant:var(--page-footer-font-variant);font-weight:var(--page-footer-font-weight);text-decoration:var(--page-footer-text-decoration);text-decoration-color:var(--page-footer-text-decoration-color);text-transform:var(--page-footer-text-transform)}#page>footer .link{background-color:var(--page-footer-link-background-color);color:var(--page-footer-link-color);font-family:var(--page-footer-link-font-family);font-size:var(--page-footer-link-font-size);font-style:var(--page-footer-link-font-style);font-variant:var(--page-footer-link-font-variant);font-weight:var(--page-footer-link-font-weight);text-decoration:var(--page-footer-link-text-decoration);text-decoration-color:var(--page-footer-link-text-decoration-color);text-transform:var(--page-footer-link-text-transform)}#page>footer .link:hover{background-color:var(--page-footer-link-active-background-color);color:var(--page-footer-link-active-color);font-family:var(--page-footer-link-active-font-family);font-size:var(--page-footer-link-active-font-size);font-style:var(--page-footer-link-active-font-style);font-variant:var(--page-footer-link-active-font-variant);font-weight:var(--page-footer-link-active-font-weight);text-decoration:var(--page-footer-link-active-text-decoration);text-decoration-color:var( --page-footer-link-active-text-decoration-color );text-transform:var(--page-footer-link-active-text-transform)}#page>header{background-color:var(--page-header-background-color);border-bottom:var(--page-header-border);color:var(--page-header-color);font-family:var(--page-header-font-family);font-size:var(--page-header-font-size);font-style:var(--page-header-font-style);font-variant:var(--page-header-font-variant);font-weight:var(--page-header-font-weight);text-decoration:var(--page-header-text-decoration);text-decoration-color:var(--page-header-text-decoration-color);text-transform:var(--page-header-text-transform)}#page>header .link{background-color:var(--page-header-link-background-color);color:var(--page-header-link-color);font-family:var(--page-header-link-font-family);font-size:var(--page-header-link-font-size);font-style:var(--page-header-link-font-style);font-variant:var(--page-header-link-font-variant);font-weight:var(--page-header-link-font-weight);text-decoration:var(--page-header-link-text-decoration);text-decoration-color:var(--page-header-link-text-decoration-color);text-transform:var(--page-header-link-text-transform)}#page>header .link:hover{background-color:var(--page-header-link-active-background-color);color:var(--page-header-link-active-color);font-family:var(--page-header-link-active-font-family);font-size:var(--page-header-link-active-font-size);font-style:var(--page-header-link-active-font-style);font-variant:var(--page-header-link-active-font-variant);font-weight:var(--page-header-link-active-font-weight);text-decoration:var(--page-header-link-active-text-decoration);text-decoration-color:var( --page-header-link-active-text-decoration-color );text-transform:var(--page-header-link-active-text-transform)}#page{background-color:var(--page-background-color);border:var(--page-border);border-radius:3px;box-shadow:var(--page-box-shadow);color:var(--page-color);display:grid;font-family:var(--page-font-family);font-size:var(--page-font-size);font-style:var(--page-font-style);font-variant:var(--page-font-variant);font-weight:var(--page-font-weight);grid-template-areas:"header" "body" "footer";grid-template-rows:min-content 1fr min-content;line-height:150%;margin:1em;max-width:calc(100vw - 2em);min-height:calc(100vh - 2em);padding:2em 4em;position:relative;text-decoration:var(--page-text-decoration);text-transform:var(--page-text-transform);width:40em}#page hr{border:none}#page hr:after{content:"* \a0* \a0*";display:block;text-align:center}#page page-skip-indicator{position:absolute;bottom:0;right:0}#page .fork p{display:flex;flex-direction:column;width:100%}#page .fork p .link{display:block;flex-grow:1;text-align:center;padding:.5em}#page .fork p .link+.link{border-top:var(--page-fork-divider-size) var(--page-fork-divider-style) var(--page-fork-divider-color)}#page .link{background-color:var(--page-link-background-color);color:var(--page-link-color);cursor:pointer;font-family:var(--page-link-font-family);font-size:var(--page-link-font-size);font-style:var(--page-link-font-style);font-variant:var(--page-link-font-variant);font-weight:var(--page-link-font-weight);text-decoration:var(--page-link-text-decoration);text-decoration-color:var(--page-link-text-decoration-color);text-transform:var(--page-link-text-transform)}#page .link:hover{background-color:var(--page-link-active-background-color);color:var(--page-link-active-color);font-family:var(--page-link-font-family);font-size:var(--page-link-font-size);font-style:var(--page-link-font-style);font-variant:var(--page-link-font-variant);font-weight:var(--page-link-font-weight);text-decoration:var(--page-link-text-decoration);text-decoration-color:var(--page-link-text-decoration-color);text-transform:var(--page-link-text-transform)}#page .small-caps{font-variant:small-caps;text-transform:lowercase}#page>footer{grid-area:footer}#page>header{grid-area:header}#page>article{display:flex;flex-direction:column;flex-grow:1;grid-area:body;justify-content:var(--page-current-passage-justify-content)}#page>error-handler{grid-area:body;position:relative;z-index:2}@media screen and (max-width: 768px){#page{margin:0;width:100vw;max-width:100vw;min-height:100vh;padding:1em}}.fade-in{opacity:0;animation:fade-in 1s ease-out forwards}.fade-out{animation:fade-in 1s ease-out reverse forwards}@keyframes fade-in{0%{opacity:0}to{opacity:1}}error-handler{display:none}error-handler.active{background:var(--color-red-1);color:var(--color-red-5);display:block;font-family:var(--font-system);font-size:max(90%,16px);padding:.5em;border-left:4px solid var(--color-red-2);position:relative;margin:1em 0;overflow:auto}error-handler pre{font-size:90%}error-handler a{color:var(--color-red-4)}error-handler button{appearance:none;background:none;border:none;color:var(--color-red-4);cursor:pointer;padding:0}external-fonts{display:none}page-skip{display:block}page-skip-indicator{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3e%09%3crect width='38' height='72' x='31' y='14' fill='%23fff' rx='4' /%3e%09%3ccircle cx='50' cy='50' r='28' fill='%23fff' /%3e%09%3crect%09%09width='30'%09%09height='64'%09%09x='35'%09%09y='18'%09%09fill='%23fff'%09%09stroke='%23000'%09%09stroke-width='2'%09%09rx='4'%09/%3e%09%3ccircle%09%09cx='50'%09%09cy='50'%09%09r='20'%09%09fill='%23fff'%09%09stroke='%23000'%09%09stroke-width='2'%09/%3e%09%3cpath%09%09stroke='%23000'%09%09stroke-linecap='round'%09%09stroke-width='2'%09%09d='M50 50V37'%09%3e%09%09%3canimateTransform%09%09%09attributeName='transform'%09%09%09begin='0s'%09%09%09dur='20s'%09%09%09from='0 50 50'%09%09%09repeatCount='indefinite'%09%09%09to='360 50 50'%09%09%09type='rotate'%09%09/%3e%09%3c/path%3e%09%3cpath%09%09stroke='%23000'%09%09stroke-linecap='round'%09%09stroke-width='2'%09%09d='M50 50h-8'%09%3e%09%09%3canimateTransform%09%09%09attributeName='transform'%09%09%09begin='0s'%09%09%09dur='120s'%09%09%09from='0 50 50'%09%09%09repeatCount='indefinite'%09%09%09to='360 50 50'%09%09%09type='rotate'%09%09/%3e%09%3c/path%3e%3c/svg%3e");background-size:contain;display:block;height:50px;opacity:0;pointer-events:none;transition:opacity .3s;width:50px}page-skip-indicator[active]{opacity:1}::view-transition-old(root),::view-transition-new(root){animation-duration:var(--page-transition-duration)}page-transition{display:block}:root{--oc-white: #ffffff;--oc-white-rgb: 255, 255, 255;--oc-black: #000000;--oc-black-rgb: 0, 0, 0;--oc-gray-0: #f8f9fa;--oc-gray-0-rgb: 248, 249, 250;--oc-gray-1: #f1f3f5;--oc-gray-1-rgb: 241, 243, 245;--oc-gray-2: #e9ecef;--oc-gray-2-rgb: 233, 236, 239;--oc-gray-3: #dee2e6;--oc-gray-3-rgb: 222, 226, 230;--oc-gray-4: #ced4da;--oc-gray-4-rgb: 206, 212, 218;--oc-gray-5: #adb5bd;--oc-gray-5-rgb: 173, 181, 189;--oc-gray-6: #868e96;--oc-gray-6-rgb: 134, 142, 150;--oc-gray-7: #495057;--oc-gray-7-rgb: 73, 80, 87;--oc-gray-8: #343a40;--oc-gray-8-rgb: 52, 58, 64;--oc-gray-9: #212529;--oc-gray-9-rgb: 33, 37, 41;--oc-red-0: #fff5f5;--oc-red-0-rgb: 255, 245, 245;--oc-red-1: #ffe3e3;--oc-red-1-rgb: 255, 227, 227;--oc-red-2: #ffc9c9;--oc-red-2-rgb: 255, 201, 201;--oc-red-3: #ffa8a8;--oc-red-3-rgb: 255, 168, 168;--oc-red-4: #ff8787;--oc-red-4-rgb: 255, 135, 135;--oc-red-5: #ff6b6b;--oc-red-5-rgb: 255, 107, 107;--oc-red-6: #fa5252;--oc-red-6-rgb: 250, 82, 82;--oc-red-7: #f03e3e;--oc-red-7-rgb: 240, 62, 62;--oc-red-8: #e03131;--oc-red-8-rgb: 224, 49, 49;--oc-red-9: #c92a2a;--oc-red-9-rgb: 201, 42, 42;--oc-pink-0: #fff0f6;--oc-pink-0-rgb: 255, 240, 246;--oc-pink-1: #ffdeeb;--oc-pink-1-rgb: 255, 222, 235;--oc-pink-2: #fcc2d7;--oc-pink-2-rgb: 252, 194, 215;--oc-pink-3: #faa2c1;--oc-pink-3-rgb: 250, 162, 193;--oc-pink-4: #f783ac;--oc-pink-4-rgb: 247, 131, 172;--oc-pink-5: #f06595;--oc-pink-5-rgb: 240, 101, 149;--oc-pink-6: #e64980;--oc-pink-6-rgb: 230, 73, 128;--oc-pink-7: #d6336c;--oc-pink-7-rgb: 214, 51, 108;--oc-pink-8: #c2255c;--oc-pink-8-rgb: 194, 37, 92;--oc-pink-9: #a61e4d;--oc-pink-9-rgb: 166, 30, 77;--oc-grape-0: #f8f0fc;--oc-grape-0-rgb: 248, 240, 252;--oc-grape-1: #f3d9fa;--oc-grape-1-rgb: 243, 217, 250;--oc-grape-2: #eebefa;--oc-grape-2-rgb: 238, 190, 250;--oc-grape-3: #e599f7;--oc-grape-3-rgb: 229, 153, 247;--oc-grape-4: #da77f2;--oc-grape-4-rgb: 218, 119, 242;--oc-grape-5: #cc5de8;--oc-grape-5-rgb: 204, 93, 232;--oc-grape-6: #be4bdb;--oc-grape-6-rgb: 190, 75, 219;--oc-grape-7: #ae3ec9;--oc-grape-7-rgb: 174, 62, 201;--oc-grape-8: #9c36b5;--oc-grape-8-rgb: 156, 54, 181;--oc-grape-9: #862e9c;--oc-grape-9-rgb: 134, 46, 156;--oc-violet-0: #f3f0ff;--oc-violet-0-rgb: 243, 240, 255;--oc-violet-1: #e5dbff;--oc-violet-1-rgb: 229, 219, 255;--oc-violet-2: #d0bfff;--oc-violet-2-rgb: 208, 191, 255;--oc-violet-3: #b197fc;--oc-violet-3-rgb: 177, 151, 252;--oc-violet-4: #9775fa;--oc-violet-4-rgb: 151, 117, 250;--oc-violet-5: #845ef7;--oc-violet-5-rgb: 132, 94, 247;--oc-violet-6: #7950f2;--oc-violet-6-rgb: 121, 80, 242;--oc-violet-7: #7048e8;--oc-violet-7-rgb: 112, 72, 232;--oc-violet-8: #6741d9;--oc-violet-8-rgb: 103, 65, 217;--oc-violet-9: #5f3dc4;--oc-violet-9-rgb: 95, 61, 196;--oc-indigo-0: #edf2ff;--oc-indigo-0-rgb: 237, 242, 255;--oc-indigo-1: #dbe4ff;--oc-indigo-1-rgb: 219, 228, 255;--oc-indigo-2: #bac8ff;--oc-indigo-2-rgb: 186, 200, 255;--oc-indigo-3: #91a7ff;--oc-indigo-3-rgb: 145, 167, 255;--oc-indigo-4: #748ffc;--oc-indigo-4-rgb: 116, 143, 252;--oc-indigo-5: #5c7cfa;--oc-indigo-5-rgb: 92, 124, 250;--oc-indigo-6: #4c6ef5;--oc-indigo-6-rgb: 76, 110, 245;--oc-indigo-7: #4263eb;--oc-indigo-7-rgb: 66, 99, 235;--oc-indigo-8: #3b5bdb;--oc-indigo-8-rgb: 59, 91, 219;--oc-indigo-9: #364fc7;--oc-indigo-9-rgb: 54, 79, 199;--oc-blue-0: #e7f5ff;--oc-blue-0-rgb: 231, 245, 255;--oc-blue-1: #d0ebff;--oc-blue-1-rgb: 208, 235, 255;--oc-blue-2: #a5d8ff;--oc-blue-2-rgb: 165, 216, 255;--oc-blue-3: #74c0fc;--oc-blue-3-rgb: 116, 192, 252;--oc-blue-4: #4dabf7;--oc-blue-4-rgb: 77, 171, 247;--oc-blue-5: #339af0;--oc-blue-5-rgb: 51, 154, 240;--oc-blue-6: #228be6;--oc-blue-6-rgb: 34, 139, 230;--oc-blue-7: #1c7ed6;--oc-blue-7-rgb: 28, 126, 214;--oc-blue-8: #1971c2;--oc-blue-8-rgb: 25, 113, 194;--oc-blue-9: #1864ab;--oc-blue-9-rgb: 24, 100, 171;--oc-cyan-0: #e3fafc;--oc-cyan-0-rgb: 227, 250, 252;--oc-cyan-1: #c5f6fa;--oc-cyan-1-rgb: 197, 246, 250;--oc-cyan-2: #99e9f2;--oc-cyan-2-rgb: 153, 233, 242;--oc-cyan-3: #66d9e8;--oc-cyan-3-rgb: 102, 217, 232;--oc-cyan-4: #3bc9db;--oc-cyan-4-rgb: 59, 201, 219;--oc-cyan-5: #22b8cf;--oc-cyan-5-rgb: 34, 184, 207;--oc-cyan-6: #15aabf;--oc-cyan-6-rgb: 21, 170, 191;--oc-cyan-7: #1098ad;--oc-cyan-7-rgb: 16, 152, 173;--oc-cyan-8: #0c8599;--oc-cyan-8-rgb: 12, 133, 153;--oc-cyan-9: #0b7285;--oc-cyan-9-rgb: 11, 114, 133;--oc-teal-0: #e6fcf5;--oc-teal-0-rgb: 230, 252, 245;--oc-teal-1: #c3fae8;--oc-teal-1-rgb: 195, 250, 232;--oc-teal-2: #96f2d7;--oc-teal-2-rgb: 150, 242, 215;--oc-teal-3: #63e6be;--oc-teal-3-rgb: 99, 230, 190;--oc-teal-4: #38d9a9;--oc-teal-4-rgb: 56, 217, 169;--oc-teal-5: #20c997;--oc-teal-5-rgb: 32, 201, 151;--oc-teal-6: #12b886;--oc-teal-6-rgb: 18, 184, 134;--oc-teal-7: #0ca678;--oc-teal-7-rgb: 12, 166, 120;--oc-teal-8: #099268;--oc-teal-8-rgb: 9, 146, 104;--oc-teal-9: #087f5b;--oc-teal-9-rgb: 8, 127, 91;--oc-green-0: #ebfbee;--oc-green-0-rgb: 235, 251, 238;--oc-green-1: #d3f9d8;--oc-green-1-rgb: 211, 249, 216;--oc-green-2: #b2f2bb;--oc-green-2-rgb: 178, 242, 187;--oc-green-3: #8ce99a;--oc-green-3-rgb: 140, 233, 154;--oc-green-4: #69db7c;--oc-green-4-rgb: 105, 219, 124;--oc-green-5: #51cf66;--oc-green-5-rgb: 81, 207, 102;--oc-green-6: #40c057;--oc-green-6-rgb: 64, 192, 87;--oc-green-7: #37b24d;--oc-green-7-rgb: 55, 178, 77;--oc-green-8: #2f9e44;--oc-green-8-rgb: 47, 158, 68;--oc-green-9: #2b8a3e;--oc-green-9-rgb: 43, 138, 62;--oc-lime-0: #f4fce3;--oc-lime-0-rgb: 244, 252, 227;--oc-lime-1: #e9fac8;--oc-lime-1-rgb: 233, 250, 200;--oc-lime-2: #d8f5a2;--oc-lime-2-rgb: 216, 245, 162;--oc-lime-3: #c0eb75;--oc-lime-3-rgb: 192, 235, 117;--oc-lime-4: #a9e34b;--oc-lime-4-rgb: 169, 227, 75;--oc-lime-5: #94d82d;--oc-lime-5-rgb: 148, 216, 45;--oc-lime-6: #82c91e;--oc-lime-6-rgb: 130, 201, 30;--oc-lime-7: #74b816;--oc-lime-7-rgb: 116, 184, 22;--oc-lime-8: #66a80f;--oc-lime-8-rgb: 102, 168, 15;--oc-lime-9: #5c940d;--oc-lime-9-rgb: 92, 148, 13;--oc-yellow-0: #fff9db;--oc-yellow-0-rgb: 255, 249, 219;--oc-yellow-1: #fff3bf;--oc-yellow-1-rgb: 255, 243, 191;--oc-yellow-2: #ffec99;--oc-yellow-2-rgb: 255, 236, 153;--oc-yellow-3: #ffe066;--oc-yellow-3-rgb: 255, 224, 102;--oc-yellow-4: #ffd43b;--oc-yellow-4-rgb: 255, 212, 59;--oc-yellow-5: #fcc419;--oc-yellow-5-rgb: 252, 196, 25;--oc-yellow-6: #fab005;--oc-yellow-6-rgb: 250, 176, 5;--oc-yellow-7: #f59f00;--oc-yellow-7-rgb: 245, 159, 0;--oc-yellow-8: #f08c00;--oc-yellow-8-rgb: 240, 140, 0;--oc-yellow-9: #e67700;--oc-yellow-9-rgb: 230, 119, 0;--oc-orange-0: #fff4e6;--oc-orange-0-rgb: 255, 244, 230;--oc-orange-1: #ffe8cc;--oc-orange-1-rgb: 255, 232, 204;--oc-orange-2: #ffd8a8;--oc-orange-2-rgb: 255, 216, 168;--oc-orange-3: #ffc078;--oc-orange-3-rgb: 255, 192, 120;--oc-orange-4: #ffa94d;--oc-orange-4-rgb: 255, 169, 77;--oc-orange-5: #ff922b;--oc-orange-5-rgb: 255, 146, 43;--oc-orange-6: #fd7e14;--oc-orange-6-rgb: 253, 126, 20;--oc-orange-7: #f76707;--oc-orange-7-rgb: 247, 103, 7;--oc-orange-8: #e8590c;--oc-orange-8-rgb: 232, 89, 12;--oc-orange-9: #d9480f;--oc-orange-9-rgb: 217, 72, 15}/*! reasonable colors v0.4.0 | MIT License | https://github.com/matthewhowell/reasonable-colors */:root{--color-gray-1: #f6f6f6;--color-gray-2: #e2e2e2;--color-gray-3: #8b8b8b;--color-gray-4: #6f6f6f;--color-gray-5: #3e3e3e;--color-gray-6: #222222;--color-rose-1: #fff7f9;--color-rose-2: #ffdce5;--color-rose-3: #ff3b8d;--color-rose-4: #db0072;--color-rose-5: #800040;--color-rose-6: #4c0023;--color-raspberry-1: #fff8f8;--color-raspberry-2: #ffdddf;--color-raspberry-3: #ff426c;--color-raspberry-4: #de0051;--color-raspberry-5: #82002c;--color-raspberry-6: #510018;--color-red-1: #fff8f6;--color-red-2: #ffddd8;--color-red-3: #ff4647;--color-red-4: #e0002b;--color-red-5: #830014;--color-red-6: #530003;--color-orange-1: #fff8f5;--color-orange-2: #ffded1;--color-orange-3: #fd4d00;--color-orange-4: #cd3c00;--color-orange-5: #752100;--color-orange-6: #401600;--color-cinnamon-1: #fff8f3;--color-cinnamon-2: #ffdfc6;--color-cinnamon-3: #d57300;--color-cinnamon-4: #ac5c00;--color-cinnamon-5: #633300;--color-cinnamon-6: #371d00;--color-amber-1: #fff8ef;--color-amber-2: #ffe0b2;--color-amber-3: #b98300;--color-amber-4: #926700;--color-amber-5: #523800;--color-amber-6: #302100;--color-yellow-1: #fff9e5;--color-yellow-2: #ffe53e;--color-yellow-3: #9c8b00;--color-yellow-4: #7d6f00;--color-yellow-5: #463d00;--color-yellow-6: #292300;--color-lime-1: #f7ffac;--color-lime-2: #d5f200;--color-lime-3: #819300;--color-lime-4: #677600;--color-lime-5: #394100;--color-lime-6: #222600;--color-chartreuse-1: #e5ffc3;--color-chartreuse-2: #98fb00;--color-chartreuse-3: #5c9b00;--color-chartreuse-4: #497c00;--color-chartreuse-5: #264500;--color-chartreuse-6: #182600;--color-green-1: #e0ffd9;--color-green-2: #72ff6c;--color-green-3: #00a21f;--color-green-4: #008217;--color-green-5: #004908;--color-green-6: #062800;--color-emerald-1: #dcffe6;--color-emerald-2: #5dffa2;--color-emerald-3: #00a05a;--color-emerald-4: #008147;--color-emerald-5: #004825;--color-emerald-6: #002812;--color-aquamarine-1: #daffef;--color-aquamarine-2: #42ffc6;--color-aquamarine-3: #009f78;--color-aquamarine-4: #007f5f;--color-aquamarine-5: #004734;--color-aquamarine-6: #00281b;--color-teal-1: #d7fff7;--color-teal-2: #00ffe4;--color-teal-3: #009e8c;--color-teal-4: #007c6e;--color-teal-5: #00443c;--color-teal-6: #002722;--color-cyan-1: #c4fffe;--color-cyan-2: #00fafb;--color-cyan-3: #00999a;--color-cyan-4: #007a7b;--color-cyan-5: #004344;--color-cyan-6: #002525;--color-powder-1: #dafaff;--color-powder-2: #8df0ff;--color-powder-3: #0098a9;--color-powder-4: #007987;--color-powder-5: #004048;--color-powder-6: #002227;--color-sky-1: #e3f7ff;--color-sky-2: #aee9ff;--color-sky-3: #0094b4;--color-sky-4: #007590;--color-sky-5: #00404f;--color-sky-6: #001f28;--color-cerulean-1: #e8f6ff;--color-cerulean-2: #b9e3ff;--color-cerulean-3: #0092c5;--color-cerulean-4: #00749d;--color-cerulean-5: #003c54;--color-cerulean-6: #001d2a;--color-azure-1: #e8f2ff;--color-azure-2: #c6e0ff;--color-azure-3: #008fdb;--color-azure-4: #0071af;--color-azure-5: #003b5e;--color-azure-6: #001c30;--color-blue-1: #f0f4ff;--color-blue-2: #d4e0ff;--color-blue-3: #0089fc;--color-blue-4: #006dca;--color-blue-5: #00386d;--color-blue-6: #001a39;--color-indigo-1: #f3f3ff;--color-indigo-2: #deddff;--color-indigo-3: #657eff;--color-indigo-4: #0061fc;--color-indigo-5: #00328a;--color-indigo-6: #001649;--color-violet-1: #f7f1ff;--color-violet-2: #e8daff;--color-violet-3: #9b70ff;--color-violet-4: #794aff;--color-violet-5: #2d0fbf;--color-violet-6: #0b0074;--color-purple-1: #fdf4ff;--color-purple-2: #f7d9ff;--color-purple-3: #d150ff;--color-purple-4: #b01fe3;--color-purple-5: #660087;--color-purple-6: #3a004f;--color-magenta-1: #fff3fc;--color-magenta-2: #ffd7f6;--color-magenta-3: #f911e0;--color-magenta-4: #ca00b6;--color-magenta-5: #740068;--color-magenta-6: #44003c;--color-pink-1: #fff7fb;--color-pink-2: #ffdcec;--color-pink-3: #ff2fb2;--color-pink-4: #d2008f;--color-pink-5: #790051;--color-pink-6: #4b0030}warning-list{background:var(--color-yellow-1);border-left:4px solid var(--color-yellow-2);color:var(--color-yellow-4);display:block;font-family:var(--font-system);padding:.5em}warning-list[hidden]{display:none}warning-list ul{list-style-type:none;margin:0;padding-left:0}inline-button{cursor:pointer}
 
-</style></head><body><state-css-variables><state-dark-theme-css-overrides><div id="backdrop"><page-skip><page-transition><div id="page" aria-live="polite"><header hidden></header><article></article><warning-list></warning-list><footer hidden></footer><error-handler></error-handler><page-skip-indicator></page-skip-indicator></div></page-transition></page-skip></div></state-dark-theme-css-overrides></state-css-variables><external-fonts></external-fonts><noscript>This requires JavaScript.</noscript></body><tw-storydata name="ENC 1101: How The KLF Did It" startnode="31" creator="Twine" creator-version="2.11.1" format="Chapbook" format-version="2.3.0" ifid="GENERATE-NEW-IFID-HERE" options="" tags="" zoom="0.6" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* --- Base: fit content to viewport --- */
-article[role="main"],
-.body.content,
-#page article,
-.passage {
-  max-width: 90vw;
-  width: 100%;
-  margin: 0 auto;
-  padding: 1.5rem 1.5rem 5rem 1.5rem;
-  box-sizing: border-box;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-}
-
-/* --- Typography --- */
-body {
-  font-size: 14px;
-  line-height: 1.55;
-}
-
-h1 {
-  font-size: 1.7em;
-  line-height: 1.2;
-  margin-top: 0.8em;
-}
-
-h2 {
-  font-size: 1.4em;
-  line-height: 1.25;
-  margin-top: 0.8em;
-}
-
-h3 {
-  font-size: 1.15em;
-  line-height: 1.3;
-}
-
-/* --- Links: larger tap targets on touch --- */
-a {
-  display: inline-block;
-  padding: 0.15em 0;
-}
-
-/* --- Lists: prevent overflow --- */
-ul, ol {
-  padding-left: 1.5em;
-}
-
-li {
-  margin-bottom: 0.4em;
-}
-
-/* --- Horizontal rules --- */
-hr {
-  margin: 1.2em 0;
-}
-
-/* --- Desktop: cap width for readability --- */
-@media (min-width: 769px) {
-  article[role="main"],
-  .body.content,
-  #page article,
-  .passage {
-    max-width: 700px;
-    padding-bottom: 4rem;
-  }
-}
-
-/* --- Tablet --- */
-@media (min-width: 481px) and (max-width: 768px) {
-  article[role="main"],
-  .body.content,
-  #page article,
-  .passage {
-    max-width: 92vw;
-    padding: 1.2rem 1.2rem 5rem 1.2rem;
-  }
-}
-
-/* --- Mobile --- */
-@media (max-width: 480px) {
-  article[role="main"],
-  .body.content,
-  #page article,
-  .passage {
-    max-width: 100vw;
-    padding: 1rem 1rem 6rem 1rem;
-  }
-
-  h1 { margin-top: 0.5em; }
-
-  a {
-    padding: 0.35em 0;
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-  }
-}
-
-
-/* =============================================
-   SECTION 2: TIMER SYSTEM
-   ============================================= */
-
-/* --- Timer Display (bottom-right) --- */
-.enc-timer {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #1a1a2e;
-  color: #e0e0e0;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-family: 'Courier New', monospace;
-  font-weight: bold;
-  z-index: 1000;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
-  cursor: default;
-  user-select: none;
-  transition: background 0.5s, color 0.5s, box-shadow 0.5s;
-  display: none;
-  text-align: center;
-  min-width: 100px;
-}
-
-.enc-timer.active {
-  display: block;
-}
-
-.enc-timer .timer-label {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  opacity: 0.7;
-  display: block;
-  margin-bottom: 4px;
-}
-
-.enc-timer .timer-display {
-  font-size: 1.6rem;
-  display: block;
-}
-
-@media (max-width: 480px) {
-  .enc-timer {
-    bottom: 12px;
-    right: 12px;
-    padding: 10px 14px;
-    min-width: 80px;
-  }
-
-  .enc-timer .timer-display {
-    font-size: 1.3rem;
-  }
-
-  .enc-timer .timer-label {
-    font-size: 0.55rem;
-  }
-}
-
-/* --- Timer States --- */
-.enc-timer.warning {
-  color: #fbbf24;
-}
-
-.enc-timer.complete {
-  background: #0d4d2b;
-  color: #4ade80;
-  box-shadow: 0 2px 20px rgba(74, 222, 128, 0.4);
-  animation: timer-pulse 1.5s ease-in-out 3;
-}
-
-.enc-timer.complete .timer-label {
-  opacity: 1;
-}
-
-@keyframes timer-pulse {
-  0%, 100% { box-shadow: 0 2px 12px rgba(74, 222, 128, 0.2); }
-  50% { box-shadow: 0 2px 24px rgba(74, 222, 128, 0.6); }
-}
-
-/* --- Navigation Lock (used in Discussion 2 for shareout link) --- */
-.timed-nav.locked {
-  display: none;
-}
-
-.timed-nav.unlocked {
-  display: block;
-}
-
-/* --- Screen Flash on Completion --- */
-.enc-timer-flash {
-  position: fixed;
-  inset: 0;
-  background: rgba(74, 222, 128, 0.12);
-  z-index: 999;
-  pointer-events: none;
-  animation: flash-fade 1.2s ease-out forwards;
-}
-
-@keyframes flash-fade {
-  0% { opacity: 1; }
-  100% { opacity: 0; }
-}</style><script role="script" id="twine-user-script" type="text/twine-javascript">(function () {
-  'use strict';
-
-  var timerState = {};
-  var completedState = {};
-  var intervalId = null;
-  var activePassage = null;
-  var overrideClicks = 0;
-  var overrideTimeout = null;
-  var scanning = false;
-
-  /* ---- Timer UI ---- */
-  var timerEl = document.createElement('div');
-  timerEl.className = 'enc-timer';
-  timerEl.innerHTML =
-    '<span class="timer-label">Time Remaining</span>' +
-    '<span class="timer-display">--:--</span>';
-  document.body.appendChild(timerEl);
-
-  var labelEl = timerEl.querySelector('.timer-label');
-  var displayEl = timerEl.querySelector('.timer-display');
-
-  /* ---- Helpers ---- */
-  function fmt(secs) {
-    var m = Math.floor(secs / 60);
-    var s = secs % 60;
-    return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
-  }
-
-  function lockNav(container) {
-    container.classList.add('locked');
-    container.classList.remove('unlocked');
-  }
-
-  function unlockNav(container) {
-    container.classList.remove('locked');
-    container.classList.add('unlocked');
-  }
-
-  function unlockAll() {
-    var els = document.querySelectorAll('.timed-nav');
-    for (var i = 0; i < els.length; i++) {
-      unlockNav(els[i]);
-    }
-  }
-
-  /* ---- Audio Chime ---- */
-  function playChime() {
-    try {
-      var ctx = new (window.AudioContext || window.webkitAudioContext)();
-      var notes = [830, 1050];
-      for (var i = 0; i < notes.length; i++) {
-        var osc = ctx.createOscillator();
-        var gain = ctx.createGain();
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.frequency.value = notes[i];
-        osc.type = 'sine';
-        var t = ctx.currentTime + i * 0.18;
-        gain.gain.setValueAtTime(0.18, t);
-        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.8);
-        osc.start(t);
-        osc.stop(t + 0.8);
-      }
-    } catch (e) { /* silent fail */ }
-  }
-
-  /* ---- Screen Flash ---- */
-  function flashScreen() {
-    var el = document.createElement('div');
-    el.className = 'enc-timer-flash';
-    document.body.appendChild(el);
-    el.addEventListener('animationend', function () { el.remove(); });
-  }
-
-  /* ---- Stop Interval ---- */
-  function stopInterval() {
-    if (intervalId) {
-      clearInterval(intervalId);
-      intervalId = null;
-    }
-  }
-
-  /* ---- Complete ---- */
-  function onComplete(passageName) {
-    stopInterval();
-    completedState[passageName] = true;
-
-    timerEl.className = 'enc-timer active complete';
-    labelEl.textContent = "Time\u2019s Up";
-    displayEl.textContent = '00:00';
-
-    unlockAll();
-    playChime();
-    flashScreen();
-  }
-
-  /* ---- Show Completed State (no chime) ---- */
-  function showCompleted() {
-    timerEl.className = 'enc-timer active complete';
-    labelEl.textContent = "Time\u2019s Up";
-    displayEl.textContent = '00:00';
-    unlockAll();
-  }
-
-  /* ---- Run Timer ---- */
-  function runTimer(duration, passageName, navEl) {
-    stopInterval();
-    activePassage = passageName;
-
-    if (completedState[passageName]) {
-      showCompleted();
-      return;
-    }
-
-    var endTime;
-    if (timerState[passageName] && timerState[passageName] > Date.now()) {
-      endTime = timerState[passageName];
-    } else {
-      endTime = Date.now() + duration * 1000;
-      timerState[passageName] = endTime;
-    }
-
-    lockNav(navEl);
-    timerEl.className = 'enc-timer active';
-    labelEl.textContent = 'Time Remaining';
-
-    function tick() {
-      var left = Math.max(0, Math.ceil((endTime - Date.now()) / 1000));
-      displayEl.textContent = fmt(left);
-
-      if (left <= 60 && left > 0) {
-        timerEl.classList.add('warning');
-      }
-
-      if (left <= 0) {
-        onComplete(passageName);
-      }
-    }
-
-    tick();
-    intervalId = setInterval(tick, 250);
-  }
-
-  /* ---- Scan Page for Timer ---- */
-  function scan() {
-    if (scanning) return;
-    scanning = true;
-
-    var navEl = document.querySelector('.timed-nav');
-
-    if (!navEl) {
-      timerEl.className = 'enc-timer';
-      activePassage = null;
-      scanning = false;
-      return;
-    }
-
-    var duration = parseInt(navEl.getAttribute('data-timer'), 10);
-    var passage = navEl.getAttribute('data-passage');
-
-    if (!duration || !passage) {
-      scanning = false;
-      return;
-    }
-
-    if (passage === activePassage && intervalId) {
-      scanning = false;
-      return;
-    }
-
-    runTimer(duration, passage, navEl);
-    scanning = false;
-  }
-
-  /* ---- Instructor Override: Triple-click ---- */
-  timerEl.addEventListener('click', function () {
-    overrideClicks++;
-    clearTimeout(overrideTimeout);
-    overrideTimeout = setTimeout(function () { overrideClicks = 0; }, 800);
-
-    if (overrideClicks >= 3) {
-      overrideClicks = 0;
-      stopInterval();
-
-      if (activePassage) {
-        completedState[activePassage] = true;
-      }
-
-      timerEl.className = 'enc-timer active complete';
-      labelEl.textContent = 'Override';
-      displayEl.textContent = '\u2713';
-      unlockAll();
-    }
-  });
-
-  /* ---- Watch for Passage Changes ---- */
-  var debounce = null;
-
-  var observer = new MutationObserver(function () {
-    clearTimeout(debounce);
-    debounce = setTimeout(scan, 200);
-  });
-
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true,
-    attributes: false,
-    characterData: false
-  });
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', scan);
-  } else {
-    scan();
-  }
-
-})();</script><tw-passagedata pid="1" name="Collective-Synthesis" tags="" position="900,1100" size="100,100">## Bringing It Together
-
-Each group shares (2-3 min each):
-
-Key insight → Specific example → Takeaway for the class.
-
-### As You Listen
-
-- What patterns do you notice across all five groups?
-
-- Where do sampling, persona, convention, audience, and irreversibility connect — or contradict each other?
-
-- Which of these moves feels most present in the literacy practice you&#39;re analyzing for MA2?
-
-### Synthesis Questions
-
-After all groups have shared:
-
-- The KLF&#39;s whole career can be read as one long rhetorical act. What&#39;s the argument? What were they ultimately trying to communicate?
-
-- Which of these five rhetorical moves shows up most clearly in your MA2 literacy practice?
-
-- If you were going to apply one of today&#39;s frameworks to your MA3 remediation, which would it be — and why?
-
-[[Looking Ahead (MW) →-&gt;MW-Looking-Ahead]]
-
-[[Looking Ahead (WF) →-&gt;WF-Looking-Ahead]]</tw-passagedata><tw-passagedata pid="2" name="Framing" tags="" position="700,300" size="100,100">## Performance and Rhetoric: The Big Picture
-
-&lt;img src=&quot;https://media1.tenor.com/m/dM7L9MXpPCAAAAAd/the-jams-the-justified-ancients-of-mu-mu.gif&quot; height=100% width=100%&gt;
-
-The KLF never made the same thing twice. Every genre they pioneered, every persona they built — they studied it, deployed it, and dissolved it before it could become comfortable. What looks like chaos was, almost every time, a deliberate rhetorical choice.
-
-We&#39;re mapping those choices today because the same moves show up in the literacy practice you&#39;re analyzing for MA2. And when you get to MA3, you&#39;ll be doing something similar yourself: taking your own work and remaking it in a new form. The KLF did this constantly. Pay attention to how.
-
-**Key Concept**: Rhetorical performance — using a public act, not just a text, to make an argument, claim a position, or challenge an audience&#39;s expectations.
-
-**Today&#39;s Question**: What does the KLF&#39;s career tell us about how literacy practices use convention, disruption, and form to make meaning?
+</style></head><body><state-css-variables><state-dark-theme-css-overrides><div id="backdrop"><page-skip><page-transition><div id="page" aria-live="polite"><header hidden></header><article></article><warning-list></warning-list><footer hidden></footer><error-handler></error-handler><page-skip-indicator></page-skip-indicator></div></page-transition></page-skip></div></state-dark-theme-css-overrides></state-css-variables><external-fonts></external-fonts><noscript>This requires JavaScript.</noscript></body><tw-storydata name="ENC 1101: Week 9, Session 2 — Performance, Literacy, and Your Work" startnode="1" creator="Twine" creator-version="2.11.1" format="Chapbook" format-version="2.3.0" ifid="GENERATE-NEW-IFID-HERE" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Start" tags="" position="25,25" size="100,100">## Performance and Rhetoric: Connecting to Your Work
+
+**Course**: ENC 1101
+
+**Instructor**: Glenn S. Ritchey III
+
+Last session we mapped the KLF&#39;s rhetorical moves. Today we&#39;re using those moves as lenses. Your MA2 asks you to analyze a literacy practice you&#39;re already part of. Your MA3 will ask you to take your own writing and remake it in a new form. The KLF spent their entire career doing both — constantly. Today we figure out what that means for your work.
+
+### What you&#39;ll do
+
+1. Work through two focused discussions with your group
+
+2. Share your findings with the class
+
+**Which schedule are you on?**
+
+[[Monday/Wednesday section →-&gt;MW-Groups]]
+
+[[Wednesday/Friday section →-&gt;WF-Groups]]
+
+*Need help navigating?* Here is how to [[use this Twine-&gt;Instructions-Node]].</tw-passagedata><tw-passagedata pid="2" name="Instructions-Node" tags="" position="150,150" size="100,100">## How to Use This Twine
+
+### Navigation
+Click blue links to move between pages, including to return to previous pages.
+
+### Working in Groups
+Find your group number, follow your pathway (Discussion 1 → Discussion 2 → Shareout Prep), and take notes as you go.
+
+### Discussions
+Read the prompts carefully, discuss with your group, and be ready to share your findings. Times are guidelines — quality matters more than finishing.
+
+### Reference Nodes
+These provide extra context on key concepts. Use them when you need a refresher or want to go deeper.
+
+[[← Back to start-&gt;Start]]</tw-passagedata><tw-passagedata pid="3" name="MW-Groups" tags="" position="625,150" size="100,100">## Group Assignments
+
+[[Group 1: Conventions and Their Function →-&gt;Group1-Opening]]
+
+[[Group 2: What the Medium Can and Can&#39;t Say →-&gt;Group2-Opening]]
+
+[[Group 3: Audience Legibility →-&gt;Group3-Opening]]
+
+[[Group 4: Identity and Authorship →-&gt;Group4-Opening]]
+
+[[Group 5: The Cost of Participation →-&gt;Group5-Opening]]</tw-passagedata><tw-passagedata pid="4" name="WF-Groups" tags="" position="750,150" size="100,100">## Group Assignments
+
+[[Group 1: Conventions and Their Function →-&gt;Group1-Opening]]
+
+[[Group 2: What the Medium Can and Can&#39;t Say →-&gt;Group2-Opening]]
+
+[[Group 3: Audience Legibility →-&gt;Group3-Opening]]
+
+[[Group 4: Identity and Authorship →-&gt;Group4-Opening]]
+
+[[Group 5: The Cost of Participation →-&gt;Group5-Opening]]</tw-passagedata><tw-passagedata pid="5" name="Framing" tags="" position="300,100" size="100,100">## Performance, Literacy, and Your Work: The Big Picture
+
+Last session you mapped the KLF&#39;s rhetorical moves — sampling, persona, convention, audience, irreversibility. Today we&#39;re using those moves as analytical lenses pointed directly at your own work.
+
+Your MA2 asks you to analyze a literacy practice you&#39;re already part of: to identify how it works, what it does, and what it assumes about the people who participate in it. Your MA3 will ask you to take that analysis and remake it in a new form for a new purpose. The KLF spent their entire career doing both of those things simultaneously — analyzing cultural conventions and then remediating their own work across forms, constantly, without stopping.
+
+**Key Concept**: Remediation — taking existing content and remaking it for a new medium, audience, or purpose. Not just translation. A new rhetorical argument that the original couldn&#39;t make.
+
+**Today&#39;s Question**: How does the KLF&#39;s practice of constant remaking help you understand your MA2 literacy practice — and prepare you for the choices you&#39;ll have to make in MA3?
 
 *Your group explores this from a specific angle. The deeper context lives in your pathway.*
 
 [[← Back to MW Groups-&gt;MW-Groups]]
 
-[[← Back to WF Groups-&gt;WF-Groups]]</tw-passagedata><tw-passagedata pid="3" name="Group1-Discussion-1" tags="" position="200,550" size="100,100">## Group 1 — Discussion 1: Sampling as Argument
+[[← Back to WF Groups-&gt;WF-Groups]]</tw-passagedata><tw-passagedata pid="6" name="Group1-Opening" tags="" position="100,300" size="100,100">## Group 1: Conventions and Their Function
 
-**Goal**: Understand how the KLF&#39;s sampling practice functions as a rhetorical position, not just a production technique.
+Your group explores what conventions actually do in a literacy practice — not just what the rules are, but why they exist, who they serve, and what happens when they&#39;re broken.
 
-### Context
-
-The JAMs sampled without permission — Beatles, ABBA, Sam Fox — and their defense wasn&#39;t technical: &quot;It doesn&#39;t bother us. Their records are still there, it&#39;s not as if we&#39;re taking anything away, just borrowing and making things bigger.&quot; That&#39;s not an apology. That&#39;s a claim about how culture works and who gets to build on it.
-
-They self-released on white label because no label would touch the track. And when they published *The Manual*, they made the method explicit: &quot;Compose your music with bits you&#39;ve nicked from other songs.&quot; Publishing the rules changed their status — from copyright violators to theorists.
-
-### Questions
-
-Work through these individually first. Write your responses however works for you — free-writing, bullet points, whatever gets the thinking out. Then talk through them with your group.
-
-**1. The JAMs said they were &quot;just borrowing and making things bigger.&quot; What argument does that statement make about who owns cultural material?**
-What does it assume about how culture works? Is that a defensible position — or just convenient?
-
-**2. Find at least two specific moments from the video where sampling functions as more than a production choice — where it communicates something.**
-What does each one communicate, and to whom?
-
-**3. The Manual instructs readers to &quot;compose your music with bits you&#39;ve nicked from other songs.&quot; Why would they publish that advice?**
-What does making the method explicit — putting it in print — do rhetorically?
-
-[[Reference: Appropriation as Rhetoric-&gt;Group1-Reference]]
-
-#### *Ready to move on? Head to Discussion 2.*
-
-[[← Back to pathway-&gt;Group1-Opening]] | [[Continue to Discussion 2 →-&gt;Group1-Discussion-2]]
-
-&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group1-Discussion-1&quot;&gt;
-
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="4" name="Group1-Discussion-2" tags="" position="200,700" size="100,100">## Group 1 — Discussion 2: From Sampling to Your Practice
-
-**Goal**: Connect the KLF&#39;s appropriation logic to your MA2 literacy practice and begin thinking toward MA3.
-
-### From Understanding to Application
-
-The JAMs&#39; sampling argument is also an argument about originality, authorship, and who gets to build on existing culture. Your MA2 literacy practice operates inside similar questions — even if much less dramatically. And for MA3, you&#39;ll be taking existing material (your own writing) and remaking it into a new form. That&#39;s a kind of sampling too.
-
-### Questions
-
-**1. What does your MA2 literacy practice borrow from?**
-What conventions, styles, forms, or traditions does it build on — without necessarily crediting them? Where did those borrowed elements come from?
-
-**2. The KLF kept remixing the same source material — &quot;What Time is Love?&quot; alone went through at least four distinct versions.**
-Does your MA2 practice remix or rework existing material in any way? How does recontextualizing something change what it means?
-
-**3. For MA3, you&#39;ll be taking your MA2 analysis and remaking it in a new form.**
-Using the KLF&#39;s logic — same source, different form, different purpose — what would it mean to genuinely remix your MA2? What would you keep? What would change?
-
-### Quick Draft (if time allows)
-
-Choose one:
-
-- **Option A**: Draft a sentence or two analyzing how your MA2 literacy practice borrows from existing conventions — and what that borrowing communicates.
-
-- **Option B**: Identify one element of your MA2 practice that functions like a sample — something borrowed, repurposed, or recontextualized. Describe it specifically.
-
-- **Option C**: Sketch one possible MA3 remediation move: if your MA2 analysis is the source material, what form might you remix it into, and why?
-
-[[Reference: Appropriation as Rhetoric-&gt;Group1-Reference]]
-
-#### *Time to prepare your shareout.*
-
-[[← Back to pathway-&gt;Group1-Opening]]
-
-&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group1-Discussion-2&quot;&gt;
-[[Time to prepare your shareout →-&gt;Group1-Shareout-Prep]]
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="5" name="Group1-Opening" tags="" position="200,400" size="100,100">## Group 1: Sampling as Argument
-
-&lt;img src=&quot;https://media1.tenor.com/m/dM7L9MXpPCAAAAAd/the-jams-the-justified-ancients-of-mu-mu.gif&quot; height=100% width=100%&gt;
-
-Your group explores how the KLF used unauthorized sampling not as a production shortcut, but as a rhetorical claim about who owns culture.
-
-*Why this matters*: Your MA2 literacy practice also borrows from existing conventions, forms, and traditions — often without naming them. Understanding how borrowing functions as a rhetorical act helps you see what your practice is actually doing.
+*Why this matters*: MA2 asks you to analyze how a literacy practice is shaped and constrained by social and cultural factors. Conventions are one of the primary ways those constraints operate. And in MA3, you&#39;ll be deciding which conventions of your current form to keep — and which to deliberately break.
 
 ### Your Pathway
 
-1. **Discussion 1**: What argument do you think the KLF were making by sampling the way they did?
+1. **Discussion 1**: What do conventions do — for the KLF, and in general?
 
-2. **Discussion 2**: How does that move show up in your MA2 literacy practice — and what might it mean for MA3?
+2. **Discussion 2**: What conventions govern your MA2 practice — and what might breaking them mean for MA3?
 
 3. **Shareout Prep**: Organize your findings to share with the class.
 
@@ -771,41 +307,90 @@ Your group explores how the KLF used unauthorized sampling not as a production s
 [[Start Discussion 1 →-&gt;Group1-Discussion-1]]
 
 #### Reference
-[[Key Concept: Appropriation as Rhetoric-&gt;Group1-Reference]]</tw-passagedata><tw-passagedata pid="6" name="Group1-Reference" tags="" position="375,600" size="100,100">## Reference: Appropriation as Rhetoric
+[[Key Concept: Convention and Constraint-&gt;Group1-Reference]]</tw-passagedata><tw-passagedata pid="7" name="Group1-Discussion-1" tags="" position="100,450" size="100,100">## Group 1 — Discussion 1: What Conventions Do
 
-**What it is**: Using existing cultural material — samples, conventions, forms, traditions — as the building blocks of a new argument. The act of borrowing is itself a rhetorical choice that communicates something about authorship, ownership, and cultural inheritance.
+**Goal**: Understand how conventions function — not just as rules, but as a system that enables and constrains meaning-making.
 
-**Why it matters for your writing**: Every piece of writing borrows from what came before it — genre conventions, citation practices, disciplinary norms. Recognizing that borrowing is a choice (not a neutral act) helps you analyze how any literacy practice positions itself within a larger cultural conversation.
+### Context
 
-### Key Points
-- Appropriation makes a claim about who owns culture and who can build on it
-- Making the method explicit (as *The Manual* does) shifts the act from violation to theory
-- The same material, recontextualized, can make a completely different argument
+The KLF&#39;s career is a masterclass in convention awareness. Cauty learned SAW&#39;s production method by watching for a year. *The Manual* makes pop&#39;s rules explicit: length, structure, lyrics, distribution. The KLF followed those rules precisely to reach #1 — then used the BRITs to violate every convention of an awards performance simultaneously (wrong genre, machine gun, dead sheep, early exit). The violation communicated because the convention was so thoroughly understood first.
 
-### Example
-The JAMs sampled ABBA&#39;s &quot;Dancing Queen&quot; and called it &quot;just borrowing.&quot; ABBA&#39;s lawyers called it theft. The disagreement isn&#39;t about the act — it&#39;s about what the act means and who has the right to define it.
+But they also followed conventions strategically: &quot;Justified and Ancient&quot; uses a more standard pop template than their Stadium House singles, specifically to accommodate Tammy Wynette&#39;s vocal. Knowing which conventions to keep, and when, is as much of the skill as knowing which to break.
 
-### How to Apply This
-When analyzing your MA2 literacy practice: ask what it borrows from, whether that borrowing is acknowledged, and what it communicates about the practice&#39;s relationship to convention and tradition.
+### Questions
 
----
+Work through these individually first, then discuss with your group.
 
-[[← Back to pathway-&gt;Group1-Opening]]</tw-passagedata><tw-passagedata pid="7" name="Group1-Shareout-Prep" tags="" position="200,825" size="100,100">## Group 1 — Shareout Prep
+**1. Pick one genre convention the KLF mastered and then violated. Name the convention specifically. How does knowing they mastered it first change how you interpret the violation?**
+What would the same act look like coming from someone who didn&#39;t know the rules?
+
+**2. The Manual makes pop&#39;s conventions explicit — writes them down as a how-to guide. What does making conventions explicit do to their power?**
+Does naming a convention reinforce it, undermine it, or both? What happened to the pop industry after *The Manual*?
+
+**3. The money burning violated the conventions of... what, exactly? Name the conventions it violated — then name any conventions it followed.**
+Think: documentation, artistic statement, press release, the framing of the act as significant. What&#39;s doing conventional work here?
+
+[[Reference: Convention and Constraint-&gt;Group1-Reference]]
+
+#### *Ready to move on? Head to Discussion 2.*
+
+[[← Back to pathway-&gt;Group1-Opening]] | [[Continue to Discussion 2 →-&gt;Group1-Discussion-2]]
+
+&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group1-Discussion-1&quot;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="8" name="Group1-Discussion-2" tags="" position="100,600" size="100,100">## Group 1 — Discussion 2: Conventions in Your Practice and Toward MA3
+
+**Goal**: Identify the conventions of your MA2 literacy practice and think through what convention-breaking might mean for your MA3 remediation.
+
+### From Understanding to Application
+
+Your MA2 literacy practice has conventions — some explicit, most implicit — that practitioners learn through immersion, not instruction. Identifying them is the analytical work MA2 asks you to do. For MA3, you&#39;ll be making choices about which conventions of the academic essay form to keep — and which to deliberately break in your remediated version.
+
+### Questions
+
+**1. Name at least three conventions of your MA2 literacy practice. Be specific — not &quot;there are rules&quot; but what are the actual rules?**
+Where did they come from? How do practitioners learn them — formal instruction, immersion, trial and error?
+
+**2. Which of those conventions is most interesting to analyze, and why?**
+What does it reveal about the practice&#39;s values, assumptions, or power dynamics? Who does the convention serve, and who does it exclude?
+
+**3. Think toward MA3: what conventions of the academic essay form would you preserve in a remediation? Which would you deliberately violate?**
+Use the KLF&#39;s logic — mastery before disruption. What does that mean for how you approach the assignment?
+
+### Quick Draft (if time allows)
+
+Choose one:
+
+- **Option A**: Draft a working thesis for MA2 that centers on how a specific convention shapes your literacy practice. Try to make a claim, not just describe the convention.
+
+- **Option B**: Identify one convention you might productively violate in MA3 — and write a sentence explaining what that violation would communicate.
+
+- **Option C**: Describe what a convention violation in your MA2 practice looks like, and how the community responds. What does the response reveal?
+
+[[Reference: Convention and Constraint-&gt;Group1-Reference]]
+
+#### *Time to prepare your shareout.*
+
+[[← Back to pathway-&gt;Group1-Opening]]
+
+&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group1-Discussion-2&quot;&gt;
+[[Time to prepare your shareout →-&gt;Group1-Shareout-Prep]]
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="9" name="Group1-Shareout-Prep" tags="" position="100,750" size="100,100">## Group 1 — Shareout Prep
 
 Prepare a **2-3 minute** presentation for the class.
 
 ### What to Share
 
-**1. Key Insight** (1 min): What&#39;s the most important thing your group discovered about sampling as a rhetorical argument?
+**1. Key Insight** (1 min): What does your group now understand about how conventions function in a literacy practice?
 
-**2. Specific Example** (1 min): ONE moment from the video that best illustrates your insight.
+**2. Specific Example** (1 min): ONE convention from your MA2 literacy practice that best illustrates your insight.
 
 **3. Application** (30 sec): One thing the class can take away for their MA2 or MA3 work.
 
 ### Get Organized
 - Who&#39;s presenting which part?
 
-- What specific transcript moment are you using?
+- Which convention are you using as your example?
 
 - What&#39;s your takeaway for the class?
 
@@ -816,87 +401,36 @@ Prepare a **2-3 minute** presentation for the class.
 [[← Back to pathway-&gt;Group1-Opening]] | [[Ready for synthesis →-&gt;Collective-Synthesis]]
 
 &lt;div class=&quot;timed-nav&quot; data-timer=&quot;240&quot; data-passage=&quot;Group1-Shareout-Prep&quot;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="8" name="Group2-Discussion-1" tags="" position="550,550" size="100,100">## Group 2 — Discussion 1: Persona as Tool
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="10" name="Group1-Reference" tags="" position="250,550" size="100,100">## Reference: Convention and Constraint
 
-**Goal**: Understand how the KLF used strategic identity construction — and destruction — as a rhetorical practice.
+**What it is**: The implicit and explicit rules that govern how a literacy practice works — what counts as competent participation, what violates expectations, and what the community does when violations occur. Conventions aren&#39;t neutral; they encode values, power dynamics, and assumptions about who belongs.
 
-### Context
+**Why it matters for your writing**: Conventions are one of the primary ways social and cultural factors shape a literacy practice. Identifying them — and analyzing what they do — is central to the MA2 assignment. And in MA3, understanding which conventions to keep and which to break is what separates genuine remediation from mere format-switching.
 
-The progression: Justified Ancients of Mu-Mu (underground credibility, chaotic sampling, &quot;King Boy D&quot; and &quot;Rockman Rock&quot;) → The Timelords (anonymity, ironic distance — fronted by a car named Ford Timelord) → The KLF (&quot;KLF means nothing,&quot; minimal, mysterious) → K Foundation (post-music art terrorism). Each name enabled specific acts. Each was discarded before it calcified.
+### Key Points
+- Conventions are usually learned through immersion, not explicit instruction
+- Making conventions explicit (as *The Manual* does) changes their function
+- Disruption only communicates when the audience recognizes what&#39;s being disrupted
 
-Drummond: &quot;Both Jimmy and I have an eternal thing of, as soon as something becomes a stable thing, of wanting to destroy it.&quot; Stability, for them, was a rhetorical failure.
+### Example
+*The Manual* lists the rules for a hit pop single in precise, mechanical terms. The act of writing them down transformed them from invisible assumptions into legible targets — which is partly why the book is still read today as art, not just advice.
 
-### Questions
+### How to Apply This
+For MA2: ask what the conventions are, how practitioners learn them, and what they reveal about the practice&#39;s values. For MA3: ask which conventions you&#39;re keeping in your new form, which you&#39;re breaking, and what those choices communicate.
 
-Work through these individually first, then discuss with your group.
+---
 
-**1. The Timelords single was &quot;fronted by a car.&quot; What rhetorical work does that absurd choice do?**
-What would have been different if Drummond and Cauty had released it under their own names? Why does the car matter?
+[[← Back to pathway-&gt;Group1-Opening]]</tw-passagedata><tw-passagedata pid="11" name="Group2-Opening" tags="" position="400,300" size="100,100">## Group 2: What the Medium Can and Can&#39;t Say
 
-**2. Track the progression — JAMs → Timelords → KLF → K Foundation. What does each name allow them to do or say that the previous one couldn&#39;t?**
-What did they have to leave behind each time? What was the cost of moving on?
+Your group explores how the KLF&#39;s constant movement across media — music, book, film, live performance, burning — was a series of deliberate choices about what each form could and couldn&#39;t communicate.
 
-**3. Drummond said &quot;as soon as something becomes a stable thing, of wanting to destroy it.&quot; What does that instinct tell us about how they understood identity and rhetorical position?**
-Is stability always a failure? Or is this specific to what they were trying to do?
-
-[[Reference: Persona and Rhetorical Identity-&gt;Group2-Reference]]
-
-#### *Ready to move on? Head to Discussion 2.*
-
-[[← Back to pathway-&gt;Group2-Opening]] | [[Continue to Discussion 2 →-&gt;Group2-Discussion-2]]
-
-&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group2-Discussion-1&quot;&gt;
-
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="9" name="Group2-Discussion-2" tags="" position="550,700" size="100,100">## Group 2 — Discussion 2: Identity in Your Practice
-
-**Goal**: Connect the KLF&#39;s persona logic to the identity construction in your MA2 literacy practice, and begin thinking about authorship in MA3.
-
-### From Understanding to Application
-
-Persona isn&#39;t just a band trick. Any literacy practice involves performing an identity — who you are, who you&#39;re writing for, what community you belong to. Your MA2 asks you to look at how a practice constructs or projects identity. And in MA3, you&#39;ll be making choices about your own authorial identity in a new form.
-
-### Questions
-
-**1. What identity does your MA2 literacy practice perform or project?**
-Who does it say the practitioner is — to insiders, to outsiders, to themselves? Is that identity stable, or does it shift?
-
-**2. Does the identity shift depending on the audience or context?**
-For example: does the same literacy practice mean something different when performed for insiders vs. outsiders, or in different settings?
-
-**3. In MA3, you&#39;ll be remaking your work in a new form. What happens to authorial identity when a piece gets remediated?**
-Does the &quot;you&quot; who made the original carry into the new version? What changes about who you are as author when the form changes?
-
-### Quick Draft (if time allows)
-
-Choose one:
-
-- **Option A**: Draft a paragraph describing the identity your MA2 literacy practice projects. Use specific details — what signals that identity to an audience?
-
-- **Option B**: Identify a moment in your MA2 practice where the practitioner&#39;s identity shifts or becomes unstable. What causes it?
-
-- **Option C**: Sketch what happens to your authorial identity if you remediate your MA2 into a different form for MA3. What stays the same? What changes?
-
-[[Reference: Persona and Rhetorical Identity-&gt;Group2-Reference]]
-
-#### *Time to prepare your shareout.*
-
-[[← Back to pathway-&gt;Group2-Opening]]
-
-&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group2-Discussion-2&quot;&gt;
-[[Time to prepare your shareout →-&gt;Group2-Shareout-Prep]]
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="10" name="Group2-Opening" tags="" position="550,400" size="100,100">## Group 2: Persona as Tool
-
-Your group explores how the KLF constructed and dissolved identities strategically — each name served a specific purpose and was discarded when that purpose was exhausted.
-
-&lt;img src=&quot;https://media1.tenor.com/m/Zh54cT9vgogAAAAC/top-of-the-pops-bored-grim-up-north-klf-acid-house.gif&quot; height=100% width=100%&gt;
-
-*Why this matters*: Any literacy practice involves performing an identity — even if you&#39;re not consciously choosing it. Your MA2 analysis should account for how the practitioners you&#39;re studying present themselves, and to whom.
+*Why this matters*: Your MA2 literacy practice uses specific media. The academic essay you&#39;re writing uses a different medium. Those aren&#39;t the same, and the difference matters — especially when you&#39;re deciding what form to use for MA3.
 
 ### Your Pathway
 
-1. **Discussion 1**: What do you think each KLF persona allow them to do that the previous one couldn&#39;t?
+1. **Discussion 1**: What did the KLF&#39;s medium choices enable and foreclose?
 
-2. **Discussion 2**: How does identity construction work in your MA2 literacy practice — and what happens to authorship in MA3? It is still yours... but what might changing it from one form to another do to the original work?
+2. **Discussion 2**: What can your MA2 practice&#39;s medium do — and what can&#39;t it? What about MA3?
 
 3. **Shareout Prep**: Organize your findings to share with the class.
 
@@ -907,41 +441,90 @@ Your group explores how the KLF constructed and dissolved identities strategical
 [[Start Discussion 1 →-&gt;Group2-Discussion-1]]
 
 #### Reference
-[[Key Concept: Persona and Rhetorical Identity-&gt;Group2-Reference]]</tw-passagedata><tw-passagedata pid="11" name="Group2-Reference" tags="" position="725,600" size="100,100">## Reference: Persona and Rhetorical Identity
+[[Key Concept: Medium and Affordance-&gt;Group2-Reference]]</tw-passagedata><tw-passagedata pid="12" name="Group2-Discussion-1" tags="" position="400,450" size="100,100">## Group 2 — Discussion 1: What the Medium Can and Can&#39;t Say
 
-**What it is**: The deliberate construction of a public identity to enable specific rhetorical acts. Persona is not just a mask — it&#39;s a set of affordances and constraints. Who you present yourself as determines what you can say, what audiences will hear, and what you can get away with.
+**Goal**: Understand how medium choice shapes what a rhetorical act can communicate — and what it forecloses.
 
-**Why it matters for your writing**: Every writer performs an identity on the page — through tone, style, vocabulary, and what they claim authority over. In a literacy practice, who the practitioner is (or presents themselves as) shapes what the practice can mean.
+### Context
 
-### Key Points
-- Persona is a rhetorical tool, not a fixed attribute
-- Each identity enables certain acts and forecloses others
-- Destroying a persona can itself be a rhetorical act
+&quot;What Time is Love?&quot; alone: acid house 12-inch (for dance floors, not radio) → Chill Out ambient sample (passive, atmospheric listening) → Stadium House pop single (radio-friendly, chart-targeted) → The White Room album version. Same source material, radically different meanings depending on the form.
 
-### Example
-&quot;Ford Timelord&quot; — a 1968 American police cruiser — was credited as the performer of &quot;Doctorin&#39; the Tardis.&quot; The absurdity protected Drummond and Cauty&#39;s reputation while the song did its commercial work. The car couldn&#39;t be embarrassed. They could.
+The money couldn&#39;t be burned in a song. *The Manual* couldn&#39;t be shouted at a rave. The BRITs performance required live, in-person, industry-packed presence — it couldn&#39;t have been replicated in a music video. And &quot;Doctorin&#39; the Tardis&quot; worked as a record but failed as a live Top of the Pops performance — they had to mime with &quot;purposely shitty-looking Daleks&quot; because the medium couldn&#39;t carry the act.
 
-### How to Apply This
-When analyzing your MA2 literacy practice: ask who the practitioner presents themselves as, whether that identity is stable or performed differently for different audiences, and what that performance enables or forecloses.
+### Questions
 
----
+Work through these individually first, then discuss with your group.
 
-[[← Back to pathway-&gt;Group2-Opening]]</tw-passagedata><tw-passagedata pid="12" name="Group2-Shareout-Prep" tags="" position="550,825" size="100,100">## Group 2 — Shareout Prep
+**1. Pick one KLF text — a song, a performance, the burning, the book — and describe what its medium allows it to do. What could it communicate that a different medium couldn&#39;t?**
+Be specific: what properties of that medium make the communication possible?
+
+**2. Why does &quot;Doctorin&#39; the Tardis&quot; work as a record but fail as a live performance? What does that gap tell us about medium?**
+Is the problem the song, the performance, or the mismatch between them?
+
+**3. The money burning was filmed but the footage was kept private for years. What does the existence of the film do to the act?**
+Does documentation change what a performance means? Is the film a different rhetorical act than the burning itself?
+
+[[Reference: Medium and Affordance-&gt;Group2-Reference]]
+
+#### *Ready to move on? Head to Discussion 2.*
+
+[[← Back to pathway-&gt;Group2-Opening]] | [[Continue to Discussion 2 →-&gt;Group2-Discussion-2]]
+
+&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group2-Discussion-1&quot;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="13" name="Group2-Discussion-2" tags="" position="400,600" size="100,100">## Group 2 — Discussion 2: Medium in Your Practice and Toward MA3
+
+**Goal**: Analyze the medium of your MA2 literacy practice and make deliberate choices about medium for MA3.
+
+### From Understanding to Application
+
+Your MA2 literacy practice uses specific media. The analysis you&#39;re writing for MA2 uses academic prose. Those are different mediums with different affordances — and the gap between them is part of what makes textual analysis interesting and difficult. For MA3, you&#39;ll be choosing a new medium. That choice isn&#39;t decorative. It&#39;s rhetorical.
+
+### Questions
+
+**1. What medium or media does your MA2 literacy practice use? What can that medium do — what kinds of meaning can it make — that other mediums can&#39;t?**
+Think about what&#39;s specific to this form: its properties, its constraints, its possibilities.
+
+**2. What can&#39;t your MA2 literacy practice&#39;s medium do? What meanings does it struggle to communicate, or foreclose entirely?**
+Is there something the practice needs to say that the medium can&#39;t quite carry?
+
+**3. For MA3, you&#39;ll be moving into a new medium. What new meanings become possible in that new form? What will you lose from the original?**
+Use the KLF&#39;s logic: the same source material in a new medium isn&#39;t a translation — it&#39;s a new argument.
+
+### Quick Draft (if time allows)
+
+Choose one:
+
+- **Option A**: Draft a paragraph describing the medium of your MA2 literacy practice and what it specifically affords. What can it say that other mediums can&#39;t?
+
+- **Option B**: Identify one thing your MA2 analysis can&#39;t quite say in academic prose — something the current form struggles to communicate — and describe what medium might say it better.
+
+- **Option C**: Sketch your MA3 medium choice. Describe the medium and explain, in one or two sentences, what it allows you to say that your MA2&#39;s essay form couldn&#39;t.
+
+[[Reference: Medium and Affordance-&gt;Group2-Reference]]
+
+#### *Time to prepare your shareout.*
+
+[[← Back to pathway-&gt;Group2-Opening]]
+
+&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group2-Discussion-2&quot;&gt;
+[[Time to prepare your shareout →-&gt;Group2-Shareout-Prep]]
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="14" name="Group2-Shareout-Prep" tags="" position="400,750" size="100,100">## Group 2 — Shareout Prep
 
 Prepare a **2-3 minute** presentation for the class.
 
 ### What to Share
 
-**1. Key Insight** (1 min): What did your group discover about how persona functions rhetorically in the KLF&#39;s career?
+**1. Key Insight** (1 min): What does your group now understand about how medium shapes what a literacy practice can communicate?
 
-**2. Specific Example** (1 min): ONE specific persona transition that best illustrates your insight.
+**2. Specific Example** (1 min): ONE moment from the KLF&#39;s career where medium choice made all the difference.
 
-**3. Application** (30 sec): One thing the class can take away for their MA2 or MA3 work.
+**3. Application** (30 sec): One thing the class can take away for their MA2 or MA3 medium choices.
 
 ### Get Organized
 - Who&#39;s presenting which part?
 
-- Which persona transition are you using as your example?
+- Which KLF moment are you using as your example?
 
 - What&#39;s your takeaway for the class?
 
@@ -952,87 +535,36 @@ Prepare a **2-3 minute** presentation for the class.
 [[← Back to pathway-&gt;Group2-Opening]] | [[Ready for synthesis →-&gt;Collective-Synthesis]]
 
 &lt;div class=&quot;timed-nav&quot; data-timer=&quot;240&quot; data-passage=&quot;Group2-Shareout-Prep&quot;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="13" name="Group3-Discussion-1" tags="" position="900,550" size="100,100">## Group 3 — Discussion 1: Learning the Rules to Break Them
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="15" name="Group2-Reference" tags="" position="550,550" size="100,100">## Reference: Medium and Affordance
 
-**Goal**: Understand how the KLF&#39;s mastery of genre conventions was a precondition for their disruption of them.
+**What it is**: Every medium has affordances — things it can do — and constraints — things it can&#39;t. A burning can&#39;t be undone. A book can&#39;t be felt physically. A live performance can&#39;t be paused. Choosing a medium is choosing what kinds of meaning you can make.
 
-### Context
+**Why it matters for your writing**: Your MA2 literacy practice uses a specific medium. Your analysis of it uses a different one. Understanding the gap between those two is part of the analytical work. For MA3, your medium choice is a rhetorical decision — it determines what argument you can make in the new form.
 
-Cauty spent a year watching Stock Aitken Waterman make records — &quot;figuring out how they did the mixes and stuff.&quot; They then out-sampled SAW at their own game. *The Manual* breaks pop convention into explicit rules: length, structure, lyrics, distribution. The KLF followed those rules precisely to place &quot;3AM Eternal&quot; at #1 — and then used their BRIT Award performance to destroy their pop credibility entirely.
+### Key Points
+- Every medium affords certain kinds of meaning and forecloses others
+- Moving across media doesn&#39;t translate content — it transforms it
+- The gap between what a medium can and can&#39;t say is often where the most interesting analysis lives
 
-&quot;We know how to do it. We haven&#39;t really been trying that hard.&quot; Genre mastery was always in service of something else. The rules were a tool, not a destination.
+### Example
+&quot;What Time is Love?&quot; as a 7-minute acid house 12-inch communicates something completely different than the same track edited to 3&#39;20&quot; for radio. Same source, same basic elements — different medium constraints, different argument.
 
-### Questions
+### How to Apply This
+For MA2: ask what the medium of your literacy practice enables and forecloses, and what that tells you about the practice&#39;s values. For MA3: ask what new meanings become possible in your new form — and what you&#39;ll have to leave behind.
 
-Work through these individually first, then discuss with your group.
+---
 
-**1. The Manual gives readers explicit rules for pop success. Why would someone who was about to abandon pop write that book?**
-What does publishing the rules do to the rules? Does making conventions explicit change their power?
+[[← Back to pathway-&gt;Group2-Opening]]</tw-passagedata><tw-passagedata pid="16" name="Group3-Opening" tags="" position="700,300" size="100,100">## Group 3: Audience Legibility
 
-**2. Cauty spent a year observing SAW before The JAMs started. How does that apprenticeship shape what The JAMs were able to do?**
-Could they have disrupted pop conventions without first mastering them? What would the disruption look like without that foundation?
+Your group explores how the KLF&#39;s most disruptive acts depended on audiences who already knew what was being disrupted — and what that tells us about how any literacy practice requires background knowledge to be legible.
 
-**3. The KLF followed The Manual&#39;s rules to get &quot;3AM Eternal&quot; to #1, then immediately used the BRITs to destroy their pop credibility. What does that sequence tell us about the relationship between convention mastery and disruption?**
-Is the disruption more or less powerful because it comes after demonstrated mastery?
-
-[[Reference: Genre Convention-&gt;Group3-Reference]]
-
-#### *Ready to move on? Head to Discussion 2.*
-
-[[← Back to pathway-&gt;Group3-Opening]] | [[Continue to Discussion 2 →-&gt;Group3-Discussion-2]]
-
-&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group3-Discussion-1&quot;&gt;
-
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="14" name="Group3-Discussion-2" tags="" position="900,700" size="100,100">## Group 3 — Discussion 2: Conventions in Your Practice
-
-**Goal**: Identify the conventions of your MA2 literacy practice and begin thinking about what breaking them might mean for MA3.
-
-### From Understanding to Application
-
-Your MA2 literacy practice has conventions — some explicit, most implicit — that practitioners learn through immersion. Identifying them is the analytical work MA2 asks you to do. And for MA3, you&#39;ll be deciding which conventions of your current assignment form to keep, and which to break deliberately.
-
-### Questions
-
-**1. What are the conventions of your MA2 literacy practice?**
-Try to name at least three — and be specific. Not &quot;there are rules&quot; but what are the actual rules? Where did those conventions come from, and how did practitioners learn them?
-
-**2. Is there a moment in your MA2 practice where someone breaks a convention?**
-What happens — is it seen as failure, innovation, or disruption? What does the community&#39;s reaction tell you about how the convention functions?
-
-**3. As you think toward MA3: what conventions of your MA2 assignment&#39;s current form would you preserve in a remediation? Which would you deliberately violate — and what would that violation communicate?**
-Use the KLF&#39;s logic: mastery first, then disruption.
-
-### Quick Draft (if time allows)
-
-Choose one:
-
-- **Option A**: List 3-5 conventions of your MA2 literacy practice. Pick one and describe what it would look like to break it.
-
-- **Option B**: Draft a sentence or two explaining how convention mastery functions in your MA2 literacy practice — what you have to know to participate competently.
-
-- **Option C**: Describe one convention of your current MA2 assignment form that you might deliberately violate in MA3 — and what that violation would communicate.
-
-[[Reference: Genre Convention-&gt;Group3-Reference]]
-
-#### *Time to prepare your shareout.*
-
-[[← Back to pathway-&gt;Group3-Opening]]
-
-&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group3-Discussion-2&quot;&gt;
-[[Time to prepare your shareout →-&gt;Group3-Shareout-Prep]]
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="15" name="Group3-Opening" tags="" position="900,400" size="100,100">## Group 3: Learning the Rules to Break Them
-
-&lt;img src=&quot;https://c.tenor.com/7ctSMF73xMMAAAAd/tenor.gif&quot; height=100% width=100%&gt;
-
-Your group explores how the KLF systematically studied the conventions of every genre they entered before subverting or abandoning them — and what that sequence tells us about how genre mastery and disruption work together.
-
-*Why this matters*: Your MA2 literacy practice has conventions — rules, expectations, norms that practitioners learn, often without being explicitly taught. Identifying them is the analytical work the assignment asks you to do.
+*Why this matters*: Your MA2 analysis has to make a literacy practice legible to readers who may not be insiders. And in MA3, changing the form of your work means rebuilding legibility for a new audience.
 
 ### Your Pathway
 
-1. **Discussion 1**: How did the KLF&#39;s apprenticeship model shape their ability to disrupt? Do you see any examples of this in contemporary culture?
+1. **Discussion 1**: What did the KLF&#39;s audiences need to already know — and what happened without that knowledge?
 
-2. **Discussion 2**: What conventions currently govern your work toward MA2 — what might it mean to break them in MA3?
+2. **Discussion 2**: What does your MA2 literacy practice require audiences to know — and how does that change in MA3?
 
 3. **Shareout Prep**: Organize your findings to share with the class.
 
@@ -1043,169 +575,83 @@ Your group explores how the KLF systematically studied the conventions of every 
 [[Start Discussion 1 →-&gt;Group3-Discussion-1]]
 
 #### Reference
-[[Key Concept: Genre Convention-&gt;Group3-Reference]]</tw-passagedata><tw-passagedata pid="16" name="Group3-Reference" tags="" position="1075,600" size="100,100">## Reference: Genre Convention
+[[Key Concept: Legibility and Prior Knowledge-&gt;Group3-Reference]]</tw-passagedata><tw-passagedata pid="17" name="Group3-Discussion-1" tags="" position="700,450" size="100,100">## Group 3 — Discussion 1: What Audiences Need to Know
 
-**What it is**: The implicit and explicit rules that govern how a literacy practice works — what counts as competent participation, what violates expectations, and what happens when violations occur. Conventions are learned through immersion, often without formal instruction.
-
-**Why it matters for your writing**: MA2 asks you to identify how a literacy practice is shaped and constrained by social and cultural factors. Genre conventions are one of the primary ways those constraints operate — they determine what practitioners can do, what counts as success, and who gets to participate.
-
-### Key Points
-- Conventions are rarely written down — they&#39;re learned by doing
-- Making conventions explicit (as *The Manual* does) can either reinforce or undermine them
-- Disruption only communicates something when the audience recognizes the convention being broken
-
-### Example
-*The Manual* lists the conventions of a successful pop single: under 3&#39;20&quot;, intro-verse-chorus-breakdown-double chorus-outro, minimal lyrics, irresistible groove. The KLF followed these rules exactly — and then walked away from pop entirely, having demonstrated mastery.
-
-### How to Apply This
-When analyzing your MA2 literacy practice: ask what the conventions are, how practitioners learn them, what it looks like when someone breaks them, and what the community&#39;s reaction reveals about the practice&#39;s values.
-
----
-
-[[← Back to pathway-&gt;Group3-Opening]]</tw-passagedata><tw-passagedata pid="17" name="Group3-Shareout-Prep" tags="" position="900,825" size="100,100">## Group 3 — Shareout Prep
-
-Prepare a **2-3 minute** presentation for the class.
-
-### What to Share
-
-**1. Key Insight** (1 min): What did your group discover about the relationship between convention mastery and disruption?
-
-**2. Specific Example** (1 min): ONE moment from the transcript — a convention learned, followed, or broken — that best illustrates your insight.
-
-**3. Application** (30 sec): One thing the class can take away for their MA2 or MA3 work.
-
-### Get Organized
-- Who&#39;s presenting which part?
-
-- What specific moment are you using?
-
-- What&#39;s your takeaway for the class?
-
-*Keep it tight — 2-3 minutes. Specifics over generalities.*
-
-#### *Ready to share with the class.*
-
-[[← Back to pathway-&gt;Group3-Opening]] | [[Ready for synthesis →-&gt;Collective-Synthesis]]
-
-&lt;div class=&quot;timed-nav&quot; data-timer=&quot;240&quot; data-passage=&quot;Group3-Shareout-Prep&quot;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="18" name="Group4-Discussion-1" tags="" position="1250,550" size="100,100">## Group 4 — Discussion 1: Who&#39;s the Audience?
-
-**Goal**: Understand how the KLF structured single acts to communicate different things to different audiences simultaneously.
+**Goal**: Understand how the KLF&#39;s disruptive acts required specific prior knowledge to be legible — and what happens when that knowledge is absent.
 
 ### Context
 
-The BRITs performance targeted at least three audiences: the industry (machine-gunned with blanks, dead sheep on the afterparty steps), the press (spectacle to cover and amplify), and a future audience for whom the act would become legend. The money burning was filmed for posterity but performed in an abandoned boathouse with almost no witnesses — the primary audience was time itself. At Helter Skelter, they showered the crowd with Scottish pound notes — generosity to ravers, extravagance as artistic gesture, provocation to the industry watching from outside. Same act. Different audiences. Different messages.
+The BRITs performance only communicated disgust with the pop industry if you knew: (1) the KLF had been the best-selling singles act of the previous year, (2) &quot;3AM Eternal&quot; was their #1 hit, (3) Extreme Noise Terror was an explicitly anti-mainstream crust punk band, (4) the dead sheep violated the decorum of an industry awards event. Without that context, it&#39;s noise and chaos. With it, it&#39;s a legible statement.
+
+The gold disc &quot;certified for 0 copies sold,&quot; given to a sex worker with a passing resemblance to Agnetha from ABBA: legible only if you know what a gold disc normally certifies, who normally receives it, and the context of the ABBA lawsuit. Strip any of those, and the act collapses into randomness.
 
 ### Questions
 
 Work through these individually first, then discuss with your group.
 
-**1. Pick one KLF act from the video or the supplementary videos. Identify at least two distinct audiences. What was each audience supposed to take from it?**
-Do the messages contradict each other? Does that contradiction matter — or is it the point?
+**1. Make a list: what does the audience need to already know for the BRITs performance to communicate something specific?**
+What happens to a viewer who doesn&#39;t have that background? Do they receive nothing, or something different?
 
-**2. The money burning was documented on film but performed in an abandoned boathouse with almost no witnesses. Who is the audience for a performance no one sees in person?**
-What does filming it — but not immediately broadcasting it — communicate? Is posterity a legitimate audience?
+**2. The gold disc certified for 0 copies sold. What three pieces of prior knowledge does an audience need to fully receive that act?**
+What&#39;s the irreducible minimum for legibility here?
 
-**3. The KLF left a note on the dead sheep at the BRITs afterparty: &quot;I Died For You.&quot; Who is that message for?**
-How does the ambiguity of the intended audience affect how the message lands? Does it matter if no specific person was meant to receive it?
+**3. The KLF deleted their discography. For that act to be meaningful — not just strange — what does the audience need to understand?**
+Who is and isn&#39;t positioned to receive it? What does that tell us about who the act was really for?
 
-[[Reference: Audience Construction-&gt;Group4-Reference]]
+[[Reference: Legibility and Prior Knowledge-&gt;Group3-Reference]]
 
 #### *Ready to move on? Head to Discussion 2.*
 
-[[← Back to pathway-&gt;Group4-Opening]] | [[Continue to Discussion 2 →-&gt;Group4-Discussion-2]]
+[[← Back to pathway-&gt;Group3-Opening]] | [[Continue to Discussion 2 →-&gt;Group3-Discussion-2]]
 
-&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group4-Discussion-1&quot;&gt;
+&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group3-Discussion-1&quot;&gt;
 
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="19" name="Group4-Discussion-2" tags="" position="1250,700" size="100,100">## Group 4 — Discussion 2: Audiences for Your Practice
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="18" name="Group3-Discussion-2" tags="" position="700,600" size="100,100">## Group 3 — Discussion 2: Legibility in Your Practice and Toward MA3
 
-**Goal**: Map the audiences for your MA2 literacy practice and think through how your audience shifts in MA3.
+**Goal**: Map what your MA2 literacy practice requires audiences to know — and think through how legibility shifts in MA3.
 
 ### From Understanding to Application
 
-Your MA2 literacy practice has a primary audience — the people inside the practice — and secondary audiences who observe it from outside. The same act can communicate different things depending on who&#39;s watching. Your MA2 analysis has to account for those different audiences. And in MA3, changing the form of your work means changing who you&#39;re writing for.
+Your MA2 literacy practice is legible to insiders and opaque to outsiders — that&#39;s true of any practice. Part of your job in MA2 is to make the practice legible to readers who may not be insiders: to provide the background knowledge they need to understand what you&#39;re analyzing. For MA3, changing your audience means rebuilding that legibility from scratch.
 
 ### Questions
 
-**1. Who is the primary audience for your MA2 literacy practice? Who are the secondary audiences?**
-Do practitioners seem aware of the secondary audiences — do they perform for them, or ignore them?
+**1. What does someone need to already know to participate in your MA2 literacy practice?**
+What&#39;s the barrier to entry — the knowledge, experience, or background someone needs before they can participate competently?
 
-**2. Does the practice communicate different things to insiders vs. outsiders?**
-Give a specific example — a moment where the meaning changes depending on who&#39;s watching.
+**2. What does your MA2 reader need to know to follow your analysis?**
+What context are you providing that readers couldn&#39;t bring themselves? What are you assuming they already know — and is that assumption safe?
 
-**3. For MA3, your remediation will likely shift your audience. If you change the form of your MA2 analysis, who are you now writing for — and what do you need to communicate differently?**
-Use the KLF logic: the same act, the same material, can reach completely different audiences depending on the form it takes.
+**3. For MA3, if you remediate your MA2 analysis for a new audience, what do you need to rebuild?**
+What can you assume your new audience already knows? What prior knowledge is no longer in place — and how do you account for that in the new form?
 
 ### Quick Draft (if time allows)
 
 Choose one:
 
-- **Option A**: Map the audiences for your MA2 literacy practice. Write it out: who are the different groups, and what does each one take from the practice?
+- **Option A**: Draft a brief &quot;what the audience needs to know&quot; opening for your MA2 — the 2-3 sentences of context a new reader would need before your analysis makes sense.
 
-- **Option B**: Identify a moment in your MA2 practice that works differently for insiders and outsiders. Write a sentence or two describing the difference.
+- **Option B**: Identify one moment in your MA2 literacy practice that is completely opaque to outsiders. Write a sentence or two explaining it to someone who isn&#39;t part of the practice.
 
-- **Option C**: Draft a brief audience profile for your MA3 remediation — who are you writing for, and what do they need from you that your MA2&#39;s current audience didn&#39;t?
+- **Option C**: Describe your MA3 audience. What do they already know? What context do you need to build that your MA2 audience had automatically?
 
-[[Reference: Audience Construction-&gt;Group4-Reference]]
+[[Reference: Legibility and Prior Knowledge-&gt;Group3-Reference]]
 
 #### *Time to prepare your shareout.*
 
-[[← Back to pathway-&gt;Group4-Opening]]
+[[← Back to pathway-&gt;Group3-Opening]]
 
-&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group4-Discussion-2&quot;&gt;
-[[Time to prepare your shareout →-&gt;Group4-Shareout-Prep]]
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="20" name="Group4-Opening" tags="" position="1250,400" size="100,100">## Group 4: Who&#39;s the Audience?
-
-&lt;img src=&quot;https://media1.tenor.com/m/92XWH6Ue7DcAAAAd/the-timelords-timelords.gif&quot; height=100% width=100%&gt;
-More on audience considerations &lt;a href=&quot;https://www.youtube.com/watch?v=hvuMESOsLuQ&quot;&gt;here&lt;/a&gt;.
-
-Your group explores how the KLF designed single acts to reach multiple audiences simultaneously — often communicating completely different things to each one.
-
-*Why this matters*: Your MA2 literacy practice also has multiple audiences — insiders, outsiders, critics, observers — and figuring out who they are changes what you notice about how the practice works.
-
-### Your Pathway
-
-1. **Discussion 1**: How did the KLF construct and target multiple audiences with a single act?
-
-2. **Discussion 2**: Who are the audiences for your MA2 literacy practice — and how will that shift in MA3?
-
-3. **Shareout Prep**: Organize your findings to share with the class.
-
-#### Navigation
-
-[[Whole-class framing (review)-&gt;Framing]]
-
-[[Start Discussion 1 →-&gt;Group4-Discussion-1]]
-
-#### Reference
-[[Key Concept: Audience Construction-&gt;Group4-Reference]]</tw-passagedata><tw-passagedata pid="21" name="Group4-Reference" tags="" position="1425,600" size="100,100">## Reference: Audience Construction
-
-**What it is**: Texts and performances don&#39;t just find their audiences — they create them. Every rhetorical act makes assumptions about who will receive it, what they already know, and what they want. Those assumptions shape what gets communicated and what gets lost.
-
-**Why it matters for your writing**: MA2 asks you to analyze how a literacy practice is shaped by social and cultural factors. Audience is one of the primary shaping forces — it determines what gets emphasized, what gets left out, and what counts as successful communication.
-
-### Key Points
-- Most acts have multiple audiences, each receiving something different
-- The gap between intended and actual audience is often where the most interesting analysis lives
-- Changing the audience (as in MA3) requires rebuilding the rhetorical situation from the ground up
-
-### Example
-The BRITs performance was televised — but the dead sheep was left at the afterparty, not on TV. Two acts, two audiences, same night. The television audience saw chaos. The industry audience received something much more pointed.
-
-### How to Apply This
-When analyzing your MA2 literacy practice: ask who the primary and secondary audiences are, what each audience receives, and whether the practice behaves differently depending on who&#39;s watching.
-
----
-
-[[← Back to pathway-&gt;Group4-Opening]]</tw-passagedata><tw-passagedata pid="22" name="Group4-Shareout-Prep" tags="" position="1250,825" size="100,100">## Group 4 — Shareout Prep
+&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group3-Discussion-2&quot;&gt;
+[[Time to prepare your shareout →-&gt;Group3-Shareout-Prep]]
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="19" name="Group3-Shareout-Prep" tags="" position="700,750" size="100,100">## Group 3 — Shareout Prep
 
 Prepare a **2-3 minute** presentation for the class.
 
 ### What to Share
 
-**1. Key Insight** (1 min): What did your group discover about how the KLF constructed and managed multiple audiences?
+**1. Key Insight** (1 min): What does your group now understand about how audience legibility works — what it requires, and what happens without it?
 
-**2. Specific Example** (1 min): ONE act where the audience split is clearest and most interesting.
+**2. Specific Example** (1 min): ONE KLF act where legibility is clearest — where prior knowledge makes the difference between receiving it and not.
 
 **3. Application** (30 sec): One thing the class can take away for their MA2 or MA3 work.
 
@@ -1220,91 +666,175 @@ Prepare a **2-3 minute** presentation for the class.
 
 #### *Ready to share with the class.*
 
-[[← Back to pathway-&gt;Group4-Opening]] | [[Ready for synthesis →-&gt;Collective-Synthesis]]
+[[← Back to pathway-&gt;Group3-Opening]] | [[Ready for synthesis →-&gt;Collective-Synthesis]]
 
-&lt;div class=&quot;timed-nav&quot; data-timer=&quot;240&quot; data-passage=&quot;Group4-Shareout-Prep&quot;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="23" name="Group5-Discussion-1" tags="" position="1600,550" size="100,100">## Group 5 — Discussion 1: Irreversibility as Rhetoric
+&lt;div class=&quot;timed-nav&quot; data-timer=&quot;240&quot; data-passage=&quot;Group3-Shareout-Prep&quot;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="20" name="Group3-Reference" tags="" position="850,550" size="100,100">## Reference: Legibility and Prior Knowledge
 
-**Goal**: Understand how permanent, unrepeatable acts communicate differently from provisional or adjustable ones.
+**What it is**: The degree to which a text or performance can be received and understood by a given audience. Legibility depends on shared prior knowledge — conventions, context, background. Without it, even the most carefully constructed act communicates nothing — or something unintended.
+
+**Why it matters for your writing**: MA2 asks you to analyze a literacy practice for readers who may not be insiders. Building legibility — providing the prior knowledge your reader needs — is part of the analytical work. For MA3, changing your audience means reassessing what prior knowledge is in place and what you need to rebuild.
+
+### Key Points
+- Legibility is relational — it depends on the gap between what the audience knows and what the act requires
+- Insider legibility and outsider legibility are often radically different experiences of the same act
+- Disruption requires a legible target — the audience has to know what&#39;s being disrupted
+
+### Example
+The BRIT Awards gold disc certified for 0 copies sold: legible only if you know what a gold disc normally certifies, who normally receives it, and the context of the ABBA lawsuit. Strip any of those elements and the act becomes random rather than pointed.
+
+### How to Apply This
+For MA2: identify what your reader needs to know to follow your analysis, and provide it. For MA3: map the gap between your current audience&#39;s knowledge and your new audience&#39;s — and figure out what you have to rebuild.
+
+---
+
+[[← Back to pathway-&gt;Group3-Opening]]</tw-passagedata><tw-passagedata pid="21" name="Group4-Opening" tags="" position="1000,300" size="100,100">## Group 4: Identity and Authorship
+
+Your group explores how the KLF made authorship itself a rhetorical question — crediting acts to cars, fictional organizations, and personas that didn&#39;t fully exist — and what that tells us about how any literacy practice constructs and projects identity.
+
+*Why this matters*: Your MA2 literacy practice has an author — or does it? Many practices are collective, conventional, or distributed. And in MA3, the act of remediating your own writing raises real questions about who the author of the new version is.
+
+### Your Pathway
+
+1. **Discussion 1**: How did the KLF use authorship as a rhetorical tool?
+
+2. **Discussion 2**: How does authorship work in your MA2 practice — and what happens to it in MA3?
+
+3. **Shareout Prep**: Organize your findings to share with the class.
+
+#### Navigation
+
+[[Whole-class framing (review)-&gt;Framing]]
+
+[[Start Discussion 1 →-&gt;Group4-Discussion-1]]
+
+#### Reference
+[[Key Concept: Authorship and Attribution-&gt;Group4-Reference]]</tw-passagedata><tw-passagedata pid="22" name="Group4-Discussion-1" tags="" position="1000,450" size="100,100">## Group 4 — Discussion 1: Identity and Authorship
+
+**Goal**: Understand how the KLF used authorship as a deliberate rhetorical choice — and what that tells us about how identity functions in any literacy practice.
 
 ### Context
 
-The JAMs burned the remaining copies of their debut album in a field in Sweden. The KLF deleted their entire discography — made their own work commercially inaccessible. They buried their BRIT Award at Stonehenge. A farmer found it and returned it. They buried it deeper. The K Foundation burned a million pounds in cash and filmed it. Drummond: &quot;they still don&#39;t know why they did it, a decision that still haunts them.&quot;
+King Boy D and Rockman Rock → Ford Timelord (a car) → &quot;KLF means nothing&quot; → K Foundation (an organization, not a band). *The Manual* is written by &quot;the Timelords&quot; — a fictional identity that exists only for that purpose. The money burning is credited to K Foundation — the act performed by individuals, attributed to a collective.
 
-Every act is documented. None can be undone. The irreversibility isn&#39;t a regrettable feature — it&#39;s the message.
+And then: the gold disc given to a sex worker &quot;with a passing resemblance to Agnetha.&quot; The expected recipient (ABBA, or the artist who earned it) is displaced by someone with no connection to the achievement. Authorship and deserving recipient become untethered from each other entirely.
+
+Drummond and Cauty said they still don&#39;t know why they burned the million pounds. Does authorial intent matter when the authors can&#39;t explain the act?
 
 ### Questions
 
 Work through these individually first, then discuss with your group.
 
-**1. What can an irreversible act communicate that a reversible one can&#39;t?**
-Why does permanence change the rhetorical stakes? Think about the difference between deleting a tweet and burning a record collection.
+**1. What does it mean to credit a pop single to a 1968 Ford Galaxie police cruiser? What does that choice do to the concept of authorship?**
+Who benefits from the car being the author? What does the car protect Drummond and Cauty from?
 
-**2. The KLF deleted their discography — made their own work inaccessible. What argument does that make about the relationship between an artist and their catalog? Between a creator and their audience?**
-Who does that act serve? Who does it punish?
+**2. The Manual is written by &quot;the Timelords&quot; but functions as genuine, usable advice. How does the fictional authorship change how you receive the content?**
+Does it matter who &quot;really&quot; wrote it? What does pseudonymity give the reader — and take away?
 
-**3. They burned a million pounds and still don&#39;t know why. Does a rhetorical act need to be intentional to communicate something?**
-What happens when an act generates meaning its creators can&#39;t explain? Is that a failure of rhetoric or a different kind of success?
+**3. The K Foundation burned the money. Drummond and Cauty said they still don&#39;t know why. Does authorial intent matter for how an act communicates?**
+What happens when the authors can&#39;t explain their own work — does the act lose meaning, or generate it differently?
 
-[[Reference: Irreversibility and Rhetorical Commitment-&gt;Group5-Reference]]
+[[Reference: Authorship and Attribution-&gt;Group4-Reference]]
 
 #### *Ready to move on? Head to Discussion 2.*
 
-[[← Back to pathway-&gt;Group5-Opening]] | [[Continue to Discussion 2 →-&gt;Group5-Discussion-2]]
+[[← Back to pathway-&gt;Group4-Opening]] | [[Continue to Discussion 2 →-&gt;Group4-Discussion-2]]
 
-&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group5-Discussion-1&quot;&gt;
+&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group4-Discussion-1&quot;&gt;
 
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="24" name="Group5-Discussion-2" tags="" position="1600,700" size="100,100">## Group 5 — Discussion 2: Commitment in Your Practice
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="23" name="Group4-Discussion-2" tags="" position="1000,600" size="100,100">## Group 4 — Discussion 2: Authorship in Your Practice and Toward MA3
 
-**Goal**: Connect the KLF&#39;s logic of irreversibility to the commitments in your MA2 analysis and begin thinking toward MA3.
+**Goal**: Analyze how authorship works in your MA2 literacy practice and think through what happens to authorship in MA3.
 
 ### From Understanding to Application
 
-Commitment changes how audiences receive your work. An argument you&#39;re hedging on communicates differently than one you&#39;re fully staking a claim with. Your MA2 literacy practice involves commitments — and so does your writing about it. For MA3, full commitment to a new form means something different than treating remediation as a safe translation exercise.
+Your MA2 literacy practice has an author — but that might be more complicated than it sounds. Many practices are collective, conventional, or distributed across communities. And in MA3, when you remediate your own writing into a new form, the question of who is responsible for the new version becomes genuinely interesting.
 
 ### Questions
 
-**1. What commitments does your MA2 literacy practice involve?**
-Are there moments where the practitioner can&#39;t go back — where a choice becomes permanent, irreversible, or definitive? What do those moments of commitment communicate?
+**1. Who is the &quot;author&quot; of your MA2 literacy practice?**
+Is it an individual, a community, a tradition, an institution? How is credit assigned — or not assigned? What does the attribution system reveal about the practice&#39;s values?
 
-**2. In your MA2 analysis, what&#39;s the most committed, irreversible move you&#39;re making?**
-What&#39;s the argument you&#39;re staking a claim with — not hedging around? What does that commitment ask your reader to accept?
+**2. Does the practitioner&#39;s identity — who they are, where they come from — shape how the practice is received?**
+Give a specific example: a moment where who is doing the practice changes what it means to an audience.
 
-**3. Remediation is a kind of commitment to a new form. What does it mean to fully commit to your MA3 — not just change the format, but genuinely remake the argument for the new form?**
-Using the KLF&#39;s logic: what would you have to &quot;burn&quot; to make the remediation real?
+**3. In MA3, you&#39;ll be remaking content into a new form. How does the act of remediation change authorship?**
+If you take your MA2 analysis and transform it into a video, a zine, a podcast — are you still the author? What does &quot;author&quot; even mean in that context?
 
 ### Quick Draft (if time allows)
 
 Choose one:
 
-- **Option A**: Identify the most committed, irreversible choice in your MA2 analysis so far. Write a sentence or two about what that commitment communicates about your position as a writer.
+- **Option A**: Draft a paragraph about authorship in your MA2 literacy practice — who makes it, who owns it, who gets credit, and what those assignments reveal.
 
-- **Option B**: Describe a moment in your MA2 literacy practice where the practitioner makes an irreversible choice. What does that act of commitment communicate to the audience?
+- **Option B**: Identify a moment in your MA2 practice where authorial identity matters — where who is doing it changes what it means. Describe it specifically.
 
-- **Option C**: Sketch what it would mean to fully commit to your MA3 remediation — not just translate, but remake. What would you have to leave behind?
+- **Option C**: Reflect on your own authorship of MA3. If you remediate your MA2 into a new form, what kind of author does that make you? What decisions belong to you, and what&#39;s inherited from the original?
 
-[[Reference: Irreversibility and Rhetorical Commitment-&gt;Group5-Reference]]
+[[Reference: Authorship and Attribution-&gt;Group4-Reference]]
 
 #### *Time to prepare your shareout.*
 
-[[← Back to pathway-&gt;Group5-Opening]]
+[[← Back to pathway-&gt;Group4-Opening]]
 
-&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group5-Discussion-2&quot;&gt;
-[[Time to prepare your shareout →-&gt;Group5-Shareout-Prep]]
-&lt;/div&gt;=</tw-passagedata><tw-passagedata pid="25" name="Group5-Opening" tags="" position="1600,400" size="100,100">## Group 5: Irreversibility as Rhetoric
+&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group4-Discussion-2&quot;&gt;
+[[Time to prepare your shareout →-&gt;Group4-Shareout-Prep]]
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="24" name="Group4-Shareout-Prep" tags="" position="1000,750" size="100,100">## Group 4 — Shareout Prep
 
-&lt;img src=&quot;http://glennritchey.net/teaching/assets/klf/KFoundationBrick-914x481.jpg&quot;&gt;
-&lt;small&gt;Read more&lt;a href=&quot;http://klf.de/home/burning-a-million-quid/&quot;&gt;here&lt;/a&gt;.&lt;/small&gt;
+Prepare a **2-3 minute** presentation for the class.
 
-Your group explores how the KLF used permanent, unrepeatable acts to communicate what revisable, adjustable performances couldn&#39;t — and what that tells us about commitment as a rhetorical strategy.
+### What to Share
 
-*Why this matters*: Commitment — to a form, to an argument, to a decision — changes how audiences receive your work. Your MA2 analysis involves commitments too, and your MA3 will ask you to commit to a new form.
+**1. Key Insight** (1 min): What does your group now understand about how authorship functions as a rhetorical tool?
+
+**2. Specific Example** (1 min): ONE moment from the KLF&#39;s career where the authorship choice was most deliberate and most revealing.
+
+**3. Application** (30 sec): One thing the class can take away for their MA2 or MA3 work.
+
+### Get Organized
+- Who&#39;s presenting which part?
+
+- Which authorship moment are you using as your example?
+
+- What&#39;s your takeaway for the class?
+
+*Keep it tight — 2-3 minutes. Specifics over generalities.*
+
+#### *Ready to share with the class.*
+
+[[← Back to pathway-&gt;Group4-Opening]] | [[Ready for synthesis →-&gt;Collective-Synthesis]]
+
+&lt;div class=&quot;timed-nav&quot; data-timer=&quot;240&quot; data-passage=&quot;Group4-Shareout-Prep&quot;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="25" name="Group4-Reference" tags="" position="1150,550" size="100,100">## Reference: Authorship and Attribution
+
+**What it is**: The system by which credit for a text or act is assigned — to individuals, collectives, personas, or institutions. Authorship is never neutral: it encodes assumptions about creativity, ownership, responsibility, and deserving. Who gets credited (and who doesn&#39;t) reveals something about how a practice values and distributes power.
+
+**Why it matters for your writing**: MA2 asks you to analyze how a literacy practice is shaped by social and cultural factors. Authorship and attribution are key sites where power operates — who gets credit, who is invisible, who can claim authority. For MA3, your act of remediation raises real questions about authorship: whose argument is it when you remake it?
+
+### Key Points
+- Authorship is a choice, not just a fact — and it can be strategic
+- Pseudonymity, collective attribution, and anonymity each do different rhetorical work
+- Intent and attribution can come apart — and when they do, meaning doesn&#39;t disappear; it just gets made differently
+
+### Example
+*The Manual* is credited to &quot;the Timelords&quot; — a fictional identity that existed for one pop single. The advice inside is practical and real. The fictional authorship distances Drummond and Cauty from the instructional persona, making the book feel like a game — and making the advice paradoxically easier to take seriously.
+
+### How to Apply This
+For MA2: ask who the authors of your literacy practice are, how credit is assigned, and what the attribution system reveals about power. For MA3: ask what kind of author you become in the act of remediating — and what responsibilities that authorship carries.
+
+---
+
+[[← Back to pathway-&gt;Group4-Opening]]</tw-passagedata><tw-passagedata pid="26" name="Group5-Opening" tags="" position="1300,300" size="100,100">## Group 5: The Cost of Participation
+
+Your group explores how the KLF&#39;s provocations weren&#39;t free — every disruptive act came with costs — and what that tells us about how participation in any literacy practice involves tradeoffs that aren&#39;t evenly distributed.
+
+*Why this matters*: Your MA2 literacy practice has costs of participation — in time, money, risk, identity, access. Analyzing those costs is part of analyzing the practice. And in MA3, taking genuine risks with form has costs too.
 
 ### Your Pathway
 
-1. **Discussion 1**: What can an irreversible act communicate that a reversible one can&#39;t?
+1. **Discussion 1**: What did the KLF give up — and was it calculated?
 
-2. **Discussion 2**: What commitments does your MA2 practice involve — and what does it mean to fully commit to MA3?
+2. **Discussion 2**: What does participation in your MA2 practice cost — and what does taking risks in MA3 cost?
 
 3. **Shareout Prep**: Organize your findings to share with the class.
 
@@ -1315,34 +845,83 @@ Your group explores how the KLF used permanent, unrepeatable acts to communicate
 [[Start Discussion 1 →-&gt;Group5-Discussion-1]]
 
 #### Reference
-[[Key Concept: Irreversibility and Rhetorical Commitment-&gt;Group5-Reference]]</tw-passagedata><tw-passagedata pid="26" name="Group5-Reference" tags="" position="1775,600" size="100,100">## Reference: Irreversibility and Rhetorical Commitment
+[[Key Concept: Cost of Participation-&gt;Group5-Reference]]</tw-passagedata><tw-passagedata pid="27" name="Group5-Discussion-1" tags="" position="1300,450" size="100,100">## Group 5 — Discussion 1: What Disruption Costs
 
-**What it is**: The quality of an act that cannot be undone — and how that permanence changes what the act communicates. Irreversibility signals commitment: to a position, a community, a break from the past. It forecloses hedging.
+**Goal**: Understand how the KLF&#39;s provocations involved real costs — and whether those costs were calculated, accidental, or the point.
 
-**Why it matters for your writing**: Committed arguments communicate differently than hedged ones. When you stake a claim — rather than gesturing toward one — you invite a different kind of engagement from your reader. The same principle applies in MA3: treating remediation as a genuine transformation rather than a translation changes what you&#39;re able to say.
+### Context
 
-### Key Points
-- Irreversibility signals commitment — and demands it from the audience too
-- Permanent acts can&#39;t be clarified or corrected after the fact; they have to stand alone
-- The inability to explain an act doesn&#39;t diminish its rhetorical force
+They spent £250,000 making an unwatchable film. They gave away their night&#39;s fee at a rave, showering the crowd in Scottish pound notes. They burned a million pounds and filmed it, and still don&#39;t know why. They deleted their discography voluntarily — removing themselves from the market they&#39;d just dominated. They won Best British Band at the BRITs and sent a bicycle messenger to collect the award, then left a dead sheep on the afterparty steps with the note &quot;I Died For You.&quot;
 
-### Example
-The KLF buried their BRIT Award at Stonehenge. A farmer found it and returned it. They buried it deeper. The repetition of the act — committed to again, more firmly — communicates something that a single gesture couldn&#39;t.
+Drummond said the money burning &quot;still haunts them.&quot; Not all of these costs were calculated. Some were. And some that seemed calculated turned out to be genuinely devastating in ways they didn&#39;t anticipate.
 
-### How to Apply This
-When analyzing your MA2 literacy practice: look for moments of irreversible commitment — choices practitioners make that they can&#39;t walk back. What do those moments reveal about the practice&#39;s values and stakes?
+### Questions
 
----
+Work through these individually first, then discuss with your group.
 
-[[← Back to pathway-&gt;Group5-Opening]]</tw-passagedata><tw-passagedata pid="27" name="Group5-Shareout-Prep" tags="" position="1600,825" size="100,100">## Group 5 — Shareout Prep
+**1. Which of the KLF&#39;s costly acts seem calculated — chosen to make a specific point? Which seem like genuine miscalculations, accidents, or things that got away from them?**
+Does the distinction matter? Can an act be both calculated and haunting?
+
+**2. Deleting the discography cost them revenue and ongoing audience access. What did they get in exchange?**
+Was it a worthwhile trade — and who decides? Them? The audience? History?
+
+**3. &quot;It still haunts them.&quot; What does that haunting tell us about the difference between a rhetorical choice and its lived consequences?**
+Can an act be rhetorically successful — communicate what it was supposed to — and still be personally devastating? Does one diminish the other?
+
+[[Reference: Cost of Participation-&gt;Group5-Reference]]
+
+#### *Ready to move on? Head to Discussion 2.*
+
+[[← Back to pathway-&gt;Group5-Opening]] | [[Continue to Discussion 2 →-&gt;Group5-Discussion-2]]
+
+&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group5-Discussion-1&quot;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="28" name="Group5-Discussion-2" tags="" position="1300,600" size="100,100">## Group 5 — Discussion 2: Cost in Your Practice and Toward MA3
+
+**Goal**: Analyze the costs of participation in your MA2 literacy practice and think through what genuine risk-taking in MA3 would cost.
+
+### From Understanding to Application
+
+Participation in a literacy practice is never free. There are costs — in time, money, social capital, identity, risk of failure — and those costs are not evenly distributed. Your MA2 analysis should account for who pays, and what they get in exchange. And in MA3, treating remediation as a safe format switch costs you the chance to make a genuinely different argument.
+
+### Questions
+
+**1. What does it cost to participate in your MA2 literacy practice?**
+Think beyond money — what does it cost in time, identity, social risk, access? Are those costs acknowledged by the practice, or invisible?
+
+**2. Are the costs evenly distributed among practitioners?**
+Who bears more of the cost, and why? What does that uneven distribution reveal about how power operates in the practice?
+
+**3. In MA3, what would it cost you — as a writer — to take genuine risks with form?**
+What&#39;s the safe version of MA3 (format-switch, same argument, different surface)? What&#39;s the version that actually commits — and what would that cost?
+
+### Quick Draft (if time allows)
+
+Choose one:
+
+- **Option A**: Draft a paragraph analyzing the costs of participation in your MA2 literacy practice. Who pays? What do they get? What does that distribution reveal?
+
+- **Option B**: Identify one risk in your MA2 analysis you&#39;ve been avoiding. Write a sentence or two about what it would cost to take it — and what you&#39;d get.
+
+- **Option C**: Describe the most ambitious version of your MA3 remediation — the one that genuinely commits to a new form and a new argument. What would it cost you?
+
+[[Reference: Cost of Participation-&gt;Group5-Reference]]
+
+#### *Time to prepare your shareout.*
+
+[[← Back to pathway-&gt;Group5-Opening]]
+
+&lt;div class=&quot;timed-nav&quot; data-timer=&quot;600&quot; data-passage=&quot;Group5-Discussion-2&quot;&gt;
+[[Time to prepare your shareout →-&gt;Group5-Shareout-Prep]]
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="29" name="Group5-Shareout-Prep" tags="" position="1300,750" size="100,100">## Group 5 — Shareout Prep
 
 Prepare a **2-3 minute** presentation for the class.
 
 ### What to Share
 
-**1. Key Insight** (1 min): What did your group discover about how irreversibility functions as a rhetorical strategy?
+**1. Key Insight** (1 min): What does your group now understand about how cost functions in participation — and in disruption?
 
-**2. Specific Example** (1 min): ONE irreversible KLF act that best illustrates your insight.
+**2. Specific Example** (1 min): ONE KLF act where cost is most revealing — calculated, accidental, or haunting.
 
 **3. Application** (30 sec): One thing the class can take away for their MA2 or MA3 work.
 
@@ -1360,87 +939,78 @@ Prepare a **2-3 minute** presentation for the class.
 [[← Back to pathway-&gt;Group5-Opening]] | [[Ready for synthesis →-&gt;Collective-Synthesis]]
 
 &lt;div class=&quot;timed-nav&quot; data-timer=&quot;240&quot; data-passage=&quot;Group5-Shareout-Prep&quot;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="28" name="Instructions-Node" tags="" position="100,100" size="100,100">## How to Use This Twine
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="30" name="Group5-Reference" tags="" position="1450,550" size="100,100">## Reference: Cost of Participation
 
-### Navigation
-Click the blue links to move between pages, including to return to previous pages.
+**What it is**: The resources — time, money, social capital, identity, risk — that participation in a literacy practice requires. Costs are rarely neutral: they determine who can participate, who bears the burden of disruption, and who benefits from the practice&#39;s rewards. Uneven cost distribution is one of the ways power operates in any community of practice.
 
-### Working in Groups
-Find your group number, follow your pathway (Discussion 1 → Discussion 2 → Shareout Prep), and take notes as you go.
+**Why it matters for your writing**: MA2 asks you to analyze how a literacy practice is shaped by social and cultural factors. The cost of participation is one of those factors — it determines access, shapes who gets to participate, and reveals how the practice values different kinds of practitioners. For MA3, the cost of genuine risk-taking is real — and acknowledging it is part of committing to the work.
 
-### Discussions
-Read the prompts carefully, discuss with your group, and be ready to share your findings. Times are guidelines — quality matters more than finishing.
+### Key Points
+- Costs of participation are rarely acknowledged explicitly — they operate as invisible conditions
+- Uneven cost distribution reveals power dynamics that the practice itself often obscures
+- Calculated costs and uncalculated consequences are both real — and both worth analyzing
 
-### Reference Nodes
-These provide extra context on key concepts. Use them when you need a refresher or want to go deeper.
+### Example
+The KLF gave away their fee in Scottish pound notes at the Helter Skelter rave. To the crowd, it was generosity. To the industry watching, it was extravagance as provocation. To Drummond and Cauty, it was part of a performance of indifference to money — a performance that culminated in burning a million pounds, a cost that, as it turned out, genuinely haunted them.
 
-[[← Back to start-&gt;Start]]</tw-passagedata><tw-passagedata pid="29" name="MW-Groups" tags="" position="500,100" size="100,100">## Group Assignments
+### How to Apply This
+For MA2: ask what participation in your literacy practice costs, who bears those costs, and what that distribution reveals about power. For MA3: ask what genuine commitment to a new form would cost you as a writer — and whether you&#39;re willing to pay it.
 
-[[Group 1: Sampling as Argument →-&gt;Group1-Opening]]
+---
 
-[[Group 2: Persona as Tool →-&gt;Group2-Opening]]
+[[← Back to pathway-&gt;Group5-Opening]]</tw-passagedata><tw-passagedata pid="31" name="Collective-Synthesis" tags="" position="700,900" size="100,100">## Bringing It Together
 
-[[Group 3: Learning the Rules to Break Them →-&gt;Group3-Opening]]
+Each group shares (2-3 min each):
 
-[[Group 4: Who&#39;s the Audience? →-&gt;Group4-Opening]]
+Key insight → Specific example → Takeaway for the class.
 
-[[Group 5: Irreversibility as Rhetoric →-&gt;Group5-Opening]]</tw-passagedata><tw-passagedata pid="30" name="MW-Looking-Ahead" tags="" position="200,1100" size="100,100">## Looking Ahead
+### As You Listen
 
-- **By Wednesday** (next class):
-	- Discussion post &quot;Performance, Rhetoric &amp; Disruption&quot; initial post due **Mar 11** — that&#39;s next class day
-	- Come ready to continue this conversation in Session 2
+- What patterns do you notice across all five analytical lenses?
 
-- **Coming up by end of week**:
-	- Reading Summary 5 due **Mar 13**
-	- MA2 Draft — Textual Analysis of a Literacy Practice due **Mar 13**
-	- ePortfolio Check-In #2: Development &amp; Depth due **Mar 13**
+- Where do conventions, medium, legibility, authorship, and cost connect — or pull against each other?
 
-- *Spring Break is Week 10. Three due dates stand between you and it. Plan accordingly.*
+- Which lens feels most useful for the literacy practice you&#39;re analyzing in MA2?
+
+### Synthesis Questions
+
+After all groups have shared:
+
+- If you had to pick one of today&#39;s five frameworks to anchor your MA2 analysis, which would it be — and why?
+
+- The KLF used all five of these simultaneously, often without naming them. What does that tell us about how rhetoric actually works in practice?
+
+- As you look toward MA3: which of these five dimensions will matter most in your remediation?
+
+[[Looking Ahead (MW) →-&gt;MW-Looking-Ahead]]
+
+[[Looking Ahead (WF) →-&gt;WF-Looking-Ahead]]</tw-passagedata><tw-passagedata pid="32" name="MW-Looking-Ahead" tags="" position="25,1300" size="100,100">## Looking Ahead
+
+- **Today** (Mar 11): Discussion initial post &quot;Performance, Rhetoric &amp; Disruption&quot; is due — if you haven&#39;t submitted, do it before midnight.
+
+- **By Thursday, Mar 13**:
+	- Reading Summary 5
+	- MA2 Draft — Textual Analysis of a Literacy Practice
+	- ePortfolio Check-In #2: Development &amp; Depth
+
+- *Week 10 is Spring Break. No class 3/16–3/20. Three things stand between you and it.*
+
+- When we return in Week 11, we&#39;re moving into Remediation and the Power of Revision — everything we&#39;ve discussed about the KLF&#39;s remaking practice will be directly relevant.
 
 - Questions? Concerns? Use Canvas Messages anytime or stop by my office hours (on our home page).
 
-[[← Back to start-&gt;Start]]</tw-passagedata><tw-passagedata pid="31" name="Start" tags="" position="300,100" size="100,100">## Performance and Rhetoric: How The KLF Did It
+[[← Back to start-&gt;Start]]</tw-passagedata><tw-passagedata pid="33" name="WF-Looking-Ahead" tags="" position="150,1300" size="100,100">## Looking Ahead
 
-&lt;img src=&quot;https://www.theinfluencers.org/sites/theinfluencers.mur.at/files/393_k_foundation_burn_a_million_quid_1.jpg&quot; height=100% width=100%&gt;
+- **Today** (Mar 13) — due tonight or already submitted:
+	- Reading Summary 5
+	- MA2 Draft — Textual Analysis of a Literacy Practice
+	- ePortfolio Check-In #2: Development &amp; Depth
 
-**Course**: ENC 1101
+- **Discussion peer replies** due Mar 15 — do those before break if you can.
 
-**Instructor**: Glenn S. Ritchey III
+- *Spring Break is next week. No class 3/16–3/20. You&#39;ve earned it.*
 
-The KLF spent a primary decade or so making and unmaking themselves — building audiences, mastering genres, and walking away from every success before it could become comfortable. Today you&#39;re going to map out exactly how they did it. Each group will analyze one of the rhetorical moves that defined their career.
-
-### What you&#39;ll do
-
-1. Work through two focused discussions with your group
-
-2. Share your findings with the class
-
-**Which schedule are you on?**
-
-[[Monday/Wednesday section →-&gt;MW-Groups]]
-
-[[Wednesday/Friday section →-&gt;WF-Groups]]
-
-*Need help navigating?* Here is how to [[use this Twine-&gt;Instructions-Node]].</tw-passagedata><tw-passagedata pid="32" name="WF-Groups" tags="" position="800,100" size="100,100">## Group Assignments
-
-[[Group 1: Sampling as Argument →-&gt;Group1-Opening]]
-
-[[Group 2: Persona as Tool →-&gt;Group2-Opening]]
-
-[[Group 3: Learning the Rules to Break Them →-&gt;Group3-Opening]]
-
-[[Group 4: Who&#39;s the Audience? →-&gt;Group4-Opening]]
-
-[[Group 5: Irreversibility as Rhetoric →-&gt;Group5-Opening]]</tw-passagedata><tw-passagedata pid="33" name="WF-Looking-Ahead" tags="" position="100,1250" size="100,100">## Looking Ahead
-
-- **Discussion**: Initial post was due today (Mar 11) — peer replies due **Mar 15**
-
-- **By Friday** (next class):
-	- Reading Summary 5 due **Mar 13**
-	- MA2 Draft — Textual Analysis of a Literacy Practice due **Mar 13**
-	- ePortfolio Check-In #2: Development &amp; Depth due **Mar 13**
-
-- *Spring Break is next week. Three things due Friday. Start now.*
+- When we return in Week 11, we&#39;re moving into Remediation and the Power of Revision. Everything we&#39;ve discussed about the KLF — the remaking, the genre-crossing, the commitment to new forms — becomes the direct subject of MA3.
 
 - Questions? Concerns? Use Canvas Messages anytime or stop by my office hours (on our home page).
 
