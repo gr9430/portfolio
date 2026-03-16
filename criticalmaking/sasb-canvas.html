@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shooting a Still Bird — Page</title>
 <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/gh/galaxykate/tracery@tracery2/js/tracery.min.js"></script>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -42,7 +41,6 @@ header::after {
 }
 
 h1 {
-  font-family: 'Special Elite', serif;
   font-size: 1.1rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -55,22 +53,29 @@ h1 {
   letter-spacing: 0.05em;
 }
 
-.canvas-container {
+.page {
   width: 100%;
-  position: relative;
+  border: 1px solid #aaa;
+  background: #f5f0e8;
+  padding: 8% 8%;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0;
 }
 
-canvas {
-  display: block;
-  width: 100%;
-  border: 1px solid #333;
+.line {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: rgba(30, 20, 10, 0.85);
 }
 
 .reload {
   margin-top: 16px;
   background: none;
   border: 1px solid #555;
-  color: #888;
+  color: #555;
   font-family: 'Special Elite', serif;
   font-size: 0.75rem;
   letter-spacing: 0.1em;
@@ -81,8 +86,8 @@ canvas {
 }
 
 .reload:hover {
-  border-color: #e8e8e8;
-  color: #e8e8e8;
+  border-color: #0a0a0a;
+  color: #0a0a0a;
 }
 </style>
 </head>
@@ -94,87 +99,83 @@ canvas {
     <p class="subtitle">tracery — generated page // 2–15 lines</p>
   </header>
 
-  <div class="canvas-container">
-    <canvas id="pageCanvas"></canvas>
-  </div>
+  <div class="page" id="page"></div>
 
   <button class="reload" onclick="generate()">Next page</button>
 </div>
 
 <script>
-const IMAGE_URL  = "https://glennritchey.net/criticalmaking/blankpage.jpg";
-const TEXT_COLOR = "rgba(30, 20, 10, 0.82)";
-const FONT_FACE  = "Special Elite";
-const FONT_SIZE  = 18;
-const LINE_MARGIN = 0.08;
-const LEFT_MARGIN = 0.06;
-
-let grammar;
-const canvas = document.getElementById("pageCanvas");
-const ctx    = canvas.getContext("2d");
-
-// Set explicit initial dimensions so the canvas has height before the image loads
-canvas.width  = 700;
-canvas.height = 960;
-
-const img = new Image();
-
-img.onload = function () {
-  canvas.width  = img.naturalWidth;
-  canvas.height = img.naturalHeight;
-  // Update CSS height to match aspect ratio
-  canvas.style.height = "auto";
-  loadGrammar();
+// Tracery grammar inline — no fetch required
+const grammarData = {
+    "origin": ["#noun_room# #verb_fails# #preposition# the #noun_anchor# of the #noun_material#",
+        "the #noun_structure# #verb_participle# into the #noun_surface#, #adverb_duration#",
+        "#numeral# #noun_unit#: #noun_abstract#",
+        "#noun_fluid# seeps from the #noun_source# #verb_participle# into the #noun_material#",
+        "#adjective_sensory# #noun_substance# #verb_contact# #adjective_surface# #noun_covering#",
+        "the #noun_room# is #adjective_state#, #adverb_duration#",
+        "#noun_body_plural# which are #adjective_damage#",
+        "the #noun_container# of the #noun_contained# is responsible",
+        "the #noun_object_adjective# #noun_object_head# is responsible",
+        "#noun_abstract# is but a #adjective_duration# #noun_abstract_2#",
+        "#verb_imperative# your #adjective_lateral# #noun_body#—a #noun_appositive#—#preposition# the #noun_surface#",
+        "#noun_material#: the #noun_structure# #verb_fails# to the #noun_anchor# of the #noun_room#",
+        "a #noun_fluid# gathers #numeral# #noun_unit# before you"
+    ],
+    "noun_room": ["foyer","vestibule","lobby","study","hallway","manor","antechamber","chamber"],
+    "noun_structure": ["staircase","balustrade","frame","facade","molding","threshold","aperture","balusters"],
+    "noun_material": ["limestone","marble","silk","cotton","iron","velvet","dirt","fabric"],
+    "noun_body": ["foot","eye","hand","shoulder","jaw","heel","finger","limb","torso","hide"],
+    "adjective_lateral": ["left","right"],
+    "noun_body_plural": ["teeth","linens","bones","limbs","phalanxes","knuckles","ribs","fingers"],
+    "adjective_damage": ["chipped","matted","slashed","punctured","scabbed","fractured","unformed","depreciated"],
+    "adjective_state": ["ambiguous","unreliable","unknown","concealed","static","unearthed","forbidden","saturated"],
+    "adverb_duration": ["indefinitely","perpetually","presently","irreversibly","temporarily","conditionally"],
+    "noun_abstract": ["existence","comfort","prestige","sanctity","altruism","opulence","artifice","farce","devotion","agency"],
+    "adjective_duration": ["fleeting","lingering","unexpected","diminishing","provisional","deferred"],
+    "noun_abstract_2": ["memory","tactic","arrangement","condition","fixture","inheritance","conclusion","posture"],
+    "verb_imperative": ["drop","place","rest","lower","fix","press"],
+    "noun_appositive": ["relic","weight","monument","remnant","instrument","liability","fixture","deposit"],
+    "preposition": ["onto","into","against","toward","upon","across"],
+    "noun_surface": ["dirt","limestone","foundation","molding","threshold","facade","floor","surface"],
+    "noun_fluid": ["water","light","silt","blood","sepia","aroma","residue"],
+    "noun_source": ["pipe","labyrinth","aperture","fissures","frame","wall","staircase","threshold"],
+    "verb_participle": ["fractured","destroyed","concealed","suspended","blasted","connected","saturated","severed","forbidden"],
+    "numeral": ["sixty","three","sixteen","eight","twelve"],
+    "noun_unit": ["feet","yards","inches","points","corners"],
+    "noun_container": ["coat","engineering","surface","design","foundation","weight","structure","residue"],
+    "noun_contained": ["arms","shirt","room","staircase","foyer","manor","fabric","frame"],
+    "noun_object_head": ["arms","slogan","wallpaper","graphic","baluster","trophy","fabric","molding"],
+    "noun_object_adjective": ["millefleur","freestanding","tri-colored","counterfeit","floral","naive","deliberate"],
+    "adjective_sensory": ["salty","flowery","cold","dripping","humid","sepia","reverb-saturated"],
+    "noun_substance": ["air","light","droplets","aroma","residue","atmosphere"],
+    "verb_contact": ["busses","saturates","decorates","occupies","consumes","stains","arrests","fills"],
+    "adjective_surface": ["scabbed","chipped","fractured","cold","matted","depreciated","saturated"],
+    "noun_covering": ["hide","surface","facade","linens","fabric","molding","threshold"],
+    "verb_fails": ["buckles","surrenders","seeps","splinters","collapses"],
+    "noun_anchor": ["foundation","foyer","ground","dirt","base","floor"]
 };
 
-img.onerror = function () {
-  // Keep 700×960 parchment fallback
-  loadGrammar();
-};
-
-img.src = IMAGE_URL;
-
-function loadGrammar() {
-  fetch("sasb.json")
-    .then(r => r.json())
-    .then(data => {
-      grammar = tracery.createGrammar(data);
-      grammar.addModifiers(tracery.baseEngModifiers);
-      // Wait for the font to be ready before drawing text
-      document.fonts.ready.then(() => generate());
-    })
-    .catch(err => console.error("Failed to load sasb.json:", err));
+// Simple Tracery-compatible expander (no external dependency)
+function expand(grammar, symbol) {
+    const options = grammar[symbol];
+    if (!options) return symbol;
+    const template = options[Math.floor(Math.random() * options.length)];
+    return template.replace(/#([^#]+)#/g, (_, s) => expand(grammar, s));
 }
 
 function generate() {
-  if (!grammar) return;
-
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  if (img.complete && img.naturalWidth > 0) {
-    ctx.drawImage(img, 0, 0);
-  } else {
-    ctx.fillStyle = "#f5f0e8";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-  }
-
-  const count   = Math.floor(Math.random() * 14) + 2;
-  const topY    = canvas.height * LINE_MARGIN;
-  const bottomY = canvas.height * (1 - LINE_MARGIN);
-  const step    = (bottomY - topY) / (count + 1);
-  const leftX   = canvas.width * LEFT_MARGIN;
-
-  ctx.font         = `${FONT_SIZE}px "${FONT_FACE}", serif`;
-  ctx.fillStyle    = TEXT_COLOR;
-  ctx.textBaseline = "middle";
-
-  for (let i = 0; i < count; i++) {
-    const line   = grammar.flatten("#origin#");
-    const y      = topY + step * (i + 1);
-    const jitter = (Math.random() - 0.5) * canvas.width * 0.02;
-    ctx.fillText(line, leftX + jitter, y);
-  }
+    const page  = document.getElementById("page");
+    const count = Math.floor(Math.random() * 14) + 2; // 2–15
+    page.innerHTML = "";
+    for (let i = 0; i < count; i++) {
+        const p = document.createElement("p");
+        p.className = "line";
+        p.textContent = expand(grammarData, "origin");
+        page.appendChild(p);
+    }
 }
+
+generate();
 </script>
 
 </body>
