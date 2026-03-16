@@ -1,12 +1,13 @@
+# Words Across Worlds: Mapping the Reformation as a Global Textual Network
 _Completed for Dr. Louise Kane's ENG 6801: Texts and Technology in History, Spring 2026._
 
 Visit the Twine <a href ="{{ site.baseurl }}/phd/projects/henryviii/twine.html">here</a>.
 
 ## Project Team
 <ul>
-<li>Concept & Initial Setup by Christina Restrepo, University of Central Florida</li>
-<li>Content & Documentation by Teddy Duncan Jr., University of Central Florida</li>
-<li>Technical Development & Hosting by Glenn S. Ritchey III, University of Central Florida</li>
+<li>Concept & Initial Setup: Christina Restrepo, University of Central Florida</li>
+<li>Content & Documentation: Teddy Duncan Jr., University of Central Florida</li>
+<li>Technical Development & Hosting: Glenn S. Ritchey III, University of Central Florida</li>
 </ul>
 
 _This project was co-developed with help from Claude in alignment with Distant Coding principles._
