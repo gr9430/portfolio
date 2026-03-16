@@ -1,5 +1,6 @@
-# <a href ="{{ site.baseurl }}/phd/projects/henryviii/twine.html">Words Across Worlds: Mapping the Reformation as a Global Textual Network</a>
-_Completed for Dr. Louise Kane's ENG 6801: Texts and Technology in History, Spring 2026_.
+_Completed for Dr. Louise Kane's ENG 6801: Texts and Technology in History, Spring 2026._
+
+Visit the Twine <a href ="{{ site.baseurl }}/phd/projects/henryviii/twine.html">here</a>.
 
 ## Project Team
 <ul>
@@ -39,5 +40,3 @@ According to both texts, the Reformation cannot be read as a European phenomenon
 Boettcher, Susan R. "Post-colonial reformation? Hybridity in 16th-century Christianity." _Social Compass_ 52.4 (2005): 443-452.
 
 Parker, Charles H. "The Reformation in global perspective." _History compass_ 12.12 (2014): 924-934.
-
-#### Visit the Twine <a href ="{{ site.baseurl }}/phd/projects/henryviii/twine.html">here</a>.
