@@ -1,0 +1,145 @@
+{
+    "origin": ["#noun_room# #verb_fails# #preposition# the #noun_anchor# of the #noun_material#",
+        "the #noun_structure# #verb_participle# into the #noun_surface#, #adverb_duration#",
+        "#numeral# #noun_unit#: #noun_abstract#",
+        "#noun_fluid# seeps from the #noun_source# #verb_participle# into the #noun_material#",
+        "#adjective_sensory# #noun_substance# #verb_contact# #adjective_surface# #noun_covering#",
+        "the #noun_room# is #adjective_state#, #adverb_duration#",
+        "#noun_body_plural# which are #adjective_damage#",
+        "the #noun_container# of the #noun_contained# is responsible",
+        "the #noun_object_adjective# #noun_object_head# is responsible",
+        "#noun_abstract# is but a #adjective_duration# #noun_abstract_2#",
+        "#verb_imperative# your #adjective_lateral# #noun_body#—a #noun_appositive#—#preposition# the #noun_surface#",
+        "#noun_material#: the #noun_structure# #verb_fails# to the #noun_anchor# of the #noun_room#",
+        "a #noun_fluid# gathers #numeral# #noun_unit# before you"
+    ],
+    "aspect_ratio": [
+        "1.33:1","1.37:1","1.66:1",
+        "1.85:1","2.35:1","2.39:1",
+        "2.55:1","2.76:1"
+    ],
+    "noun_room": [
+        "foyer","vestibule","lobby","study",
+        "hallway","manor","antechamber","chamber"
+    ],
+    "noun_structure": [
+        "staircase","balustrade","frame","facade",
+        "molding","threshold","aperture","balusters"
+    ],
+    "noun_material": [
+        "limestone","marble","silk","cotton",
+        "iron","velvet","dirt","fabric"
+    ],
+    "noun_body": [
+        "foot","eye","hand","shoulder",
+        "jaw","heel","finger","limb","torso","hide"
+    ],
+    "adjective_lateral": [
+        "left","right"
+    ],
+    "noun_body_plural": [
+        "teeth","linens","bones","limbs",
+        "phalanxes","knuckles","ribs","fingers"
+    ],
+    "adjective_damage": [
+        "chipped","matted","slashed","punctured",
+        "scabbed","fractured","unformed","depreciated"
+    ],
+    "adjective_state": [
+        "ambiguous","unreliable","unknown","concealed",
+        "static","unearthed","forbidden","saturated"
+    ],
+    "adverb_duration": [
+        "indefinitely","perpetually","presently",
+        "irreversibly","temporarily","conditionally"
+    ],
+    "noun_abstract": [
+        "existence","comfort","prestige","sanctity",
+        "altruism","opulence","artifice","farce",
+        "devotion","agency"
+    ],
+    "adjective_duration": [
+        "fleeting","lingering","unexpected",
+        "diminishing","provisional","deferred"
+    ],
+    "noun_abstract_2": [
+        "memory","tactic","arrangement","condition",
+        "fixture","inheritance","conclusion","posture"
+    ],
+    "verb_imperative": [
+        "drop","place","rest","lower","fix","press"
+    ],
+    "noun_appositive": [
+        "relic","weight","monument","remnant",
+        "instrument","liability","fixture","deposit"
+    ],
+    "preposition": [
+        "onto","into","against","toward","upon","across"
+    ],
+    "noun_surface": [
+        "dirt","limestone","foundation","molding",
+        "threshold","facade","floor","surface"
+    ],
+    "noun_fluid": [
+        "water","light","silt","blood",
+        "sepia","aroma","residue"
+    ],
+    "noun_source": [
+        "pipe","labyrinth","aperture","fissures",
+        "frame","wall","staircase","threshold"
+    ],
+    "verb_participle": [
+        "fractured","destroyed","concealed","suspended",
+        "blasted","connected","saturated","severed","forbidden"
+    ],
+    "numeral": [
+        "sixty","three","sixteen","eight","twelve"
+    ],
+    "noun_unit": [
+        "feet","yards","inches","points","corners"
+    ],
+    "noun_container": [
+        "coat","engineering","surface","design",
+        "foundation","weight","structure","residue"
+    ],
+    "noun_contained": [
+        "arms","shirt","room","staircase",
+        "foyer","manor","fabric","frame"
+    ],
+    "noun_object_head": [
+        "arms","slogan","wallpaper","graphic",
+        "baluster","trophy","fabric","molding"
+    ],
+    "noun_object_adjective": [
+        "millefleur","freestanding","tri-colored",
+        "counterfeit","floral","naive","deliberate"
+    ],
+    "adjective_sensory": [
+        "salty","flowery","cold","dripping",
+        "humid","sepia","reverb-saturated"
+    ],
+    "noun_substance": [
+        "air","light","droplets","aroma",
+        "residue","atmosphere"
+    ],
+    "verb_contact": [
+        "busses","saturates","decorates","occupies",
+        "consumes","stains","arrests","fills"
+    ],
+    "adjective_surface": [
+        "scabbed","chipped","fractured","cold",
+        "matted","depreciated","saturated"
+    ],
+    "noun_covering": [
+        "hide","surface","facade","linens",
+        "fabric","molding","threshold"
+    ],
+    "verb_fails": [
+        "buckles","surrenders","seeps",
+        "splinters","collapses"
+    ],
+    "noun_anchor": [
+        "foundation","foyer","ground",
+        "dirt","base","floor"
+    ]
+}

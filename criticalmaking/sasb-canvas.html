@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shooting a Still Bird — Page</title>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/galaxykate/tracery@tracery2/js/tracery.min.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #e8e8e8;
+  font-family: 'Special Elite', serif;
+  color: #0a0a0a;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px 48px;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 700px;
+}
+
+header {
+  border: 2px solid #0a0a0a;
+  padding: 18px 24px 14px;
+  margin-bottom: 32px;
+  position: relative;
+  background: #e8e8e8;
+}
+
+header::after {
+  content: '';
+  position: absolute;
+  top: 4px; left: 4px; right: -4px; bottom: -4px;
+  border: 1px solid #555;
+  z-index: -1;
+}
+
+h1 {
+  font-family: 'Special Elite', serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 4px;
+  letter-spacing: 0.05em;
+}
+
+.canvas-container {
+  width: 100%;
+  position: relative;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid #333;
+}
+
+.reload {
+  margin-top: 16px;
+  background: none;
+  border: 1px solid #555;
+  color: #888;
+  font-family: 'Special Elite', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.reload:hover {
+  border-color: #e8e8e8;
+  color: #e8e8e8;
+}
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+  <header>
+    <h1>Shooting a Still Bird</h1>
+    <p class="subtitle">tracery — generated page // 2–15 lines</p>
+  </header>
+
+  <div class="canvas-container">
+    <canvas id="pageCanvas"></canvas>
+  </div>
+
+  <button class="reload" onclick="generate()">Next page</button>
+</div>
+
+<script>
+// ── CONFIG ──────────────────────────────────────────────
+// Replace with your GitHub raw image URL
+const IMAGE_URL = "/blankpage.jpg";
+
+// Text rendering options
+const TEXT_COLOR   = "rgba(30, 20, 10, 0.82)";  // dark ink over page
+const FONT_FACE    = "Special Elite";
+const FONT_SIZE    = 18;          // px at full canvas resolution
+const LINE_MARGIN  = 0.08;        // fraction of canvas height kept clear at top/bottom
+const LEFT_MARGIN  = 0.06;        // fraction of canvas width
+// ────────────────────────────────────────────────────────
+
+let grammar;
+const canvas = document.getElementById("pageCanvas");
+const ctx    = canvas.getContext("2d");
+const img    = new Image();
+img.src = IMAGE_URL;
+
+img.onload = function () {
+  canvas.width  = img.naturalWidth;
+  canvas.height = img.naturalHeight;
+  loadGrammar();
+};
+
+img.onerror = function () {
+  // Fallback: draw a parchment-style rectangle so the page still works
+  canvas.width  = 700;
+  canvas.height = 960;
+  loadGrammar();
+};
+
+function loadGrammar() {
+  fetch("sasb.json")
+    .then(r => r.json())
+    .then(data => {
+      grammar = tracery.createGrammar(data);
+      grammar.addModifiers(tracery.baseEngModifiers);
+      generate();
+    });
+}
+
+function generate() {
+  if (!grammar) return;
+
+  // Draw background
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  if (img.complete && img.naturalWidth > 0) {
+    ctx.drawImage(img, 0, 0);
+  } else {
+    // Parchment fallback
+    ctx.fillStyle = "#f5f0e8";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
+
+  // Pick random number of lines: 2–15
+  const count    = Math.floor(Math.random() * 14) + 2;
+  const topY     = canvas.height * LINE_MARGIN;
+  const bottomY  = canvas.height * (1 - LINE_MARGIN);
+  const usableH  = bottomY - topY;
+  const step     = usableH / (count + 1);
+  const leftX    = canvas.width * LEFT_MARGIN;
+
+  ctx.font         = `${FONT_SIZE}px "${FONT_FACE}", serif`;
+  ctx.fillStyle    = TEXT_COLOR;
+  ctx.textBaseline = "middle";
+
+  for (let i = 0; i < count; i++) {
+    const line = grammar.flatten("#origin#");
+    const y    = topY + step * (i + 1);
+    // Slight random x jitter for a handwritten feel
+    const jitter = (Math.random() - 0.5) * canvas.width * 0.02;
+    ctx.fillText(line, leftX + jitter, y);
+  }
+}
+</script>
+
+</body>
+</html>
