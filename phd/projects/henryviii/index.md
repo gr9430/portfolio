@@ -1,4 +1,12 @@
-# <a href ="{{ site.baseurl }}/phd/projects/henryvii/twine.html">Words Across Worlds: Mapping the Reformation as a Global Textual Network</a>
+# <a href ="{{ site.baseurl }}/phd/projects/henryviii/twine.html">Words Across Worlds: Mapping the Reformation as a Global Textual Network</a>
+
+<ul>
+<li>Concept & Initial Setup by Christina Restrepo, University of Central Florida</li>
+<li>Content & Documentation by Teddy Duncan Jr., University of Central Florida</li>
+<li>Technical Development & Hosting by Glenn S. Ritchey III, University of Central Florida</li>
+</ul>
+
+_This project was co-developed with help from Claude in alignment with Distant Coding principles._
 
 ## Abstract
 This project considers the Protestant Reformation a global event involving three networks that extend beyond its European origins: texts, the advent of the press, and silences. Rather than limiting the Reformation to its localized textuality, including the letters of Henry VIII, religious treaties, and circulation through the printing press, our project contends with the global network of the unwritten: colonized nations and people who encountered these ideas but whose experiences and responses are not inscribed in the textual archives. 
@@ -30,4 +38,4 @@ Boettcher, Susan R. "Post-colonial reformation? Hybridity in 16th-century Christ
 
 Parker, Charles H. "The Reformation in global perspective." _History compass_ 12.12 (2014): 924-934.
 
-#### Visit the Twine <a href ="{{ site.baseurl }}/phd/projects/henryvii/twine.html">here</a>.
+#### Visit the Twine <a href ="{{ site.baseurl }}/phd/projects/henryviii/twine.html">here</a>.
