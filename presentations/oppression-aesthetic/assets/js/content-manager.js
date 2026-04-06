@@ -114,6 +114,14 @@ class ContentManager {
                 sensitivity_level: item.sensitivity_level || 'moderate',
                 blur_default: item.blur_default !== undefined ? item.blur_default : true,
                 sources: item.sources || [],
+                // Create context object for image processor compatibility
+                context: {
+                    aesthetic_tradition: item.aesthetic_tradition,
+                    political_context: item.critical_framework,
+                    critical_framework: item.critical_framework,
+                    ethical_considerations: 'Analysis provided in Design Justice framework',
+                    brief: `${item.artist} - ${item.album} (${item.year})`
+                },
                 // Preserve original fields for reference
                 _original: item
             };
