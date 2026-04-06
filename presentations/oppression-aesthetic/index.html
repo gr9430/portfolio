@@ -1,0 +1,384 @@
+---
+layout: default
+title: "Your Oppression: Our Aesthetic"
+description: "A critical examination of album art that aestheticizes human atrocities"
+---
+
+<!-- Content Warning -->
+<div class="content-warning" id="content-warning">
+    <h2>Content Warning</h2>
+    <p>This presentation examines album artwork that appropriates imagery of human suffering and oppression for aesthetic purposes. Some content may be disturbing and includes references to violence, war, and historical atrocities.</p>
+    <p>User controls are provided to blur sensitive images. Your viewing experience is entirely under your control.</p>
+    <button id="proceed-btn" onclick="startSlideshow()">I understand, proceed</button>
+    <button id="learn-more-btn" onclick="showInfo()">Learn more about this project</button>
+</div>
+
+<!-- Project Info Modal (initially hidden) -->
+<div class="project-info" id="project-info" style="display: none;">
+    <h3>About "Your Oppression: Our Aesthetic"</h3>
+    <p>This project challenges the flattening of human atrocities as represented in album art that uses such imagery for aesthetic purposes. Inspired by Bill Drummond's Silent Protest work and grounded in design justice principles, it examines how the music industry has appropriated imagery of suffering.</p>
+    <p>The presentation uses restraint and respect in its approach, providing context and critical analysis rather than reproducing exploitation.</p>
+    <button onclick="hideInfo()">Close</button>
+    <button onclick="startSlideshow()">Proceed to slideshow</button>
+</div>
+
+<!-- Reveal.js Slideshow Container (initially hidden) -->
+<div class="reveal" id="slideshow-container" style="display: none;">
+    <div class="slides">
+
+        <!-- Project Cover Slide -->
+        <section data-background-color="rgb(248,248,255)">
+            <div class="project-cover">
+                <img src="/presentations/oppression-aesthetic/content/images/crass-cover-for-project.jpg"
+                     alt="Crass album cover used as project visual introduction"
+                     class="cover-image"
+                     style="max-width: 60%; max-height: 60vh; object-fit: contain; margin: 0 auto; display: block; border: 2px solid rgb(122, 6, 97);">
+                <h1 style="color: rgb(122, 6, 97); margin-top: 2rem;">Your Oppression: Our Aesthetic</h1>
+                <h3>A Critical Examination of Documentary Atrocity Photography in Hardcore Punk Album Art</h3>
+                <p><small>Design Justice Framework | Sasha Costanza-Chock | Silent Protest Aesthetic</small></p>
+            </div>
+            <aside class="notes">
+                Project introduction using Crass imagery to establish the visual and political context for examining appropriated atrocity photography in hardcore album art.
+            </aside>
+        </section>
+
+        <!-- Title Slide -->
+        <section data-background-color="rgb(248,248,255)">
+            <h2>Research Overview</h2>
+            <p>This analysis examines <strong>documentary atrocity photography</strong> reappropriated as album art in anarcho-punk, hardcore, and powerviolence (ca. 1988–2017).</p>
+            <p>Key questions:</p>
+            <ul>
+                <li>How does <strong>proximity to violence</strong> affect ethical evaluation?</li>
+                <li>What's the difference between <strong>documentation and extraction?</strong></li>
+                <li>Who <strong>benefits</strong> from these aesthetic choices? Who <strong>bears the burden?</strong></li>
+            </ul>
+            <p><small>Theoretical framework: Sasha Costanza-Chock's Design Justice</small></p>
+            <aside class="notes">
+                Overview of the research questions and theoretical framework grounding the analysis.
+            </aside>
+        </section>
+
+        <!-- Introduction Context Slide -->
+        <section data-background-color="rgb(248,248,255)">
+            <h2>Context</h2>
+            <p>Album artwork often serves as a visual representation of music's themes and emotions.</p>
+            <p>However, when art appropriates imagery of real human suffering, ethical questions arise:</p>
+            <ul>
+                <li>Who benefits from these representations?</li>
+                <li>Are the subjects of these images given agency?</li>
+                <li>How does aestheticization affect our understanding of real atrocities?</li>
+            </ul>
+            <aside class="notes">
+                This slide establishes the critical framework for examining album art.
+            </aside>
+        </section>
+
+        <!-- Design Justice Framework -->
+        <section data-background-color="rgb(248,248,255)">
+            <h2>Design Justice Framework</h2>
+            <p><em>"Design is the process by which the politics of one world become the constraints on another."</em> —Fred Turner</p>
+            <p>Following Sasha Costanza-Chock, this project asks:</p>
+            <ul>
+                <li><strong>Who benefits</strong> from these design choices?</li>
+                <li><strong>Whose values</strong> are embedded in the interface?</li>
+                <li><strong>What ontologies</strong> (ways of being/knowing) do we reproduce?</li>
+                <li><strong>How do we move beyond inclusion</strong> toward justice, autonomy, sovereignty?</li>
+            </ul>
+            <aside class="notes">
+                Design Justice challenges us to examine power structures embedded in design decisions.
+            </aside>
+        </section>
+
+        <!-- Platform Contradictions -->
+        <section data-background-color="rgb(248,248,255)">
+            <h2>Platform Contradictions</h2>
+            <p>This project embodies its own contradictions:</p>
+            <ul>
+                <li>Using <strong>corporate platforms</strong> (GitHub, Jekyll) to critique corporate appropriation</li>
+                <li>Creating an <strong>academic artifact</strong> about DIY punk culture</li>
+                <li>Reproducing the <strong>"male gaze"</strong> of collecting/cataloguing violence</li>
+                <li>Speaking <strong>about</strong> rather than <strong>with</strong> affected communities</li>
+            </ul>
+            <p><small>These contradictions are made visible rather than hidden—part of honest methodology.</small></p>
+            <aside class="notes">
+                Transparency about contradictions is itself a Design Justice principle.
+            </aside>
+        </section>
+
+        <!-- Proximity and Lived Experience -->
+        <section data-background-color="rgb(248,248,255)">
+            <h2>Questions of Proximity</h2>
+            <p>Each album artwork raises questions about distance from lived experience:</p>
+            <ul>
+                <li>Are bands <strong>close to the violence</strong> they portray?</li>
+                <li>What's the difference between <strong>documentation and appropriation?</strong></li>
+                <li>How does <strong>context collapse</strong> in digital circulation?</li>
+                <li>Who has the <strong>right to represent</strong> atrocity?</li>
+            </ul>
+            <p><small>These questions have no simple answers—they require case-by-case analysis.</small></p>
+            <aside class="notes">
+                Proximity doesn't determine legitimacy, but it matters for ethical analysis.
+            </aside>
+        </section>
+
+        <!-- Affordances Analysis -->
+        <section data-background-color="rgb(248,248,255)">
+            <h2>"Everyday Things for Whom?"</h2>
+            <p>This slideshow's affordances are designed for:</p>
+            <ul>
+                <li><strong>Academic users</strong> with critical media literacy</li>
+                <li><strong>Able-bodied users</strong> (despite accessibility features)</li>
+                <li><strong>Users with high-speed internet</strong> and modern browsers</li>
+                <li><strong>English speakers</strong> familiar with Western art history</li>
+            </ul>
+            <p>Who is excluded by these assumptions? What would a truly decolonized approach look like?</p>
+            <aside class="notes">
+                Making assumptions visible is the first step toward more just design.
+            </aside>
+        </section>
+
+        <!-- Placeholder for Album Art Analysis Slides -->
+        <!-- These will be dynamically loaded via JavaScript -->
+        <section id="dynamic-content-container">
+            <!-- Content loaded via content-manager.js -->
+        </section>
+
+        <!-- Dataset Overview -->
+        <section data-background-color="rgb(248,248,255)">
+            <h2>Dataset Overview</h2>
+            <p>This analysis examines <strong>20 album covers</strong> from hardcore punk/powerviolence (1988–2017):</p>
+            <ul>
+                <li><strong>Attribution Status:</strong> 2 confirmed, 2 probable, 16 unconfirmed</li>
+                <li><strong>Geographic Range:</strong> Hiroshima, Vietnam, Iran, Cambodia, Belfast, Boston, LA</li>
+                <li><strong>Sensitivity Levels:</strong> 8 high, 10 moderate, 2 low</li>
+                <li><strong>Proximity Categories:</strong> Community documentation vs. distant appropriation</li>
+            </ul>
+            <p><small>Navigation organized by proximity to violence and attribution transparency.</small></p>
+            <aside class="notes">
+                Overview of the complete research dataset and analytical framework.
+            </aside>
+        </section>
+
+        <!-- Pre-Internet Context -->
+        <section data-background-color="rgb(248,248,255)">
+            <h2>Pre-Internet Context</h2>
+            <p>These albums (primarily early 1990s) circulated in underground networks where documentary atrocity photography functioned as <strong>counter-information</strong>.</p>
+            <p>Key tensions:</p>
+            <ul>
+                <li>Images <strong>did</strong> circulate information not available in mainstream media</li>
+                <li>But affordance was <strong>shock and political identification</strong>, not humanization</li>
+                <li>Photography's human subjects were <strong>"disafforded"</strong> by design decisions</li>
+                <li>Context collapse: specific atrocities became <strong>generic signifiers</strong></li>
+            </ul>
+            <aside class="notes">
+                Acknowledges historical function as counter-information while maintaining critical analysis.
+            </aside>
+        </section>
+
+        <!-- Navigation: Proximity Categories -->
+        <section data-background-color="rgb(248,248,255)">
+            <h2>Analysis by Proximity</h2>
+            <p>Content organized by band's relationship to documented violence:</p>
+
+            <div style="text-align: left;">
+                <h3>Community Documentation</h3>
+                <p><strong>Despise You</strong> (Inglewood/West LA) — documenting conditions from their own communities</p>
+
+                <h3>Confirmed Attribution</h3>
+                <p><strong>Stanley Forman, Joseph Rodriguez</strong> — definitively identified photographers</p>
+
+                <h3>Distant Appropriation</h3>
+                <p><strong>Crossed Out, Infest</strong> — using imagery from conflicts they have no connection to</p>
+
+                <h3>Processed Abstraction</h3>
+                <p><strong>Dropdead, Disrupt</strong> — extreme graphic treatment obscures source</p>
+            </div>
+
+            <aside class="notes">
+                Proximity categories are central to the Design Justice analysis framework.
+            </aside>
+        </section>
+
+        <!-- Attribution Transparency -->
+        <section data-background-color="rgb(248,248,255)">
+            <h2>Attribution Transparency</h2>
+            <p>Research approach: <strong>honest marking</strong> of gaps rather than speculation</p>
+
+            <div style="text-align: left;">
+                <h3>🔍 Confirmed Attribution</h3>
+                <ul>
+                    <li>Stanley Forman - "The Soiling of Old Glory" (Infest, 1988)</li>
+                    <li>Joseph Rodriguez - LA street photography (Despise You/ANb, 2011)</li>
+                </ul>
+
+                <h3>📋 Probable Attribution</h3>
+                <ul>
+                    <li>Kaveh Golestan - Iran execution photography (Crossed Out, 1991)</li>
+                    <li>Weegee - NYC crime scene (No Comment reissue, 2013)</li>
+                </ul>
+
+                <h3>❓ Unconfirmed (16 images)</h3>
+                <p>Archives traced where possible. Uncertainty marked rather than filled with guesses.</p>
+            </div>
+
+            <aside class="notes">
+                Attribution transparency demonstrates design justice approach to research.
+            </aside>
+        </section>
+
+        <!-- Reflection Slide -->
+        <section data-background-color="rgb(248,248,255)">
+            <h2>Questions for Reflection</h2>
+            <p>As we examine these examples, consider:</p>
+            <ul>
+                <li><strong>Proximity:</strong> Does the band's relationship to documented violence matter ethically?</li>
+                <li><strong>Attribution:</strong> How does crediting photographers change the ethical register?</li>
+                <li><strong>Pre-internet function:</strong> Can counter-information justify extractive aesthetics?</li>
+                <li><strong>Design justice:</strong> How might these albums embody more just design practices?</li>
+            </ul>
+            <aside class="notes">
+                Questions grounded in the specific Design Justice framework and research findings.
+            </aside>
+        </section>
+
+        <!-- Conclusion Slide -->
+        <section data-background-color="rgb(248,248,255)">
+            <h2>Moving Forward</h2>
+            <p>Understanding the impact of aesthetic choices helps us:</p>
+            <ul>
+                <li>Engage more critically with visual media</li>
+                <li>Support artists who approach difficult subjects with respect</li>
+                <li>Advocate for design justice in creative practices</li>
+                <li>Maintain awareness of our role as viewers and consumers</li>
+            </ul>
+            <p><small>This project embodies principles of transparency, respect, and critical engagement.</small></p>
+            <aside class="notes">
+                The conclusion emphasizes actionable outcomes and continued critical engagement.
+            </aside>
+        </section>
+
+    </div>
+</div>
+
+<!-- Control Panel (initially hidden) -->
+<div class="slideshow-controls" id="slideshow-controls" style="display: none;">
+    <button id="toggle-blur" onclick="toggleBlur()">Toggle Blur Overlays</button>
+    <button id="show-warnings" onclick="showContentWarnings()">Content Warnings</button>
+    <button id="keyboard-help" onclick="showKeyboardHelp()">Keyboard Help</button>
+    <button id="exit-slideshow" onclick="exitSlideshow()">Exit Slideshow</button>
+</div>
+
+<!-- Help Modal -->
+<div class="help-modal" id="help-modal" style="display: none;">
+    <div class="help-content">
+        <h3>Keyboard Navigation</h3>
+        <ul>
+            <li><kbd>→</kbd> Next slide</li>
+            <li><kbd>←</kbd> Previous slide</li>
+            <li><kbd>Space</kbd> Next slide</li>
+            <li><kbd>ESC</kbd> Overview mode</li>
+            <li><kbd>S</kbd> Speaker notes</li>
+            <li><kbd>B</kbd> Blank screen</li>
+        </ul>
+        <button onclick="hideKeyboardHelp()">Close</button>
+    </div>
+</div>
+
+<!-- Load reveal.js and custom scripts -->
+<link rel="stylesheet" href="{{ site.baseurl }}/presentations/oppression-aesthetic/assets/vendor/reveal/dist/reveal.css">
+<link rel="stylesheet" href="{{ site.baseurl }}/presentations/oppression-aesthetic/assets/vendor/reveal/dist/theme/white.css">
+<link rel="stylesheet" href="{{ site.baseurl }}/presentations/oppression-aesthetic/assets/css/oppression-aesthetic.css">
+
+<script src="{{ site.baseurl }}/presentations/oppression-aesthetic/assets/vendor/reveal/dist/reveal.js"></script>
+<script src="{{ site.baseurl }}/presentations/oppression-aesthetic/assets/js/reveal-config.js"></script>
+<script src="{{ site.baseurl }}/presentations/oppression-aesthetic/assets/js/content-manager.js"></script>
+<script src="{{ site.baseurl }}/presentations/oppression-aesthetic/assets/js/accessibility.js"></script>
+<script src="{{ site.baseurl }}/presentations/oppression-aesthetic/assets/js/image-processor.js"></script>
+
+<script>
+// Basic slideshow control functions
+function startSlideshow() {
+    console.log('startSlideshow() called - user clicked proceed');
+    document.getElementById('content-warning').style.display = 'none';
+    document.getElementById('project-info').style.display = 'none';
+    document.getElementById('slideshow-container').style.display = 'block';
+    document.getElementById('slideshow-controls').style.display = 'block';
+
+    console.log('Slideshow container is now visible');
+
+    // Try manual content loading without reveal.js first
+    console.log('Attempting manual content loading...');
+    manualContentLoad();
+}
+
+// Manual content loading function (bypass reveal.js for testing)
+function manualContentLoad() {
+    console.log('Starting manual content loading...');
+
+    // Check if our custom classes exist
+    console.log('ImageProcessor available:', typeof ImageProcessor !== 'undefined');
+    console.log('ContentManager available:', typeof ContentManager !== 'undefined');
+
+    // Try to load content directly
+    fetch('/presentations/oppression-aesthetic/content/metadata/image-data.json')
+        .then(response => {
+            console.log('JSON fetch response:', response.status);
+            return response.json();
+        })
+        .then(data => {
+            console.log('JSON data loaded, images count:', data.images ? data.images.length : 0);
+
+            // Show some basic content for testing
+            const container = document.getElementById('dynamic-content-container');
+            if (container) {
+                console.log('Found dynamic content container');
+                container.innerHTML = `
+                    <section>
+                        <h2>Test Content Loaded Successfully!</h2>
+                        <p>Found ${data.images ? data.images.length : 0} images in metadata.</p>
+                        <p>This proves the content loading system works.</p>
+                    </section>
+                `;
+                console.log('Test content inserted');
+            } else {
+                console.error('Dynamic content container not found');
+            }
+        })
+        .catch(error => {
+            console.error('Error loading content:', error);
+        });
+}
+
+function showInfo() {
+    document.getElementById('content-warning').style.display = 'none';
+    document.getElementById('project-info').style.display = 'block';
+}
+
+function hideInfo() {
+    document.getElementById('project-info').style.display = 'none';
+    document.getElementById('content-warning').style.display = 'block';
+}
+
+function exitSlideshow() {
+    document.getElementById('slideshow-container').style.display = 'none';
+    document.getElementById('slideshow-controls').style.display = 'none';
+    document.getElementById('content-warning').style.display = 'block';
+}
+
+function showKeyboardHelp() {
+    document.getElementById('help-modal').style.display = 'block';
+}
+
+function hideKeyboardHelp() {
+    document.getElementById('help-modal').style.display = 'none';
+}
+
+// Placeholder functions - will be implemented in separate JS files
+function toggleBlur() {
+    console.log('Blur toggle - to be implemented in accessibility.js');
+}
+
+function showContentWarnings() {
+    console.log('Content warnings - to be implemented in accessibility.js');
+}
+</script>

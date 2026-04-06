@@ -21,7 +21,8 @@
       "Bash(lsof:*)",
       "Bash(ss:*)",
       "Bash(tree:*)",
-      "Bash(bundle exec jekyll clean:*)"
+      "Bash(bundle exec jekyll clean:*)",
+      "Bash(ls:*)"
     ]
   }
 }

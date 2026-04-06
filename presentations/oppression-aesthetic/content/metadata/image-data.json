@@ -1,0 +1,661 @@
+{
+  "project": {
+    "title": "Your Oppression: Our Aesthetic",
+    "description": "A critical examination of documentary atrocity photography reappropriated as album art in anarcho-punk, hardcore, and powerviolence, ca. 1988–2017.",
+    "content_warning_global": "This project contains historical documentary photographs depicting war crimes, state violence, executions, mass casualties, and human suffering. Images are presented in critical context to examine the ethics of aesthetic reappropriation, not for shock value. All high-sensitivity images are blurred by default and require affirmative user action to view."
+  },
+  "curatorial_notes": {
+    "image_8_status": "Capitalist Casualties – Disassembly Line (1992) included per updated curator guidance.",
+    "grouping": "Images 5–6 (West Side Horizons), 10–12 (Despise You / ANb split), and 18–19 (Crossed Out 7\") are grouped as multi-image records representing a single release.",
+    "provenance_gaps": "Several source photographs have not been definitively attributed. Unverified attributions are flagged with 'confidence': 'probable' or 'possible'. Fields marked 'pending_research' require further archival work.",
+    "sensitivity_framework": "Sensitivity levels: low = distressing but non-graphic; moderate = depictions of violence, suffering, or degradation without extreme detail; high = graphic depictions of death, bodily harm, or execution."
+  },
+  "images": [
+    {
+      "id": "conflict-deploying-all-means-1997",
+      "original_filename": "R-462100-1116958556.jpg",
+      "semantic_filename": "conflict-deploying-all-means-necessary-1997-hiroshima-dome.jpg",
+      "artist": "Conflict",
+      "album": "Deploying All Means Necessary – Issue Two",
+      "year": 1997,
+      "label": "Mortarhate Records",
+      "image_type": "album_cover",
+      "source_image": {
+        "description": "A lone figure stands amid rubble with the Hiroshima Genbaku Dome (now the Peace Memorial) visible in the background, photographed in the immediate aftermath of the atomic bombing of Hiroshima, August 6, 1945.",
+        "photographer": "pending_research — multiple photographers documented the aftermath including Japanese press photographers and U.S. military/LIFE magazine correspondents",
+        "date": "August–September 1945",
+        "origin": "Hiroshima, Japan",
+        "archive": "Potential sources: National Archives and Records Administration (NARA), LIFE magazine archive, Hiroshima Peace Memorial Museum",
+        "confidence": "probable — iconographic match to documented aftermath photography"
+      },
+      "alt_text": {
+        "brief": "Album cover showing a person standing amid post-atomic bomb rubble in Hiroshima, with the Genbaku Dome visible behind them.",
+        "detailed": "Black and white photograph of a lone figure, back to camera, standing on a field of debris and rubble. Behind them, the skeletal iron framework of the Hiroshima Genbaku Dome rises against a cloudy sky. Text reads 'Deploying All Means Necessary Issue Two' and 'Conflict' in capital letters.",
+        "contextual": "The Hiroshima Genbaku Dome, the only structure left standing near the epicenter of the August 6, 1945 atomic bombing, became an iconic symbol of nuclear devastation and is now a UNESCO World Heritage Site. Its use on this 1997 anarcho-punk album continues a long tradition in political punk of deploying nuclear imagery as anti-war rhetoric — but strips the photograph of its specific human and historical context."
+      },
+      "sensitivity_level": "moderate",
+      "blur_default": false,
+      "content_warnings": ["mass casualty event", "atomic bombing aftermath", "destruction"],
+      "historical_context": "The United States dropped an atomic bomb on Hiroshima on August 6, 1945, killing an estimated 70,000–80,000 people immediately and up to 140,000 by the end of 1945. The Genbaku Dome, the former Hiroshima Prefectural Industrial Promotion Hall, was the only structure near the hypocenter to remain partially standing. It was preserved as a memorial and designated a UNESCO World Heritage Site in 1996.",
+      "critical_framework": "Conflict, formed in London in 1981, were central figures in the anarcho-punk movement. Their use of atrocity imagery follows a tradition established by Crass — deploying shocking documentary photography to communicate anti-war and anti-state politics. The Hiroshima photograph here functions rhetorically: its familiarity risks domesticating the horror it depicts into album-cover shorthand.",
+      "aesthetic_tradition": "Anarcho-punk visual culture; Crass Records design lineage; anti-nuclear protest imagery",
+      "sources": [
+        "Hiroshima Peace Memorial Museum, hiroshimaforpeace.com",
+        "National Archives and Records Administration (NARA) — WWII Pacific Theater records",
+        "George, Bill. 'The Anarcho-Punk Movement.' Perfect Sound Forever, 2003."
+      ]
+    },
+    {
+      "id": "capitalist-casualties-disassembly-line-1992",
+      "original_filename": "R-2287893-1580335850-8464.jpg",
+      "semantic_filename": "capitalist-casualties-disassembly-line-1992-liberation-photography.jpg",
+      "artist": "Capitalist Casualties",
+      "album": "Disassembly Line",
+      "year": 1992,
+      "label": "Slap-a-Ham Records",
+      "image_type": "album_cover",
+      "source_image": {
+        "description": "A young child in a skirt walks along a muddy path past bodies lying on the ground, surrounded by leafless trees.",
+        "photographer": "pending_research — visual and tonal characteristics consistent with WWII Allied liberation photography (1944–45) or Korean War atrocity documentation",
+        "date": "circa 1944–1953",
+        "origin": "pending_research — possibly Western Europe (concentration camp liberation) or Korean Peninsula",
+        "archive": "Potential sources: NARA, United States Holocaust Memorial Museum (USHMM), Imperial War Museum (IWM)",
+        "confidence": "possible"
+      },
+      "alt_text": {
+        "brief": "A small child walks past bodies on the ground in what appears to be a wartime atrocity photograph.",
+        "detailed": "Grainy black and white photograph of a child, approximately 5–8 years old, wearing a skirt and jacket, walking along a path. Multiple bodies are visible lying on the ground to the right. Bare trees line the background. The Capitalist Casualties logo and 'Disassembly Line' text are overlaid in pink.",
+        "contextual": "The image's iconographic composition — a child survivor moving through or past mass death — appears in both WWII liberation photography and Korean War documentation. The child's apparent unawareness or habituation to the bodies around them is among the most distressing visual registers of wartime atrocity photography."
+      },
+      "sensitivity_level": "high",
+      "blur_default": true,
+      "content_warnings": ["mass casualty event", "bodies", "child in wartime", "atrocity documentation"],
+      "historical_context": "pending_research — specific event and photographer unconfirmed. If from WWII liberation context: Allied forces liberating Nazi concentration and death camps in 1944–45 generated extensive photographic documentation, some commissioned by the Allied governments as evidence of Nazi crimes.",
+      "critical_framework": "Capitalist Casualties, a San Jose-based powerviolence/hardcore band, were part of the Slap-a-Ham Records scene. The album title 'Disassembly Line' positions the image within an anti-capitalist framework, but the sourcing of the photograph without attribution renders its specific human subjects invisible.",
+      "aesthetic_tradition": "Powerviolence; DIY hardcore; Slap-a-Ham Records visual culture",
+      "sources": [
+        "United States Holocaust Memorial Museum Photo Archive, ushmm.org",
+        "Imperial War Museum Photo Collections, iwm.org.uk"
+      ]
+    },
+    {
+      "id": "disrupt-the-rest-2007",
+      "original_filename": "R-947465-1343004754-2787.jpg",
+      "semantic_filename": "disrupt-the-rest-2007-police-arrest.jpg",
+      "artist": "Disrupt",
+      "album": "The Rest",
+      "year": 2007,
+      "label": "Deep Six Records",
+      "image_type": "album_cover",
+      "source_image": {
+        "description": "Black and white photograph of a young person being restrained by two police officers, a baton pressed against their throat.",
+        "photographer": "pending_research — wire service photography consistent with U.S. civil rights or anti-Vietnam War protest coverage, circa 1965–1972",
+        "date": "circa 1965–1972",
+        "origin": "United States",
+        "archive": "Potential sources: AP Images archive, Getty Images wire service archive",
+        "confidence": "possible"
+      },
+      "alt_text": {
+        "brief": "Black and white photograph of a young person being restrained by two police officers with a baton at their throat.",
+        "detailed": "High-contrast black and white image showing a young person in a white t-shirt being gripped by two uniformed police officers. One officer presses a baton across the person's throat from behind; the other grips their arm. The subject's face shows distress.",
+        "contextual": "Images of police violence against protesters circulated widely in U.S. wire services during the civil rights movement and anti-Vietnam War demonstrations of the 1960s–70s. Reprinted without attribution on album covers, these photographs are detached from their specific subjects — people who experienced real violence — and recoded as generic signifiers of state repression."
+      },
+      "sensitivity_level": "moderate",
+      "blur_default": false,
+      "content_warnings": ["police violence", "physical restraint", "state violence"],
+      "historical_context": "pending_research — specific event and photographer unconfirmed.",
+      "critical_framework": "Disrupt were a Boston-based anarcho-crust band active 1989–1995. The Rest (2007) is a posthumous compilation. Use of protest photography in this tradition functions as political solidarity but frequently without acknowledgment of the specific individuals depicted.",
+      "aesthetic_tradition": "Anarcho-crust; anti-police visual rhetoric in DIY hardcore",
+      "sources": [
+        "AP Images historical archive, apimages.com",
+        "Getty Images wire service archive, gettyimages.com"
+      ]
+    },
+    {
+      "id": "infest-no-mans-slave-2002",
+      "original_filename": "R-1074548-1312795459.jpg",
+      "semantic_filename": "infest-no-mans-slave-2002-vietnam-war-prisoner.jpg",
+      "artist": "Infest",
+      "album": "No Man's Slave",
+      "year": 2002,
+      "label": "Deep Six Records",
+      "image_type": "album_cover",
+      "source_image": {
+        "description": "Color photograph of a young Southeast Asian man, blindfolded and gagged with cloth, kneeling in a rice paddy. A paper tag is attached to his clothing.",
+        "photographer": "pending_research — consistent with Vietnam War-era photojournalism, likely AP or UPI wire service, circa 1965–1972",
+        "date": "circa 1965–1972",
+        "origin": "Vietnam",
+        "archive": "Potential sources: AP Images archive, Getty Images / Hulton Archive",
+        "confidence": "probable"
+      },
+      "alt_text": {
+        "brief": "A blindfolded and gagged Vietnamese man kneels in a rice paddy with a paper tag attached to his clothing.",
+        "detailed": "Color photograph showing a young man in dark clothing kneeling upright amid tall green rice plants. His eyes and mouth are covered with cloth. A small paper tag — likely an identification or processing tag — is pinned to his chest. The image is framed by a black border with the 'INFEST' logo in the upper left corner.",
+        "contextual": "The paper tag marks this person as a prisoner being processed — likely a suspected NLF/Viet Cong combatant or civilian detained by ARVN or U.S. forces. Tags were used in prisoner processing during the Vietnam War. The photograph documents an act of state violence and detention; its use as album art transforms a specific act of dehumanization into an aesthetic object."
+      },
+      "sensitivity_level": "high",
+      "blur_default": true,
+      "content_warnings": ["prisoner detention", "blindfolding", "Vietnam War", "dehumanization"],
+      "historical_context": "During the Vietnam War (1955–1975), both U.S. and South Vietnamese (ARVN) forces detained large numbers of suspected Viet Cong fighters and civilians. Photojournalists embedded with U.S. forces documented detention and interrogation practices that frequently violated the Geneva Conventions. The paper tagging of prisoners was standard processing procedure.",
+      "critical_framework": "Infest were a Los Angeles powerviolence band central to the early 1990s scene. Their album art consistently draws on atrocity and protest photography. The use of a Vietnamese prisoner photograph without attribution or contextual framing reproduces the colonial gaze of the original documentation.",
+      "aesthetic_tradition": "Powerviolence; anti-war visual culture; Deep Six Records aesthetic",
+      "sources": [
+        "AP Images Vietnam War archive, apimages.com",
+        "Faas, Horst, and Tim Page, eds. Requiem. Random House, 1997.",
+        "Young, Marilyn B. The Vietnam Wars, 1945–1990. HarperCollins, 1991."
+      ]
+    },
+    {
+      "id": "neanderthal-rorschach-split-1991",
+      "original_filename": "R-1366793-1356840113-4659.jpg",
+      "semantic_filename": "neanderthal-rorschach-split-1991-wartime-decapitation.jpg",
+      "artist": "Neanderthal",
+      "album": "Rorschach / Neanderthal Split",
+      "year": 1991,
+      "label": "self-released / Gern Blandsten Records",
+      "image_type": "album_cover",
+      "source_image": {
+        "description": "Black and white photograph showing a uniformed soldier smiling while holding a weapon, as another hand (out of frame) holds a severed human head by the hair.",
+        "photographer": "pending_research — consistent with WWII-era documentation of Japanese war crimes or Pacific theater combat photography, possibly from Allied intelligence or war crimes tribunal evidence",
+        "date": "circa 1937–1945",
+        "origin": "pending_research — possibly China (Second Sino-Japanese War) or Pacific theater",
+        "archive": "Potential sources: NARA, International Military Tribunal for the Far East (Tokyo War Crimes Tribunal) evidence archives",
+        "confidence": "possible"
+      },
+      "alt_text": {
+        "brief": "Wartime photograph showing a soldier posing beside a severed human head held up by another person's hand.",
+        "detailed": "Black and white photograph. At center-left, a uniformed soldier wearing a cap smiles toward the camera and carries a weapon over one shoulder. To the right, a disembodied hand entering from the upper right holds a severed human head by the hair. The head shows signs of trauma.",
+        "contextual": "Photographs of this type were documented extensively during the Second Sino-Japanese War (1937–1945), when Imperial Japanese forces committed systematic atrocities including mass decapitation of Chinese civilians and prisoners of war. Some images were taken by Japanese soldiers as trophies; others were captured by Allied intelligence or submitted as evidence at the Tokyo War Crimes Tribunal (1946–48). The specific origin of this image is unconfirmed."
+      },
+      "sensitivity_level": "high",
+      "blur_default": true,
+      "content_warnings": ["graphic death", "decapitation", "wartime atrocity", "trophy violence"],
+      "historical_context": "The Second Sino-Japanese War (1937–1945), particularly the Nanjing Massacre (December 1937 – January 1938), produced extensive photographic documentation of Japanese military atrocities against Chinese civilians and prisoners of war. Estimates of Nanjing casualties range from 40,000 to 300,000. Photographic evidence was submitted to the International Military Tribunal for the Far East.",
+      "critical_framework": "This image represents perhaps the most extreme instance in this collection of atrocity photography used without any contextual framing. Its placement on a 1991 hardcore split record renders specific war crimes as aesthetic provocation, entirely erasing the identity and humanity of the victim.",
+      "aesthetic_tradition": "Early 1990s hardcore/powerviolence shock aesthetics",
+      "sources": [
+        "Chang, Iris. The Rape of Nanking: The Forgotten Holocaust of World War II. Basic Books, 1997.",
+        "International Military Tribunal for the Far East, evidence archives",
+        "NARA Record Group 238 — War Crimes Records"
+      ]
+    },
+    {
+      "id": "despise-you-west-side-horizons-1999",
+      "original_filenames": [
+        "R-1650425-1493460696-8009.jpg",
+        "R-1650425-1493460702-9054.jpg"
+      ],
+      "semantic_filenames": [
+        "despise-you-west-side-horizons-1999-cover-syringe.jpg",
+        "despise-you-west-side-horizons-1999-insert-bombed-building.jpg"
+      ],
+      "artist": "Despise You",
+      "album": "West Side Horizons",
+      "year": 1999,
+      "label": "Pessimiser Records",
+      "image_type": "multi_image_release",
+      "images": [
+        {
+          "role": "cover",
+          "source_image": {
+            "description": "Extreme close-up of a dark-skinned face, eyes visible, holding a hypodermic syringe at the mouth.",
+            "photographer": "pending_research — consistent with documentary drug use photography, possibly from photojournalism or public health campaigns",
+            "date": "circa 1980s–1990s",
+            "origin": "United States",
+            "archive": "pending_research",
+            "confidence": "unknown"
+          },
+          "alt_text": {
+            "brief": "Extreme close-up of a person's face holding a syringe at their mouth.",
+            "detailed": "Black and white close-up photograph. A dark-skinned face fills the frame, one eye visible in the upper portion. A hypodermic syringe is held horizontally at the mouth. The 'Despise You' logo in gothic lettering is positioned at the right edge.",
+            "contextual": "The image depicts heroin or intravenous drug use. Despise You's work consistently documents the lived realities of poverty, gang life, and substance use in West Los Angeles. Whether this image was taken with the subject's knowledge and consent, or sourced from journalistic archives, affects the ethical status of its use significantly."
+          },
+          "sensitivity_level": "moderate",
+          "blur_default": false,
+          "content_warnings": ["drug use", "intravenous drug use"]
+        },
+        {
+          "role": "insert",
+          "source_image": {
+            "description": "Black and white photograph of a lone figure walking through the rubble-filled interior of a destroyed building.",
+            "photographer": "pending_research — consistent with WWII bombing aftermath or urban riot/conflict photography",
+            "date": "circa 1940s–1960s",
+            "origin": "pending_research",
+            "archive": "pending_research",
+            "confidence": "unknown"
+          },
+          "alt_text": {
+            "brief": "A figure walks through the ruins of a destroyed building.",
+            "detailed": "Black and white photograph. A single figure in dark clothing walks through the gutted interior of a destroyed building. Twisted metal, rubble, and debris fill the space. The walls are scorched and partially collapsed. The image has the tonal quality of mid-20th-century press photography.",
+            "contextual": "Images of civilians navigating post-bombing destruction appear across many 20th-century conflicts. The specific context here — wartime bombing, urban riot, industrial accident — is unconfirmed."
+          },
+          "sensitivity_level": "low",
+          "blur_default": false,
+          "content_warnings": ["destruction", "bombing aftermath"]
+        }
+      ],
+      "historical_context": "Despise You formed in Inglewood/West Los Angeles in 1994. Their work is explicitly rooted in the social conditions of South and West LA — gang violence, poverty, police brutality, and substance abuse. Their visual choices reflect an attempt to document rather than aestheticize, though the absence of attribution still raises ethical questions.",
+      "critical_framework": "Despise You represent a significant counterpoint within this collection: their imagery is frequently drawn from the communities they emerge from rather than from distant atrocities. This does not resolve questions of consent or attribution but shifts the ethical register considerably.",
+      "aesthetic_tradition": "West Coast powerviolence; Pessimiser Records aesthetic; documentary realism",
+      "sources": [
+        "Blush, Steven. American Hardcore: A Tribal History. Feral House, 2001."
+      ]
+    },
+    {
+      "id": "infest-self-titled-1988",
+      "original_filename": "R-2193855-1356403253-3489.jpg",
+      "semantic_filename": "infest-self-titled-1988-soiling-of-old-glory.jpg",
+      "artist": "Infest",
+      "album": "Infest (self-titled 7\")",
+      "year": 1988,
+      "label": "self-released",
+      "image_type": "album_cover",
+      "source_image": {
+        "description": "Black and white photograph of a white man using an American flag as a weapon to attack a Black man during the Boston anti-busing protests.",
+        "photographer": "Stanley Forman",
+        "publication": "Boston Herald American",
+        "date": "April 5, 1976",
+        "origin": "City Hall Plaza, Boston, Massachusetts",
+        "award": "Pulitzer Prize for Spot News Photography, 1977",
+        "subject_identified": "Joseph Rakes attacking Ted Landsmark",
+        "rights_holder": "Stanley Forman / Boston Herald American",
+        "archive": "Museum of Fine Arts Boston; widely reproduced in press archives",
+        "confidence": "confirmed"
+      },
+      "alt_text": {
+        "brief": "Stanley Forman's Pulitzer Prize-winning photograph showing a white man attacking a Black man with an American flag during the 1976 Boston anti-busing protests.",
+        "detailed": "High-contrast black and white photograph printed in a halftone pattern on the album cover. A white man in dark clothing lunges forward, using a flagpole bearing an American flag as a spear or club toward a Black man in a light suit. A crowd fills the background. The 'INFEST' logo is printed in white text at the bottom.",
+        "contextual": "This is one of the most reproduced press photographs of the 20th century. It was taken by Stanley Forman during the violent anti-busing protests in Boston in April 1976. The man wielding the flag is Joseph Rakes; the man being attacked is Ted Landsmark, a prominent Black attorney and civic leader. Landsmark has spoken publicly and extensively about the photograph's impact on his life. The image has been widely reproduced, often without acknowledgment that a living person was subjected to a racist attack."
+      },
+      "sensitivity_level": "moderate",
+      "blur_default": false,
+      "content_warnings": ["racist violence", "assault", "civil unrest"],
+      "historical_context": "The Boston school desegregation and busing crisis (1974–1988) was among the most violent responses to court-ordered school integration in the United States. Federal Judge W. Arthur Garrity Jr.'s 1974 order mandating busing sparked sustained white resistance, particularly in South Boston and Charlestown. The April 5, 1976 incident occurred during a protest at City Hall Plaza. Ted Landsmark went on to become president of the Boston Architectural College.",
+      "critical_framework": "Unlike most images in this collection, this photograph is definitively attributed and extensively documented. Its use by Infest without credit removes it from its specific political context — the reality of anti-Black racism in a Northern U.S. city — and re-encodes it as generic political imagery. Landsmark's personhood and ongoing life are erased by this decontextualization.",
+      "aesthetic_tradition": "Powerviolence; political hardcore; anti-racist visual rhetoric",
+      "sources": [
+        "Forman, Stanley. 'The Soiling of Old Glory.' Boston Herald American, April 6, 1976.",
+        "Landsmark, Ted. Various public statements and interviews, 1976–present.",
+        "Formisano, Ronald P. Boston Against Busing: Race, Class, and Ethnicity in the 1960s and 1970s. University of North Carolina Press, 1991.",
+        "Pulitzer Prize Board. 1977 Spot News Photography citation."
+      ]
+    },
+    {
+      "id": "disrupt-dead-2007",
+      "original_filename": "R-2388752-1281154166.jpg",
+      "semantic_filename": "disrupt-dead-2007-chained-figure.jpg",
+      "artist": "Disrupt",
+      "album": "Disrupt Dead",
+      "year": 2007,
+      "label": "Deep Six Records",
+      "image_type": "album_cover",
+      "source_image": {
+        "description": "High-contrast black and white image of a figure whose wrists appear to be chained or bound, arms stretched above, body partially visible.",
+        "photographer": "pending_research",
+        "date": "unknown",
+        "origin": "unknown",
+        "archive": "pending_research",
+        "confidence": "unknown"
+      },
+      "alt_text": {
+        "brief": "High-contrast image of a figure with bound or chained wrists.",
+        "detailed": "Extreme high-contrast black and white image, heavily processed. A figure's torso and arms are visible; the wrists appear to be chained or restrained above the figure's head. The extreme contrast obscures detail. 'DISRUPT' and 'DISRUPT DEAD' text appears in rough lettering.",
+        "contextual": "The heavy graphic processing makes the source photograph difficult to trace and obscures whether this depicts historical documentation (lynching, political imprisonment, torture) or a staged image. The ambiguity is itself a critical problem: graphic treatment aestheticizes whatever violence or constraint is depicted."
+      },
+      "sensitivity_level": "moderate",
+      "blur_default": false,
+      "content_warnings": ["restraint", "possible depiction of lynching or torture"],
+      "historical_context": "pending_research",
+      "critical_framework": "The extreme halftone and contrast treatment here represents a common DIY aesthetic move in 1990s hardcore — processing source material to the point of near-abstraction. This obscures provenance while amplifying visceral impact, a technique that raises particular ethical concerns if the source depicts a specific act of racist or political violence.",
+      "aesthetic_tradition": "Anarcho-crust; photocopied DIY zine aesthetics",
+      "sources": []
+    },
+    {
+      "id": "despise-you-agoraphobic-nosebleed-split-2011",
+      "original_filenames": [
+        "R-2847738-1305509950.jpg",
+        "R-2847738-1305509958.jpg",
+        "R-2847738-1305509977.jpg"
+      ],
+      "semantic_filenames": [
+        "despise-you-agoraphobic-nosebleed-split-2011-cover-rodriguez.jpg",
+        "despise-you-agoraphobic-nosebleed-split-2011-insert-children-soldier.jpg",
+        "despise-you-agoraphobic-nosebleed-split-2011-insert-liner-notes-rodriguez.jpg"
+      ],
+      "artist": "Despise You / Agoraphobic Nosebleed",
+      "album": "And On and On…",
+      "year": 2011,
+      "label": "Relapse Records",
+      "image_type": "multi_image_release",
+      "images": [
+        {
+          "role": "cover",
+          "source_image": {
+            "description": "Night street photography showing two young men standing, a third person visible hunched on the ground nearby.",
+            "photographer": "Joseph Rodriguez",
+            "photographer_notes": "Credited in liner notes as 'Cover photo by Joseph Rodriguez.' Rodriguez is a documentary photographer known for his decades-long documentation of gang life and poverty in East and South Los Angeles.",
+            "date": "circa 1990s",
+            "origin": "Los Angeles, California",
+            "archive": "Joseph Rodriguez archive; represented by Magnum Photos (former)",
+            "confidence": "confirmed — credited in release"
+          },
+          "alt_text": {
+            "brief": "Night street photograph by Joseph Rodriguez showing two young men standing while another person is visible on the ground.",
+            "detailed": "Color photograph, dark and grainy. Two young men in jackets stand facing slightly away from the camera on a sidewalk. A third person is visible in the lower right, hunched or collapsed on the ground. The scene is lit by available street light. The Despise You and Agoraphobic Nosebleed logos are overlaid.",
+            "contextual": "Joseph Rodriguez documented Los Angeles gang life and poverty across multiple decades, producing bodies of work including East Side Stories (1998). His photographs are among the most significant documentary records of the human cost of poverty and gang violence in LA. His credited involvement here represents a departure from the uncredited appropriation that characterizes most releases in this collection."
+          },
+          "sensitivity_level": "moderate",
+          "blur_default": false,
+          "content_warnings": ["street violence", "person in distress"]
+        },
+        {
+          "role": "insert_a",
+          "source_image": {
+            "description": "Color photograph of two young Middle Eastern girls sitting on a couch, next to a heavily armed soldier.",
+            "photographer": "pending_research — consistent with Iraq War photojournalism, circa 2003–2008",
+            "date": "circa 2003–2008",
+            "origin": "Iraq",
+            "archive": "Potential sources: AP Images, Getty Images, Time magazine archive",
+            "confidence": "probable"
+          },
+          "alt_text": {
+            "brief": "Two young girls sit on a couch next to a heavily armed soldier in military uniform.",
+            "detailed": "Color photograph split across a gatefold. On the left panel, two girls — approximately 5 and 8 years old — sit close together on a patterned couch. One wears yellow; the other looks toward the camera. On the right panel, a soldier in desert camouflage sits with a rifle resting across their lap. The 'Despise You' logo is placed vertically on the far left.",
+            "contextual": "The juxtaposition of the children and the armed soldier — divided by a gatefold split — creates a visual argument about occupation and its human cost. The Iraq War (2003–2011) produced extensive photojournalism documenting civilian life under military occupation. Whether these children's images were taken with appropriate consent and whether they or their families knew of any subsequent use is unknown."
+          },
+          "sensitivity_level": "moderate",
+          "blur_default": false,
+          "content_warnings": ["children in conflict zone", "military occupation", "Iraq War"]
+        },
+        {
+          "role": "insert_b_liner_notes",
+          "source_image": {
+            "description": "Color photograph of a child collapsed or resting on a sidewalk in strong sunlight, credited to Joseph Rodriguez.",
+            "photographer": "Joseph Rodriguez",
+            "photographer_notes": "Credited in liner notes. See cover image entry for photographer biography.",
+            "date": "circa 1990s",
+            "origin": "Los Angeles, California",
+            "archive": "Joseph Rodriguez archive",
+            "confidence": "confirmed — credited in release"
+          },
+          "alt_text": {
+            "brief": "A child lies on a sun-lit sidewalk in a photograph credited to Joseph Rodriguez.",
+            "detailed": "Color photograph. A young child, partially unclothed, lies on a concrete sidewalk in bright sunlight. A storefront advertising breakfast hours is visible in the background. Liner note text is overlaid, crediting the recording locations, production, and photography.",
+            "contextual": "The liner notes credit 'Cover photo by Joseph Rodriguez' — it is unclear whether this refers to the cover image, this image, or both. Rodriguez's work on poverty in Los Angeles gives this image a documentary context that most images in this collection lack entirely."
+          },
+          "sensitivity_level": "moderate",
+          "blur_default": false,
+          "content_warnings": ["child in poverty", "distressing social conditions"]
+        }
+      ],
+      "historical_context": "Agoraphobic Nosebleed formed in 1994 in western Massachusetts. Their collaboration with Despise You on And On and On… was released on Relapse Records in 2011. The release represents an unusual case of partially credited documentary photography within the powerviolence tradition.",
+      "critical_framework": "The credited presence of Joseph Rodriguez on this release does not resolve all ethical questions — consent of the subjects photographed, particularly children, remains unaddressed — but it marks a significant departure from the anonymous reappropriation that characterizes most releases examined here.",
+      "aesthetic_tradition": "Powerviolence; documentary realism; Relapse Records production aesthetic",
+      "sources": [
+        "Rodriguez, Joseph. East Side Stories: Gang Life in L.A. powerHouse Books, 1998.",
+        "Relapse Records release documentation, 2011."
+      ]
+    },
+    {
+      "id": "dropdead-crossed-out-new-world-slaughter-1993",
+      "original_filename": "R-3297002-1324500260.jpg",
+      "semantic_filename": "dropdead-crossed-out-new-world-slaughter-supremacy-1993-collage.jpg",
+      "artist": "Dropdead / Crossed Out",
+      "album": "New World Slaughter / Supremacy",
+      "year": 1993,
+      "label": "Desperate Attempt Records",
+      "image_type": "album_cover",
+      "source_image": {
+        "description": "Heavily processed photographic collage. Fragments of imagery — human forms, possibly bodies — are assembled and treated with extreme contrast and grain.",
+        "photographer": "pending_research — source photograph(s) obscured by graphic processing",
+        "date": "unknown",
+        "origin": "unknown",
+        "archive": "pending_research",
+        "confidence": "unknown — graphic treatment prevents attribution"
+      },
+      "alt_text": {
+        "brief": "A heavily processed black and white photographic collage with fragmented human forms.",
+        "detailed": "Black and white image with extreme halftone processing. Fragmented photographic forms — possible body parts, draped fabric, organic shapes — are assembled in a collage. The 'DROPDEAD' logo is stenciled in the upper left. The image is difficult to read as a coherent scene due to heavy graphic manipulation.",
+        "contextual": "The graphic treatment here is so extreme that source material cannot be reliably identified. This represents one end of a spectrum in DIY hardcore design: images processed until they become near-abstract, simultaneously amplifying visceral impact and erasing the specificity of whatever violence or suffering is depicted."
+      },
+      "sensitivity_level": "low",
+      "blur_default": false,
+      "content_warnings": ["possible depiction of bodies or violence — obscured by graphic treatment"],
+      "historical_context": "Dropdead formed in Providence, Rhode Island in 1991; Crossed Out in San Jose, California. Both were prominent in the early 1990s hardcore/powerviolence underground.",
+      "critical_framework": "The collage and extreme processing aesthetic traces back to situationist détournement and punk zine culture. When applied to documentary atrocity photography, it raises a distinct ethical question: does abstraction mitigate exploitation, or does it render the subjects of the original photograph even more invisible?",
+      "aesthetic_tradition": "Anarcho-hardcore; situationist collage; photocopied zine aesthetics",
+      "sources": []
+    },
+    {
+      "id": "infest-self-titled-1991",
+      "original_filename": "R-4588909-1613103419-4707.jpg",
+      "semantic_filename": "infest-self-titled-1991-public-execution.jpg",
+      "artist": "Infest",
+      "album": "Infest (self-titled 7\")",
+      "year": 1991,
+      "label": "Theologian Records",
+      "image_type": "album_cover",
+      "source_image": {
+        "description": "Black and white photograph showing a public execution: a uniformed figure beats a man lying on the ground as a crowd of soldiers and civilians watches.",
+        "photographer": "pending_research — consistent with mid-20th-century Southeast Asian or Latin American political violence documentation",
+        "date": "circa 1960s–1970s",
+        "origin": "pending_research — possible Southeast Asia or Latin America",
+        "archive": "pending_research",
+        "confidence": "possible"
+      },
+      "alt_text": {
+        "brief": "Photograph of a public execution: a uniformed figure beats a man on the ground while a crowd watches.",
+        "detailed": "Black and white halftone photograph. At center, a uniformed figure stands over a man lying face-down on grass, striking him with a rifle or club. A second figure lies nearby. A large crowd of uniformed soldiers and civilians forms a circle. The 'INFEST' logo with double underline is in the lower left.",
+        "contextual": "Public beatings and executions were documented by photojournalists across numerous Cold War-era conflicts — in Vietnam, Indonesia (1965–66 mass killings), and across Latin America during U.S.-backed military operations. The specific event depicted here is unconfirmed. The crowd's presence — watching without intervening — is a recurring visual motif in atrocity documentation, implicating spectatorship itself."
+      },
+      "sensitivity_level": "high",
+      "blur_default": true,
+      "content_warnings": ["execution", "lethal violence", "public killing", "state violence"],
+      "historical_context": "pending_research — specific event unconfirmed. If Indonesian context: the 1965–66 anti-communist purge in Indonesia, carried out with U.S. support, resulted in the killing of an estimated 500,000–1,000,000 people. Extensive photographic documentation exists in international press archives.",
+      "critical_framework": "This is the second Infest self-titled 7\" (distinct from the 1988 release). Infest's repeated use of execution and atrocity photography establishes a visual program that requires critical examination as a body of work rather than isolated instances.",
+      "aesthetic_tradition": "Powerviolence; anti-state visual rhetoric",
+      "sources": [
+        "Robinson, Geoffrey. The Killing Season: A History of the Indonesian Massacres, 1965–66. Princeton University Press, 2018."
+      ]
+    },
+    {
+      "id": "infest-days-turn-black-2013",
+      "original_filename": "R-4601066-1513889827-2531.jpg",
+      "semantic_filename": "infest-days-turn-black-2013-mass-casualties.jpg",
+      "artist": "Infest",
+      "album": "Days Turn Black",
+      "year": 2013,
+      "label": "Deep Six Records",
+      "image_type": "album_cover",
+      "source_image": {
+        "description": "Black and white photograph showing a large pile of decomposed human bodies.",
+        "photographer": "pending_research — consistent with documentation of the aftermath of the Cambodian genocide (1979 liberation photography) or WWII",
+        "date": "circa 1945 or 1979",
+        "origin": "pending_research — possibly Cambodia or Western Europe",
+        "archive": "Potential sources: NARA; Documentation Center of Cambodia (DC-Cam), Phnom Penh",
+        "confidence": "possible"
+      },
+      "alt_text": {
+        "brief": "Photograph showing a large pile of human bodies.",
+        "detailed": "Black and white photograph. The entire frame is filled with what appear to be decomposed or partially mummified human bodies piled together. The image has the tonal quality of mid-20th-century documentary photography. The 'INFEST' logo is in the lower right corner.",
+        "contextual": "Images of mass casualty sites were produced across multiple 20th-century genocide and war contexts. The visual grammar here — overhead or level view of a pile of bodies — appears in both WWII concentration camp liberation photography and in documentation of the Cambodian genocide sites photographed after the Vietnamese liberation of Phnom Penh in January 1979. These are photographs of real, specific people who were killed in acts of genocide or mass atrocity."
+      },
+      "sensitivity_level": "high",
+      "blur_default": true,
+      "content_warnings": ["graphic death", "mass casualties", "genocide documentation", "decomposed bodies"],
+      "historical_context": "pending_research for specific attribution. Cambodian context: The Khmer Rouge regime (1975–1979) killed an estimated 1.5–2 million people. When Vietnamese forces liberated Phnom Penh in January 1979, photojournalists documented mass grave sites and detention facilities including Tuol Sleng (S-21). The Documentation Center of Cambodia maintains the largest archive of this material.",
+      "critical_framework": "This represents the most graphically extreme image in the Infest catalog examined here. The complete absence of contextual framing — no title, no text beyond the band logo — makes the photograph function purely as aesthetic provocation, erasing entirely the identity and humanity of the victims depicted.",
+      "aesthetic_tradition": "Powerviolence; shock aesthetics in DIY hardcore",
+      "sources": [
+        "Documentation Center of Cambodia (DC-Cam), dccam.org",
+        "Chandler, David. Voices from S-21: Terror and History in Pol Pot's Secret Prison. University of California Press, 1999."
+      ]
+    },
+    {
+      "id": "no-comment-live-on-kxlu-2013",
+      "original_filename": "R-5076975-1384488274-9569.jpg",
+      "semantic_filename": "no-comment-live-on-kxlu-2013-weegee-crime-scene.jpg",
+      "artist": "No Comment",
+      "album": "Live on KXLU 1992",
+      "year": 2013,
+      "label": "Deep Six Records",
+      "image_type": "album_cover",
+      "source_image": {
+        "description": "Aerial black and white press photograph of a car crash scene on a city street, with a body covered by a sheet on the sidewalk.",
+        "photographer": "Weegee (Arthur Fellig), probable",
+        "photographer_notes": "The aerial perspective, subject matter (crime/accident scene with draped body), high contrast, and mid-century New York City visual context are strongly consistent with Weegee's documented body of work. Not yet confirmed against specific Weegee catalog entry.",
+        "date": "circa 1935–1945",
+        "origin": "New York City, New York",
+        "rights_holder": "International Center of Photography (ICP) — holds the primary Weegee archive",
+        "archive": "International Center of Photography, New York; Getty Images Weegee collection",
+        "confidence": "probable — strong stylistic and contextual match"
+      },
+      "alt_text": {
+        "brief": "Aerial press photograph, likely by Weegee, of a car crash scene with a covered body on the sidewalk.",
+        "detailed": "Black and white photograph taken from above. A damaged black automobile is visible on a city street corner, surrounded by onlookers and officials. On the sidewalk to the lower right, a body is covered by a white sheet. A sign is visible in the lower left area. The scene has the high-contrast, available-light quality characteristic of Weegee's night press photography.",
+        "contextual": "Weegee (Arthur Fellig, 1899–1968) was a New York City press photographer who monitored police radio and arrived at crime and accident scenes before other photographers. His work appeared extensively in tabloid newspapers and was later recognized as significant art. His photographs document real deaths of real New Yorkers, many from immigrant and working-class communities. The ICP holds the primary archive and manages licensing."
+      },
+      "sensitivity_level": "moderate",
+      "blur_default": false,
+      "content_warnings": ["death", "accident aftermath", "covered body"],
+      "historical_context": "Weegee operated primarily in New York City from the late 1930s through the 1940s, covering crime scenes, accidents, fires, and nightlife. His work was published in PM newspaper and later in the book Naked City (1945). His photographs are widely held in institutional collections and are actively licensed.",
+      "critical_framework": "Unlike most images in this collection, this photograph — if by Weegee — has a known creator, an institutional rights holder, and an established art historical context. Its use without credit or licensing represents a concrete intellectual property and ethical issue in addition to the broader concerns about humanizing photographic subjects.",
+      "aesthetic_tradition": "Powerviolence; tabloid press photography aesthetic",
+      "sources": [
+        "International Center of Photography, Weegee Archive, icp.org",
+        "Weegee (Arthur Fellig). Naked City. Essential Books, 1945.",
+        "Getty Images Weegee/International Center of Photography collection"
+      ]
+    },
+    {
+      "id": "despise-you-coke-bust-split-2017",
+      "original_filename": "R-10299287-1689088318-5762.jpg",
+      "semantic_filename": "despise-you-coke-bust-split-2017-figure-in-poverty.jpg",
+      "artist": "Despise You / Coke Bust",
+      "album": "Despise You / Coke Bust Split 7\"",
+      "year": 2017,
+      "label": "React! Records",
+      "image_type": "album_cover",
+      "source_image": {
+        "description": "Black and white photograph of a nude or near-nude person hunched over on a broken or dismantled bed frame.",
+        "photographer": "pending_research — consistent with documentary photography of poverty, addiction, or incarceration",
+        "date": "circa 1970s–1990s",
+        "origin": "unknown",
+        "archive": "pending_research",
+        "confidence": "unknown"
+      },
+      "alt_text": {
+        "brief": "A person sits hunched and unclothed on a broken bed frame in a bare room.",
+        "detailed": "Black and white photograph. A person sits or crouches on what appears to be a stripped or broken metal bed frame, their head lowered toward their knees. They appear to be unclothed or nearly so. The room is bare and deteriorated. The image has the quality of documentary poverty or institutional photography.",
+        "contextual": "Images of this type appear across documentary traditions covering poverty, incarceration, addiction, and homelessness. The subject's vulnerability — nude, confined, isolated — raises significant questions about the conditions of the photograph's making and the ethics of its subsequent use as album art."
+      },
+      "sensitivity_level": "moderate",
+      "blur_default": true,
+      "content_warnings": ["nudity", "poverty", "human vulnerability", "possible depiction of incarceration or addiction"],
+      "historical_context": "pending_research",
+      "critical_framework": "By 2017, the aesthetic conventions established by the early 1990s powerviolence scene had been well established. Despise You's continued use of documentary imagery of vulnerability and suffering on this late-career release invites reconsideration of whether these choices constitute an ongoing political practice or a calcified aesthetic habit.",
+      "aesthetic_tradition": "Powerviolence; documentary poverty photography aesthetic",
+      "sources": []
+    },
+    {
+      "id": "crossed-out-7inch-1991",
+      "original_filenames": [
+        "R-1996973-1358816529-6132.jpg",
+        "R-1996973-1358816542-3985.jpg"
+      ],
+      "semantic_filenames": [
+        "crossed-out-7inch-1991-cover-execution-iran.jpg",
+        "crossed-out-7inch-1991-insert-execution-iran-wide.jpg"
+      ],
+      "artist": "Crossed Out",
+      "album": "Crossed Out (self-titled 7\")",
+      "year": 1991,
+      "label": "Slap-a-Ham Records",
+      "image_type": "multi_image_release",
+      "images": [
+        {
+          "role": "cover",
+          "source_image": {
+            "description": "Black and white photograph of a public execution by firing squad. Blindfolded figures stand or kneel in an arid landscape while armed soldiers aim rifles at them.",
+            "photographer": "pending_research — consistent with post-revolutionary Iranian execution photography, circa 1979–1983, or Kurdish execution documentation",
+            "date": "circa 1979–1983",
+            "origin": "pending_research — probable Iran",
+            "archive": "Potential sources: AFP archive, AP Images archive, Kaveh Golestan archive (Magnum Photos)",
+            "confidence": "probable — landscape, dress, and execution format consistent with Iranian revolutionary period documentation"
+          },
+          "alt_text": {
+            "brief": "Photograph of a public execution by firing squad with blindfolded prisoners in an arid landscape.",
+            "detailed": "Black and white halftone photograph. In the foreground, armed figures crouch and aim rifles. In the middle distance, blindfolded figures in civilian clothing stand or kneel as the execution is carried out. An arid, flat landscape is visible in the background with low buildings on the horizon. The 'Crossed Out' logo appears in the lower right.",
+            "contextual": "Following the 1979 Islamic Revolution, the Islamic Republic of Iran carried out mass executions of political opponents, including members of leftist and Kurdish political organizations. Photographers — including Kaveh Golestan, who was later killed by a landmine in Iraq — documented these executions for international wire services. The individuals depicted were sentenced and killed by a government for their political beliefs."
+          },
+          "sensitivity_level": "high",
+          "blur_default": true,
+          "content_warnings": ["execution", "firing squad", "political killing", "state violence"]
+        },
+        {
+          "role": "insert",
+          "source_image": {
+            "description": "Wider shot of the same or similar execution scene, showing more of the landscape and additional participants.",
+            "photographer": "pending_research — same series as cover image",
+            "date": "circa 1979–1983",
+            "origin": "pending_research — probable Iran",
+            "archive": "Potential sources: AFP archive, AP Images archive, Kaveh Golestan archive",
+            "confidence": "probable"
+          },
+          "alt_text": {
+            "brief": "Wider photograph of the same firing squad execution showing soldiers in the foreground and blindfolded prisoners.",
+            "detailed": "Black and white photograph, wider frame than the cover image. Armed figures in military and civilian dress are visible in the foreground; blindfolded prisoners stand in the middle distance. The arid, flat landscape is more visible. A military vehicle is partially visible. More participants are shown.",
+            "contextual": "See cover image entry. This wider view suggests the images were part of a documentary series, likely produced for wire service distribution."
+          },
+          "sensitivity_level": "high",
+          "blur_default": true,
+          "content_warnings": ["execution", "firing squad", "political killing", "state violence"]
+        }
+      ],
+      "historical_context": "The Islamic Republic of Iran conducted mass executions of political opponents in the years following the 1979 revolution, with a particularly large wave of killings in 1988. Photographers working for international wire services documented some of these executions, and the images were distributed globally. Kaveh Golestan (1950–2003), one of Iran's most significant documentary photographers and a Magnum associate, covered this period extensively.",
+      "critical_framework": "Crossed Out were a San Jose-based powerviolence band closely associated with the Slap-a-Ham Records scene. Their use of execution photography without attribution collapses the political specificity of post-revolutionary Iran into a generic signifier of state violence.",
+      "aesthetic_tradition": "Powerviolence; Slap-a-Ham Records visual culture; anti-state visual rhetoric",
+      "sources": [
+        "Golestan, Kaveh. Archive. Magnum Photos, magnumphotos.com.",
+        "Abrahamian, Ervand. Tortured Confessions: Prisons and Public Recantations in Modern Iran. University of California Press, 1999.",
+        "AFP historical archive"
+      ]
+    },
+    {
+      "id": "crossed-out-man-is-the-bastard-split-1992",
+      "original_filename": "R-3122272-1316815870.jpg",
+      "semantic_filename": "crossed-out-man-is-the-bastard-split-1992-belfast-troubles.jpg",
+      "artist": "Crossed Out / Man Is the Bastard",
+      "album": "Crossed Out / Man Is the Bastard Split 7\"",
+      "year": 1992,
+      "label": "Slap-a-Ham Records",
+      "image_type": "album_cover",
+      "source_image": {
+        "description": "Red-tinted black and white photograph of armed figures in a doorway on a Belfast street, with a person kneeling on the ground.",
+        "photographer": "pending_research — consistent with Troubles-era Belfast press or documentary photography, circa 1970s–early 1980s",
+        "date": "circa 1970–1985",
+        "origin": "Belfast, Northern Ireland — 'Bluebell Hill Terrace' street sign visible",
+        "archive": "Potential sources: Pacemaker Press International (Belfast); Magnum Photos (Gilles Peress, Don McCullin); Getty Images / Hulton Archive; Linen Hall Library Political Collection, Belfast",
+        "confidence": "confirmed location — Bluebell Hill Terrace, Belfast; photographer and specific event pending_research"
+      },
+      "alt_text": {
+        "brief": "Red-tinted photograph from Belfast showing armed figures in a doorway and a person kneeling on the ground during the Troubles.",
+        "detailed": "Monochrome photograph printed with a heavy red tone. A street sign reading 'Bluebell Hill Terrace' is visible in the upper left. In a doorway at center, a figure in civilian clothing holds what appears to be a weapon. Several other figures are visible, including one kneeling on the ground. The scene has the chaotic composition of documentary conflict photography. The image is heavily grain-amplified.",
+        "contextual": "Bluebell Hill Terrace is a residential street in Belfast. The scene depicted is consistent with paramilitary activity or a security operation during the Troubles — the three-decade conflict (approximately 1968–1998) in Northern Ireland involving Irish republican and loyalist paramilitary groups, the British Army, and the RUC. Photographers including Don McCullin, Gilles Peress, and numerous Pacemaker Press photographers documented the Troubles extensively. The specific event and the identities of those depicted are unconfirmed."
+      },
+      "sensitivity_level": "high",
+      "blur_default": true,
+      "content_warnings": ["armed conflict", "paramilitary activity", "Northern Ireland Troubles", "person at gunpoint or kneeling under duress"],
+      "historical_context": "The Troubles (c. 1968–1998) resulted in over 3,500 deaths and involved the Provisional IRA, loyalist paramilitary groups (UDA, UVF), the British Army, and the RUC. Belfast was one of the primary sites of conflict. The Linen Hall Library in Belfast holds one of the most significant archives of Troubles-era political and documentary material.",
+      "critical_framework": "The visible street sign grounds this image in a specific, named place — an unusual degree of geographic specificity for this body of album art. For researchers, this makes the image more traceable. For the communities who lived on Bluebell Hill Terrace, it makes the use of their street as hardcore album cover art a more pointed act of reappropriation.",
+      "aesthetic_tradition": "Powerviolence; DIY hardcore; conflict photography aesthetic",
+      "sources": [
+        "Linen Hall Library Political Collection, Belfast, linenhall.com",
+        "Pacemaker Press International archive, Belfast",
+        "Peress, Gilles. Farewell to Bosnia. Scalo, 1994.",
+        "McCullin, Don. Unreasonable Behaviour. Jonathan Cape, 1992.",
+        "McKittrick, David, et al. Lost Lives: The Stories of the Men, Women and Children Who Died as a Result of the Northern Ireland Troubles. Mainstream Publishing, 1999."
+      ]
+    }
+  ]
+}
