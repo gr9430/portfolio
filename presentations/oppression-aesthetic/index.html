@@ -328,18 +328,43 @@ function manualContentLoad() {
         .then(data => {
             console.log('JSON data loaded, images count:', data.images ? data.images.length : 0);
 
-            // Show some basic content for testing
+            // Load actual content using our system
             const container = document.getElementById('dynamic-content-container');
             if (container) {
                 console.log('Found dynamic content container');
-                container.innerHTML = `
-                    <section>
-                        <h2>Test Content Loaded Successfully!</h2>
-                        <p>Found ${data.images ? data.images.length : 0} images in metadata.</p>
-                        <p>This proves the content loading system works.</p>
-                    </section>
-                `;
-                console.log('Test content inserted');
+
+                // Initialize content manager and load real slides
+                if (typeof ContentManager !== 'undefined' && typeof ImageProcessor !== 'undefined') {
+                    const contentManager = new ContentManager();
+                    const imageProcessor = new ImageProcessor();
+
+                    contentManager.initialize(imageProcessor);
+
+                    // Transform and process the data
+                    const transformedData = contentManager.transformMetadata(data.images);
+                    const processedContent = imageProcessor.processImageBatch(transformedData);
+
+                    console.log('Processed content:', processedContent.length, 'items');
+
+                    // Generate all slides
+                    let slidesHTML = '';
+                    processedContent.forEach((item, index) => {
+                        const slideHTML = imageProcessor.createSlideHTML(item);
+                        slidesHTML += slideHTML;
+                    });
+
+                    container.innerHTML = slidesHTML;
+                    console.log('All album artwork slides loaded successfully!');
+                } else {
+                    container.innerHTML = `
+                        <section>
+                            <h2>Content System Ready</h2>
+                            <p>Found ${data.images ? data.images.length : 0} images in metadata.</p>
+                            <p>ImageProcessor: ${typeof ImageProcessor !== 'undefined'}</p>
+                            <p>ContentManager: ${typeof ContentManager !== 'undefined'}</p>
+                        </section>
+                    `;
+                }
             } else {
                 console.error('Dynamic content container not found');
             }
