@@ -22,7 +22,8 @@
       "Bash(ss:*)",
       "Bash(tree:*)",
       "Bash(bundle exec jekyll clean:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(pkill:*)"
     ]
   }
 }

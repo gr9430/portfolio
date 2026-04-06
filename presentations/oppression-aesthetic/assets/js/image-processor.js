@@ -27,10 +27,16 @@ class ImageProcessor {
      * Format: [artist]-[album]-[year]-[context].jpg
      */
     generateSemanticFilename(metadata) {
+        // If semantic_filename is already provided, use it
+        if (metadata.semantic_filename) {
+            return metadata.semantic_filename;
+        }
+
+        // Otherwise generate from metadata
         const artist = this.sanitizeForFilename(metadata.artist);
         const album = this.sanitizeForFilename(metadata.album);
         const year = metadata.year;
-        const context = this.sanitizeForFilename(metadata.context.brief || 'analysis');
+        const context = this.sanitizeForFilename(metadata.historical_context ? 'historical' : 'analysis');
 
         return `${artist}-${album}-${year}-${context}.jpg`.toLowerCase();
     }
@@ -93,23 +99,22 @@ class ImageProcessor {
      * Generate contextual description with critical analysis
      */
     generateContextualDescription(metadata) {
-        const { context } = metadata;
         let description = `This album artwork from ${metadata.year} `;
 
-        if (context.aesthetic_tradition) {
-            description += `draws from ${context.aesthetic_tradition}. `;
+        if (metadata.aesthetic_tradition) {
+            description += `draws from ${metadata.aesthetic_tradition}. `;
         }
 
-        if (context.political_context) {
-            description += `The political context includes: ${context.political_context}. `;
+        if (metadata.historical_context) {
+            description += `Historical context: ${metadata.historical_context}. `;
         }
 
-        if (context.critical_framework) {
-            description += `Critical analysis: ${context.critical_framework}. `;
+        if (metadata.critical_framework) {
+            description += `Critical analysis: ${metadata.critical_framework}. `;
         }
 
-        if (context.ethical_considerations) {
-            description += `Ethical considerations: ${context.ethical_considerations}`;
+        if (metadata.ethical_considerations) {
+            description += `Ethical considerations: ${metadata.ethical_considerations}`;
         }
 
         return description;
@@ -120,17 +125,27 @@ class ImageProcessor {
      * Returns: 'low', 'moderate', or 'high'
      */
     assessSensitivity(metadata) {
-        const { content_warnings, context, tags } = metadata;
+        const { content_warnings } = metadata;
 
-        // Check explicit content warnings
+        // Check explicit content warnings first
         if (content_warnings && content_warnings.length > 0) {
             return this.assessWarningLevel(content_warnings);
         }
 
-        // Check context for sensitive themes
-        const contextText = Object.values(context).join(' ').toLowerCase();
-        const tagsText = tags ? tags.join(' ').toLowerCase() : '';
-        const searchText = `${contextText} ${tagsText}`;
+        // If sensitivity_level is already set in metadata, use it
+        if (metadata.sensitivity_level) {
+            return metadata.sensitivity_level;
+        }
+
+        // Check context fields for sensitive themes
+        const contextFields = [
+            metadata.historical_context,
+            metadata.critical_framework,
+            metadata.aesthetic_tradition,
+            metadata.alt_text?.contextual
+        ].filter(Boolean);
+
+        const searchText = contextFields.join(' ').toLowerCase();
 
         // Check for high sensitivity keywords
         for (const keyword of this.sensitivityThresholds.high) {

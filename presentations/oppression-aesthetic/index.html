@@ -4,6 +4,7 @@ title: "Your Oppression: Our Aesthetic"
 description: "A critical examination of album art that aestheticizes human atrocities"
 ---
 
+
 <!-- Content Warning -->
 <div class="content-warning" id="content-warning">
     <h2>Content Warning</h2>
@@ -284,30 +285,32 @@ description: "A critical examination of album art that aestheticizes human atroc
     </div>
 </div>
 
-<!-- Load reveal.js and custom scripts -->
-<link rel="stylesheet" href="{{ site.baseurl }}/presentations/oppression-aesthetic/assets/vendor/reveal/dist/reveal.css">
-<link rel="stylesheet" href="{{ site.baseurl }}/presentations/oppression-aesthetic/assets/vendor/reveal/dist/theme/white.css">
+<!-- Load only our custom CSS and scripts -->
 <link rel="stylesheet" href="{{ site.baseurl }}/presentations/oppression-aesthetic/assets/css/oppression-aesthetic.css">
 
-<script src="{{ site.baseurl }}/presentations/oppression-aesthetic/assets/vendor/reveal/dist/reveal.js"></script>
-<script src="{{ site.baseurl }}/presentations/oppression-aesthetic/assets/js/reveal-config.js"></script>
-<script src="{{ site.baseurl }}/presentations/oppression-aesthetic/assets/js/content-manager.js"></script>
-<script src="{{ site.baseurl }}/presentations/oppression-aesthetic/assets/js/accessibility.js"></script>
 <script src="{{ site.baseurl }}/presentations/oppression-aesthetic/assets/js/image-processor.js"></script>
 
 <script>
 // Basic slideshow control functions
 function startSlideshow() {
     console.log('startSlideshow() called - user clicked proceed');
+
+    // Hide the reveal.js container immediately and try custom slideshow
     document.getElementById('content-warning').style.display = 'none';
     document.getElementById('project-info').style.display = 'none';
-    document.getElementById('slideshow-container').style.display = 'block';
-    document.getElementById('slideshow-controls').style.display = 'block';
 
-    console.log('Slideshow container is now visible');
-
-    // Try manual content loading without reveal.js first
+    // DON'T show the reveal.js container - go straight to custom slideshow
     console.log('Attempting manual content loading...');
+
+    // Check if ImageProcessor is available
+    if (typeof ImageProcessor === 'undefined') {
+        console.error('❌ ImageProcessor class not found!');
+        alert('Error: ImageProcessor class not loaded. Check console for details.');
+        return;
+    } else {
+        console.log('✅ ImageProcessor class available');
+    }
+
     manualContentLoad();
 }
 
@@ -328,49 +331,244 @@ function manualContentLoad() {
         .then(data => {
             console.log('JSON data loaded, images count:', data.images ? data.images.length : 0);
 
-            // Load actual content using our system
-            const container = document.getElementById('dynamic-content-container');
+            // Initialize ImageProcessor to process the metadata
+            const imageProcessor = new ImageProcessor();
+            console.log('ImageProcessor initialized');
+
+            // Process the raw image metadata to generate alt-text and enhanced data
+            const processedImages = data.images.map(rawImage => {
+                console.log(`Processing metadata for: ${rawImage.artist} - ${rawImage.album}`);
+                return imageProcessor.processImageMetadata(rawImage);
+            });
+
+            console.log('All metadata processed, enhanced images:', processedImages.length);
+
+            // Use processed data instead of raw data
+            data.images = processedImages;
+
+            // Load actual content using our system - but put it OUTSIDE reveal.js container
+            let container = document.getElementById('album-content-display');
+            if (!container) {
+                // Create a new container outside the reveal.js structure
+                container = document.createElement('div');
+                container.id = 'album-content-display';
+                container.style.cssText = `
+                    position: fixed !important;
+                    top: 0 !important;
+                    left: 0 !important;
+                    right: 0 !important;
+                    bottom: 0 !important;
+                    width: 100vw !important;
+                    height: 100vh !important;
+                    background: rgb(248, 248, 255) !important;
+                    padding: 0 !important;
+                    margin: 0 !important;
+                    z-index: 999999 !important;
+                    font-family: 'Liberation Mono', 'Courier New', Consolas, Monaco, monospace !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    visibility: visible !important;
+                    overflow: hidden !important;
+                `;
+
+                // Hide site elements that interfere with slideshow
+                const elementsToHide = [
+                    '.floating-buttons',
+                    '#wwkay-widget',
+                    '.wwkay-container',
+                    '#scrollToTop',
+                    '.site-header',
+                    '.site-footer'
+                ];
+
+                elementsToHide.forEach(selector => {
+                    const element = document.querySelector(selector);
+                    if (element) {
+                        element.style.display = 'none';
+                        console.log('Hidden element:', selector);
+                    }
+                });
+                document.body.appendChild(container);
+                console.log('Created new content container outside reveal.js');
+            }
             if (container) {
                 console.log('Found dynamic content container');
 
-                // Initialize content manager and load real slides
-                if (typeof ContentManager !== 'undefined' && typeof ImageProcessor !== 'undefined') {
-                    const contentManager = new ContentManager();
-                    const imageProcessor = new ImageProcessor();
+                // Create slideshow structure
+                let currentSlide = 0;
+                const slides = [];
 
-                    contentManager.initialize(imageProcessor);
+                // Title slide
+                slides.push(`
+                    <div class="slide-content" style="text-align: center; padding: 4rem; display: flex; flex-direction: column; justify-content: center; height: 100%;">
+                        <h1 style="color: rgb(122, 6, 97); margin: 0 0 2rem 0; font-size: 3rem;">Your Oppression: Our Aesthetic</h1>
+                        <h2 style="color: rgb(122, 6, 97); margin: 0 0 2rem 0; font-size: 1.8rem;">A Critical Examination of Documentary Atrocity Photography in Hardcore Punk Album Art</h2>
+                        <p style="margin: 0 0 1rem 0; font-style: italic; font-size: 1.2rem;">Design Justice Framework | Sasha Costanza-Chock | Silent Protest Aesthetic</p>
+                        <p style="margin: 0; font-size: 16px;">16 album covers (1988–2017) | Attribution transparency | Proximity analysis</p>
+                    </div>
+                `);
 
-                    // Transform and process the data
-                    const transformedData = contentManager.transformMetadata(data.images);
-                    const processedContent = imageProcessor.processImageBatch(transformedData);
+                // Album slides
+                data.images.forEach((item, index) => {
+                    // Handle both single images and multi-image releases
+                    let imagesToProcess = [];
 
-                    console.log('Processed content:', processedContent.length, 'items');
+                    if (item.semantic_filename) {
+                        // Single image
+                        imagesToProcess.push({
+                            filename: item.semantic_filename,
+                            metadata: item,
+                            role: 'single'
+                        });
+                    } else if (item.semantic_filenames && item.semantic_filenames.length > 0) {
+                        // Multi-image release - process first image only for slideshow
+                        imagesToProcess.push({
+                            filename: item.semantic_filenames[0],
+                            metadata: item,
+                            role: 'multi_primary'
+                        });
+                    } else {
+                        console.warn(`Skipping image ${index + 1}: No valid filename for ${item.artist} - ${item.album}`);
+                        return;
+                    }
 
-                    // Generate all slides
-                    let slidesHTML = '';
-                    processedContent.forEach((item, index) => {
-                        const slideHTML = imageProcessor.createSlideHTML(item);
-                        slidesHTML += slideHTML;
-                    });
+                    // Process each image
+                    imagesToProcess.forEach((imageInfo, subIndex) => {
+                        if (!imageInfo.filename || imageInfo.filename === 'undefined') {
+                            console.warn(`Skipping sub-image: No valid filename`);
+                            return;
+                        }
 
-                    container.innerHTML = slidesHTML;
-                    console.log('All album artwork slides loaded successfully!');
+                        const imagePath = `/presentations/oppression-aesthetic/content/images/${imageInfo.filename}`;
+                        console.log(`Loading image ${index + 1}${subIndex > 0 ? `.${subIndex + 1}` : ''}:`, imagePath);
+                        console.log(`  Artist: ${imageInfo.metadata.artist}, Album: ${imageInfo.metadata.album}`);
+                        console.log(`  Semantic filename: ${imageInfo.filename}`);
+                        console.log(`  Alt-text available:`, !!imageInfo.metadata.alt_text);
+                        console.log(`  Alt-text detailed:`, imageInfo.metadata.alt_text?.detailed || 'NOT FOUND');
+
+                    // Test image load
+                    const testImg = new Image();
+                    testImg.onload = () => console.log(`✅ Image ${index + 1} loaded successfully`);
+                    testImg.onerror = () => console.error(`❌ Image ${index + 1} failed to load:`, imagePath);
+                    testImg.src = imagePath;
+
+                        slides.push(`
+                        <div class="slide-content" style="padding: 2rem; display: flex; flex-direction: column; justify-content: center; height: 100%; overflow-y: auto;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                                <h2 style="color: rgb(122, 6, 97); margin: 0; font-size: 1.5rem;">${imageInfo.metadata.artist} - ${imageInfo.metadata.album} (${imageInfo.metadata.year})</h2>
+                                <span style="background: rgba(122, 6, 97, 0.1); color: rgb(122, 6, 97); padding: 0.3rem 0.6rem; border-radius: 12px; font-size: 12px; font-weight: bold;">
+                                    ${imageInfo.metadata.source_image?.confidence || 'unconfirmed'} attribution
+                                </span>
+                            </div>
+
+                            ${imageInfo.metadata.content_warnings && imageInfo.metadata.content_warnings.length > 0 ?
+                                `<div style="background: rgba(122, 6, 97, 0.1); border: 1px solid rgb(122, 6, 97); padding: 1rem; margin-bottom: 1rem; border-radius: 4px; font-size: 14px; font-style: italic;">
+                                    <strong>Content Warning:</strong> ${imageInfo.metadata.content_warnings.join(', ')}
+                                </div>` : ''
+                            }
+
+                            <div style="display: flex; gap: 2rem; align-items: flex-start;">
+                                <div style="flex-shrink: 0; position: relative; width: 350px; height: 350px; background: #f0f0f0; border: 3px solid rgb(122, 6, 97);">
+                                    <img src="${imagePath}" alt="${imageInfo.metadata.alt_text?.brief || 'Album cover'}"
+                                         class="album-image album-image-blurred"
+                                         data-slide-index="${index + 1}"
+                                         style="width: 100%; height: 100%; object-fit: contain; filter: blur(15px); cursor: pointer;"
+                                         onclick="toggleSlideBlur(this, ${index + 1})"
+                                         onload="console.log('Image loaded in slide:', this.src)"
+                                         onerror="console.error('Image failed in slide:', this.src); this.style.background='red';">
+                                    <div class="blur-overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(248, 248, 255, 0.9); display: flex; align-items: center; justify-content: center; flex-direction: column; cursor: pointer; border-radius: 4px;" onclick="toggleSlideBlur(this.previousElementSibling, ${index + 1})">
+                                        <strong style="font-size: 16px; margin-bottom: 5px;">Click to view</strong>
+                                        <small style="font-size: 12px;">Sensitive content</small>
+                                    </div>
+                                </div>
+
+                                <div style="flex: 1; min-width: 0;">
+                                    <p style="margin-bottom: 1rem;"><strong>Description:</strong> ${imageInfo.metadata.alt_text?.detailed || 'No description available'}</p>
+                                    <p style="margin-bottom: 1rem;"><strong>Sensitivity Level:</strong> ${imageInfo.metadata.sensitivity_level}</p>
+                                    ${imageInfo.metadata.critical_framework ? `<p style="margin-bottom: 1rem;"><strong>Critical Analysis:</strong> ${imageInfo.metadata.critical_framework}</p>` : ''}
+                                    ${imageInfo.metadata.aesthetic_tradition ? `<p style="margin-bottom: 1rem;"><strong>Aesthetic Tradition:</strong> ${imageInfo.metadata.aesthetic_tradition}</p>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                    }); // End imagesToProcess forEach
+                }); // End data.images forEach
+
+                // Create slideshow HTML structure with absolute positioning
+                const slideshowHTML = `
+                    <!-- Fixed Header -->
+                    <div id="slideshow-header" style="position: absolute; top: 0; left: 0; right: 0; height: 60px; background: rgb(122, 6, 97); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; box-sizing: border-box;">
+                        <div>
+                            <strong>Your Oppression: Our Aesthetic</strong> |
+                            <span id="slide-counter">1 / ${slides.length}</span>
+                        </div>
+                        <div>
+                            <button onclick="toggleAllBlur()" style="background: white; color: rgb(122, 6, 97); border: none; padding: 0.5rem 1rem; margin-right: 1rem; border-radius: 3px; cursor: pointer; font-family: inherit; font-size: 14px;">Toggle All Blur</button>
+                            <button onclick="exitSlideshow()" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid white; padding: 0.5rem 1rem; border-radius: 3px; cursor: pointer; font-family: inherit; font-size: 14px;">Exit</button>
+                        </div>
+                    </div>
+
+                    <!-- Slide container -->
+                    <div id="slide-container" style="position: absolute; top: 60px; left: 0; right: 0; bottom: 70px; overflow: hidden;">
+                        ${slides.map((slide, index) =>
+                            `<div class="slide" data-index="${index}" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; transition: transform 0.3s ease; transform: translateX(${index === 0 ? '0%' : '100%'});">
+                                ${slide}
+                            </div>`
+                        ).join('')}
+                    </div>
+
+                    <!-- Fixed Navigation -->
+                    <div id="slideshow-navigation" style="position: absolute; bottom: 0; left: 0; right: 0; height: 70px; background: rgb(122, 6, 97); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; box-sizing: border-box;">
+                        <button onclick="previousSlide()" style="background: white; color: rgb(122, 6, 97); border: none; padding: 0.5rem 1rem; border-radius: 3px; cursor: pointer; font-family: inherit; font-size: 14px;">← Previous</button>
+                        <div style="display: flex; gap: 0.5rem;">
+                            ${slides.map((_, index) =>
+                                `<div class="slide-dot" data-index="${index}" onclick="goToSlide(${index})" style="width: 10px; height: 10px; border-radius: 50%; background: ${index === 0 ? 'white' : 'rgba(255,255,255,0.5)'}; cursor: pointer; transition: background 0.3s ease;"></div>`
+                            ).join('')}
+                        </div>
+                        <button onclick="nextSlide()" style="background: white; color: rgb(122, 6, 97); border: none; padding: 0.5rem 1rem; border-radius: 3px; cursor: pointer; font-family: inherit; font-size: 14px;">Next →</button>
+                    </div>
+                `;
+
+                // Test if we have valid slides to show
+                const validSlides = slides.length;
+                console.log(`Generated ${validSlides} total slides (including title slide)`);
+
+                if (validSlides <= 1) {
+                    // No valid image slides - show error
+                    container.innerHTML = '<div style="background: orange; color: black; padding: 50px; text-align: center; font-size: 24px; height: 100vh; display: flex; flex-direction: column; justify-content: center;">⚠️ NO VALID IMAGES FOUND ⚠️<br><br>Check console for errors.<br>Found ' + (validSlides - 1) + ' valid images out of ' + data.images.length + ' total.</div>';
                 } else {
-                    container.innerHTML = `
-                        <section>
-                            <h2>Content System Ready</h2>
-                            <p>Found ${data.images ? data.images.length : 0} images in metadata.</p>
-                            <p>ImageProcessor: ${typeof ImageProcessor !== 'undefined'}</p>
-                            <p>ContentManager: ${typeof ContentManager !== 'undefined'}</p>
-                        </section>
-                    `;
+                    // Load slideshow directly
+                    container.innerHTML = slideshowHTML;
+                    window.currentSlideIndex = 0;
+                    window.totalSlides = slides.length;
+                    console.log('Slideshow loaded successfully!');
                 }
+
+                console.log('Slideshow container loaded successfully');
+                console.log('Container stats:', {
+                    width: container.offsetWidth,
+                    height: container.offsetHeight,
+                    position: getComputedStyle(container).position,
+                    zIndex: getComputedStyle(container).zIndex,
+                    display: getComputedStyle(container).display
+                });
+
+                // Force visibility with CSS (maintain flexbox layout)
+                container.style.visibility = 'visible';
+                container.style.opacity = '1';
+
+                console.log('Container styles set:', {
+                    display: container.style.display,
+                    visibility: container.style.visibility,
+                    innerHTML_length: container.innerHTML.length
+                });
             } else {
                 console.error('Dynamic content container not found');
             }
         })
         .catch(error => {
             console.error('Error loading content:', error);
+            alert('Failed to load slideshow content. Check console for details:\n' + error.message);
         });
 }
 
@@ -385,6 +583,31 @@ function hideInfo() {
 }
 
 function exitSlideshow() {
+    // Remove the slideshow container
+    const slideshowContainer = document.getElementById('album-content-display');
+    if (slideshowContainer) {
+        slideshowContainer.remove();
+    }
+
+    // Restore hidden site elements
+    const elementsToRestore = [
+        '.floating-buttons',
+        '#wwkay-widget',
+        '.wwkay-container',
+        '#scrollToTop',
+        '.site-header',
+        '.site-footer'
+    ];
+
+    elementsToRestore.forEach(selector => {
+        const element = document.querySelector(selector);
+        if (element) {
+            element.style.display = '';
+            console.log('Restored element:', selector);
+        }
+    });
+
+    // Show original page elements
     document.getElementById('slideshow-container').style.display = 'none';
     document.getElementById('slideshow-controls').style.display = 'none';
     document.getElementById('content-warning').style.display = 'block';
@@ -398,12 +621,158 @@ function hideKeyboardHelp() {
     document.getElementById('help-modal').style.display = 'none';
 }
 
-// Placeholder functions - will be implemented in separate JS files
+// Working blur toggle functions for our simplified structure
 function toggleBlur() {
-    console.log('Blur toggle - to be implemented in accessibility.js');
+    const images = document.querySelectorAll('.album-image');
+    const isCurrentlyBlurred = document.querySelector('.album-image-blurred') !== null;
+
+    images.forEach(img => {
+        const sensitivity = img.getAttribute('data-sensitivity');
+        const shouldBlur = !isCurrentlyBlurred && (sensitivity === 'high' || sensitivity === 'moderate');
+
+        if (shouldBlur) {
+            img.style.filter = 'blur(15px)';
+            img.classList.add('album-image-blurred');
+        } else {
+            img.style.filter = 'none';
+            img.classList.remove('album-image-blurred');
+        }
+    });
+
+    console.log('Blur toggle:', isCurrentlyBlurred ? 'disabled' : 'enabled');
+}
+
+function toggleIndividualBlur(img) {
+    const isBlurred = img.classList.contains('album-image-blurred');
+    if (isBlurred) {
+        img.style.filter = 'none';
+        img.classList.remove('album-image-blurred');
+        // Remove overlay
+        const overlay = img.nextElementSibling;
+        if (overlay && overlay.style.position === 'absolute') {
+            overlay.style.display = 'none';
+        }
+    } else {
+        img.style.filter = 'blur(15px)';
+        img.classList.add('album-image-blurred');
+    }
 }
 
 function showContentWarnings() {
-    console.log('Content warnings - to be implemented in accessibility.js');
+    alert('Content warnings are displayed above each sensitive image. This presentation examines album artwork that appropriates imagery of human suffering and oppression.');
 }
+
+// Slideshow navigation functions
+function nextSlide() {
+    if (window.currentSlideIndex < window.totalSlides - 1) {
+        goToSlide(window.currentSlideIndex + 1);
+    }
+}
+
+function previousSlide() {
+    if (window.currentSlideIndex > 0) {
+        goToSlide(window.currentSlideIndex - 1);
+    }
+}
+
+function goToSlide(index) {
+    if (index < 0 || index >= window.totalSlides) return;
+
+    // Hide current slide
+    const currentSlide = document.querySelector(`[data-index="${window.currentSlideIndex}"]`);
+    if (currentSlide) {
+        currentSlide.style.transform = index > window.currentSlideIndex ? 'translateX(-100%)' : 'translateX(100%)';
+    }
+
+    // Show new slide
+    const newSlide = document.querySelector(`[data-index="${index}"]`);
+    if (newSlide) {
+        newSlide.style.transform = 'translateX(0%)';
+    }
+
+    // Update navigation
+    window.currentSlideIndex = index;
+    updateNavigation();
+}
+
+function updateNavigation() {
+    // Update slide counter
+    const counter = document.getElementById('slide-counter');
+    if (counter) {
+        counter.textContent = `${window.currentSlideIndex + 1} / ${window.totalSlides}`;
+    }
+
+    // Update dots
+    document.querySelectorAll('.slide-dot').forEach((dot, index) => {
+        dot.style.background = index === window.currentSlideIndex ? 'white' : 'rgba(255,255,255,0.5)';
+    });
+}
+
+function toggleSlideBlur(img, slideIndex) {
+    const isBlurred = img.classList.contains('album-image-blurred');
+    const overlay = img.nextElementSibling;
+
+    console.log('Toggling blur for slide', slideIndex, 'currently blurred:', isBlurred);
+
+    if (isBlurred) {
+        img.style.filter = 'none';
+        img.classList.remove('album-image-blurred');
+        if (overlay && overlay.className.includes('blur-overlay')) {
+            overlay.style.display = 'none';
+        }
+    } else {
+        img.style.filter = 'blur(15px)';
+        img.classList.add('album-image-blurred');
+        if (overlay && overlay.className.includes('blur-overlay')) {
+            overlay.style.display = 'flex';
+        }
+    }
+}
+
+function toggleAllBlur() {
+    const images = document.querySelectorAll('.album-image');
+    const blurredImages = document.querySelectorAll('.album-image-blurred');
+    const shouldBlur = blurredImages.length < images.length / 2;
+
+    console.log('Toggle all blur - currently blurred:', blurredImages.length, 'total:', images.length, 'should blur:', shouldBlur);
+
+    images.forEach(img => {
+        const overlay = img.nextElementSibling;
+
+        if (shouldBlur) {
+            img.style.filter = 'blur(15px)';
+            img.classList.add('album-image-blurred');
+            if (overlay && overlay.className.includes('blur-overlay')) {
+                overlay.style.display = 'flex';
+            }
+        } else {
+            img.style.filter = 'none';
+            img.classList.remove('album-image-blurred');
+            if (overlay && overlay.className.includes('blur-overlay')) {
+                overlay.style.display = 'none';
+            }
+        }
+    });
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {
+    if (!document.getElementById('album-content-display')) return;
+
+    switch(e.key) {
+        case 'ArrowRight':
+        case ' ':
+            nextSlide();
+            e.preventDefault();
+            break;
+        case 'ArrowLeft':
+            previousSlide();
+            e.preventDefault();
+            break;
+        case 'Escape':
+            exitSlideshow();
+            e.preventDefault();
+            break;
+    }
+});
 </script>
