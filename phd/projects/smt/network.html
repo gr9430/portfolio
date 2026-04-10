@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SMT Celtic Mythology — Network Graph v11</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+  :root {
+    /* Padlet card whites & surface */
+    --bg-map: #1e1c14;
+    --card-bg: #ffffff;
+    --card-border: rgba(0,0,0,0.10);
+    --card-shadow: 0 2px 8px rgba(0,0,0,0.28), 0 0 0 0.5px rgba(0,0,0,0.08);
+    --sidebar-bg: rgba(255,255,255,0.93);
+    --header-bg: rgba(255,255,255,0.96);
+    --text-dark: #1a1a18;
+    --text-mid: #555550;
+    --text-light: #8a8880;
+    --accent: #e85d3d;
+    --accent2: #f5a623;
+    /* tradition colors — slightly desaturated for aerial-map feel */
+    --irish: #3d8c57;
+    --welsh: #b03030;
+    --celtic: #2471a3;
+    --scottish: #7d3cad;
+    --english: #c96a12;
+    --european: #1e8449;
+    --arthurian: #b7950b;
+    --blake: #6c3483;
+    /* entity type */
+    --demon: #d45f6a;
+    --persona: #4a90c4;
+    --weapon: #5da84e;
+    --mixed: #c8964a;
+    --other: #7a7a72;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg-map);
+    color: var(--text-dark);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* Aerial map background — layered radial gradients imitating satellite imagery */
+  #graph-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 30% 60%, #2d3a1e 0%, transparent 70%),
+      radial-gradient(ellipse 50% 60% at 70% 30%, #1a2510 0%, transparent 65%),
+      radial-gradient(ellipse 80% 50% at 50% 80%, #25200e 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 80% 70%, #1c2a18 0%, transparent 60%),
+      radial-gradient(ellipse 70% 60% at 20% 20%, #141a0c 0%, transparent 70%),
+      linear-gradient(160deg, #1a1c0f 0%, #22200e 35%, #1c1e12 60%, #181a0e 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Road-like texture overlay */
+  #graph-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(
+        85deg,
+        transparent 0px, transparent 180px,
+        rgba(60,55,35,0.12) 180px, rgba(60,55,35,0.12) 182px
+      ),
+      repeating-linear-gradient(
+        175deg,
+        transparent 0px, transparent 220px,
+        rgba(50,45,25,0.08) 220px, rgba(50,45,25,0.08) 222px
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  #graph-wrap svg { position: relative; z-index: 1; }
+
+  header {
+    padding: 8px 16px;
+    border-bottom: 1px solid rgba(0,0,0,0.10);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    background: var(--header-bg);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  }
+
+  header h1 {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-dark);
+    letter-spacing: -0.01em;
+  }
+
+  header h1 span { color: var(--accent); }
+  header .meta { font-size: 11px; color: var(--text-light); }
+
+  #main { display: flex; flex: 1; overflow: hidden; }
+
+  #sidebar {
+    width: 200px;
+    flex-shrink: 0;
+    border-right: 1px solid rgba(0,0,0,0.10);
+    overflow-y: auto;
+    padding: 14px 12px;
+    background: var(--sidebar-bg);
+    backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 1px 0 8px rgba(0,0,0,0.10);
+  }
+
+  #sidebar::-webkit-scrollbar { width: 3px; }
+  #sidebar::-webkit-scrollbar-thumb { background: #d0cec8; border-radius: 2px; }
+
+  .section-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 7px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    color: var(--text-mid);
+    margin-bottom: 3px;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 6px;
+    transition: background 0.12s;
+    border: 1px solid transparent;
+  }
+
+  .legend-item:hover { background: rgba(0,0,0,0.05); }
+  .legend-item.active { background: rgba(232,93,61,0.07); border-color: rgba(232,93,61,0.25); color: var(--accent); }
+  .legend-item.dimmed { opacity: 0.35; }
+
+  .dot {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .tradition-dot {
+    width: 11px; height: 11px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  .count-badge {
+    font-size: 10px;
+    color: var(--text-light);
+    margin-left: auto;
+    font-variant-numeric: tabular-nums;
+  }
+
+  #graph-wrap {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  svg {
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+  }
+
+  svg:active { cursor: grabbing; }
+
+  /* Links as subtle chalk-white lines */
+  .link {
+    stroke: rgba(255,255,255,0.18);
+    stroke-opacity: 1;
+    stroke-width: 1;
+    fill: none;
+  }
+
+  .link.flagged-link {
+    stroke: rgba(232,93,61,0.55);
+    stroke-dasharray: 4 3;
+    stroke-width: 1.2;
+  }
+
+  /* Entity nodes — white "pin" aesthetic */
+  .entity-node circle {
+    stroke-width: 1.5;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.45));
+    transition: r 0.1s;
+  }
+
+  .entity-node.flagged circle {
+    stroke: #e85d3d !important;
+    stroke-width: 2;
+    filter: drop-shadow(0 0 4px rgba(232,93,61,0.6)) drop-shadow(0 1px 3px rgba(0,0,0,0.45));
+  }
+
+  /* Tradition nodes — Padlet "column header" card style */
+  .tradition-card {
+    fill: rgba(255,255,255,0.92);
+    rx: 8px;
+    ry: 8px;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.35));
+  }
+
+  .tradition-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    fill: var(--text-dark);
+    text-anchor: middle;
+    pointer-events: none;
+    letter-spacing: -0.01em;
+  }
+
+  .tradition-count {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9px;
+    fill: var(--text-light);
+    text-anchor: middle;
+    pointer-events: none;
+  }
+
+  .tradition-swatch {
+    rx: 4px;
+  }
+
+  .entity-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9px;
+    font-weight: 500;
+    fill: #ffffff;
+    text-anchor: middle;
+    pointer-events: none;
+    opacity: 0;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.9));
+  }
+
+  /* Tooltip — exact Padlet card style */
+  #tooltip {
+    position: fixed;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    max-width: 270px;
+    pointer-events: none;
+    display: none;
+    z-index: 1000;
+    line-height: 1.55;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.22), 0 0 0 0.5px rgba(0,0,0,0.08);
+    overflow: hidden;
+  }
+
+  #tooltip .tt-header {
+    padding: 10px 13px 8px;
+    border-bottom: 1px solid #f0eee9;
+  }
+
+  #tooltip .tt-name {
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--text-dark);
+    margin-bottom: 3px;
+  }
+
+  #tooltip .tt-flag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #fef2ee;
+    color: var(--accent);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 9px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  #tooltip .tt-body { padding: 8px 13px 10px; }
+
+  #tooltip .tt-row {
+    color: var(--text-light);
+    font-size: 10px;
+    margin-bottom: 3px;
+    display: flex;
+    gap: 5px;
+  }
+
+  #tooltip .tt-row .label { min-width: 52px; }
+  #tooltip .tt-row span { color: var(--text-mid); }
+
+  #tooltip .tt-traditions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    margin-top: 6px;
+  }
+
+  #tooltip .tt-tag {
+    display: inline-block;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 9px;
+    font-weight: 500;
+    color: white;
+    opacity: 0.92;
+  }
+
+  #tooltip .tt-dialogue {
+    background: #fafaf8;
+    border-top: 1px solid #f0eee9;
+    padding: 7px 13px 9px;
+    color: var(--text-mid);
+    font-style: italic;
+    font-size: 10px;
+    line-height: 1.5;
+  }
+
+  #stats-bar {
+    flex-shrink: 0;
+    padding: 5px 16px;
+    background: var(--header-bg);
+    border-top: 1px solid rgba(0,0,0,0.08);
+    font-size: 10px;
+    color: var(--text-light);
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    backdrop-filter: blur(8px);
+  }
+
+  #stats-bar span { color: var(--text-dark); font-weight: 500; }
+
+  .reset-btn {
+    margin-left: auto;
+    background: none;
+    border: 1px solid #d8d6d0;
+    color: var(--text-mid);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .reset-btn:hover { border-color: var(--accent); color: var(--accent); background: #fef2ee; }
+
+  .flag-indicator {
+    display: inline-block;
+    background: #fef2ee;
+    color: var(--accent);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 9px;
+    font-weight: 500;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>SMT Celtic Mythology — Network Graph</h1>
+  <div class="meta">130 entities · 8 traditions · 227 connections</div>
+</header>
+
+<div id="main">
+  <div id="sidebar">
+    <div>
+      <div class="section-label">Traditions</div>
+      <div id="tradition-legend"></div>
+    </div>
+    <div>
+      <div class="section-label">Entity Type</div>
+      <div id="type-legend"></div>
+    </div>
+    <div>
+      <div class="section-label">Flags</div>
+      <div class="legend-item" id="flag-filter" style="cursor:pointer">
+        <div class="dot" style="background:none;border:1.5px solid var(--accent);width:9px;height:9px"></div>
+        <span>Origin discrepancy</span>
+        <span class="count-badge" id="flag-count"></span>
+      </div>
+    </div>
+    <div>
+      <div class="section-label">Interact</div>
+      <div style="font-size:10px;color:var(--text-light);line-height:1.9">
+        Hover entity for details<br>
+        Click entity to highlight<br>
+        Drag to pan · Scroll to zoom<br>
+        Click tradition to filter
+      </div>
+    </div>
+  </div>
+
+  <div id="graph-wrap">
+    <svg id="graph"></svg>
+  </div>
+</div>
+
+<div id="stats-bar">
+  <div>Showing: <span id="showing-count">130</span> entities</div>
+  <div>Flagged: <span id="flagged-count">—</span></div>
+  <div id="selected-info" style="color:var(--text-light)">—</div>
+  <button class="reset-btn" id="reset-btn">Reset View</button>
+</div>
+
+<div id="tooltip"></div>
+
+<script>
+const RAW = {"nodes": [{"id": "Airgetlam", "classification": "Demon / Persona", "sheets": ["irish"], "flag": false, "origin": "Irish Mythology", "dialogue": "", "etype": "mixed"}, {"id": "Answerer / Fragarach", "classification": "Weapon", "sheets": ["irish"], "flag": false, "origin": "Irish Mythology", "dialogue": "", "etype": "weapon"}, {"id": "Aonbharr", "classification": "Demon", "sheets": ["irish"], "flag": false, "origin": "Irish Mythology", "dialogue": "", "etype": "demon"}, {"id": "Badb Catha", "classification": "Demon", "sheets": ["irish", "celtic"], "flag": false, "origin": "Irish Mythology", "dialogue": "I AM THE WINGS OF WAR, THE AVIAN, BADB CATHA.", "etype": "demon"}, {"id": "Balor", "classification": "Demon / Boss", "sheets": ["irish", "celtic"], "flag": false, "origin": "Irish Mythology", "dialogue": "", "etype": "demon"}, {"id": "Banshee", "classification": "Demon", "sheets": ["irish", "scottish"], "flag": false, "origin": "Irish Mythology", "dialogue": "", "etype": "demon"}, {"id": "Brigid", "classification": "Demon / Boss", "sheets": ["irish", "celtic"], "flag": false, "origin": "Irish Mythology", "dialogue": "I am the goddess, Brigid.", "etype": "demon"}, {"id": "Brionac", "classification": "Weapon", "sheets": ["irish", "celtic"], "flag": true, "origin": "Celtic Mythology", "dialogue": "", "etype": "weapon"}, {"id": "Cailleach Bheare", "classification": "Demon (Femme)", "sheets": ["irish", "scottish", "celtic"], "flag": false, "origin": "Irish / Scottish / Celtic", "dialogue": "", "etype": "demon"}, {"id": "Cait Sith", "classification": "Demon", "sheets": ["irish", "scottish", "celtic"], "flag": false, "origin": "Irish / Scottish", "dialogue": "I'm Cait Sith! Nyice to meet you, meow!", "etype": "demon"}, {"id": "Caladbolg", "classification": "Weapon", "sheets": ["irish", "welsh", "celtic", "arthurian", "english"], "flag": false, "origin": "Irish / Welsh / Celtic / Arthurian", "dialogue": "", "etype": "weapon"}, {"id": "Claimh Solais", "classification": "Weapon", "sheets": ["irish", "celtic"], "flag": false, "origin": "Irish / Celtic", "dialogue": "", "etype": "weapon"}, {"id": "Crom Cruach", "classification": "Demon", "sheets": ["irish"], "flag": false, "origin": "Irish Mythology", "dialogue": "", "etype": "demon"}, {"id": "Cú Chulainn", "classification": "Demon / Persona", "sheets": ["irish", "scottish", "celtic"], "flag": false, "origin": "Irish / Scottish", "dialogue": "I am Cu Chulainn, who leads the Champions of the Red Branch.", "etype": "mixed"}, {"id": "Cú Sith", "classification": "Demon", "sheets": ["irish", "scottish", "celtic"], "flag": false, "origin": "Scottish / Irish / Celtic", "dialogue": "", "etype": "demon"}, {"id": "Dagda", "classification": "Demon / NPC", "sheets": ["irish", "celtic"], "flag": false, "origin": "Celtic / Irish", "dialogue": "The inescapable truth under all life's lies is that this universe is worthless.", "etype": "demon"}, {"id": "Dagda's Club", "classification": "Weapon", "sheets": ["irish"], "flag": false, "origin": "Irish Mythology", "dialogue": "", "etype": "weapon"}, {"id": "Danu", "classification": "Demon / NPC", "sheets": ["irish", "celtic"], "flag": false, "origin": "Celtic / Irish", "dialogue": "", "etype": "demon"}, {"id": "Deirdre", "classification": "Demon", "sheets": ["irish", "celtic"], "flag": false, "origin": "Celtic / Irish", "dialogue": "", "etype": "demon"}, {"id": "Dian Cecht", "classification": "Demon", "sheets": ["irish"], "flag": false, "origin": "Irish Mythology", "dialogue": "", "etype": "demon"}, {"id": "Diarmuid", "classification": "Demon", "sheets": ["irish", "celtic"], "flag": false, "origin": "Celtic / Irish", "dialogue": "", "etype": "demon"}, {"id": "Dubthach Lance", "classification": "Weapon", "sheets": ["irish"], "flag": false, "origin": "Irish Mythology", "dialogue": "", "etype": "weapon"}, {"id": "Dullahan (demon)", "classification": "Demon (Jirae)", "sheets": ["irish", "celtic"], "flag": false, "origin": "Irish / Celtic", "dialogue": "", "etype": "demon"}, {"id": "Dullahan (weapon)", "classification": "Weapon", "sheets": ["irish", "celtic", "english"], "flag": true, "origin": "Irish / Celtic", "dialogue": "", "etype": "weapon"}, {"id": "Etain", "classification": "Demon", "sheets": ["irish"], "flag": false, "origin": "Irish Mythology", "dialogue": "", "etype": "demon"}, {"id": "Fairy (generic)", "classification": "Demon", "sheets": ["irish", "celtic", "english", "european"], "flag": false, "origin": "Irish / Celtic / English / European", "dialogue": "", "etype": "demon"}, {"id": "Fergus", "classification": "Demon", "sheets": ["irish"], "flag": false, "origin": "Irish Mythology", "dialogue": "", "etype": "demon"}, {"id": "Fionn mac Cumhaill", "classification": "Demon", "sheets": ["irish", "celtic"], "flag": false, "origin": "Celtic / Irish", "dialogue": "", "etype": "demon"}, {"id": "Fir Bolg", "classification": "Demon", "sheets": ["irish", "celtic"], "flag": false, "origin": "Irish / Celtic", "dialogue": "", "etype": "demon"}, {"id": "Fomorian", "classification": "Demon", "sheets": ["irish", "celtic"], "flag": false, "origin": "Irish / Celtic", "dialogue": "", "etype": "demon"}, {"id": "Gae Bolg", "classification": "Weapon", "sheets": ["irish", "scottish", "celtic"], "flag": false, "origin": "Celtic / Irish / Scottish", "dialogue": "", "etype": "weapon"}, {"id": "Geis", "classification": "Magatama", "sheets": ["irish"], "flag": false, "origin": "Irish Mythology", "dialogue": "", "etype": "other"}, {"id": "Jack-o'-Lantern", "classification": "Demon / Persona", "sheets": ["irish", "celtic", "english"], "flag": false, "origin": "English / Irish", "dialogue": "I'm Jack-o'-Lantern, hee-ho!", "etype": "mixed"}, {"id": "Leanan Sidhe", "classification": "Demon", "sheets": ["irish", "celtic"], "flag": false, "origin": "Irish / Celtic", "dialogue": "I'm Leanan Sidhe. I'll never leave your side.", "etype": "demon"}, {"id": "Leprechaun", "classification": "Demon", "sheets": ["irish"], "flag": false, "origin": "Irish Mythology", "dialogue": "", "etype": "demon"}, {"id": "Lugh", "classification": "Demon / Persona", "sheets": ["irish", "celtic"], "flag": false, "origin": "Celtic / Irish", "dialogue": "I am Lugh, the shining one…", "etype": "mixed"}, {"id": "Macha", "classification": "Demon / Persona", "sheets": ["irish"], "flag": false, "origin": "Irish Mythology", "dialogue": "", "etype": "mixed"}, {"id": "Manannan", "classification": "Persona", "sheets": ["irish", "celtic"], "flag": false, "origin": "Celtic Mythology", "dialogue": "The wisdom and strength of others do not compare with mine!", "etype": "persona"}, {"id": "Merrow", "classification": "Demon", "sheets": ["irish", "scottish", "celtic"], "flag": false, "origin": "Celtic / Irish / Scottish", "dialogue": "", "etype": "demon"}, {"id": "Midir", "classification": "Demon", "sheets": ["irish", "celtic"], "flag": false, "origin": "Irish / Celtic", "dialogue": "", "etype": "demon"}, {"id": "Moralltach", "classification": "Weapon", "sheets": ["irish", "celtic"], "flag": false, "origin": "Irish Mythology", "dialogue": "", "etype": "weapon"}, {"id": "Morrigan", "classification": "Demon / Persona", "sheets": ["irish", "celtic"], "flag": false, "origin": "Irish / Celtic", "dialogue": "", "etype": "mixed"}, {"id": "Nemhain", "classification": "Demon / Persona", "sheets": ["irish"], "flag": false, "origin": "Irish Mythology", "dialogue": "", "etype": "mixed"}, {"id": "Ogma", "classification": "Demon", "sheets": ["irish", "scottish"], "flag": false, "origin": "Irish / Scottish", "dialogue": "", "etype": "demon"}, {"id": "Pooka", "classification": "Demon", "sheets": ["irish", "welsh", "celtic"], "flag": false, "origin": "Celtic / Irish / Welsh", "dialogue": "", "etype": "demon"}, {"id": "Queen Mab / Medb", "classification": "Demon / Persona", "sheets": ["irish", "celtic", "english", "european"], "flag": true, "origin": "Celtic / English / European / Early Modern Fiction", "dialogue": "I am Queen Mab…", "etype": "mixed"}, {"id": "Scathach", "classification": "Demon / Persona", "sheets": ["irish", "scottish", "celtic"], "flag": false, "origin": "Celtic / Irish / Scottish", "dialogue": "I am the queen of the shadow lands…", "etype": "mixed"}, {"id": "Setanta", "classification": "Demon / Persona", "sheets": ["irish", "celtic"], "flag": false, "origin": "Celtic / Irish", "dialogue": "I'm Setanta.", "etype": "mixed"}, {"id": "Silky", "classification": "Demon", "sheets": ["irish", "scottish", "english"], "flag": false, "origin": "Scottish / Irish / English", "dialogue": "", "etype": "demon"}, {"id": "Tir na Nog", "classification": "Location", "sheets": ["irish", "celtic"], "flag": true, "origin": "Celtic Mythology", "dialogue": "", "etype": "other"}, {"id": "Afanc", "classification": "Demon (Wilder)", "sheets": ["welsh", "celtic"], "flag": false, "origin": "Welsh Mythology", "dialogue": "I AM AFANC! I FREEZE EVERYTHING, AND THEN DESTROY THEM ALL!", "etype": "demon"}, {"id": "Ankou", "classification": "Demon / Persona", "sheets": ["welsh", "english", "european"], "flag": true, "origin": "European Mythology", "dialogue": "", "etype": "mixed"}, {"id": "Arianrhod", "classification": "Demon / Persona", "sheets": ["welsh"], "flag": true, "origin": "Welsh Mythology", "dialogue": "I am Arianrhod, the silver wheel.", "etype": "mixed"}, {"id": "Bran", "classification": "Demon (Fiend)", "sheets": ["welsh"], "flag": false, "origin": "Welsh Mythology", "dialogue": "", "etype": "demon"}, {"id": "Bugaboo", "classification": "Demon (Jirae)", "sheets": ["welsh", "english"], "flag": true, "origin": "English / Welsh", "dialogue": "", "etype": "demon"}, {"id": "Bugbear / Bugs", "classification": "Demon (Wilder) / Persona", "sheets": ["welsh", "english"], "flag": true, "origin": "Welsh Mythology", "dialogue": "I'm Bugs. You the badass with the mask?", "etype": "mixed"}, {"id": "Cath Palug", "classification": "Demon (Wilder)", "sheets": ["welsh", "arthurian", "english", "celtic"], "flag": true, "origin": "Welsh / European / Arthurian", "dialogue": "", "etype": "demon"}, {"id": "Cwn Annwn", "classification": "Persona", "sheets": ["welsh", "celtic", "english"], "flag": false, "origin": "Welsh Mythology", "dialogue": "", "etype": "persona"}, {"id": "Dormarth", "classification": "Demon", "sheets": ["welsh", "celtic"], "flag": true, "origin": "Celtic Mythology", "dialogue": "", "etype": "demon"}, {"id": "Knocker", "classification": "Demon (Jirae)", "sheets": ["welsh", "english"], "flag": true, "origin": "Welsh Mythology", "dialogue": "I'm Knocker the Fairy. Just so you know, I hate whistling.", "etype": "demon"}, {"id": "Morgan (water spirit)", "classification": "Demon", "sheets": ["welsh", "arthurian", "english", "celtic"], "flag": false, "origin": "English / Celtic / Welsh / Arthurian", "dialogue": "", "etype": "demon"}, {"id": "Artio", "classification": "Demon", "sheets": ["celtic", "european"], "flag": false, "origin": "Celtic / European", "dialogue": "", "etype": "demon"}, {"id": "Cernunnos", "classification": "Demon (Reaper)", "sheets": ["celtic", "european", "english"], "flag": false, "origin": "Celtic / European", "dialogue": "", "etype": "demon"}, {"id": "Nodens", "classification": "Persona", "sheets": ["celtic", "english"], "flag": true, "origin": "Celtic / Lovecraftian", "dialogue": "I am the great emperor of the depths, Nodens…", "etype": "persona"}, {"id": "Taranis", "classification": "Persona", "sheets": ["celtic", "european", "english"], "flag": false, "origin": "Celtic Mythology", "dialogue": "", "etype": "persona"}, {"id": "Wicker Man", "classification": "Demon", "sheets": ["celtic", "english"], "flag": false, "origin": "Celtic Mythology", "dialogue": "", "etype": "demon"}, {"id": "Blue Man", "classification": "Demon (Spirit)", "sheets": ["scottish"], "flag": false, "origin": "Scottish Mythology", "dialogue": "", "etype": "demon"}, {"id": "Bogle", "classification": "Demon (Brute)", "sheets": ["scottish", "english"], "flag": true, "origin": "Scottish Mythology", "dialogue": "", "etype": "demon"}, {"id": "Brownie", "classification": "Demon (Jirae)", "sheets": ["scottish", "english"], "flag": true, "origin": "English / Scottish", "dialogue": "", "etype": "demon"}, {"id": "Claymore", "classification": "Weapon", "sheets": ["scottish"], "flag": false, "origin": "Scottish Mythology", "dialogue": "", "etype": "weapon"}, {"id": "Fachan", "classification": "Demon (Jirae)", "sheets": ["scottish", "european"], "flag": false, "origin": "European / Scottish", "dialogue": "", "etype": "demon"}, {"id": "Goggie", "classification": "Demon (Vermin)", "sheets": ["scottish"], "flag": false, "origin": "Scottish Mythology", "dialogue": "If you're not a good boy, the giant bug, Goggie, will come and eat your head.", "etype": "demon"}, {"id": "Greyman", "classification": "Demon (Haunt)", "sheets": ["scottish"], "flag": false, "origin": "Scottish Mythology", "dialogue": "", "etype": "demon"}, {"id": "Kelpie", "classification": "Demon / Persona", "sheets": ["scottish", "english"], "flag": true, "origin": "Scottish Mythology", "dialogue": "Me Kelpie. Your heart... make me!", "etype": "mixed"}, {"id": "Lham Dearg", "classification": "Demon (Jaki)", "sheets": ["scottish"], "flag": false, "origin": "Scottish Mythology", "dialogue": "I am the Touki Lham Dearg. Let us hie to the battlefield.", "etype": "demon"}, {"id": "Nessie", "classification": "Demon (Draco)", "sheets": ["scottish"], "flag": false, "origin": "Scottish Mythology", "dialogue": "", "etype": "demon"}, {"id": "Pellaidh", "classification": "Demon (Wilder)", "sheets": ["scottish"], "flag": false, "origin": "Scottish Mythology", "dialogue": "If I die... I'm gonna be purified!", "etype": "demon"}, {"id": "Redcap", "classification": "Demon (Fiend)", "sheets": ["scottish", "english"], "flag": false, "origin": "English / Scottish", "dialogue": "", "etype": "demon"}, {"id": "Selkie", "classification": "Demon (Beast)", "sheets": ["scottish"], "flag": false, "origin": "Scottish Mythology", "dialogue": "", "etype": "demon"}, {"id": "Stone of Scone", "classification": "Persona (Treasure)", "sheets": ["scottish"], "flag": false, "origin": "Scottish Mythology", "dialogue": "", "etype": "persona"}, {"id": "Tam Lin", "classification": "Demon / Persona", "sheets": ["scottish", "english"], "flag": true, "origin": "English / Scottish", "dialogue": "I am the Genma Tam Lin.", "etype": "mixed"}, {"id": "Albion", "classification": "Demon (Entity)", "sheets": ["blake", "english"], "flag": true, "origin": "William Blake Mythology", "dialogue": "", "etype": "demon"}, {"id": "Arondight", "classification": "Weapon", "sheets": ["arthurian", "english"], "flag": false, "origin": "Arthurian Legend", "dialogue": "", "etype": "weapon"}, {"id": "Arthur (demon)", "classification": "Persona / Demon", "sheets": ["arthurian", "english"], "flag": false, "origin": "English / Arthurian", "dialogue": "I am King Arthur of Camelot!", "etype": "mixed"}, {"id": "Beowulf", "classification": "Demon", "sheets": ["english"], "flag": false, "origin": "European / English", "dialogue": "", "etype": "demon"}, {"id": "Black Frost", "classification": "Demon", "sheets": ["english"], "flag": false, "origin": "English Mythology", "dialogue": "", "etype": "demon"}, {"id": "Black Knight", "classification": "Demon (Haunt)", "sheets": ["arthurian", "english"], "flag": false, "origin": "English / Arthurian", "dialogue": "", "etype": "demon"}, {"id": "Excalibur (demon)", "classification": "Demon (Mute)", "sheets": ["arthurian", "english"], "flag": false, "origin": "English / Arthurian", "dialogue": "", "etype": "demon"}, {"id": "Excalibur (weapon)", "classification": "Weapon", "sheets": ["arthurian", "english"], "flag": true, "origin": "English / Arthurian", "dialogue": "", "etype": "weapon"}, {"id": "Frost Ace", "classification": "Demon", "sheets": ["english"], "flag": false, "origin": "English Mythology", "dialogue": "", "etype": "demon"}, {"id": "Frost Five", "classification": "Demon", "sheets": ["english"], "flag": false, "origin": "English Mythology", "dialogue": "", "etype": "demon"}, {"id": "Gabriel's Hound", "classification": "Demon (Beast)", "sheets": ["english"], "flag": false, "origin": "European / English", "dialogue": "", "etype": "demon"}, {"id": "Galahad", "classification": "Persona", "sheets": ["arthurian", "english"], "flag": false, "origin": "Arthurian Legend", "dialogue": "I am Galahad, a Knight of the Round Table…", "etype": "persona"}, {"id": "Galahad's Shield", "classification": "Weapon", "sheets": ["arthurian", "english"], "flag": false, "origin": "Arthurian Legend", "dialogue": "", "etype": "weapon"}, {"id": "Galatine", "classification": "Weapon", "sheets": ["arthurian", "english"], "flag": false, "origin": "Arthurian Legend", "dialogue": "", "etype": "weapon"}, {"id": "Galley Beggar", "classification": "Demon (Brute)", "sheets": ["english"], "flag": false, "origin": "English Mythology", "dialogue": "", "etype": "demon"}, {"id": "Gally Trot", "classification": "Demon (Beast)", "sheets": ["english"], "flag": false, "origin": "English Mythology", "dialogue": "", "etype": "demon"}, {"id": "Gogmagog", "classification": "Demon (Jirae)", "sheets": ["english"], "flag": false, "origin": "Abrahamic / English", "dialogue": "", "etype": "demon"}, {"id": "Green Man", "classification": "Demon", "sheets": ["english"], "flag": false, "origin": "English Mythology", "dialogue": "", "etype": "demon"}, {"id": "Gremlin", "classification": "Demon (Jaki)", "sheets": ["english"], "flag": true, "origin": "English Mythology", "dialogue": "", "etype": "demon"}, {"id": "Grendel", "classification": "Demon (Jaki)", "sheets": ["english"], "flag": false, "origin": "English / European", "dialogue": "Name's Grendel the Jaki. I was pretty fierce back in the day, raiding castles and stuff.", "etype": "demon"}, {"id": "Hag", "classification": "Demon (Femme)", "sheets": ["english"], "flag": false, "origin": "English Mythology", "dialogue": "", "etype": "demon"}, {"id": "Hairy Jack", "classification": "Demon (Beast)", "sheets": ["english"], "flag": false, "origin": "English Mythology", "dialogue": "I'm the Beast Hairy Jack. I'm a shaggy dog, but I got bite to compensate.", "etype": "demon"}, {"id": "High Pixie", "classification": "Demon / Persona", "sheets": ["english"], "flag": false, "origin": "English Mythology", "dialogue": "I'm High Pixie. They don't call me a 'high' pixie for nothing!", "etype": "mixed"}, {"id": "Holy Grail", "classification": "Demon / Boss", "sheets": ["arthurian", "english"], "flag": false, "origin": "English / Abrahamic / Arthurian", "dialogue": "You imbeciles are intoxicated by an undesired 'justice'…", "etype": "demon"}, {"id": "Hooligan", "classification": "Demon (Foul)", "sheets": ["english"], "flag": true, "origin": "Original creations / English", "dialogue": "", "etype": "demon"}, {"id": "Jack Frost", "classification": "Demon / Persona", "sheets": ["english"], "flag": false, "origin": "English / European", "dialogue": "Life, hee... Life, ho... Hee ho is not fair!", "etype": "mixed"}, {"id": "Jack Ripper", "classification": "Demon (Foul)", "sheets": ["english"], "flag": true, "origin": "Historical Figures / English", "dialogue": "", "etype": "demon"}, {"id": "King Frost", "classification": "Demon", "sheets": ["english"], "flag": false, "origin": "English Mythology", "dialogue": "", "etype": "demon"}, {"id": "Koh-i-Noor", "classification": "Persona (Treasure)", "sheets": ["english"], "flag": true, "origin": "English Mythology", "dialogue": "", "etype": "persona"}, {"id": "Lindwurm", "classification": "Demon (Dragon)", "sheets": ["english"], "flag": true, "origin": "Norse / Scandinavian / English", "dialogue": "", "etype": "demon"}, {"id": "Mermaid", "classification": "Demon", "sheets": ["english", "european"], "flag": false, "origin": "English / European", "dialogue": "", "etype": "demon"}, {"id": "Oberon", "classification": "Demon / Persona", "sheets": ["english"], "flag": false, "origin": "English / European / Early Modern Fiction", "dialogue": "I am Oberon. I suppose I'm not unwilling to lend you the power of the fairy king...", "etype": "mixed"}, {"id": "Pendragon", "classification": "Demon (Snake)", "sheets": ["arthurian", "english"], "flag": true, "origin": "English / Arthurian", "dialogue": "Chant the name of Pendragon the Snake.", "etype": "demon"}, {"id": "Pixie", "classification": "Demon / Persona", "sheets": ["english"], "flag": false, "origin": "English Mythology", "dialogue": "I'm Pixie! I'm going to be your mask and have some fun!", "etype": "mixed"}, {"id": "Primrose", "classification": "Demon", "sheets": ["english"], "flag": false, "origin": "English Mythology", "dialogue": "", "etype": "demon"}, {"id": "Puck", "classification": "Demon / Persona", "sheets": ["english"], "flag": false, "origin": "English / Early Modern Fiction", "dialogue": "", "etype": "mixed"}, {"id": "Quicksilver", "classification": "Demon (Spirit)", "sheets": ["english"], "flag": false, "origin": "English Mythology", "dialogue": "", "etype": "demon"}, {"id": "Robin Goodfellow", "classification": "Demon / Persona", "sheets": ["english"], "flag": false, "origin": "English Mythology", "dialogue": "", "etype": "mixed"}, {"id": "Robin Hood", "classification": "Persona", "sheets": ["english"], "flag": false, "origin": "English Mythology", "dialogue": "", "etype": "persona"}, {"id": "Shock (demon)", "classification": "Demon", "sheets": ["english"], "flag": false, "origin": "English Mythology", "dialogue": "", "etype": "demon"}, {"id": "Specter", "classification": "Demon (Foul)", "sheets": ["blake", "english"], "flag": true, "origin": "William Blake Mythology", "dialogue": "", "etype": "demon"}, {"id": "Titania", "classification": "Demon / Persona", "sheets": ["english"], "flag": false, "origin": "English / European / Early Modern Fiction", "dialogue": "I am Titania. I will become your mask. Now, let us enjoy a midsummer night's dream.", "etype": "mixed"}, {"id": "Vivian", "classification": "Demon / Persona", "sheets": ["arthurian", "english"], "flag": false, "origin": "English / Arthurian", "dialogue": "I am Vivian, guardian spirit of brave knights.", "etype": "mixed"}, {"id": "Wight", "classification": "Demon (Haunt)", "sheets": ["english"], "flag": false, "origin": "English Mythology", "dialogue": "", "etype": "demon"}, {"id": "Will O' Wisp", "classification": "Demon (Foul/Fairy)", "sheets": ["english"], "flag": false, "origin": "English / European", "dialogue": "", "etype": "demon"}, {"id": "Luvah", "classification": "Demon (Zoa)", "sheets": ["blake"], "flag": false, "origin": "William Blake Mythology", "dialogue": "", "etype": "demon"}, {"id": "Tharmas", "classification": "Demon (Zoa)", "sheets": ["blake"], "flag": false, "origin": "William Blake Mythology", "dialogue": "", "etype": "demon"}, {"id": "Urizen", "classification": "Demon (Zoa)", "sheets": ["blake"], "flag": false, "origin": "William Blake Mythology", "dialogue": "", "etype": "demon"}, {"id": "Urthona", "classification": "Demon (Zoa)", "sheets": ["blake"], "flag": false, "origin": "William Blake Mythology", "dialogue": "", "etype": "demon"}], "links": [{"source": "Airgetlam", "target": "irish"}, {"source": "Answerer / Fragarach", "target": "irish"}, {"source": "Aonbharr", "target": "irish"}, {"source": "Badb Catha", "target": "irish"}, {"source": "Badb Catha", "target": "celtic"}, {"source": "Balor", "target": "irish"}, {"source": "Balor", "target": "celtic"}, {"source": "Banshee", "target": "irish"}, {"source": "Banshee", "target": "scottish"}, {"source": "Brigid", "target": "irish"}, {"source": "Brigid", "target": "celtic"}, {"source": "Brionac", "target": "irish"}, {"source": "Brionac", "target": "celtic"}, {"source": "Cailleach Bheare", "target": "irish"}, {"source": "Cailleach Bheare", "target": "scottish"}, {"source": "Cailleach Bheare", "target": "celtic"}, {"source": "Cait Sith", "target": "irish"}, {"source": "Cait Sith", "target": "scottish"}, {"source": "Cait Sith", "target": "celtic"}, {"source": "Caladbolg", "target": "irish"}, {"source": "Caladbolg", "target": "welsh"}, {"source": "Caladbolg", "target": "celtic"}, {"source": "Caladbolg", "target": "arthurian"}, {"source": "Caladbolg", "target": "english"}, {"source": "Claimh Solais", "target": "irish"}, {"source": "Claimh Solais", "target": "celtic"}, {"source": "Crom Cruach", "target": "irish"}, {"source": "Cú Chulainn", "target": "irish"}, {"source": "Cú Chulainn", "target": "scottish"}, {"source": "Cú Chulainn", "target": "celtic"}, {"source": "Cú Sith", "target": "irish"}, {"source": "Cú Sith", "target": "scottish"}, {"source": "Cú Sith", "target": "celtic"}, {"source": "Dagda", "target": "irish"}, {"source": "Dagda", "target": "celtic"}, {"source": "Dagda's Club", "target": "irish"}, {"source": "Danu", "target": "irish"}, {"source": "Danu", "target": "celtic"}, {"source": "Deirdre", "target": "irish"}, {"source": "Deirdre", "target": "celtic"}, {"source": "Dian Cecht", "target": "irish"}, {"source": "Diarmuid", "target": "irish"}, {"source": "Diarmuid", "target": "celtic"}, {"source": "Dubthach Lance", "target": "irish"}, {"source": "Dullahan (demon)", "target": "irish"}, {"source": "Dullahan (demon)", "target": "celtic"}, {"source": "Dullahan (weapon)", "target": "irish"}, {"source": "Dullahan (weapon)", "target": "celtic"}, {"source": "Dullahan (weapon)", "target": "english"}, {"source": "Etain", "target": "irish"}, {"source": "Fairy (generic)", "target": "irish"}, {"source": "Fairy (generic)", "target": "celtic"}, {"source": "Fairy (generic)", "target": "english"}, {"source": "Fairy (generic)", "target": "european"}, {"source": "Fergus", "target": "irish"}, {"source": "Fionn mac Cumhaill", "target": "irish"}, {"source": "Fionn mac Cumhaill", "target": "celtic"}, {"source": "Fir Bolg", "target": "irish"}, {"source": "Fir Bolg", "target": "celtic"}, {"source": "Fomorian", "target": "irish"}, {"source": "Fomorian", "target": "celtic"}, {"source": "Gae Bolg", "target": "irish"}, {"source": "Gae Bolg", "target": "scottish"}, {"source": "Gae Bolg", "target": "celtic"}, {"source": "Geis", "target": "irish"}, {"source": "Jack-o'-Lantern", "target": "irish"}, {"source": "Jack-o'-Lantern", "target": "celtic"}, {"source": "Jack-o'-Lantern", "target": "english"}, {"source": "Leanan Sidhe", "target": "irish"}, {"source": "Leanan Sidhe", "target": "celtic"}, {"source": "Leprechaun", "target": "irish"}, {"source": "Lugh", "target": "irish"}, {"source": "Lugh", "target": "celtic"}, {"source": "Macha", "target": "irish"}, {"source": "Manannan", "target": "irish"}, {"source": "Manannan", "target": "celtic"}, {"source": "Merrow", "target": "irish"}, {"source": "Merrow", "target": "scottish"}, {"source": "Merrow", "target": "celtic"}, {"source": "Midir", "target": "irish"}, {"source": "Midir", "target": "celtic"}, {"source": "Moralltach", "target": "irish"}, {"source": "Moralltach", "target": "celtic"}, {"source": "Morrigan", "target": "irish"}, {"source": "Morrigan", "target": "celtic"}, {"source": "Nemhain", "target": "irish"}, {"source": "Ogma", "target": "irish"}, {"source": "Ogma", "target": "scottish"}, {"source": "Pooka", "target": "irish"}, {"source": "Pooka", "target": "welsh"}, {"source": "Pooka", "target": "celtic"}, {"source": "Queen Mab / Medb", "target": "irish"}, {"source": "Queen Mab / Medb", "target": "celtic"}, {"source": "Queen Mab / Medb", "target": "english"}, {"source": "Queen Mab / Medb", "target": "european"}, {"source": "Scathach", "target": "irish"}, {"source": "Scathach", "target": "scottish"}, {"source": "Scathach", "target": "celtic"}, {"source": "Setanta", "target": "irish"}, {"source": "Setanta", "target": "celtic"}, {"source": "Silky", "target": "irish"}, {"source": "Silky", "target": "scottish"}, {"source": "Silky", "target": "english"}, {"source": "Tir na Nog", "target": "irish"}, {"source": "Tir na Nog", "target": "celtic"}, {"source": "Afanc", "target": "welsh"}, {"source": "Afanc", "target": "celtic"}, {"source": "Ankou", "target": "welsh"}, {"source": "Ankou", "target": "english"}, {"source": "Ankou", "target": "european"}, {"source": "Arianrhod", "target": "welsh"}, {"source": "Bran", "target": "welsh"}, {"source": "Bugaboo", "target": "welsh"}, {"source": "Bugaboo", "target": "english"}, {"source": "Bugbear / Bugs", "target": "welsh"}, {"source": "Bugbear / Bugs", "target": "english"}, {"source": "Cath Palug", "target": "welsh"}, {"source": "Cath Palug", "target": "arthurian"}, {"source": "Cath Palug", "target": "english"}, {"source": "Cath Palug", "target": "celtic"}, {"source": "Cwn Annwn", "target": "welsh"}, {"source": "Cwn Annwn", "target": "celtic"}, {"source": "Cwn Annwn", "target": "english"}, {"source": "Dormarth", "target": "welsh"}, {"source": "Dormarth", "target": "celtic"}, {"source": "Knocker", "target": "welsh"}, {"source": "Knocker", "target": "english"}, {"source": "Morgan (water spirit)", "target": "welsh"}, {"source": "Morgan (water spirit)", "target": "arthurian"}, {"source": "Morgan (water spirit)", "target": "english"}, {"source": "Morgan (water spirit)", "target": "celtic"}, {"source": "Artio", "target": "celtic"}, {"source": "Artio", "target": "european"}, {"source": "Cernunnos", "target": "celtic"}, {"source": "Cernunnos", "target": "european"}, {"source": "Cernunnos", "target": "english"}, {"source": "Nodens", "target": "celtic"}, {"source": "Nodens", "target": "english"}, {"source": "Taranis", "target": "celtic"}, {"source": "Taranis", "target": "european"}, {"source": "Taranis", "target": "english"}, {"source": "Wicker Man", "target": "celtic"}, {"source": "Wicker Man", "target": "english"}, {"source": "Blue Man", "target": "scottish"}, {"source": "Bogle", "target": "scottish"}, {"source": "Bogle", "target": "english"}, {"source": "Brownie", "target": "scottish"}, {"source": "Brownie", "target": "english"}, {"source": "Claymore", "target": "scottish"}, {"source": "Fachan", "target": "scottish"}, {"source": "Fachan", "target": "european"}, {"source": "Goggie", "target": "scottish"}, {"source": "Greyman", "target": "scottish"}, {"source": "Kelpie", "target": "scottish"}, {"source": "Kelpie", "target": "english"}, {"source": "Lham Dearg", "target": "scottish"}, {"source": "Nessie", "target": "scottish"}, {"source": "Pellaidh", "target": "scottish"}, {"source": "Redcap", "target": "scottish"}, {"source": "Redcap", "target": "english"}, {"source": "Selkie", "target": "scottish"}, {"source": "Stone of Scone", "target": "scottish"}, {"source": "Tam Lin", "target": "scottish"}, {"source": "Tam Lin", "target": "english"}, {"source": "Albion", "target": "blake"}, {"source": "Albion", "target": "english"}, {"source": "Arondight", "target": "arthurian"}, {"source": "Arondight", "target": "english"}, {"source": "Arthur (demon)", "target": "arthurian"}, {"source": "Arthur (demon)", "target": "english"}, {"source": "Beowulf", "target": "english"}, {"source": "Black Frost", "target": "english"}, {"source": "Black Knight", "target": "arthurian"}, {"source": "Black Knight", "target": "english"}, {"source": "Excalibur (demon)", "target": "arthurian"}, {"source": "Excalibur (demon)", "target": "english"}, {"source": "Excalibur (weapon)", "target": "arthurian"}, {"source": "Excalibur (weapon)", "target": "english"}, {"source": "Frost Ace", "target": "english"}, {"source": "Frost Five", "target": "english"}, {"source": "Gabriel's Hound", "target": "english"}, {"source": "Galahad", "target": "arthurian"}, {"source": "Galahad", "target": "english"}, {"source": "Galahad's Shield", "target": "arthurian"}, {"source": "Galahad's Shield", "target": "english"}, {"source": "Galatine", "target": "arthurian"}, {"source": "Galatine", "target": "english"}, {"source": "Galley Beggar", "target": "english"}, {"source": "Gally Trot", "target": "english"}, {"source": "Gogmagog", "target": "english"}, {"source": "Green Man", "target": "english"}, {"source": "Gremlin", "target": "english"}, {"source": "Grendel", "target": "english"}, {"source": "Hag", "target": "english"}, {"source": "Hairy Jack", "target": "english"}, {"source": "High Pixie", "target": "english"}, {"source": "Holy Grail", "target": "arthurian"}, {"source": "Holy Grail", "target": "english"}, {"source": "Hooligan", "target": "english"}, {"source": "Jack Frost", "target": "english"}, {"source": "Jack Ripper", "target": "english"}, {"source": "King Frost", "target": "english"}, {"source": "Koh-i-Noor", "target": "english"}, {"source": "Lindwurm", "target": "english"}, {"source": "Mermaid", "target": "english"}, {"source": "Mermaid", "target": "european"}, {"source": "Oberon", "target": "english"}, {"source": "Pendragon", "target": "arthurian"}, {"source": "Pendragon", "target": "english"}, {"source": "Pixie", "target": "english"}, {"source": "Primrose", "target": "english"}, {"source": "Puck", "target": "english"}, {"source": "Quicksilver", "target": "english"}, {"source": "Robin Goodfellow", "target": "english"}, {"source": "Robin Hood", "target": "english"}, {"source": "Shock (demon)", "target": "english"}, {"source": "Specter", "target": "blake"}, {"source": "Specter", "target": "english"}, {"source": "Titania", "target": "english"}, {"source": "Vivian", "target": "arthurian"}, {"source": "Vivian", "target": "english"}, {"source": "Wight", "target": "english"}, {"source": "Will O' Wisp", "target": "english"}, {"source": "Luvah", "target": "blake"}, {"source": "Tharmas", "target": "blake"}, {"source": "Urizen", "target": "blake"}, {"source": "Urthona", "target": "blake"}]};
+
+const TRADITIONS = {
+  irish:    { color: '#5a9e6f', label: 'Irish' },
+  welsh:    { color: '#c0392b', label: 'Welsh' },
+  celtic:   { color: '#2980b9', label: 'Celtic' },
+  scottish: { color: '#8e44ad', label: 'Scottish' },
+  english:  { color: '#e67e22', label: 'English' },
+  european: { color: '#27ae60', label: 'European' },
+  arthurian:{ color: '#d4ac0d', label: 'Arthurian' },
+  blake:    { color: '#8855bb', label: 'Blake' }
+};
+
+const TYPE_COLORS = {
+  demon:   '#d45f6a',
+  persona: '#4a90c4',
+  weapon:  '#5da84e',
+  mixed:   '#c8964a',
+  other:   '#7a7a72'
+};
+
+const TYPE_LABELS = {
+  demon: 'Demon', persona: 'Persona', weapon: 'Weapon', mixed: 'Demon / Persona', other: 'Other'
+};
+
+const TRADITION_ORDER = ['irish','welsh','celtic','scottish','english','european','arthurian','blake'];
+const COUNTS = {};
+TRADITION_ORDER.forEach(t => { COUNTS[t] = RAW.nodes.filter(n => n.sheets.includes(t)).length; });
+
+let activeFilter = null;
+let activeFlagFilter = false;
+let selectedNode = null;
+
+// Build legend
+const tLegend = document.getElementById('tradition-legend');
+TRADITION_ORDER.forEach(t => {
+  const div = document.createElement('div');
+  div.className = 'legend-item';
+  div.id = 'tleg-'+t;
+  div.innerHTML = `<div class="tradition-dot" style="background:${TRADITIONS[t].color}"></div>
+    <span>${TRADITIONS[t].label}</span>
+    <span class="count-badge">${COUNTS[t]}</span>`;
+  div.addEventListener('click', () => toggleTraditionFilter(t));
+  tLegend.appendChild(div);
+});
+
+const typeLegend = document.getElementById('type-legend');
+Object.entries(TYPE_LABELS).forEach(([k, v]) => {
+  const div = document.createElement('div');
+  div.className = 'legend-item';
+  div.id = 'ttype-'+k;
+  const cnt = RAW.nodes.filter(n => n.etype === k).length;
+  div.innerHTML = `<div class="dot" style="background:${TYPE_COLORS[k]}"></div>
+    <span>${v}</span><span class="count-badge">${cnt}</span>`;
+  div.addEventListener('click', () => toggleTypeFilter(k));
+  typeLegend.appendChild(div);
+});
+
+const flagCount = RAW.nodes.filter(n => n.flag).length;
+document.getElementById('flag-count').textContent = flagCount;
+document.getElementById('flagged-count').innerHTML = `<span>${flagCount}</span>`;
+
+// D3 graph
+const svg = d3.select('#graph');
+const container = document.getElementById('graph-wrap');
+let width = container.clientWidth;
+let height = container.clientHeight;
+
+const g = svg.append('g');
+
+const zoom = d3.zoom()
+  .scaleExtent([0.2, 4])
+  .on('zoom', (event) => g.attr('transform', event.transform));
+
+svg.call(zoom);
+
+// Prepare nodes — add tradition nodes
+const traditionNodes = TRADITION_ORDER.map(t => ({
+  id: t,
+  type: 'tradition',
+  color: TRADITIONS[t].color,
+  label: TRADITIONS[t].label,
+  count: COUNTS[t],
+  fx: null, fy: null
+}));
+
+// Place tradition nodes in a circle initially
+const R = Math.min(width, height) * 0.32;
+const cx = width / 2, cy = height / 2;
+traditionNodes.forEach((n, i) => {
+  const angle = (i / traditionNodes.length) * 2 * Math.PI - Math.PI / 2;
+  n.x = cx + R * Math.cos(angle);
+  n.y = cy + R * Math.sin(angle);
+});
+
+const entityNodes = RAW.nodes.map(n => ({ ...n, type: 'entity' }));
+const allNodes = [...traditionNodes, ...entityNodes];
+
+const links = RAW.links.map(l => ({ ...l }));
+
+const simulation = d3.forceSimulation(allNodes)
+  .force('link', d3.forceLink(links).id(d => d.id).distance(d => {
+    if (d.target.type === 'tradition' || d.source.type === 'tradition') return 80;
+    return 60;
+  }).strength(0.4))
+  .force('charge', d3.forceManyBody().strength(d => d.type === 'tradition' ? -600 : -25))
+  .force('collision', d3.forceCollide().radius(d => d.type === 'tradition' ? 55 : 6))
+  .force('center', d3.forceCenter(cx, cy).strength(0.05));
+
+// Draw links
+const linkSel = g.append('g').attr('class','links')
+  .selectAll('line')
+  .data(links)
+  .join('line')
+  .attr('class', d => {
+    const en = d.source.flag || (typeof d.source === 'object' && d.source.flag);
+    return 'link' + (en ? ' flagged-link' : '');
+  });
+
+// Draw tradition nodes — Padlet column-header card style
+const CARD_W = 88, CARD_H = 46;
+const tNodeG = g.append('g').attr('class','tradition-nodes')
+  .selectAll('g')
+  .data(traditionNodes)
+  .join('g')
+  .attr('class','tradition-node')
+  .call(d3.drag()
+    .on('start', dragstarted)
+    .on('drag', dragged)
+    .on('end', dragended));
+
+// Card background
+tNodeG.append('rect')
+  .attr('x', -CARD_W/2).attr('y', -CARD_H/2)
+  .attr('width', CARD_W).attr('height', CARD_H)
+  .attr('rx', 9).attr('ry', 9)
+  .attr('class','tradition-card')
+  .attr('fill', 'rgba(255,255,255,0.93)')
+  .style('filter', 'drop-shadow(0 3px 10px rgba(0,0,0,0.38))');
+
+// Color swatch strip at top
+tNodeG.append('rect')
+  .attr('x', -CARD_W/2).attr('y', -CARD_H/2)
+  .attr('width', CARD_W).attr('height', 6)
+  .attr('rx', 9).attr('ry', 9)
+  .attr('fill', d => d.color);
+
+// Cover the bottom corners of swatch
+tNodeG.append('rect')
+  .attr('x', -CARD_W/2).attr('y', -CARD_H/2+3)
+  .attr('width', CARD_W).attr('height', 5)
+  .attr('fill', d => d.color);
+
+// Label
+tNodeG.append('text')
+  .attr('class','tradition-label')
+  .attr('y', 2)
+  .attr('dy', '0em')
+  .text(d => d.label)
+  .style('fill', '#1a1a18')
+  .style('font-size','12px')
+  .style('font-weight','600');
+
+// Count
+tNodeG.append('text')
+  .attr('class','tradition-count')
+  .attr('y', 16)
+  .text(d => d.count + ' entries')
+  .style('fill', '#8a8880')
+  .style('font-size','9px');
+
+// Draw entity nodes — white pin style
+const eNodeG = g.append('g').attr('class','entity-nodes')
+  .selectAll('g')
+  .data(entityNodes)
+  .join('g')
+  .attr('class', d => 'entity-node' + (d.flag ? ' flagged' : ''))
+  .call(d3.drag()
+    .on('start', dragstarted)
+    .on('drag', dragged)
+    .on('end', dragended))
+  .on('mouseover', showTooltip)
+  .on('mousemove', moveTooltip)
+  .on('mouseout', hideTooltip)
+  .on('click', handleEntityClick);
+
+eNodeG.append('circle')
+  .attr('r', d => d.sheets.length > 2 ? 6.5 : d.sheets.length > 1 ? 5 : 3.8)
+  .attr('fill', d => TYPE_COLORS[d.etype])
+  .attr('stroke', d => d.flag ? '#e85d3d' : 'rgba(255,255,255,0.5)')
+  .attr('stroke-width', d => d.flag ? 2 : 1);
+
+eNodeG.append('text')
+  .attr('class','entity-label')
+  .attr('dy', '-8')
+  .text(d => d.id);
+
+simulation.on('tick', () => {
+  linkSel
+    .attr('x1', d => d.source.x)
+    .attr('y1', d => d.source.y)
+    .attr('x2', d => d.target.x)
+    .attr('y2', d => d.target.y);
+
+  tNodeG.attr('transform', d => `translate(${d.x},${d.y})`);
+  eNodeG.attr('transform', d => `translate(${d.x},${d.y})`);
+});
+
+function dragstarted(event, d) {
+  if (!event.active) simulation.alphaTarget(0.3).restart();
+  d.fx = d.x; d.fy = d.y;
+}
+function dragged(event, d) { d.fx = event.x; d.fy = event.y; }
+function dragended(event, d) {
+  if (!event.active) simulation.alphaTarget(0);
+  if (d.type !== 'tradition') { d.fx = null; d.fy = null; }
+}
+
+function showTooltip(event, d) {
+  const tt = document.getElementById('tooltip');
+  const flag = d.flag ? `<div class="tt-flag">⚠ Origin discrepancy</div>` : '';
+  const dialogue = d.dialogue ? `<div class="tt-dialogue">"${d.dialogue}"</div>` : '';
+  const tags = d.sheets.map(s =>
+    `<span class="tt-tag" style="background:${TRADITIONS[s]?.color||'#888'}">${TRADITIONS[s]?.label||s}</span>`
+  ).join('');
+  tt.innerHTML = `
+    <div class="tt-header">
+      ${flag}
+      <div class="tt-name">${d.id}</div>
+    </div>
+    <div class="tt-body">
+      <div class="tt-row"><span class="label">Type</span><span>${d.classification}</span></div>
+      <div class="tt-row"><span class="label">Origin</span><span>${d.origin || '—'}</span></div>
+      <div class="tt-traditions">${tags}</div>
+    </div>
+    ${dialogue}
+  `;
+  tt.style.display = 'block';
+  moveTooltip(event);
+}
+
+function moveTooltip(event) {
+  const tt = document.getElementById('tooltip');
+  const x = event.clientX + 14;
+  const y = event.clientY - 10;
+  const w = tt.offsetWidth;
+  const h = tt.offsetHeight;
+  tt.style.left = (x + w > window.innerWidth ? x - w - 20 : x) + 'px';
+  tt.style.top = (y + h > window.innerHeight ? y - h : y) + 'px';
+}
+
+function hideTooltip() {
+  document.getElementById('tooltip').style.display = 'none';
+}
+
+function handleEntityClick(event, d) {
+  event.stopPropagation();
+  if (selectedNode === d.id) {
+    selectedNode = null;
+    applyHighlight(null);
+    document.getElementById('selected-info').textContent = '—';
+  } else {
+    selectedNode = d.id;
+    applyHighlight(d.id);
+    document.getElementById('selected-info').textContent = d.id + ' — ' + d.sheets.length + ' tradition(s)';
+  }
+}
+
+svg.on('click', () => {
+  selectedNode = null;
+  applyHighlight(null);
+  document.getElementById('selected-info').textContent = '—';
+});
+
+function applyHighlight(entityId) {
+  if (!entityId) {
+    eNodeG.classed('highlighted', false).classed('dimmed', false);
+    linkSel.classed('highlighted', false).classed('dimmed', false);
+    eNodeG.select('text').style('opacity', 0);
+    return;
+  }
+  const connectedTraditions = new Set();
+  links.forEach(l => {
+    if ((typeof l.source === 'object' ? l.source.id : l.source) === entityId)
+      connectedTraditions.add(typeof l.target === 'object' ? l.target.id : l.target);
+  });
+
+  eNodeG.each(function(d) {
+    const el = d3.select(this);
+    el.classed('highlighted', d.id === entityId);
+    el.classed('dimmed', d.id !== entityId);
+  });
+
+  eNodeG.filter(d => d.id === entityId)
+    .select('text').style('opacity', 1);
+
+  linkSel.each(function(d) {
+    const src = typeof d.source === 'object' ? d.source.id : d.source;
+    const tgt = typeof d.target === 'object' ? d.target.id : d.target;
+    const isHighlighted = src === entityId || tgt === entityId;
+    d3.select(this).classed('highlighted', isHighlighted).classed('dimmed', !isHighlighted);
+  });
+}
+
+function toggleTraditionFilter(t) {
+  activeFilter = activeFilter === t ? null : t;
+  activeFlagFilter = false;
+  document.getElementById('flag-filter').classList.remove('active');
+  applyFilter();
+  document.querySelectorAll('.legend-item[id^="tleg-"]').forEach(el => {
+    el.classList.toggle('active', el.id === 'tleg-'+activeFilter);
+    el.classList.toggle('dimmed', activeFilter && el.id !== 'tleg-'+activeFilter);
+  });
+}
+
+function toggleTypeFilter(k) {
+  activeFilter = activeFilter === ('type:'+k) ? null : ('type:'+k);
+  activeFlagFilter = false;
+  document.getElementById('flag-filter').classList.remove('active');
+  applyFilter();
+  document.querySelectorAll('.legend-item[id^="ttype-"]').forEach(el => {
+    el.classList.toggle('active', activeFilter && el.id === 'ttype-'+k && activeFilter === 'type:'+k);
+    el.classList.toggle('dimmed', activeFilter && el.id !== 'ttype-'+activeFilter.replace('type:','ttype-'));
+  });
+}
+
+document.getElementById('flag-filter').addEventListener('click', () => {
+  activeFlagFilter = !activeFlagFilter;
+  activeFilter = null;
+  document.getElementById('flag-filter').classList.toggle('active', activeFlagFilter);
+  document.querySelectorAll('.legend-item[id^="tleg-"], .legend-item[id^="ttype-"]').forEach(el => {
+    el.classList.remove('active','dimmed');
+  });
+  applyFilter();
+});
+
+function applyFilter() {
+  let visible;
+  if (!activeFilter && !activeFlagFilter) {
+    visible = new Set(entityNodes.map(n => n.id));
+  } else if (activeFlagFilter) {
+    visible = new Set(entityNodes.filter(n => n.flag).map(n => n.id));
+  } else if (activeFilter && activeFilter.startsWith('type:')) {
+    const k = activeFilter.slice(5);
+    visible = new Set(entityNodes.filter(n => n.etype === k).map(n => n.id));
+  } else {
+    visible = new Set(entityNodes.filter(n => n.sheets.includes(activeFilter)).map(n => n.id));
+  }
+
+  eNodeG.each(function(d) {
+    const show = visible.has(d.id);
+    d3.select(this).style('opacity', show ? 1 : 0.06);
+  });
+
+  linkSel.each(function(d) {
+    const src = typeof d.source === 'object' ? d.source.id : d.source;
+    const show = visible.has(src);
+    d3.select(this).style('opacity', show ? 0.7 : 0.04);
+  });
+
+  document.getElementById('showing-count').textContent = visible.size;
+}
+
+document.getElementById('reset-btn').addEventListener('click', () => {
+  activeFilter = null;
+  activeFlagFilter = false;
+  selectedNode = null;
+  document.querySelectorAll('.legend-item').forEach(el => el.classList.remove('active','dimmed'));
+  applyFilter();
+  applyHighlight(null);
+  document.getElementById('selected-info').textContent = '—';
+  svg.transition().duration(600).call(zoom.transform, d3.zoomIdentity);
+  document.getElementById('showing-count').textContent = 130;
+});
+
+// Resize
+window.addEventListener('resize', () => {
+  width = container.clientWidth;
+  height = container.clientHeight;
+  simulation.force('center', d3.forceCenter(width/2, height/2));
+});
+</script>
+</body>
+</html>
