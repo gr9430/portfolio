@@ -1,7 +1,15 @@
+---
+layout: default
+title: "Words Across Worlds"
+description: "Mapping the Protestant Reformation as a global textual network"
+project: true
+tags: [phd, twine, collaborative, data-visualization]
+---
+
 # Words Across Worlds: Mapping the Reformation as a Global Textual Network
 _Completed for Dr. Louise Kane's ENG 6801: Texts and Technology in History, Spring 2026._
 
-Visit the Twine <a href ="{{ site.baseurl }}/phd/projects/henryviii/twine.html">here</a>.
+Visit the Twine <a href ="{{ site.baseurl }}/projects/henryviii/twine.html">here</a>.
 
 ## Project Team
 <ul>
