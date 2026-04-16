@@ -1,0 +1,170 @@
+---
+layout: default
+title: Projects
+project: false
+---
+
+<div id="project-graph-container">
+  <div id="project-graph"></div>
+  <div id="graph-legend">
+    <span class="legend-item"><span class="legend-dot project-dot"></span> Project</span>
+    <span class="legend-item"><span class="legend-dot tag-dot"></span> Tag</span>
+    <p class="legend-hint">Click a tag to filter · Click a project to open · Drag to explore</p>
+  </div>
+</div>
+
+<style>
+  #project-graph-container {
+    width: 100%;
+    position: relative;
+  }
+  #project-graph {
+    width: 100%;
+    height: 600px;
+    background: #1a1a18;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  #graph-legend {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 0.85rem;
+    color: #8a8880;
+    flex-wrap: wrap;
+  }
+  .legend-item { display: flex; align-items: center; gap: 0.4rem; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .project-dot { background: #e85d3d; }
+  .tag-dot { background: #4a90c4; }
+  .legend-hint { margin: 0; font-size: 0.8rem; color: #5a5a56; }
+  .node-label {
+    font-family: 'Courier Prime', monospace;
+    font-size: 11px;
+    fill: #f0ede6;
+    pointer-events: none;
+    user-select: none;
+  }
+  .tag-label { fill: #a0c4e8; }
+  circle.project-node { cursor: pointer; }
+  circle.project-node:hover { stroke: #fff; stroke-width: 2px; }
+  circle.tag-node { cursor: pointer; }
+</style>
+
+<script>
+{% assign project_pages = site.pages | where: "project", true %}
+{% assign all_tag_names = "" | split: "" %}
+{% for p in project_pages %}
+  {% for tag in p.tags %}
+    {% unless all_tag_names contains tag %}
+      {% assign all_tag_names = all_tag_names | push: tag %}
+    {% endunless %}
+  {% endfor %}
+{% endfor %}
+
+const graphData = {
+  nodes: [
+    {% for p in project_pages %}{ id: {{ p.title | jsonify }}, label: {{ p.title | jsonify }}, url: {{ p.url | jsonify }}, type: "project" }{% unless forloop.last %},{% endunless %}
+    {% endfor %}{% if project_pages.size > 0 %},{% endif %}
+    {% for tag in all_tag_names %}{ id: {{ tag | jsonify }}, label: {{ tag | jsonify }}, url: null, type: "tag" }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ],
+  links: [
+    {% for p in project_pages %}{% for tag in p.tags %}{ source: {{ p.title | jsonify }}, target: {{ tag | jsonify }} }{% unless forloop.last and forloop.parentloop.last %},{% endunless %}
+    {% endfor %}{% endfor %}
+  ]
+};
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+(function() {
+  const container = document.getElementById('project-graph');
+  const W = container.clientWidth || 800;
+  const H = 600;
+
+  const svg = d3.select('#project-graph')
+    .append('svg')
+    .attr('width', W)
+    .attr('height', H);
+
+  const g = svg.append('g');
+
+  svg.call(d3.zoom()
+    .scaleExtent([0.4, 3])
+    .on('zoom', (event) => g.attr('transform', event.transform))
+  );
+
+  const simulation = d3.forceSimulation(graphData.nodes)
+    .force('link', d3.forceLink(graphData.links).id(d => d.id).distance(90))
+    .force('charge', d3.forceManyBody().strength(-200))
+    .force('center', d3.forceCenter(W / 2, H / 2))
+    .force('collision', d3.forceCollide(30));
+
+  const link = g.append('g')
+    .selectAll('line')
+    .data(graphData.links)
+    .join('line')
+    .attr('stroke', '#3a3a36')
+    .attr('stroke-width', 1.5);
+
+  const node = g.append('g')
+    .selectAll('circle')
+    .data(graphData.nodes)
+    .join('circle')
+    .attr('r', d => d.type === 'project' ? 12 : 8)
+    .attr('fill', d => d.type === 'project' ? '#e85d3d' : '#4a90c4')
+    .attr('class', d => d.type === 'project' ? 'project-node' : 'tag-node')
+    .call(d3.drag()
+      .on('start', (event, d) => {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x; d.fy = d.y;
+      })
+      .on('drag', (event, d) => { d.fx = event.x; d.fy = event.y; })
+      .on('end', (event, d) => {
+        if (!event.active) simulation.alphaTarget(0);
+        d.fx = null; d.fy = null;
+      })
+    );
+
+  node.filter(d => d.type === 'project')
+    .on('click', (event, d) => { window.location.href = d.url; });
+
+  node.filter(d => d.type === 'tag')
+    .on('click', (event, d) => {
+      event.stopPropagation();
+      const connectedIds = new Set(
+        graphData.links
+          .filter(l => (l.source.id || l.source) === d.id || (l.target.id || l.target) === d.id)
+          .map(l => (l.source.id || l.source) === d.id ? (l.target.id || l.target) : (l.source.id || l.source))
+      );
+      node.attr('opacity', n => n.id === d.id || connectedIds.has(n.id) ? 1 : 0.2);
+      link.attr('opacity', l =>
+        (l.source.id || l.source) === d.id || (l.target.id || l.target) === d.id ? 1 : 0.1
+      );
+    });
+
+  svg.on('click', () => {
+    node.attr('opacity', 1);
+    link.attr('opacity', 1);
+  });
+
+  const label = g.append('g')
+    .selectAll('text')
+    .data(graphData.nodes)
+    .join('text')
+    .attr('class', d => d.type === 'tag' ? 'node-label tag-label' : 'node-label')
+    .attr('dy', d => d.type === 'project' ? -16 : -12)
+    .attr('text-anchor', 'middle')
+    .text(d => d.label);
+
+  simulation.on('tick', () => {
+    link
+      .attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+      .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+    node.attr('cx', d => d.x).attr('cy', d => d.y);
+    label.attr('x', d => d.x).attr('y', d => d.y);
+  });
+})();
+</script>
