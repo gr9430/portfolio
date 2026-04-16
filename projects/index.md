@@ -66,7 +66,7 @@ project: false
 const graphData = {
   nodes: [
     {% for p in project_pages %}{ id: {{ p.title | jsonify }}, label: {{ p.title | jsonify }}, url: {{ p.url | jsonify }}, type: "project" }{% unless forloop.last %},{% endunless %}
-    {% endfor %}{% if project_pages.size > 0 %},{% endif %}
+    {% endfor %}{% if project_pages.size > 0 and all_tag_names.size > 0 %},{% endif %}
     {% for tag in all_tag_names %}{ id: {{ tag | jsonify }}, label: {{ tag | jsonify }}, url: null, type: "tag" }{% unless forloop.last %},{% endunless %}
     {% endfor %}
   ],
