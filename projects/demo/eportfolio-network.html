@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ePortfolio Ecosystem Network</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ucf-gold: #FFC904;
+    --ucf-black: #231F20;
+  }
+
+  [data-theme="dark"] {
+    --c0bg: #1a3a5c; --c0br: #FFC904; --c0tx: #FFC904;
+    --c1bg: #2a1f5e; --c1br: #AFA9EC; --c1tx: #CECBF6;
+    --c2bg: #4A1B0C; --c2br: #F0997B; --c2tx: #F5C4B3;
+    --c3bg: #04342C; --c3br: #5DCAA5; --c3tx: #9FE1CB;
+    --c4bg: #3a2200; --c4br: #EF9F27; --c4tx: #FAC775;
+    --bg: #161614; --surface: #1e1e1b;
+    --border: rgba(255,255,255,0.10);
+    --text: #e8e6de; --muted: #9c9a92;
+    --btn-bg: #231F20; --btn-border: rgba(255,201,4,0.5); --btn-text: #FFC904;
+  }
+
+  [data-theme="light"] {
+    --c0bg: #FFF8DC; --c0br: #c99c00; --c0tx: #231F20;
+    --c1bg: #EEEDFE; --c1br: #534AB7; --c1tx: #26215C;
+    --c2bg: #FAECE7; --c2br: #993C1D; --c2tx: #4A1B0C;
+    --c3bg: #E1F5EE; --c3br: #0F6E56; --c3tx: #04342C;
+    --c4bg: #FFF3CD; --c4br: #854F0B; --c4tx: #412402;
+    --bg: #f5f3ec; --surface: #ffffff;
+    --border: rgba(35,31,32,0.12);
+    --text: #231F20; --muted: #6b6965;
+    --btn-bg: #231F20; --btn-border: #231F20; --btn-text: #FFC904;
+  }
+
+  body {
+    font-family: system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1.5rem;
+    transition: background .25s, color .25s;
+  }
+
+  header {
+    max-width: 820px; width: 100%;
+    margin-bottom: 1.5rem;
+    border-bottom: 0.5px solid var(--border);
+    padding-bottom: 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .header-text h1 {
+    font-size: 1.35rem; font-weight: 600;
+    letter-spacing: -0.02em; margin-bottom: .3rem;
+  }
+  .header-text h1 span { color: var(--ucf-gold); }
+  .header-text p { font-size: .8rem; color: var(--muted); line-height: 1.5; }
+  .ucf-badge {
+    flex-shrink: 0; padding: 5px 10px; border-radius: 6px;
+    background: var(--ucf-black); font-size: 11px; font-weight: 700;
+    letter-spacing: .08em; color: var(--ucf-gold);
+    text-transform: uppercase; border: 1px solid var(--ucf-gold);
+    user-select: none;
+  }
+
+  .toolbar {
+    max-width: 820px; width: 100%;
+    display: flex; align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px; gap: 12px;
+  }
+  .legend { display: flex; flex-wrap: wrap; gap: 5px 14px; }
+  .legend span {
+    display: flex; align-items: center;
+    gap: 6px; font-size: 11px; color: var(--muted);
+  }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  .theme-toggle {
+    display: flex; align-items: center; gap: 7px;
+    padding: 5px 12px; border-radius: 20px;
+    background: var(--btn-bg); border: 1px solid var(--btn-border);
+    color: var(--btn-text); font-size: 11.5px; font-weight: 600;
+    cursor: pointer; flex-shrink: 0; letter-spacing: .03em;
+    transition: opacity .15s; font-family: inherit;
+  }
+  .theme-toggle:hover { opacity: .85; }
+  .theme-toggle svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+  .wrap { max-width: 820px; width: 100%; }
+
+  /* ── edge key ── */
+  .edge-key {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .edge-key span {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 11px; color: var(--muted);
+  }
+  .ek-line {
+    width: 28px; height: 1.5px; background: var(--muted);
+    position: relative; flex-shrink: 0;
+  }
+  .ek-line::after {
+    content: ''; position: absolute; right: -1px; top: -3px;
+    border: 3.5px solid transparent;
+    border-left: 5px solid var(--muted);
+  }
+  .ek-bidir::before {
+    content: ''; position: absolute; left: -1px; top: -3px;
+    border: 3.5px solid transparent;
+    border-right: 5px solid var(--muted);
+  }
+
+  #net-svg { display: block; width: 100%; cursor: default; }
+
+  .pn-node { cursor: pointer; }
+  .pn-node circle { stroke-width: 1.5; transition: stroke-width .15s; }
+  .pn-node.sel circle { stroke-width: 3; }
+  .pn-node text { pointer-events: none; text-anchor: middle; font-size: 11px; font-weight: 700; }
+  .pn-edge { fill: none; stroke-width: 1.2; stroke-linecap: round; transition: opacity .2s; }
+  .pn-dim { opacity: .06; }
+
+  .info-box {
+    margin-top: 12px; border: 0.5px solid var(--border);
+    border-radius: 12px; padding: 1rem 1.25rem;
+    background: var(--surface); min-height: 70px;
+    transition: background .25s, border-color .25s;
+  }
+  .info-default { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .info-role { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
+  .info-role-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .info-role-label {
+    font-size: 10.5px; font-weight: 700; color: var(--muted);
+    letter-spacing: .07em; text-transform: uppercase;
+  }
+  .info-name { font-size: 15px; font-weight: 600; margin-bottom: 8px; color: var(--text); }
+  .info-desc { font-size: 13px; line-height: 1.7; color: var(--muted); }
+  .info-desc em { color: var(--text); font-style: normal; font-weight: 500; }
+
+  footer {
+    max-width: 820px; width: 100%; margin-top: 1.5rem;
+    padding-top: 1rem; border-top: 0.5px solid var(--border);
+    font-size: 11px; color: var(--muted);
+    display: flex; align-items: center; gap: 8px;
+  }
+  footer::before {
+    content: ''; display: inline-block; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--ucf-gold); flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-text">
+    <h1>The ePortfolio <span>Ecosystem</span></h1>
+    <p>How the student portfolio connects stakeholders across the academic and professional journey.<br>Click any node to learn more. Drag to rearrange.</p>
+  </div>
+  <div class="ucf-badge">UCF</div>
+</header>
+
+<div class="toolbar">
+  <div class="legend" id="legend"></div>
+  <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()">
+    <svg id="theme-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+      <circle cx="8" cy="8" r="3.5"/>
+      <line x1="8" y1="1" x2="8" y2="2.5"/><line x1="8" y1="13.5" x2="8" y2="15"/>
+      <line x1="1" y1="8" x2="2.5" y2="8"/><line x1="13.5" y1="8" x2="15" y2="8"/>
+      <line x1="3.05" y1="3.05" x2="4.11" y2="4.11"/><line x1="11.89" y1="11.89" x2="12.95" y2="12.95"/>
+      <line x1="12.95" y1="3.05" x2="11.89" y2="4.11"/><line x1="4.11" y1="11.89" x2="3.05" y2="12.95"/>
+    </svg>
+    <span id="theme-label">Light mode</span>
+  </button>
+</div>
+
+<div class="wrap">
+  <div class="edge-key">
+    <span>
+      <span class="ek-line ek-bidir" style="width:28px"></span>
+      All connections are bidirectional exchanges
+    </span>
+  </div>
+
+  <svg id="net-svg" viewBox="0 0 820 520" aria-label="ePortfolio ecosystem network"></svg>
+
+  <div class="info-box" id="info-panel">
+    <p class="info-default">Click any node to explore how the ePortfolio speaks to that stakeholder's situation.</p>
+  </div>
+</div>
+
+<footer>University of Central Florida — ePortfolio Ecosystem. An interactive resource for students and faculty.</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+/* ── Theme ── */
+function toggleTheme() {
+  const html = document.documentElement;
+  const going_light = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', going_light ? 'light' : 'dark');
+  document.getElementById('theme-label').textContent = going_light ? 'Dark mode' : 'Light mode';
+  const icon = document.getElementById('theme-icon');
+  if (going_light) {
+    icon.innerHTML = '<path d="M13.5 8.5A5.5 5.5 0 0 1 7 2a6.5 6.5 0 1 0 6.5 6.5z" fill="currentColor" stroke="none"/>';
+  } else {
+    icon.innerHTML = '<circle cx="8" cy="8" r="3.5"/><line x1="8" y1="1" x2="8" y2="2.5"/><line x1="8" y1="13.5" x2="8" y2="15"/><line x1="1" y1="8" x2="2.5" y2="8"/><line x1="13.5" y1="8" x2="15" y2="8"/><line x1="3.05" y1="3.05" x2="4.11" y2="4.11"/><line x1="11.89" y1="11.89" x2="12.95" y2="12.95"/><line x1="12.95" y1="3.05" x2="11.89" y2="4.11"/><line x1="4.11" y1="11.89" x2="3.05" y2="12.95"/>';
+  }
+  rebuildColors();
+}
+
+/* ── Category labels ── */
+const CAT_LABELS = ['ePortfolio', 'Academic community', 'Personal community', 'Support services', 'Future audiences'];
+
+/* ── Nodes ── */
+const NODES = [
+  {
+    id: 'portfolio', lines: ["Student's", "ePortfolio"], g: 0, r: 34,
+    x: 400, y: 248, fx: 400, fy: 248,
+    role: 'Central artifact', name: "Student's ePortfolio",
+    desc: "A student moves through a course—or an entire degree—producing work that rarely speaks to anyone beyond the instructor. Each assignment lives in isolation. The ePortfolio changes that: it becomes a <em>living archive and argument</em>, connecting individual pieces into a coherent story of growth that any audience can enter. It exchanges feedback with the classroom, draws on support services, and opens outward to professional and public life."
+  },
+  {
+    id: 'classroom', lines: ['Classroom'], g: 1, r: 24, x: 210, y: 88,
+    role: 'Academic community', name: 'Classroom — Professor & Peers',
+    desc: "The classroom and the ePortfolio are in ongoing dialogue. <em>Professors assign, respond, and revise</em> through the portfolio; students bring drafts back into classroom discussion. Peers review each other's portfolios, making the writing process social rather than solitary. Professors also refer students to the Writing Center when the portfolio reveals patterns that need sustained attention."
+  },
+  {
+    id: 'parent', lines: ['Parent'], g: 2, r: 24, x: 100, y: 228,
+    role: 'Personal community', name: 'Parent',
+    desc: "Parents often have little window into what a student is genuinely learning—tuition paid, grades checked, substance stays opaque. When a student shares their ePortfolio, a parent encounters <em>real intellectual work in context</em>: not just a grade, but the thinking behind it. Their response—curiosity, questions, pride—flows back and changes how students write. An audience that loves you is still an audience."
+  },
+  {
+    id: 'roommate', lines: ['Roommate'], g: 2, r: 24, x: 182, y: 385,
+    role: 'Personal community', name: 'Roommate',
+    desc: "Academic writing often exists in a narrow register—written for the professor, in the professor's assumed voice. A roommate as reader is a useful provocation: <em>does this actually communicate outside the classroom?</em> Their confusion, engagement, or genuine curiosity feeds back into how the student thinks about clarity and audience—and sometimes the roommate's questions become the student's best revision prompts."
+  },
+  {
+    id: 'writing', lines: ['Writing', 'Center'], g: 3, r: 24, x: 290, y: 468,
+    role: 'Support services', name: 'Writing Center',
+    desc: "The Writing Center sits at the intersection of classroom and library support. <em>Professors refer students here</em> when the portfolio surfaces recurring struggles; tutors work with the full arc of a student's drafts rather than a single paper. Writing Center staff also collaborate directly with Subject Librarians—jointly supporting students whose research and writing challenges are inseparable."
+  },
+  {
+    id: 'library', lines: ['Library', 'Resources'], g: 3, r: 24, x: 418, y: 476,
+    role: 'Support services', name: 'Library Resources',
+    desc: "Library resources feed the ePortfolio and the Writing Center equally. eBooks, databases, and research guides provide the evidentiary backbone for student inquiry—and Writing Center tutors draw on them during sessions. The library is not a silo: it <em>flows into every support relationship</em>, reinforcing information literacy as something practiced across the ecosystem rather than isolated in a single assignment."
+  },
+  {
+    id: 'librarian', lines: ['Subject', 'Librarian'], g: 3, r: 24, x: 535, y: 422,
+    role: 'Support services', name: 'Subject Librarian',
+    desc: "Subject Librarians form a triangle with the Writing Center and Library Resources—<em>all three are in conversation</em>. A librarian who knows what the Writing Center is seeing can anticipate what sources students need; a Writing Center tutor who knows the librarian can make warm referrals. Together they create a support network where research, writing, and revision are treated as a single practice."
+  },
+  {
+    id: 'web', lines: ['Online', 'Visitors'], g: 4, r: 24, x: 590, y: 88,
+    role: 'Future audiences', name: 'Online Visitors',
+    desc: "Publishing to the open web is a genuinely bidirectional act. The student <em>pushes work outward</em>; the web pushes back—through analytics, comments, and the awareness of real exposure. Employers and project managers discover portfolios through online search, and that discovery shapes what students choose to include and how they frame it. The web connects present work to professional future in both directions."
+  },
+  {
+    id: 'manager', lines: ['Project', 'Manager'], g: 4, r: 24, x: 670, y: 230,
+    role: 'Future audiences', name: 'Project Manager',
+    desc: "A résumé lists credentials; an ePortfolio demonstrates them. When a hiring manager or project lead discovers a portfolio—often through the web—they see <em>how this person actually thinks</em>: how they frame problems, how they respond to feedback, how they communicate across audiences. The manager-to-professional-portfolio connection reflects the trajectory that begins in the classroom."
+  },
+  {
+    id: 'homebuilder', lines: ['Professional', 'Portfolio'], g: 4, r: 24, x: 620, y: 398,
+    role: 'Future audiences', name: 'Professional Portfolio',
+    desc: "A contractor's project archive, a designer's case studies, a consultant's client record—these are ePortfolios by another name. The professional portfolio is where the habits developed in school arrive. Project managers often require them; <em>they are discovered the same way academic portfolios are</em>—through the web, through referrals, through the accumulated evidence of someone's work over time."
+  },
+];
+
+/* ── Links ──
+   bidir: true  → arrows at both ends (↔)
+   bidir: false → arrow at target only (→)
+*/
+const LINKS = [
+  // Portfolio hub
+  { s: 'classroom',  t: 'portfolio',   bidir: true, off:  0.22 },
+  { s: 'library',    t: 'portfolio',   bidir: true, off: -0.18 },
+  { s: 'librarian',  t: 'portfolio',   bidir: true, off:  0.18 },
+  { s: 'portfolio',  t: 'web',         bidir: true, off:  0.22 },
+  { s: 'portfolio',  t: 'manager',     bidir: true, off:  0.18 },
+
+  // Personal community
+  { s: 'parent',     t: 'portfolio',   bidir: true, off: -0.20 },
+  { s: 'roommate',   t: 'portfolio',   bidir: true, off:  0.20 },
+
+  // Academic ↔ Support services
+  { s: 'classroom',  t: 'writing',     bidir: true, off: -0.20 },
+
+  // Support services triangle
+  { s: 'writing',    t: 'library',     bidir: true, off: -0.35 },
+  { s: 'writing',    t: 'librarian',   bidir: true, off: -0.22 },
+  { s: 'librarian',  t: 'library',     bidir: true, off:  0.28 },
+
+  // Future audiences
+  { s: 'web',        t: 'manager',     bidir: true, off:  0.25 },
+  { s: 'manager',    t: 'homebuilder', bidir: true, off:  0.28 },
+];
+
+/* ── Color helpers ── */
+function getGC() {
+  const cs = getComputedStyle(document.documentElement);
+  return [0,1,2,3,4].map(i => ({
+    bg: cs.getPropertyValue('--c'+i+'bg').trim(),
+    br: cs.getPropertyValue('--c'+i+'br').trim(),
+    tx: cs.getPropertyValue('--c'+i+'tx').trim(),
+  }));
+}
+
+let GC = getGC();
+
+/* ── Geometry ── */
+function curvePath(s, t, off, bidir) {
+  const dx = t.x - s.x, dy = t.y - s.y;
+  const len = Math.sqrt(dx*dx + dy*dy);
+  if (len < 1) return '';
+  const nx = -dy/len, ny = dx/len;
+  const mx = (s.x+t.x)/2 + nx*len*off;
+  const my = (s.y+t.y)/2 + ny*len*off;
+  // bidirectional needs arrow clearance at both ends
+  const sR = bidir ? s.r + 9 : s.r + 3;
+  const tR = t.r + 9;
+  const sx = s.x + dx/len*sR, sy = s.y + dy/len*sR;
+  const ex = t.x - dx/len*tR, ey = t.y - dy/len*tR;
+  return `M${sx.toFixed(1)},${sy.toFixed(1)} Q${mx.toFixed(1)},${my.toFixed(1)} ${ex.toFixed(1)},${ey.toFixed(1)}`;
+}
+
+const NM = {};
+NODES.forEach(n => NM[n.id] = n);
+
+/* ── Build SVG ── */
+const svg = d3.select('#net-svg');
+const defs = svg.append('defs');
+
+// Arrow marker — orient="auto-start-reverse" handles both marker-end and marker-start
+defs.append('marker')
+  .attr('id', 'arr').attr('viewBox', '0 0 10 10')
+  .attr('refX', 8).attr('refY', 5)
+  .attr('markerWidth', 6).attr('markerHeight', 6)
+  .attr('orient', 'auto-start-reverse')
+  .append('path').attr('d', 'M2 1L8 5L2 9')
+  .attr('fill', 'none').attr('stroke', 'context-stroke')
+  .attr('stroke-width', 1.5).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round');
+
+const edgeG = svg.append('g');
+const nodeG = svg.append('g');
+
+/* ── Legend ── */
+const legendEl = document.getElementById('legend');
+CAT_LABELS.forEach((label, i) => {
+  const span = document.createElement('span');
+  span.innerHTML = `<span class="legend-dot" id="ldot-${i}" style="background:${GC[i].br}"></span>${label}`;
+  legendEl.appendChild(span);
+});
+
+/* ── Draw edges ── */
+const EP = [];
+LINKS.forEach((l, i) => {
+  const s = NM[l.s], t = NM[l.t];
+  const c = GC[s.g].br;
+  const p = edgeG.append('path')
+    .attr('class', 'pn-edge')
+    .attr('d', curvePath(s, t, l.off, l.bidir))
+    .attr('stroke', c)
+    .attr('marker-end', 'url(#arr)');
+  if (l.bidir) p.attr('marker-start', 'url(#arr)');
+  EP[i] = p;
+});
+
+/* ── Draw nodes ── */
+let selId = null;
+
+NODES.forEach(n => {
+  const c = GC[n.g];
+  const g = nodeG.append('g')
+    .attr('class', 'pn-node')
+    .attr('id', 'pnn-' + n.id)
+    .attr('transform', `translate(${n.x},${n.y})`);
+
+  g.append('circle').attr('r', n.r).attr('fill', c.bg).attr('stroke', c.br);
+
+  const lh = 13, baseY = -(n.lines.length - 1) * lh / 2;
+  n.lines.forEach((ln, j) => {
+    g.append('text').attr('y', baseY + j*lh)
+      .attr('fill', c.tx).attr('dominant-baseline', 'central').text(ln);
+  });
+
+  g.on('mouseenter', () => { if (!selId) highlight(n.id); });
+  g.on('mouseleave', () => { if (!selId) clearHL(); });
+  g.on('click', function(ev) {
+    ev.stopPropagation();
+    if (selId === n.id) { selId = null; clearHL(); defaultInfo(); return; }
+    selId = n.id;
+    nodeG.selectAll('.pn-node').classed('sel', false);
+    d3.select(this).classed('sel', true);
+    highlight(n.id);
+    showInfo(n);
+  });
+
+  if (!n.fx) {
+    let ox = 0, oy = 0;
+    g.call(d3.drag()
+      .on('start', function(ev) { ox = n.x - ev.x; oy = n.y - ev.y; d3.select(this).raise(); })
+      .on('drag', function(ev) {
+        n.x = ev.x + ox; n.y = ev.y + oy;
+        d3.select(this).attr('transform', `translate(${n.x},${n.y})`);
+        LINKS.forEach((l, i) => EP[i].attr('d', curvePath(NM[l.s], NM[l.t], l.off, l.bidir)));
+      })
+    );
+  }
+});
+
+/* ── Rebuild colors after theme switch ── */
+function rebuildColors() {
+  GC = getGC();
+  LINKS.forEach((l, i) => EP[i].attr('stroke', GC[NM[l.s].g].br));
+  NODES.forEach(n => {
+    const c = GC[n.g];
+    const g = d3.select('#pnn-' + n.id);
+    g.select('circle').attr('fill', c.bg).attr('stroke', c.br);
+    g.selectAll('text').attr('fill', c.tx);
+  });
+  CAT_LABELS.forEach((_, i) => {
+    const dot = document.getElementById('ldot-' + i);
+    if (dot) dot.style.background = GC[i].br;
+  });
+  if (selId) showInfo(NM[selId]);
+}
+
+/* ── Interactions ── */
+function highlight(id) {
+  nodeG.selectAll('.pn-node').classed('pn-dim', true);
+  edgeG.selectAll('.pn-edge').classed('pn-dim', true);
+  d3.select('#pnn-' + id).classed('pn-dim', false);
+  LINKS.forEach((l, i) => {
+    if (l.s === id || l.t === id) {
+      EP[i].classed('pn-dim', false);
+      d3.select('#pnn-' + l.s).classed('pn-dim', false);
+      d3.select('#pnn-' + l.t).classed('pn-dim', false);
+    }
+  });
+}
+
+function clearHL() {
+  nodeG.selectAll('.pn-node').classed('pn-dim', false);
+  edgeG.selectAll('.pn-edge').classed('pn-dim', false);
+}
+
+function defaultInfo() {
+  document.getElementById('info-panel').innerHTML =
+    '<p class="info-default">Click any node to explore how the ePortfolio speaks to that stakeholder\'s situation.</p>';
+}
+
+function showInfo(n) {
+  const c = GC[n.g].br;
+  document.getElementById('info-panel').innerHTML = `
+    <div class="info-role">
+      <span class="info-role-dot" style="background:${c}"></span>
+      <span class="info-role-label">${n.role}</span>
+    </div>
+    <p class="info-name">${n.name}</p>
+    <p class="info-desc">${n.desc}</p>
+  `;
+}
+
+svg.on('click', () => {
+  selId = null; clearHL();
+  nodeG.selectAll('.pn-node').classed('sel', false);
+  defaultInfo();
+});
+</script>
+</body>
+</html>
