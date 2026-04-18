@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UCF ePortfolio Resources</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ucf-gold: #FFC904;
+    --ucf-black: #231F20;
+  }
+
+  [data-theme="dark"] {
+    /* Hubs: UCF gold */
+    --c0bg: #2a2000; --c0br: #FFC904; --c0tx: #FFC904;
+    /* Library resources: teal */
+    --c1bg: #04342C; --c1br: #5DCAA5; --c1tx: #9FE1CB;
+    /* UWC resources: purple */
+    --c2bg: #26215C; --c2br: #AFA9EC; --c2tx: #CECBF6;
+
+    --bg: #161614; --surface: #1e1e1b;
+    --border: rgba(255,255,255,0.10);
+    --text: #e8e6de; --muted: #9c9a92;
+    --btn-bg: #231F20; --btn-border: rgba(255,201,4,0.5); --btn-text: #FFC904;
+    --link-color: #85B7EB;
+  }
+
+  [data-theme="light"] {
+    --c0bg: #FFF8DC; --c0br: #c99c00; --c0tx: #231F20;
+    --c1bg: #E1F5EE; --c1br: #0F6E56; --c1tx: #04342C;
+    --c2bg: #EEEDFE; --c2br: #534AB7; --c2tx: #26215C;
+
+    --bg: #f5f3ec; --surface: #ffffff;
+    --border: rgba(35,31,32,0.12);
+    --text: #231F20; --muted: #6b6965;
+    --btn-bg: #231F20; --btn-border: #231F20; --btn-text: #FFC904;
+    --link-color: #185FA5;
+  }
+
+  body {
+    font-family: system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1.5rem;
+    transition: background .25s, color .25s;
+  }
+
+  header {
+    max-width: 900px; width: 100%;
+    margin-bottom: 1.5rem;
+    border-bottom: 0.5px solid var(--border);
+    padding-bottom: 1.25rem;
+    display: flex; align-items: flex-start;
+    justify-content: space-between; gap: 1rem;
+  }
+  .header-text h1 {
+    font-size: 1.35rem; font-weight: 600;
+    letter-spacing: -0.02em; margin-bottom: .3rem;
+  }
+  .header-text h1 span { color: var(--ucf-gold); }
+  .header-text p { font-size: .8rem; color: var(--muted); line-height: 1.5; }
+  .ucf-badge {
+    flex-shrink: 0; padding: 5px 10px; border-radius: 6px;
+    background: var(--ucf-black); font-size: 11px; font-weight: 700;
+    letter-spacing: .08em; color: var(--ucf-gold);
+    text-transform: uppercase; border: 1px solid var(--ucf-gold);
+    user-select: none;
+  }
+
+  .toolbar {
+    max-width: 900px; width: 100%;
+    display: flex; align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px; gap: 12px;
+  }
+  .legend { display: flex; flex-wrap: wrap; gap: 5px 14px; }
+  .legend span {
+    display: flex; align-items: center;
+    gap: 6px; font-size: 11px; color: var(--muted);
+  }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  .theme-toggle {
+    display: flex; align-items: center; gap: 7px;
+    padding: 5px 12px; border-radius: 20px;
+    background: var(--btn-bg); border: 1px solid var(--btn-border);
+    color: var(--btn-text); font-size: 11.5px; font-weight: 600;
+    cursor: pointer; flex-shrink: 0; letter-spacing: .03em;
+    transition: opacity .15s; font-family: inherit;
+  }
+  .theme-toggle:hover { opacity: .85; }
+  .theme-toggle svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+  .wrap { max-width: 900px; width: 100%; }
+
+  #net-svg { display: block; width: 100%; cursor: default; }
+
+  .pn-node { cursor: pointer; }
+  .pn-node circle { stroke-width: 1.5; transition: stroke-width .15s; }
+  .pn-node.sel circle { stroke-width: 3; }
+  .pn-node text { pointer-events: none; text-anchor: middle; font-size: 11px; font-weight: 700; }
+  .pn-edge { fill: none; stroke-width: 1.2; stroke-linecap: round; transition: opacity .2s; }
+  .pn-dim { opacity: .06; }
+
+  .info-box {
+    margin-top: 12px; border: 0.5px solid var(--border);
+    border-radius: 12px; padding: 1rem 1.25rem;
+    background: var(--surface); min-height: 80px;
+    transition: background .25s, border-color .25s;
+  }
+  .info-default { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .info-role {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 7px;
+  }
+  .info-role-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .info-role-label {
+    font-size: 10.5px; font-weight: 700; color: var(--muted);
+    letter-spacing: .07em; text-transform: uppercase;
+  }
+  .info-name { font-size: 15px; font-weight: 600; margin-bottom: 8px; color: var(--text); }
+  .info-desc { font-size: 13px; line-height: 1.7; color: var(--muted); margin-bottom: 12px; }
+  .info-desc em { color: var(--text); font-style: normal; font-weight: 500; }
+
+  .info-links { display: flex; flex-wrap: wrap; gap: 8px; }
+  .info-link {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 12px; font-weight: 500;
+    padding: 5px 12px; border-radius: 6px;
+    background: var(--surface); border: 0.5px solid var(--border);
+    color: var(--link-color); text-decoration: none;
+    transition: opacity .15s; font-family: inherit;
+    cursor: pointer;
+  }
+  .info-link:hover { opacity: .75; }
+  .info-link svg { width: 11px; height: 11px; flex-shrink: 0; }
+
+  footer {
+    max-width: 900px; width: 100%; margin-top: 1.5rem;
+    padding-top: 1rem; border-top: 0.5px solid var(--border);
+    font-size: 11px; color: var(--muted);
+    display: flex; align-items: center; gap: 8px;
+  }
+  footer::before {
+    content: ''; display: inline-block; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--ucf-gold); flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-text">
+    <h1>ePortfolio <span>Resources</span></h1>
+    <p>UCF Library and University Writing Center services available to students, staff, and faculty.<br>Click any node to explore resources and access links.</p>
+  </div>
+  <div class="ucf-badge">UCF</div>
+</header>
+
+<div class="toolbar">
+  <div class="legend" id="legend"></div>
+  <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()">
+    <svg id="theme-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+      <circle cx="8" cy="8" r="3.5"/>
+      <line x1="8" y1="1" x2="8" y2="2.5"/><line x1="8" y1="13.5" x2="8" y2="15"/>
+      <line x1="1" y1="8" x2="2.5" y2="8"/><line x1="13.5" y1="8" x2="15" y2="8"/>
+      <line x1="3.05" y1="3.05" x2="4.11" y2="4.11"/><line x1="11.89" y1="11.89" x2="12.95" y2="12.95"/>
+      <line x1="12.95" y1="3.05" x2="11.89" y2="4.11"/><line x1="4.11" y1="11.89" x2="3.05" y2="12.95"/>
+    </svg>
+    <span id="theme-label">Light mode</span>
+  </button>
+</div>
+
+<div class="wrap">
+  <svg id="net-svg" viewBox="0 0 900 500" aria-label="UCF ePortfolio resources network"></svg>
+  <div class="info-box" id="info-panel">
+    <p class="info-default">Click any node to explore resources and access direct links to UCF services.</p>
+  </div>
+</div>
+
+<footer>University of Central Florida — ePortfolio Resources. For students, staff, and faculty.</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+/* ── Theme ── */
+function toggleTheme() {
+  const html = document.documentElement;
+  const going_light = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', going_light ? 'light' : 'dark');
+  document.getElementById('theme-label').textContent = going_light ? 'Dark mode' : 'Light mode';
+  const icon = document.getElementById('theme-icon');
+  if (going_light) {
+    icon.innerHTML = '<path d="M13.5 8.5A5.5 5.5 0 0 1 7 2a6.5 6.5 0 1 0 6.5 6.5z" fill="currentColor" stroke="none"/>';
+  } else {
+    icon.innerHTML = '<circle cx="8" cy="8" r="3.5"/><line x1="8" y1="1" x2="8" y2="2.5"/><line x1="8" y1="13.5" x2="8" y2="15"/><line x1="1" y1="8" x2="2.5" y2="8"/><line x1="13.5" y1="8" x2="15" y2="8"/><line x1="3.05" y1="3.05" x2="4.11" y2="4.11"/><line x1="11.89" y1="11.89" x2="12.95" y2="12.95"/><line x1="12.95" y1="3.05" x2="11.89" y2="4.11"/><line x1="4.11" y1="11.89" x2="3.05" y2="12.95"/>';
+  }
+  rebuildColors();
+}
+
+const CAT_LABELS = ['Hub services', 'UCF Library', 'University Writing Center'];
+
+/* ── Nodes ── */
+const NODES = [
+  /* ── HUBS ── */
+  {
+    id: 'library', lines: ['UCF', 'Library'], g: 0, r: 34,
+    x: 230, y: 220, fx: 230, fy: 220,
+    role: 'Hub service', name: 'UCF Library',
+    desc: 'UCF Libraries offer a full range of research services and resources for completing research projects. The library connects students with one-on-one librarian consultations, curated research guides, a video learning collection, and the <em>STARS digital repository</em> for archiving completed ePortfolios. The library also houses a University Writing Center location for integrated writing and research support.',
+    links: []
+  },
+  {
+    id: 'uwc', lines: ['University', 'Writing', 'Center'], g: 0, r: 34,
+    x: 660, y: 220, fx: 660, fy: 220,
+    role: 'Hub service', name: 'University Writing Center',
+    desc: 'The UCF University Writing Center (UWC) is a <em>free tutoring service</em> available to all UCF students. Consultants help writers at any stage of the process—from brainstorming to final revision—navigating the complexities of written communication and rhetoric. The UWC has two campus locations: the <em>first floor of Trevor Colbourn Hall</em> and a satellite location <em>inside the John C. Hitt Library</em>, placing writing support directly alongside research resources.',
+    links: []
+  },
+
+  /* ── LIBRARY RESOURCES ── */
+  {
+    id: 'consultation', lines: ['Research', 'Consultation'], g: 1, r: 23,
+    x: 62, y: 80,
+    role: 'UCF Library', name: 'Research Consultation',
+    desc: 'Schedule a one-on-one appointment with a UCF librarian to develop research questions, navigate databases efficiently, and understand different types of research projects. Available to <em>students, staff, and faculty</em>.',
+    links: [{ label: 'Schedule a consultation', url: 'https://ucf.libcal.com/appointments/main' }]
+  },
+  {
+    id: 'videos', lines: ['Video', 'Collection'], g: 1, r: 23,
+    x: 48, y: 220,
+    role: 'UCF Library', name: 'Library Video Collection',
+    desc: 'A curated online collection of short instructional videos covering <em>research strategies, citation formatting</em>, and library services. A flexible, self-paced way to build research and documentation skills alongside portfolio work.',
+    links: [{ label: 'Browse video collection', url: 'https://library.ucf.edu/videos/' }]
+  },
+  {
+    id: 'guides', lines: ['Research', 'Guides'], g: 1, r: 23,
+    x: 62, y: 370,
+    role: 'UCF Library', name: 'Subject & Course Research Guides',
+    desc: 'The library creates <em>subject-specific and course-specific research guides</em> to help students, staff, and faculty locate databases, materials, and scholarly resources relevant to their field. An efficient starting point for any research component of an ePortfolio.',
+    links: [{ label: 'Find a research guide', url: 'https://guides.ucf.edu/homepage' }]
+  },
+  {
+    id: 'stars', lines: ['STARS', 'Repository'], g: 1, r: 23,
+    x: 215, y: 448,
+    role: 'UCF Library', name: 'STARS Digital Repository',
+    desc: 'STARS (Showcase of Text, Archives, Research & Scholarship) is UCF\'s digital repository. Upon completing their ePortfolios, students may consider <em>submitting their work to STARS</em> for preservation and worldwide access—extending the portfolio\'s reach beyond the course.',
+    links: [{ label: 'Explore STARS', url: 'https://stars.library.ucf.edu/' }]
+  },
+
+  /* ── UWC RESOURCES ── */
+  {
+    id: 'uwc_schedule', lines: ['Schedule', 'Consultation'], g: 2, r: 23,
+    x: 838, y: 80,
+    role: 'University Writing Center', name: 'Schedule a UWC Consultation',
+    desc: 'Book a one-on-one writing consultation with a UWC tutor. Tutors work with writers at <em>any stage of the process</em>—brainstorming, drafting, revising, or finalizing. Appointments are available at the <em>first floor of Trevor Colbourn Hall</em> and at the satellite location inside <em>John C. Hitt Library</em>.',
+    links: [{ label: 'Schedule at UWC', url: 'https://cah.ucf.edu/uwc/schedule-a-consultation/' }]
+  },
+  {
+    id: 'uwc_policies', lines: ['Policies &', 'Procedures'], g: 2, r: 23,
+    x: 858, y: 210,
+    role: 'University Writing Center', name: 'UWC Policies & Procedures',
+    desc: 'Before scheduling, students and faculty can review the UWC\'s <em>policies and appointment procedures</em> to understand session formats, preparation expectations, and how to make the most of a writing consultation.',
+    links: [{ label: 'View policies', url: 'https://cah.ucf.edu/uwc/policies/' }]
+  },
+  {
+    id: 'uwc_resources', lines: ['Student', 'Resources'], g: 2, r: 23,
+    x: 848, y: 345,
+    role: 'University Writing Center', name: 'Undergraduate & Graduate Resources',
+    desc: 'The UWC maintains an online resource library covering <em>writing strategies, grammar, citation styles, and genre-specific guidance</em> for both undergraduate and graduate writers. Useful for independent work between consultations.',
+    links: [{ label: 'Browse student resources', url: 'https://cah.ucf.edu/uwc/find-resources/' }]
+  },
+  {
+    id: 'uwc_faculty', lines: ['Faculty', 'Support'], g: 2, r: 23,
+    x: 760, y: 448,
+    role: 'University Writing Center', name: 'UWC Faculty Support',
+    desc: 'Faculty can partner with the UWC to <em>integrate writing support into course design</em>—including referring students for consultations, embedding writing instruction, and coordinating ePortfolio feedback workflows with UWC consultants.',
+    links: [{ label: 'Faculty information', url: 'https://cah.ucf.edu/uwc/faculty-information/' }]
+  },
+  {
+    id: 'uwc_newsletter', lines: ['UWC', 'Newsletter'], g: 2, r: 23,
+    x: 600, y: 448,
+    role: 'University Writing Center', name: 'UWC Newsletter',
+    desc: 'The UWC publishes a regular newsletter covering <em>writing tips, upcoming workshops, and center news</em>. A resource for staying connected with writing support initiatives across the UCF community.',
+    links: [{ label: 'Read the newsletter', url: 'https://cah.ucf.edu/uwc/newsletter/' }]
+  },
+];
+
+/* ── Links ── */
+const LINKS = [
+  // Hub ↔ Hub (co-located, mutually referential)
+  { s: 'library',    t: 'uwc',           bidir: true,  off:  0.18 },
+
+  // Library hub ↔ resources
+  { s: 'library',    t: 'consultation',  bidir: true,  off:  0.20 },
+  { s: 'library',    t: 'videos',        bidir: true,  off:  0.0  },
+  { s: 'library',    t: 'guides',        bidir: true,  off: -0.20 },
+  { s: 'library',    t: 'stars',         bidir: true,  off: -0.15 },
+
+  // UWC hub ↔ resources
+  { s: 'uwc',        t: 'uwc_schedule',  bidir: true,  off: -0.20 },
+  { s: 'uwc',        t: 'uwc_policies',  bidir: true,  off:  0.0  },
+  { s: 'uwc',        t: 'uwc_resources', bidir: true,  off:  0.20 },
+  { s: 'uwc',        t: 'uwc_faculty',   bidir: true,  off:  0.18 },
+  { s: 'uwc',        t: 'uwc_newsletter',bidir: true,  off: -0.0  },
+
+  // Cross-service connections (research + writing support overlap)
+  { s: 'consultation', t: 'uwc_schedule', bidir: true, off: -0.15 },
+  { s: 'guides',       t: 'uwc_resources',bidir: true, off:  0.10 },
+  { s: 'uwc_faculty',  t: 'stars',        bidir: true, off: -0.18 },
+];
+
+/* ── Color helpers ── */
+function getGC() {
+  const cs = getComputedStyle(document.documentElement);
+  return [0,1,2].map(i => ({
+    bg: cs.getPropertyValue('--c'+i+'bg').trim(),
+    br: cs.getPropertyValue('--c'+i+'br').trim(),
+    tx: cs.getPropertyValue('--c'+i+'tx').trim(),
+  }));
+}
+let GC = getGC();
+
+/* ── Geometry ── */
+function curvePath(s, t, off, bidir) {
+  const dx = t.x - s.x, dy = t.y - s.y;
+  const len = Math.sqrt(dx*dx + dy*dy);
+  if (len < 1) return '';
+  const nx = -dy/len, ny = dx/len;
+  const mx = (s.x+t.x)/2 + nx*len*off;
+  const my = (s.y+t.y)/2 + ny*len*off;
+  const sR = bidir ? s.r + 9 : s.r + 3;
+  const tR = t.r + 9;
+  const sx = s.x + dx/len*sR, sy = s.y + dy/len*sR;
+  const ex = t.x - dx/len*tR, ey = t.y - dy/len*tR;
+  return `M${sx.toFixed(1)},${sy.toFixed(1)} Q${mx.toFixed(1)},${my.toFixed(1)} ${ex.toFixed(1)},${ey.toFixed(1)}`;
+}
+
+const NM = {};
+NODES.forEach(n => NM[n.id] = n);
+
+/* ── Build SVG ── */
+const svg = d3.select('#net-svg');
+
+svg.append('defs').append('marker')
+  .attr('id', 'arr').attr('viewBox', '0 0 10 10')
+  .attr('refX', 8).attr('refY', 5)
+  .attr('markerWidth', 6).attr('markerHeight', 6)
+  .attr('orient', 'auto-start-reverse')
+  .append('path').attr('d', 'M2 1L8 5L2 9')
+  .attr('fill', 'none').attr('stroke', 'context-stroke')
+  .attr('stroke-width', 1.5).attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round');
+
+const edgeG = svg.append('g');
+const nodeG = svg.append('g');
+
+/* ── Legend ── */
+const legendEl = document.getElementById('legend');
+CAT_LABELS.forEach((label, i) => {
+  const span = document.createElement('span');
+  span.innerHTML = `<span class="legend-dot" id="ldot-${i}" style="background:${GC[i].br}"></span>${label}`;
+  legendEl.appendChild(span);
+});
+
+/* ── Edges ── */
+const EP = [];
+LINKS.forEach((l, i) => {
+  const s = NM[l.s], t = NM[l.t];
+  const c = GC[Math.max(s.g, t.g)].br; // use the sub-resource color for cross edges
+  const p = edgeG.append('path')
+    .attr('class', 'pn-edge')
+    .attr('d', curvePath(s, t, l.off, l.bidir))
+    .attr('stroke', c)
+    .attr('marker-end', 'url(#arr)');
+  if (l.bidir) p.attr('marker-start', 'url(#arr)');
+  EP[i] = p;
+});
+
+/* ── Nodes ── */
+let selId = null;
+
+NODES.forEach(n => {
+  const c = GC[n.g];
+  const g = nodeG.append('g')
+    .attr('class', 'pn-node')
+    .attr('id', 'pnn-' + n.id)
+    .attr('transform', `translate(${n.x},${n.y})`);
+
+  g.append('circle').attr('r', n.r).attr('fill', c.bg).attr('stroke', c.br);
+
+  const lh = 13, baseY = -(n.lines.length - 1) * lh / 2;
+  n.lines.forEach((ln, j) => {
+    g.append('text').attr('y', baseY + j*lh)
+      .attr('fill', c.tx).attr('dominant-baseline', 'central').text(ln);
+  });
+
+  g.on('mouseenter', () => { if (!selId) highlight(n.id); });
+  g.on('mouseleave', () => { if (!selId) clearHL(); });
+  g.on('click', function(ev) {
+    ev.stopPropagation();
+    if (selId === n.id) { selId = null; clearHL(); defaultInfo(); return; }
+    selId = n.id;
+    nodeG.selectAll('.pn-node').classed('sel', false);
+    d3.select(this).classed('sel', true);
+    highlight(n.id);
+    showInfo(n);
+  });
+
+  if (!n.fx) {
+    let ox = 0, oy = 0;
+    g.call(d3.drag()
+      .on('start', function(ev) { ox = n.x - ev.x; oy = n.y - ev.y; d3.select(this).raise(); })
+      .on('drag', function(ev) {
+        n.x = ev.x + ox; n.y = ev.y + oy;
+        d3.select(this).attr('transform', `translate(${n.x},${n.y})`);
+        LINKS.forEach((l, i) => EP[i].attr('d', curvePath(NM[l.s], NM[l.t], l.off, l.bidir)));
+      })
+    );
+  }
+});
+
+/* ── Rebuild colors ── */
+function rebuildColors() {
+  GC = getGC();
+  LINKS.forEach((l, i) => {
+    const s = NM[l.s], t = NM[l.t];
+    EP[i].attr('stroke', GC[Math.max(s.g, t.g)].br);
+  });
+  NODES.forEach(n => {
+    const c = GC[n.g];
+    const g = d3.select('#pnn-' + n.id);
+    g.select('circle').attr('fill', c.bg).attr('stroke', c.br);
+    g.selectAll('text').attr('fill', c.tx);
+  });
+  CAT_LABELS.forEach((_, i) => {
+    const dot = document.getElementById('ldot-' + i);
+    if (dot) dot.style.background = GC[i].br;
+  });
+  if (selId) showInfo(NM[selId]);
+}
+
+/* ── Interactions ── */
+function highlight(id) {
+  nodeG.selectAll('.pn-node').classed('pn-dim', true);
+  edgeG.selectAll('.pn-edge').classed('pn-dim', true);
+  d3.select('#pnn-' + id).classed('pn-dim', false);
+  LINKS.forEach((l, i) => {
+    if (l.s === id || l.t === id) {
+      EP[i].classed('pn-dim', false);
+      d3.select('#pnn-' + l.s).classed('pn-dim', false);
+      d3.select('#pnn-' + l.t).classed('pn-dim', false);
+    }
+  });
+}
+function clearHL() {
+  nodeG.selectAll('.pn-node').classed('pn-dim', false);
+  edgeG.selectAll('.pn-edge').classed('pn-dim', false);
+}
+function defaultInfo() {
+  document.getElementById('info-panel').innerHTML =
+    '<p class="info-default">Click any node to explore resources and access direct links to UCF services.</p>';
+}
+function showInfo(n) {
+  const c = GC[n.g].br;
+  const linkHTML = n.links.length
+    ? `<div class="info-links">${n.links.map(l =>
+        `<a class="info-link" href="${l.url}" target="_blank" rel="noopener">
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M5 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7"/>
+            <path d="M8 1h3v3M11 1 6.5 5.5"/>
+          </svg>
+          ${l.label}
+        </a>`).join('')}</div>`
+    : '';
+  document.getElementById('info-panel').innerHTML = `
+    <div class="info-role">
+      <span class="info-role-dot" style="background:${c}"></span>
+      <span class="info-role-label">${n.role}</span>
+    </div>
+    <p class="info-name">${n.name}</p>
+    <p class="info-desc">${n.desc}</p>
+    ${linkHTML}
+  `;
+}
+
+svg.on('click', () => {
+  selId = null; clearHL();
+  nodeG.selectAll('.pn-node').classed('sel', false);
+  defaultInfo();
+});
+</script>
+</body>
+</html>
