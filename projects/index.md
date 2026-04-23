@@ -21,7 +21,7 @@ project: false
   #project-graph {
     width: 100%;
     height: 600px;
-    background: #1a1a18;
+    background: rgb(248, 248, 255);
     border-radius: 4px;
     overflow: hidden;
   }
@@ -36,19 +36,19 @@ project: false
   }
   .legend-item { display: flex; align-items: center; gap: 0.4rem; }
   .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-  .project-dot { background: #e85d3d; }
-  .tag-dot { background: #4a90c4; }
+  .project-dot { background: rgb(122, 6, 97); }
+  .tag-dot { background: rgb(6, 97, 122); }
   .legend-hint { margin: 0; font-size: 0.8rem; color: #5a5a56; }
   .node-label {
     font-family: 'Courier Prime', monospace;
     font-size: 11px;
-    fill: #f0ede6;
+    fill: #333333;
     pointer-events: none;
     user-select: none;
   }
-  .tag-label { fill: #a0c4e8; }
+  .tag-label { fill: rgb(122, 6, 97); }
   circle.project-node { cursor: pointer; }
-  circle.project-node:hover { stroke: #fff; stroke-width: 2px; }
+  circle.project-node:hover { stroke: rgb(122, 6, 97); stroke-width: 2px; }
   circle.tag-node { cursor: pointer; }
 </style>
 
@@ -106,7 +106,7 @@ const graphData = {
     .selectAll('line')
     .data(graphData.links)
     .join('line')
-    .attr('stroke', '#3a3a36')
+    .attr('stroke', 'rgba(122, 6, 97, 0.2)')
     .attr('stroke-width', 1.5);
 
   const node = g.append('g')
@@ -114,7 +114,7 @@ const graphData = {
     .data(graphData.nodes)
     .join('circle')
     .attr('r', d => d.type === 'project' ? 12 : 8)
-    .attr('fill', d => d.type === 'project' ? '#e85d3d' : '#4a90c4')
+    .attr('fill', d => d.type === 'project' ? 'rgb(122, 6, 97)' : 'rgb(6, 97, 122)')
     .attr('class', d => d.type === 'project' ? 'project-node' : 'tag-node')
     .call(d3.drag()
       .on('start', (event, d) => {
