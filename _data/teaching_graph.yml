@@ -1,0 +1,43 @@
+statement:
+  title: "Teaching Statement"
+  url: "/teaching/statement/"
+
+slos:
+  - id: "writing-processes"
+    label: "Writing Processes & Adaptation"
+    short: "Writing Processes"
+  - id: "multiple-literacies"
+    label: "Multiple Literacies & Goal Setting"
+    short: "Multiple Literacies"
+  - id: "variation-across-contexts"
+    label: "Variation across Contexts"
+    short: "Variation / Contexts"
+  - id: "decision-making"
+    label: "Decision Making & Production"
+    short: "Decision Making"
+  - id: "writing-and-power"
+    label: "Writing and Power"
+    short: "Writing & Power"
+  - id: "revision"
+    label: "Revision"
+    short: "Revision"
+
+lectures:
+  - title: "Discourse Communities"
+    url: "/teaching/lectures/s26/discourse-communities.html"
+    slos: ["variation-across-contexts", "writing-and-power"]
+  - title: "Discourse Communities & Language Negotiation"
+    url: "/teaching/lectures/s26/discourse-communities-language-negotiation.html"
+    slos: ["writing-and-power", "multiple-literacies", "variation-across-contexts"]
+  - title: "Peer Review as Practice"
+    url: "/teaching/lectures/s26/peer-review-as-practice.html"
+    slos: ["writing-processes", "revision"]
+  - title: "Using Your Feedback"
+    url: "/teaching/lectures/s26/using-feedback.html"
+    slos: ["revision", "writing-processes"]
+  - title: "Navigating Genres"
+    url: "/teaching/lectures/s26/navigating-genres.html"
+    slos: ["variation-across-contexts", "decision-making", "writing-processes"]
+  - title: "The Rhetorics of Fashion & Style"
+    url: "/teaching/lectures/s26/rhetorics-fashion.html"
+    slos: ["multiple-literacies", "variation-across-contexts", "decision-making"]
