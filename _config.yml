@@ -4,3 +4,7 @@ description: The academic and creative works.
 header_pages: []
 url: "http://glennritchey.com"
 baseurl: ""
+exclude:
+  - docs/
+  - .bundle/
+  - vendor/
