@@ -54,7 +54,14 @@
       "Bash(ruby3.2 -e \"require 'bigdecimal'; puts BigDecimal::VERSION\" 2>&1)",
       "Bash(GEM_HOME=~/.local/share/gem/ruby/3.2.0 gem install jekyll --version \"4.2.2\" --no-document --ignore-dependencies 2>&1 | tail -5)",
       "Bash(GEM_HOME=~/.local/share/gem/ruby/3.2.0 gem install em-websocket --no-document --ignore-dependencies 2>&1 | tail -3 && GEM_HOME=~/.local/share/gem/ruby/3.2.0 GEM_PATH=~/.local/share/gem/ruby/3.2.0 ~/.local/share/gem/ruby/3.2.0/bin/jekyll build --source /home/user/portfolio --destination /home/user/portfolio/_site 2>&1 | tail -10)",
-      "Bash(GEM_HOME=~/.local/share/gem/ruby/3.2.0 gem install jekyll-feed jekyll-seo-tag --no-document --ignore-dependencies 2>&1 | tail -3 && JEKYLL_NO_BUNDLER_REQUIRE=true GEM_HOME=~/.local/share/gem/ruby/3.2.0 GEM_PATH=~/.local/share/gem/ruby/3.2.0:/home/user/portfolio/vendor/bundle/ruby/3.2.0 ~/.local/share/gem/ruby/3.2.0/bin/jekyll build --source /home/user/portfolio --destination /home/user/portfolio/_site 2>&1 | grep -v \"DEPRECATED\\\\|warning:\" | tail -8)"
+      "Bash(GEM_HOME=~/.local/share/gem/ruby/3.2.0 gem install jekyll-feed jekyll-seo-tag --no-document --ignore-dependencies 2>&1 | tail -3 && JEKYLL_NO_BUNDLER_REQUIRE=true GEM_HOME=~/.local/share/gem/ruby/3.2.0 GEM_PATH=~/.local/share/gem/ruby/3.2.0:/home/user/portfolio/vendor/bundle/ruby/3.2.0 ~/.local/share/gem/ruby/3.2.0/bin/jekyll build --source /home/user/portfolio --destination /home/user/portfolio/_site 2>&1 | grep -v \"DEPRECATED\\\\|warning:\" | tail -8)",
+      "Bash(grep -n \"---\" /home/user/portfolio/projects/ulster-visualization/index.html)",
+      "Bash(gem exec *)",
+      "Bash(grep -v \"^commit\\\\|^Author\\\\|^Date\\\\|^$\\\\|^    \")",
+      "Bash(grep -v \"^commit\\\\|^Author\\\\|^Date\\\\|^$\\\\|^    \\\\|vendor/\")",
+      "Bash(python3 -c ' *)",
+      "Bash(xargs -d'\\\\n' du -sh)",
+      "Bash(python3 *)"
     ]
   }
 }
