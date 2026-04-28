@@ -1,3 +1,5 @@
 ---
 BUNDLE_PATH: "vendor/bundle"
 BUNDLE_FORCE_RUBY_PLATFORM: "false"
+BUNDLE_BUILD__BIGDECIMAL: "--with-cflags=-Wno-error=implicit-function-declaration"
+BUNDLE_SYSTEM_BINDIR: "/usr/local/bin"
