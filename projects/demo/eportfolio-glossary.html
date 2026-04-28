@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UCF ePortfolio Glossary</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root { --ucf-gold: #FFC904; --ucf-black: #231F20; }
+
+  [data-theme="dark"] {
+    --bg: #161614; --surface: #1e1e1b; --surface2: #252521;
+    --border: rgba(255,255,255,0.09); --border-h: rgba(255,255,255,0.18);
+    --text: #e8e6de; --muted: #9c9a92; --muted2: #4a4946;
+    --input-bg: #252521;
+    --btn-bg: #231F20; --btn-border: rgba(255,201,4,0.45); --btn-text: #FFC904;
+    --edge: rgba(255,255,255,0.12); --edge-hl: rgba(255,255,255,0.5);
+    --stub-fill: #252521; --stub-stroke: #3a3a36;
+    --cat0-bg:#2a2000; --cat0-br:#FFC904; --cat0-tx:#FFC904;
+    --cat1-bg:#04342C; --cat1-br:#5DCAA5; --cat1-tx:#9FE1CB;
+    --cat2-bg:#26215C; --cat2-br:#AFA9EC; --cat2-tx:#CECBF6;
+    --cat3-bg:#4A1B0C; --cat3-br:#F0997B; --cat3-tx:#F5C4B3;
+    --cat4-bg:#3a2200; --cat4-br:#EF9F27; --cat4-tx:#FAC775;
+    --cat5-bg:#0C2A45; --cat5-br:#85B7EB; --cat5-tx:#B5D4F4;
+  }
+  [data-theme="light"] {
+    --bg: #f5f3ec; --surface: #ffffff; --surface2: #edeae0;
+    --border: rgba(35,31,32,0.10); --border-h: rgba(35,31,32,0.22);
+    --text: #231F20; --muted: #6b6965; --muted2: #c5c2ba;
+    --input-bg: #ffffff;
+    --btn-bg: #231F20; --btn-border: #231F20; --btn-text: #FFC904;
+    --edge: rgba(35,31,32,0.15); --edge-hl: rgba(35,31,32,0.55);
+    --stub-fill: #edeae0; --stub-stroke: #ccc9c0;
+    --cat0-bg:#FFF8DC; --cat0-br:#c99c00; --cat0-tx:#231F20;
+    --cat1-bg:#E1F5EE; --cat1-br:#0F6E56; --cat1-tx:#04342C;
+    --cat2-bg:#EEEDFE; --cat2-br:#534AB7; --cat2-tx:#26215C;
+    --cat3-bg:#FAECE7; --cat3-br:#993C1D; --cat3-tx:#4A1B0C;
+    --cat4-bg:#FFF3CD; --cat4-br:#854F0B; --cat4-tx:#412402;
+    --cat5-bg:#E6F1FB; --cat5-br:#185FA5; --cat5-tx:#0C447C;
+  }
+
+  body {
+    font-family: system-ui, sans-serif;
+    background: var(--bg); color: var(--text);
+    height: 100vh; display: flex; flex-direction: column;
+    overflow: hidden; transition: background .25s, color .25s;
+  }
+
+  /* ── Top bar ── */
+  .topbar {
+    display: flex; align-items: center; gap: 12px;
+    padding: .75rem 1.25rem;
+    border-bottom: 0.5px solid var(--border);
+    flex-shrink: 0; flex-wrap: wrap;
+  }
+  .ucf-badge {
+    padding: 4px 9px; border-radius: 5px;
+    background: var(--ucf-black); font-size: 10px; font-weight: 700;
+    letter-spacing: .08em; color: var(--ucf-gold);
+    border: 1px solid var(--ucf-gold); user-select: none; flex-shrink: 0;
+  }
+  .topbar h1 {
+    font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; flex-shrink: 0;
+  }
+  .topbar h1 span { color: var(--ucf-gold); }
+
+  .search-wrap { flex: 1; min-width: 160px; max-width: 280px; position: relative; }
+  .search-wrap svg {
+    position: absolute; left: 9px; top: 50%; transform: translateY(-50%);
+    width: 13px; height: 13px; stroke: var(--muted); fill: none; pointer-events: none;
+  }
+  #search {
+    width: 100%; padding: 6px 9px 6px 28px;
+    border: 0.5px solid var(--border); border-radius: 7px;
+    background: var(--input-bg); color: var(--text);
+    font-size: 12px; font-family: inherit; outline: none;
+    transition: border-color .15s;
+  }
+  #search:focus { border-color: var(--ucf-gold); }
+  #search::placeholder { color: var(--muted2); }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 12px; flex: 1; }
+  .legend span {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 10.5px; color: var(--muted); cursor: pointer;
+    padding: 2px 0; transition: color .15s;
+  }
+  .legend span.dim { opacity: .35; }
+  .legend-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+  .theme-toggle {
+    display: flex; align-items: center; gap: 6px;
+    padding: 5px 11px; border-radius: 20px;
+    background: var(--btn-bg); border: 1px solid var(--btn-border);
+    color: var(--btn-text); font-size: 11px; font-weight: 600;
+    cursor: pointer; letter-spacing: .03em;
+    transition: opacity .15s; font-family: inherit; flex-shrink: 0;
+  }
+  .theme-toggle:hover { opacity: .85; }
+  .theme-toggle svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+  /* ── Main area ── */
+  .main { display: flex; flex: 1; overflow: hidden; }
+
+  #graph-svg {
+    flex: 1; cursor: grab; display: block;
+    transition: background .25s;
+  }
+  #graph-svg:active { cursor: grabbing; }
+
+  .node { cursor: pointer; }
+  .node circle { transition: r .15s; }
+  .node text { pointer-events: none; font-family: system-ui, sans-serif; }
+  .edge { transition: opacity .2s; }
+
+  /* ── Info panel ── */
+  .panel {
+    width: 300px; flex-shrink: 0;
+    border-left: 0.5px solid var(--border);
+    background: var(--surface);
+    display: flex; flex-direction: column;
+    overflow-y: auto;
+    transition: background .25s;
+  }
+  .panel-inner { padding: 1.125rem 1.25rem; flex: 1; }
+  .panel-default { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+
+  .p-role { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
+  .p-role-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .p-role-label {
+    font-size: 10px; font-weight: 700; color: var(--muted);
+    letter-spacing: .07em; text-transform: uppercase;
+  }
+  .p-term { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+  .p-def { font-size: 12.5px; line-height: 1.7; color: var(--muted); }
+  .p-def em { color: var(--text); font-style: normal; font-weight: 500; }
+  .p-stub {
+    font-size: 12px; color: var(--muted2); font-style: italic;
+    padding: 8px 10px; border-radius: 6px;
+    background: var(--surface2); border: 0.5px dashed var(--border);
+  }
+
+  .p-connections { margin-top: 14px; }
+  .p-connections-label {
+    font-size: 10px; font-weight: 700; color: var(--muted);
+    letter-spacing: .07em; text-transform: uppercase; margin-bottom: 8px;
+  }
+  .p-conn-pill {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 3px 9px; border-radius: 12px; margin: 3px 3px 0 0;
+    font-size: 11px; font-weight: 600; cursor: pointer;
+    border: 1px solid transparent; transition: opacity .15s;
+  }
+  .p-conn-pill:hover { opacity: .75; }
+  .p-conn-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+
+  .panel-footer {
+    padding: .75rem 1.25rem;
+    border-top: 0.5px solid var(--border);
+    font-size: 10.5px; color: var(--muted);
+    display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+  }
+  .panel-footer::before {
+    content: ''; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--ucf-gold); flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="ucf-badge">UCF</div>
+  <h1>ePortfolio <span>Glossary</span></h1>
+  <div class="search-wrap">
+    <svg viewBox="0 0 16 16" stroke-width="1.5" stroke-linecap="round">
+      <circle cx="6.5" cy="6.5" r="4.5"/><line x1="10" y1="10" x2="14.5" y2="14.5"/>
+    </svg>
+    <input id="search" type="search" placeholder="Search terms…" autocomplete="off">
+  </div>
+  <div class="legend" id="legend"></div>
+  <button class="theme-toggle" onclick="toggleTheme()">
+    <svg id="theme-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+      <circle cx="8" cy="8" r="3.5"/>
+      <line x1="8" y1="1" x2="8" y2="2.5"/><line x1="8" y1="13.5" x2="8" y2="15"/>
+      <line x1="1" y1="8" x2="2.5" y2="8"/><line x1="13.5" y1="8" x2="15" y2="8"/>
+      <line x1="3.05" y1="3.05" x2="4.11" y2="4.11"/><line x1="11.89" y1="11.89" x2="12.95" y2="12.95"/>
+      <line x1="12.95" y1="3.05" x2="11.89" y2="4.11"/><line x1="4.11" y1="11.89" x2="3.05" y2="12.95"/>
+    </svg>
+    <span id="theme-label">Light mode</span>
+  </button>
+</div>
+
+<div class="main">
+  <svg id="graph-svg"></svg>
+  <div class="panel">
+    <div class="panel-inner" id="panel-inner">
+      <p class="panel-default">Click any term to read its definition and see related concepts. Drag to rearrange. Scroll to zoom.</p>
+    </div>
+    <div class="panel-footer">ENC 1101/1102 ePortfolio Glossary</div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+/* ── Categories ── */
+const CATS = [
+  { id: 'core',      label: 'ePortfolio Core',      css: 0 },
+  { id: 'knowledge', label: 'Knowledge & Learning',  css: 1 },
+  { id: 'writing',   label: 'Writing Processes',     css: 2 },
+  { id: 'rhetoric',  label: 'Rhetorical Concepts',   css: 3 },
+  { id: 'language',  label: 'Language & Power',      css: 4 },
+  { id: 'research',  label: 'Research & Evidence',   css: 5 },
+];
+
+function catFor(id) { return CATS.find(c => c.id === id); }
+function getCatColors(cssIdx) {
+  const cs = getComputedStyle(document.documentElement);
+  return {
+    bg: cs.getPropertyValue(`--cat${cssIdx}-bg`).trim(),
+    br: cs.getPropertyValue(`--cat${cssIdx}-br`).trim(),
+    tx: cs.getPropertyValue(`--cat${cssIdx}-tx`).trim(),
+  };
+}
+function getVar(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+/* ── Nodes ── */
+const NODES = [
+  /* ePortfolio Core */
+  { id: 'eportfolio',    label: 'ePortfolio',                   cat: 'core', stub: false,
+    def: `A curated digital collection of work that demonstrates what you've learned and how you've grown as a writer and thinker. It includes <em>deep, meaningful reflection</em> and helps you showcase your accomplishments while making connections across and between your coursework.` },
+  { id: 'artifact',      label: 'Artifact(s)',                  cat: 'core', stub: false,
+    def: `Any work you include in your ePortfolio—such as a reflective piece or a selection from your primary research—that provides <em>evidence of your learning</em>.` },
+  { id: 'reflection',    label: 'Reflection',                   cat: 'core', stub: true },
+  { id: 'curation',      label: 'Curation',                     cat: 'core', stub: false,
+    def: `The process of choosing and arranging artifacts so they tell a story and highlight your growth and development as a writer. This is an <em>intentional activity</em> that includes thoughtful selection, contextualization, and presentation of the artifacts in your portfolio.` },
+  { id: 'accessibility', label: 'Accessibility',                cat: 'core', stub: false,
+    def: `The practice of designing and presenting online content so all users can understand, navigate, and interact with the materials. This includes creating a clear structure, <em>alternative text for media</em>, readable formats, and tools that support assistive technologies to ensure everyone can fully engage with your portfolio.` },
+  { id: 'navigation',    label: 'Navigation',                   cat: 'core', stub: false,
+    def: `The clear, logical organization of pages, sections, and content that helps readers easily locate information and understand how the portfolio is structured. <em>Effective navigation ensures a smooth, intuitive user experience.</em>` },
+  { id: 'attribution',   label: 'Attribution',                  cat: 'core', stub: false,
+    def: `Providing proper credit to the original creators of any content you include, such as images, videos, quotes, data, or ideas, by noting who created the content and where it originated from. This process raises awareness of ownership and ensures the <em>ethical use of materials</em> in ePortfolios or any online environment.` },
+  { id: 'ip',            label: 'Intellectual Property',        cat: 'core', stub: false,
+    def: `Refers to the ownership of ideas, inventions, designs, artistic works, and brand elements that are legally protected under copyright law. While you own anything you create, you must ensure you have the right to reproduce anything included in your ePortfolio—such as images and other media—by providing <em>proper attribution when required</em>.` },
+  { id: 'cc',            label: 'Creative Commons (CC)',        cat: 'core', stub: false,
+    def: `Standardized licenses that allow creators to decide how others can use, share, or adapt their work. CC licenses <em>encourage lawful sharing and collaboration</em> by protecting creators' rights while expanding access. They are widely used for educational materials, photographs, music, and other artistic and research works.` },
+  { id: 'authentic',     label: 'Authentic Assessment',         cat: 'core', stub: false,
+    def: `The practice of evaluating writing tasks—such as drafts, reflections, and multimodal projects—that demonstrate <em>cumulative learning in genuine contexts</em> rather than through traditional tests. This process validates students as whole people and learners by emphasizing process, growth, and the purposeful application of writing skills for real audiences.` },
+  { id: 'rubric',        label: 'Rubric(s)',                    cat: 'core', stub: false,
+    def: `A clearly defined grading guideline that outlines the criteria and performance standards used to evaluate the content, organization, design, and reflection within an ePortfolio. Rubrics help students <em>understand expectations</em> while supporting consistent and transparent assessment and providing constructive feedback on their learning and growth.` },
+  { id: 'slo',           label: 'Student Learning Outcomes',    cat: 'core', stub: false,
+    def: `SLOs guide the work students produce in UCF's first-year composition courses, helping them develop into <em>flexible, reflective, and informed writers</em>. These goals include generating meaningful inquiry, integrating multimodal forms of writing, practicing effective research strategies, and revising with intention.` },
+  { id: 'multimodal',    label: 'Multimodal Composition',       cat: 'core', stub: false,
+    def: `Writing that includes more than one communication mode—such as images, infographics, audio, video, or storyboards. It allows students to <em>communicate ideas in diverse and creative ways</em> by incorporating both textual and non-textual elements into their writing.` },
+  { id: 'presence',      label: 'Professional Online Presence', cat: 'core', stub: false,
+    def: `The image you create about yourself across digital platforms to <em>support your educational or career goals</em>.` },
+  { id: 'privacy',       label: 'Privacy & Data Protection',    cat: 'core', stub: true },
+  { id: 'genre',         label: 'Genre',                        cat: 'core', stub: false,
+    def: `A form of communication shaped by specific patterns, purposes, expectations, and conventions. An ePortfolio functions as a genre because it requires you to make <em>intentional choices about how you present your work</em> in ways that are meaningful for particular audiences and goals.` },
+
+  /* Knowledge & Learning */
+  { id: 'declarative',   label: 'Declarative Knowledge',        cat: 'knowledge', stub: true },
+  { id: 'procedural',    label: 'Procedural Knowledge',         cat: 'knowledge', stub: true },
+  { id: 'metacognitive', label: 'Metacognitive Knowledge',      cat: 'knowledge', stub: true },
+  { id: 'transfer',      label: 'Knowledge Transfer',           cat: 'knowledge', stub: true },
+  { id: 'literacy',      label: 'Literacy',                     cat: 'knowledge', stub: true },
+  { id: 'digital_lit',   label: 'Digital Literacy',             cat: 'knowledge', stub: true },
+  { id: 'info_lit',      label: 'Information Literacy',         cat: 'knowledge', stub: true },
+  { id: 'integrative',   label: 'Integrative Learning',         cat: 'knowledge', stub: true },
+
+  /* Writing Processes */
+  { id: 'drafting',      label: 'Drafting',                     cat: 'writing', stub: true },
+  { id: 'revision',      label: 'Revision',                     cat: 'writing', stub: true },
+  { id: 'process',       label: 'Writing Process(es)',          cat: 'writing', stub: true },
+  { id: 'purposeful',    label: 'Purposeful Writing',           cat: 'writing', stub: true },
+  { id: 'transactional', label: 'Transactional Writing',        cat: 'writing', stub: true },
+  { id: 'communicative', label: 'Communicative Writing',        cat: 'writing', stub: true },
+  { id: 'contributive',  label: 'Contributive Writing',         cat: 'writing', stub: true },
+  { id: 'intentionality',label: 'Intentionality',               cat: 'writing', stub: true },
+  { id: 'inquiry',       label: 'Inquiry',                      cat: 'writing', stub: true },
+
+  /* Rhetorical Concepts */
+  { id: 'rhetoric',      label: 'Rhetoric',                     cat: 'rhetoric', stub: true },
+  { id: 'rhet_sit',      label: 'Rhetorical Situation',         cat: 'rhetoric', stub: true },
+  { id: 'rhet_eco',      label: 'Rhetorical Ecology',           cat: 'rhetoric', stub: true },
+  { id: 'context',       label: 'Context',                      cat: 'rhetoric', stub: true },
+  { id: 'genre_sys',     label: 'Genre Systems',                cat: 'rhetoric', stub: true },
+  { id: 'activity_sys',  label: 'Activity Systems',             cat: 'rhetoric', stub: true },
+  { id: 'disciplinarity',label: 'Disciplinarity',               cat: 'rhetoric', stub: true },
+
+  /* Language & Power */
+  { id: 'multimodality', label: 'Multimodality',                cat: 'language', stub: true },
+  { id: 'multiliteracies',label:'Multiple Literacies',          cat: 'language', stub: true },
+  { id: 'multilingualism',label:'Multilingualism',              cat: 'language', stub: true },
+  { id: 'lang_var',      label: 'Language Variation',           cat: 'language', stub: true },
+  { id: 'power',         label: 'Power',                        cat: 'language', stub: true },
+
+  /* Research & Evidence */
+  { id: 'research_genre',label: 'Research Genre(s)',            cat: 'research', stub: true },
+  { id: 'plagiarism',    label: 'Plagiarism',                   cat: 'research', stub: true },
+];
+
+/* ── Edges — conceptual relationships ── */
+const EDGES = [
+  /* ePortfolio core cluster */
+  { s: 'eportfolio',    t: 'curation' },
+  { s: 'eportfolio',    t: 'reflection' },
+  { s: 'eportfolio',    t: 'artifact' },
+  { s: 'eportfolio',    t: 'multimodal' },
+  { s: 'eportfolio',    t: 'navigation' },
+  { s: 'eportfolio',    t: 'authentic' },
+  { s: 'eportfolio',    t: 'slo' },
+  { s: 'eportfolio',    t: 'presence' },
+  { s: 'eportfolio',    t: 'genre' },
+  { s: 'eportfolio',    t: 'privacy' },
+  { s: 'curation',      t: 'intentionality' },
+  { s: 'curation',      t: 'artifact' },
+  { s: 'reflection',    t: 'metacognitive' },
+  { s: 'reflection',    t: 'revision' },
+  { s: 'reflection',    t: 'authentic' },
+  { s: 'authentic',     t: 'rubric' },
+  { s: 'authentic',     t: 'slo' },
+  { s: 'navigation',    t: 'accessibility' },
+  { s: 'accessibility', t: 'multimodal' },
+  { s: 'attribution',   t: 'ip' },
+  { s: 'attribution',   t: 'cc' },
+  { s: 'attribution',   t: 'plagiarism' },
+  { s: 'ip',            t: 'cc' },
+  { s: 'artifact',      t: 'attribution' },
+  { s: 'presence',      t: 'privacy' },
+
+  /* Knowledge cluster */
+  { s: 'metacognitive', t: 'declarative' },
+  { s: 'metacognitive', t: 'procedural' },
+  { s: 'metacognitive', t: 'transfer' },
+  { s: 'transfer',      t: 'integrative' },
+  { s: 'integrative',   t: 'eportfolio' },
+  { s: 'literacy',      t: 'digital_lit' },
+  { s: 'literacy',      t: 'info_lit' },
+  { s: 'digital_lit',   t: 'info_lit' },
+  { s: 'digital_lit',   t: 'multiliteracies' },
+
+  /* Writing processes cluster */
+  { s: 'process',       t: 'drafting' },
+  { s: 'process',       t: 'revision' },
+  { s: 'process',       t: 'inquiry' },
+  { s: 'revision',      t: 'drafting' },
+  { s: 'purposeful',    t: 'intentionality' },
+  { s: 'purposeful',    t: 'communicative' },
+  { s: 'purposeful',    t: 'contributive' },
+  { s: 'communicative', t: 'transactional' },
+  { s: 'inquiry',       t: 'research_genre' },
+  { s: 'slo',           t: 'process' },
+
+  /* Rhetorical concepts cluster */
+  { s: 'rhetoric',      t: 'rhet_sit' },
+  { s: 'rhetoric',      t: 'rhet_eco' },
+  { s: 'rhet_sit',      t: 'context' },
+  { s: 'rhet_sit',      t: 'genre' },
+  { s: 'genre',         t: 'genre_sys' },
+  { s: 'genre_sys',     t: 'activity_sys' },
+  { s: 'rhet_eco',      t: 'activity_sys' },
+  { s: 'disciplinarity',t: 'genre' },
+  { s: 'disciplinarity',t: 'context' },
+
+  /* Language & Power cluster */
+  { s: 'multimodality', t: 'multimodal' },
+  { s: 'multimodality', t: 'multiliteracies' },
+  { s: 'multiliteracies',t:'multilingualism' },
+  { s: 'lang_var',      t: 'multilingualism' },
+  { s: 'lang_var',      t: 'power' },
+  { s: 'power',         t: 'rhetoric' },
+  { s: 'power',         t: 'disciplinarity' },
+
+  /* Research cluster */
+  { s: 'research_genre',t: 'artifact' },
+  { s: 'research_genre',t: 'info_lit' },
+  { s: 'plagiarism',    t: 'ip' },
+];
+
+/* ── Build adjacency for panel ── */
+const adj = {};
+NODES.forEach(n => adj[n.id] = []);
+EDGES.forEach(e => { adj[e.s].push(e.t); adj[e.t].push(e.s); });
+
+/* ── D3 setup ── */
+const svg = d3.select('#graph-svg');
+const svgEl = document.getElementById('graph-svg');
+let W = svgEl.clientWidth, H = svgEl.clientHeight;
+
+const g = svg.append('g');
+
+/* Zoom */
+const zoom = d3.zoom().scaleExtent([0.25, 3]).on('zoom', ev => g.attr('transform', ev.transform));
+svg.call(zoom);
+
+/* Markers */
+svg.append('defs').append('marker')
+  .attr('id', 'arr').attr('viewBox', '0 0 10 10').attr('refX', 8).attr('refY', 5)
+  .attr('markerWidth', 5).attr('markerHeight', 5).attr('orient', 'auto-start-reverse')
+  .append('path').attr('d', 'M2 1L8 5L2 9').attr('fill', 'none')
+  .attr('stroke', 'context-stroke').attr('stroke-width', 1.5)
+  .attr('stroke-linecap', 'round').attr('stroke-linejoin', 'round');
+
+/* Compute node degree for sizing */
+const degree = {};
+NODES.forEach(n => degree[n.id] = 0);
+EDGES.forEach(e => { degree[e.s] = (degree[e.s] || 0) + 1; degree[e.t] = (degree[e.t] || 0) + 1; });
+const maxDeg = Math.max(...Object.values(degree));
+function nodeR(n) {
+  const base = n.stub ? 7 : 9;
+  const bonus = Math.round((degree[n.id] / maxDeg) * 10);
+  return base + bonus;
+}
+
+/* ── Simulation ── */
+const nodes = NODES.map(n => ({ ...n }));
+const links = EDGES.map(e => ({ source: e.s, target: e.t }));
+const NM = {};
+nodes.forEach(n => NM[n.id] = n);
+
+const sim = d3.forceSimulation(nodes)
+  .force('link', d3.forceLink(links).id(d => d.id).distance(90).strength(0.5))
+  .force('charge', d3.forceManyBody().strength(-220))
+  .force('center', d3.forceCenter(W / 2, H / 2))
+  .force('collide', d3.forceCollide(d => nodeR(d) + 12))
+  .force('x', d3.forceX(W / 2).strength(0.04))
+  .force('y', d3.forceY(H / 2).strength(0.04));
+
+/* ── Draw edges ── */
+const edgeSel = g.append('g').selectAll('line').data(links).enter().append('line')
+  .attr('class', 'edge')
+  .attr('stroke', getVar('--edge'))
+  .attr('stroke-width', 1);
+
+/* ── Draw nodes ── */
+const nodeSel = g.append('g').selectAll('.node').data(nodes).enter().append('g')
+  .attr('class', 'node')
+  .call(d3.drag()
+    .on('start', (ev, d) => { if (!ev.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+    .on('drag',  (ev, d) => { d.fx = ev.x; d.fy = ev.y; })
+    .on('end',   (ev, d) => { if (!ev.active) sim.alphaTarget(0); d.fx = null; d.fy = null; })
+  );
+
+nodeSel.append('circle')
+  .attr('r', d => nodeR(d))
+  .attr('fill', d => { const cat = catFor(d.cat); const c = getCatColors(cat.css); return d.stub ? getVar('--stub-fill') : c.bg; })
+  .attr('stroke', d => { const cat = catFor(d.cat); const c = getCatColors(cat.css); return d.stub ? getVar('--stub-stroke') : c.br; })
+  .attr('stroke-width', d => d.stub ? 1 : 1.5)
+  .attr('stroke-dasharray', d => d.stub ? '3 2' : null);
+
+nodeSel.append('text')
+  .attr('text-anchor', 'middle')
+  .attr('dominant-baseline', 'central')
+  .attr('dy', d => nodeR(d) + 11)
+  .attr('font-size', 10)
+  .attr('font-weight', d => d.stub ? 400 : 600)
+  .attr('fill', d => {
+    if (d.stub) return getVar('--muted');
+    const cat = catFor(d.cat); const c = getCatColors(cat.css); return c.br;
+  })
+  .text(d => d.label);
+
+/* ── Tick ── */
+sim.on('tick', () => {
+  edgeSel
+    .attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+    .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+  nodeSel.attr('transform', d => `translate(${d.x},${d.y})`);
+});
+
+/* ── Selection state ── */
+let selId = null;
+
+nodeSel.on('click', function(ev, d) {
+  ev.stopPropagation();
+  if (selId === d.id) { selId = null; resetHL(); showDefault(); return; }
+  selId = d.id;
+  applyHL(d.id);
+  showInfo(d);
+});
+
+svg.on('click', () => { selId = null; resetHL(); showDefault(); });
+
+function applyHL(id) {
+  const neighbors = new Set([id, ...adj[id]]);
+  const edgeSet = new Set(links.filter(l => l.source.id === id || l.target.id === id));
+
+  nodeSel.select('circle').attr('opacity', d => neighbors.has(d.id) ? 1 : 0.08);
+  nodeSel.select('text').attr('opacity', d => neighbors.has(d.id) ? 1 : 0.08);
+  edgeSel
+    .attr('stroke', l => (l.source.id === id || l.target.id === id) ? getVar('--edge-hl') : getVar('--edge'))
+    .attr('stroke-width', l => (l.source.id === id || l.target.id === id) ? 1.5 : 0.5)
+    .attr('opacity', l => (l.source.id === id || l.target.id === id) ? 1 : 0.06);
+}
+
+function resetHL() {
+  nodeSel.select('circle').attr('opacity', 1);
+  nodeSel.select('text').attr('opacity', 1);
+  edgeSel.attr('stroke', getVar('--edge')).attr('stroke-width', 1).attr('opacity', 1);
+}
+
+/* ── Search ── */
+document.getElementById('search').addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  if (!q) { resetHL(); selId = null; showDefault(); return; }
+  nodeSel.select('circle').attr('opacity', d => d.label.toLowerCase().includes(q) ? 1 : 0.08);
+  nodeSel.select('text').attr('opacity', d => d.label.toLowerCase().includes(q) ? 1 : 0.08);
+  edgeSel.attr('opacity', 0.04);
+});
+
+/* ── Info panel ── */
+function showDefault() {
+  document.getElementById('panel-inner').innerHTML =
+    '<p class="panel-default">Click any term to read its definition and see related concepts. Drag to rearrange. Scroll to zoom.</p>';
+}
+
+function showInfo(d) {
+  const cat = catFor(d.cat);
+  const colors = getCatColors(cat.css);
+
+  const connIds = [...new Set(adj[d.id])];
+  const connHTML = connIds.length ? `
+    <div class="p-connections">
+      <p class="p-connections-label">Related terms (${connIds.length})</p>
+      ${connIds.map(cid => {
+        const cn = NM[cid];
+        const cc = getCatColors(catFor(cn.cat).css);
+        return `<span class="p-conn-pill" style="background:${cc.bg};color:${cc.tx};border-color:${cc.br}" onclick="clickNode('${cid}')">
+          <span class="p-conn-dot" style="background:${cc.br}"></span>${cn.label}
+        </span>`;
+      }).join('')}
+    </div>` : '';
+
+  document.getElementById('panel-inner').innerHTML = `
+    <div class="p-role">
+      <span class="p-role-dot" style="background:${colors.br}"></span>
+      <span class="p-role-label">${cat.label}</span>
+    </div>
+    <p class="p-term">${d.label}</p>
+    ${d.stub
+      ? `<p class="p-def" style="margin-bottom:8px">Definition in progress.</p><p class="p-stub">This entry will be completed as the glossary develops.</p>`
+      : `<p class="p-def">${d.def}</p>`
+    }
+    ${connHTML}
+  `;
+}
+
+/* Navigate to a node from a pill click */
+window.clickNode = function(id) {
+  selId = id;
+  const d = NM[id];
+  applyHL(id);
+  showInfo(d);
+  // Pan to node
+  const t = d3.zoomTransform(svgEl);
+  const tx = W / 2 - t.k * d.x;
+  const ty = H / 2 - t.k * d.y;
+  svg.transition().duration(400).call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(t.k));
+};
+
+/* ── Legend ── */
+const legendEl = document.getElementById('legend');
+CATS.forEach((cat, i) => {
+  const c = getCatColors(cat.css);
+  const span = document.createElement('span');
+  span.innerHTML = `<span class="legend-dot" id="ldot-${i}" style="background:${c.br}"></span>${cat.label}`;
+  legendEl.appendChild(span);
+});
+
+/* ── Theme ── */
+function toggleTheme() {
+  const html = document.documentElement;
+  const going_light = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', going_light ? 'light' : 'dark');
+  document.getElementById('theme-label').textContent = going_light ? 'Dark mode' : 'Light mode';
+  const icon = document.getElementById('theme-icon');
+  if (going_light) {
+    icon.innerHTML = '<path d="M13.5 8.5A5.5 5.5 0 0 1 7 2a6.5 6.5 0 1 0 6.5 6.5z" fill="currentColor" stroke="none"/>';
+  } else {
+    icon.innerHTML = '<circle cx="8" cy="8" r="3.5"/><line x1="8" y1="1" x2="8" y2="2.5"/><line x1="8" y1="13.5" x2="8" y2="15"/><line x1="1" y1="8" x2="2.5" y2="8"/><line x1="13.5" y1="8" x2="15" y2="8"/><line x1="3.05" y1="3.05" x2="4.11" y2="4.11"/><line x1="11.89" y1="11.89" x2="12.95" y2="12.95"/><line x1="12.95" y1="3.05" x2="11.89" y2="4.11"/><line x1="4.11" y1="11.89" x2="3.05" y2="12.95"/>';
+  }
+  rebuildColors();
+}
+
+function rebuildColors() {
+  nodeSel.select('circle')
+    .attr('fill', d => d.stub ? getVar('--stub-fill') : getCatColors(catFor(d.cat).css).bg)
+    .attr('stroke', d => d.stub ? getVar('--stub-stroke') : getCatColors(catFor(d.cat).css).br);
+  nodeSel.select('text')
+    .attr('fill', d => d.stub ? getVar('--muted') : getCatColors(catFor(d.cat).css).br);
+  edgeSel.attr('stroke', getVar('--edge'));
+  CATS.forEach((_, i) => {
+    const dot = document.getElementById('ldot-' + i);
+    if (dot) dot.style.background = getCatColors(i).br;
+  });
+  if (selId) showInfo(NM[selId]);
+}
+
+/* ── Resize ── */
+window.addEventListener('resize', () => {
+  W = svgEl.clientWidth; H = svgEl.clientHeight;
+  sim.force('center', d3.forceCenter(W / 2, H / 2))
+     .force('x', d3.forceX(W / 2).strength(0.04))
+     .force('y', d3.forceY(H / 2).strength(0.04))
+     .alpha(0.2).restart();
+});
+</script>
+</body>
+</html>
