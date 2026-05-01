@@ -9,13 +9,18 @@ My teaching begins with a straightforward belief: students are already writers. 
 
 I design courses around questions of language, identity, and power, treating writing as one literacy among many and emphasizing collaborative, process-based work that builds genuine classroom community.
 
+Please find my teaching statement <a href="{{ site.baseurl }}/teaching/statement/">here</a>.
+## Teaching Network
+
 <div id="teaching-graph-container">
   <div id="teaching-graph"></div>
-  <div id="graph-legend">
+  <div id="teaching-legend">
     <span class="legend-item"><span class="legend-dot statement-dot"></span> Teaching Statement</span>
-    <span class="legend-item"><span class="legend-dot slo-dot"></span> Learning Outcome</span>
+    <span class="legend-item"><span class="legend-dot course-dot"></span> Course</span>
     <span class="legend-item"><span class="legend-dot lecture-dot"></span> Lecture</span>
-    <p class="legend-hint">Click an outcome to filter · Click a node to open · Drag to explore</p>
+    <span class="legend-item"><span class="legend-dot slo-dot"></span> Student Learning Outcome</span>
+    <span class="legend-item"><span class="legend-dot material-dot"></span> Teaching Material</span>
+    <p class="legend-hint">Click a node to navigate · Drag to explore · Click courses or SLOs to filter</p>
   </div>
 </div>
 
@@ -23,6 +28,7 @@ I design courses around questions of language, identity, and power, treating wri
   #teaching-graph-container {
     width: 100%;
     position: relative;
+    margin: 2rem 0;
   }
   #teaching-graph {
     width: 100%;
@@ -31,7 +37,7 @@ I design courses around questions of language, identity, and power, treating wri
     border-radius: 4px;
     overflow: hidden;
   }
-  #graph-legend {
+  #teaching-legend {
     margin-top: 0.5rem;
     display: flex;
     align-items: center;
@@ -43,8 +49,10 @@ I design courses around questions of language, identity, and power, treating wri
   .legend-item { display: flex; align-items: center; gap: 0.4rem; }
   .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
   .statement-dot { background: rgb(122, 6, 97); }
-  .slo-dot { background: #c45a8a; }
+  .course-dot { background: rgb(6, 122, 97); }
   .lecture-dot { background: rgb(6, 97, 122); }
+  .slo-dot { background: rgb(97, 122, 6); }
+  .material-dot { background: rgb(122, 97, 6); }
   .legend-hint { margin: 0; font-size: 0.8rem; color: #5a5a56; }
   .node-label {
     font-family: 'Courier Prime', monospace;
@@ -53,26 +61,60 @@ I design courses around questions of language, identity, and power, treating wri
     pointer-events: none;
     user-select: none;
   }
-  .slo-label { fill: rgb(122, 6, 97); }
-  circle.statement-node { cursor: pointer; }
-  circle.statement-node:hover { stroke: rgb(122, 6, 97); stroke-width: 2px; }
-  circle.lecture-node { cursor: pointer; }
-  circle.lecture-node:hover { stroke: rgb(6, 97, 122); stroke-width: 2px; }
-  circle.slo-node { cursor: pointer; }
-  circle.slo-node:hover { stroke: #c45a8a; stroke-width: 2px; }
+  .slo-label { fill: rgb(97, 122, 6); }
+  .material-label { fill: rgb(122, 97, 6); }
+  circle.clickable-node { cursor: pointer; }
+  circle.clickable-node:hover { stroke: #333; stroke-width: 2px; }
 </style>
 
 <script>
-{% assign tg = site.data.teaching_graph %}
-
-const graphData = {
+const teachingData = {
   nodes: [
-    { id: {{ tg.statement.title | jsonify }}, label: {{ tg.statement.title | jsonify }}, url: {{ tg.statement.url | jsonify }}, type: "statement" }{% for slo in tg.slos %},
-    { id: {{ slo.id | jsonify }}, label: {{ slo.short | jsonify }}, url: null, type: "slo" }{% endfor %}{% for lecture in tg.lectures %},
-    { id: {{ lecture.title | jsonify }}, label: {{ lecture.title | jsonify }}, url: {{ lecture.url | jsonify }}, type: "lecture" }{% endfor %}
+    // Central teaching statement
+    { id: "{{ site.data.teaching_graph.statement.title }}", label: "{{ site.data.teaching_graph.statement.title }}", url: "{{ site.baseurl }}{{ site.data.teaching_graph.statement.url }}", type: "statement" },
+
+    // Course nodes
+    { id: "ENC 1101 at UCF", label: "ENC 1101", url: "{{ site.baseurl }}/teaching/enc-1101/", type: "course" },
+    { id: "ENC 1102 at UCF", label: "ENC 1102", url: "{{ site.baseurl }}/teaching/enc1102/", type: "course" },
+
+    // Student Learning Outcomes (ENC 1101)
+    {% for slo in site.data.teaching_graph.slos %}
+    { id: "{{ slo.id }}", label: "{{ slo.short }}", url: null, type: "slo", fullLabel: "{{ slo.label }}" }{% unless forloop.last %},{% endunless %}
+    {% endfor %},
+
+    // Lectures (ENC 1101)
+    {% for lecture in site.data.teaching_graph.lectures %}
+    { id: "{{ lecture.title }}", label: "{{ lecture.title }}", url: "{{ site.baseurl }}{{ lecture.url }}", type: "lecture", slos: [{% for slo_id in lecture.slos %}"{{ slo_id }}"{% unless forloop.last %},{% endunless %}{% endfor %}] }{% unless forloop.last %},{% endunless %}
+    {% endfor %},
+
+    // ENC 1102 Materials
+    { id: "AI Policy Summer 26", label: "AI Policy Summer 26", url: "{{ site.baseurl }}/teaching/enc1102/summer26/aipolicy/", type: "lecture" },
+
+    // General Teaching Materials
+    { id: "Course Syllabi", label: "Course Syllabi", url: "{{ site.baseurl }}/teaching/syllabi/", type: "material" },
+    { id: "DIY Zine Library", label: "DIY Zine Library", url: "{{ site.baseurl }}/teaching/zines/", type: "material" }
   ],
   links: [
-    {% for slo in tg.slos %}{ source: {{ tg.statement.title | jsonify }}, target: {{ slo.id | jsonify }} }{% unless forloop.last %},{% endunless %}{% endfor %}{% for lecture in tg.lectures %}{% for slo_id in lecture.slos %},{ source: {{ lecture.title | jsonify }}, target: {{ slo_id | jsonify }} }{% endfor %}{% endfor %}
+    // Connect teaching statement to courses and materials
+    { source: "{{ site.data.teaching_graph.statement.title }}", target: "ENC 1101 at UCF" },
+    { source: "{{ site.data.teaching_graph.statement.title }}", target: "ENC 1102 at UCF" },
+    { source: "{{ site.data.teaching_graph.statement.title }}", target: "Course Syllabi" },
+    { source: "{{ site.data.teaching_graph.statement.title }}", target: "DIY Zine Library" },
+
+    // Connect ENC 1101 to its SLOs
+    {% for slo in site.data.teaching_graph.slos %}
+    { source: "ENC 1101 at UCF", target: "{{ slo.id }}" }{% unless forloop.last %},{% endunless %}
+    {% endfor %},
+
+    // Connect ENC 1102 to its materials
+    { source: "ENC 1102 at UCF", target: "AI Policy Summer 26" },
+
+    // Connect SLOs to their lectures
+    {% for lecture in site.data.teaching_graph.lectures %}
+      {% for slo_id in lecture.slos %}
+    { source: "{{ slo_id }}", target: "{{ lecture.title }}" }{% unless forloop.last and forloop.parentloop.last %},{% endunless %}
+      {% endfor %}
+    {% endfor %}
   ]
 };
 </script>
@@ -96,41 +138,38 @@ const graphData = {
     .on('zoom', (event) => g.attr('transform', event.transform))
   );
 
-  const nodeColors = {
-    statement: 'rgb(122, 6, 97)',
-    slo: '#c45a8a',
-    lecture: 'rgb(6, 97, 122)'
-  };
-
-  const nodeRadii = {
-    statement: 18,
-    slo: 10,
-    lecture: 12
-  };
-
-  const simulation = d3.forceSimulation(graphData.nodes)
-    .force('link', d3.forceLink(graphData.links).id(d => d.id).distance(d => {
-      const src = graphData.nodes.find(n => n.id === (d.source.id || d.source));
-      return src && src.type === 'statement' ? 130 : 90;
-    }))
-    .force('charge', d3.forceManyBody().strength(-300))
+  const simulation = d3.forceSimulation(teachingData.nodes)
+    .force('link', d3.forceLink(teachingData.links).id(d => d.id).distance(90))
+    .force('charge', d3.forceManyBody().strength(-200))
     .force('center', d3.forceCenter(W / 2, H / 2))
-    .force('collision', d3.forceCollide(35));
+    .force('collision', d3.forceCollide(30));
 
   const link = g.append('g')
     .selectAll('line')
-    .data(graphData.links)
+    .data(teachingData.links)
     .join('line')
-    .attr('stroke', 'rgba(122, 6, 97, 0.2)')
+    .attr('stroke', '#999')
     .attr('stroke-width', 1.5);
 
   const node = g.append('g')
     .selectAll('circle')
-    .data(graphData.nodes)
+    .data(teachingData.nodes)
     .join('circle')
-    .attr('r', d => nodeRadii[d.type])
-    .attr('fill', d => nodeColors[d.type])
-    .attr('class', d => `${d.type}-node`)
+    .attr('r', d => {
+      if (d.type === 'statement') return 14;
+      if (d.type === 'course') return 12;
+      if (d.type === 'slo') return 10;
+      if (d.type === 'lecture') return 8;
+      return 7;
+    })
+    .attr('fill', d => {
+      if (d.type === 'statement') return 'rgb(122, 6, 97)';
+      if (d.type === 'course') return 'rgb(6, 122, 97)';
+      if (d.type === 'lecture') return 'rgb(6, 97, 122)';
+      if (d.type === 'slo') return 'rgb(97, 122, 6)';
+      return 'rgb(122, 97, 6)';
+    })
+    .attr('class', d => d.url ? 'clickable-node' : 'node')
     .call(d3.drag()
       .on('start', (event, d) => {
         if (!event.active) simulation.alphaTarget(0.3).restart();
@@ -143,42 +182,124 @@ const graphData = {
       })
     );
 
-  node.filter(d => d.type === 'statement' || d.type === 'lecture')
+  // Click to navigate for nodes with URLs
+  node.filter(d => d.url)
     .on('click', (event, d) => { window.location.href = d.url; });
 
+  // Filter functionality for SLOs
   node.filter(d => d.type === 'slo')
     .on('click', (event, d) => {
       event.stopPropagation();
-      const connectedIds = new Set(
-        graphData.links
-          .filter(l => (l.source.id || l.source) === d.id || (l.target.id || l.target) === d.id)
-          .map(l => (l.source.id || l.source) === d.id
-            ? (l.target.id || l.target)
-            : (l.source.id || l.source))
-      );
-      node.attr('opacity', n => n.id === d.id || connectedIds.has(n.id) ? 1 : 0.15);
-      link.attr('opacity', l =>
-        (l.source.id || l.source) === d.id || (l.target.id || l.target) === d.id ? 1 : 0.05
-      );
+      const isFiltered = node.attr('data-filtered') === 'true';
+
+      if (isFiltered) {
+        // Reset filter
+        node.attr('opacity', 1).attr('data-filtered', null);
+        link.attr('opacity', 1);
+      } else {
+        // Find connected lectures
+        const connectedLectures = new Set();
+        teachingData.nodes.forEach(n => {
+          if (n.type === 'lecture' && n.slos && n.slos.includes(d.id)) {
+            connectedLectures.add(n.id);
+          }
+        });
+
+        // Apply filter
+        node.attr('opacity', n => {
+          if (n.id === d.id || n.type === 'statement' || n.id === 'ENC 1101 at UCF' || connectedLectures.has(n.id)) return 1;
+          return 0.2;
+        }).attr('data-filtered', 'true');
+
+        link.attr('opacity', l => {
+          const sourceId = l.source.id || l.source;
+          const targetId = l.target.id || l.target;
+          // Show links involving the clicked SLO, teaching statement, or ENC 1101
+          if (sourceId === d.id || targetId === d.id) return 1;
+          if (sourceId === 'Teaching Statement' && targetId === 'ENC 1101 at UCF') return 0.7;
+          if (sourceId === 'ENC 1101 at UCF' && targetId === d.id) return 1;
+          if (sourceId === 'Teaching Statement' || targetId === 'Teaching Statement') return 0.3;
+          return 0.1;
+        });
+      }
+    });
+
+  // Filter functionality for course nodes
+  node.filter(d => d.type === 'course')
+    .on('click', (event, d) => {
+      event.stopPropagation();
+      const isFiltered = node.attr('data-filtered') === 'true';
+
+      if (isFiltered) {
+        // Reset filter
+        node.attr('opacity', 1).attr('data-filtered', null);
+        link.attr('opacity', 1);
+      } else {
+        // Show course-specific content
+        if (d.id === 'ENC 1101 at UCF') {
+          // Show teaching statement, ENC 1101, all SLOs, and all ENC 1101 lectures
+          node.attr('opacity', n => {
+            if (n.type === 'statement' || n.id === 'ENC 1101 at UCF' || n.type === 'slo' || (n.type === 'lecture' && n.slos)) return 1;
+            return 0.2;
+          }).attr('data-filtered', 'true');
+
+          link.attr('opacity', l => {
+            const sourceId = l.source.id || l.source;
+            const targetId = l.target.id || l.target;
+            // Show all links involving ENC 1101 content
+            if (sourceId === 'Teaching Statement' && targetId === 'ENC 1101 at UCF') return 1;
+            if (sourceId === 'ENC 1101 at UCF' || targetId === 'ENC 1101 at UCF') return 1;
+            // Show SLO to lecture links for ENC 1101
+            const isENC1101Lecture = teachingData.nodes.find(n => n.id === sourceId || n.id === targetId)?.slos;
+            if (isENC1101Lecture) return 1;
+            return 0.1;
+          });
+        } else if (d.id === 'ENC 1102 at UCF') {
+          // Show teaching statement, ENC 1102, and ENC 1102 materials
+          node.attr('opacity', n => {
+            if (n.type === 'statement' || n.id === 'ENC 1102 at UCF' || n.id === 'AI Policy Summer 26') return 1;
+            return 0.2;
+          }).attr('data-filtered', 'true');
+
+          link.attr('opacity', l => {
+            const sourceId = l.source.id || l.source;
+            const targetId = l.target.id || l.target;
+            // Show links involving ENC 1102
+            if (sourceId === 'Teaching Statement' && targetId === 'ENC 1102 at UCF') return 1;
+            if (sourceId === 'ENC 1102 at UCF' || targetId === 'ENC 1102 at UCF') return 1;
+            return 0.1;
+          });
+        }
+      }
     });
 
   svg.on('click', () => {
-    node.attr('opacity', 1);
+    node.attr('opacity', 1).attr('data-filtered', null);
     link.attr('opacity', 1);
   });
 
   const label = g.append('g')
     .selectAll('text')
-    .data(graphData.nodes)
+    .data(teachingData.nodes)
     .join('text')
-    .attr('class', d => d.type === 'slo' ? 'node-label slo-label' : 'node-label')
+    .attr('class', d => {
+      if (d.type === 'slo') return 'node-label slo-label';
+      if (d.type === 'material') return 'node-label material-label';
+      return 'node-label';
+    })
     .attr('dy', d => {
-      if (d.type === 'statement') return -22;
+      if (d.type === 'statement') return -18;
+      if (d.type === 'course') return -16;
       if (d.type === 'slo') return -14;
-      return -16;
+      return -12;
     })
     .attr('text-anchor', 'middle')
     .text(d => d.label);
+
+  // Add tooltip for SLOs to show full label
+  node.filter(d => d.type === 'slo')
+    .append('title')
+    .text(d => d.fullLabel || d.label);
 
   simulation.on('tick', () => {
     link
@@ -189,13 +310,3 @@ const graphData = {
   });
 })();
 </script>
-
-## Other Teaching Materials
-
-<div class="cv-navigation">
-  <ul>
-    <li><a href="{{ site.baseurl }}/teaching/enc-1101/lectures/" class="animated-link">Twine Lectures</a></li>
-    <li><a href="{{ site.baseurl }}/teaching/syllabi/" class="animated-link">Course Syllabi</a></li>
-    <li><a href="{{ site.baseurl }}/teaching/zines/" class="animated-link">DIY Zine Library</a></li>
-  </ul>
-</div>

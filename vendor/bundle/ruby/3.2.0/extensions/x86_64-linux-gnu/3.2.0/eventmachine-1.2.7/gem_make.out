@@ -1,8 +1,19 @@
-current directory: /home/user/portfolio/vendor/bundle/ruby/3.2.0/gems/eventmachine-1.2.7/ext
+current directory: /home/user-home/portfolio/vendor/bundle/ruby/3.2.0/gems/eventmachine-1.2.7/ext/fastfilereader
 /usr/bin/ruby3.2 -I/usr/lib/ruby/vendor_ruby extconf.rb
-mkmf.rb can't find header files for ruby at /usr/lib/ruby/include/ruby.h
+creating Makefile
 
-You might have to install separate package for the ruby development
-environment, ruby-dev or ruby-devel for example.
+current directory: /home/user-home/portfolio/vendor/bundle/ruby/3.2.0/gems/eventmachine-1.2.7/ext/fastfilereader
+make DESTDIR\= sitearchdir\=./.gem.20260428-234148-oy01jq sitelibdir\=./.gem.20260428-234148-oy01jq clean
 
-extconf failed, exit code 1
+current directory: /home/user-home/portfolio/vendor/bundle/ruby/3.2.0/gems/eventmachine-1.2.7/ext/fastfilereader
+make DESTDIR\= sitearchdir\=./.gem.20260428-234148-oy01jq sitelibdir\=./.gem.20260428-234148-oy01jq
+compiling mapper.cpp
+compiling rubymain.cpp
+linking shared-object fastfilereaderext.so
+
+current directory: /home/user-home/portfolio/vendor/bundle/ruby/3.2.0/gems/eventmachine-1.2.7/ext/fastfilereader
+make DESTDIR\= sitearchdir\=./.gem.20260428-234148-oy01jq sitelibdir\=./.gem.20260428-234148-oy01jq install
+/usr/bin/install -c -m 0755 fastfilereaderext.so ./.gem.20260428-234148-oy01jq
+
+current directory: /home/user-home/portfolio/vendor/bundle/ruby/3.2.0/gems/eventmachine-1.2.7/ext/fastfilereader
+make DESTDIR\= sitearchdir\=./.gem.20260428-234148-oy01jq sitelibdir\=./.gem.20260428-234148-oy01jq clean
