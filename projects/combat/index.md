@@ -2,7 +2,7 @@
 layout: default
 title: "Combat"
 description: "A generative lyric tool using Python"
-project: true
+project: false
 tags: [phd, generative, interactive]
 ---
 

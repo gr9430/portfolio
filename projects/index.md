@@ -9,7 +9,8 @@ project: false
   <div id="graph-legend">
     <span class="legend-item"><span class="legend-dot project-dot"></span> Project</span>
     <span class="legend-item"><span class="legend-dot tag-dot"></span> Tag</span>
-    <p class="legend-hint">Click a tag to filter · Click a project to open · Drag to explore</p>
+    <span class="legend-item"><span class="legend-dot course-tag-dot"></span> Course</span>
+    <p class="legend-hint">Click a tag to filter · Click a project to open · Hover a course tag for description · Drag to explore</p>
   </div>
 </div>
 
@@ -38,6 +39,7 @@ project: false
   .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
   .project-dot { background: rgb(122, 6, 97); }
   .tag-dot { background: rgb(6, 97, 122); }
+  .course-tag-dot { background: rgb(170, 110, 0); }
   .legend-hint { margin: 0; font-size: 0.8rem; color: #5a5a56; }
   .node-label {
     font-family: 'Courier Prime', monospace;
@@ -47,9 +49,11 @@ project: false
     user-select: none;
   }
   .tag-label { fill: rgb(122, 6, 97); }
+  .course-tag-label { fill: rgb(170, 110, 0); }
   circle.project-node { cursor: pointer; }
   circle.project-node:hover { stroke: rgb(122, 6, 97); stroke-width: 2px; }
   circle.tag-node { cursor: pointer; }
+  circle.course-tag-node { cursor: pointer; }
 </style>
 
 <script>
@@ -97,10 +101,12 @@ const graphData = {
   );
 
   const simulation = d3.forceSimulation(graphData.nodes)
-    .force('link', d3.forceLink(graphData.links).id(d => d.id).distance(90))
-    .force('charge', d3.forceManyBody().strength(-200))
+    .force('link', d3.forceLink(graphData.links).id(d => d.id).distance(130))
+    .force('charge', d3.forceManyBody().strength(-450))
     .force('center', d3.forceCenter(W / 2, H / 2))
-    .force('collision', d3.forceCollide(30));
+    .force('collision', d3.forceCollide(45));
+
+  const courseTagIds = new Set(['playable-texts', 'history', 'critical-making', 'theories']);
 
   const link = g.append('g')
     .selectAll('line')
@@ -114,8 +120,8 @@ const graphData = {
     .data(graphData.nodes)
     .join('circle')
     .attr('r', d => d.type === 'project' ? 12 : 8)
-    .attr('fill', d => d.type === 'project' ? 'rgb(122, 6, 97)' : 'rgb(6, 97, 122)')
-    .attr('class', d => d.type === 'project' ? 'project-node' : 'tag-node')
+    .attr('fill', d => d.type === 'project' ? 'rgb(122, 6, 97)' : courseTagIds.has(d.id) ? 'rgb(170, 110, 0)' : 'rgb(6, 97, 122)')
+    .attr('class', d => d.type === 'project' ? 'project-node' : courseTagIds.has(d.id) ? 'course-tag-node' : 'tag-node')
     .call(d3.drag()
       .on('start', (event, d) => {
         if (!event.active) simulation.alphaTarget(0.3).restart();
@@ -131,6 +137,29 @@ const graphData = {
   node.filter(d => d.type === 'project')
     .on('click', (event, d) => { window.location.href = d.url; });
 
+  const tagDescriptions = {
+    'playable-texts': 'Playable Texts and Technology — examines digital games and playable media as sites of cultural meaning-making, experimental design, and critical inquiry.',
+    'history': 'Texts and Technology in History — explores how technologies have shaped the nature and production of texts from orality through digital media.',
+    'theories': 'Theories of Texts and Technology — core PhD course introducing the theoretical concepts, methods, and questions foundational to the T&T program.',
+    'critical-making': 'Critical Making — making as scholarship; humanities research-creation interweaving design, function, and theory across code, software, and hardware.',
+  };
+
+  const tooltip = d3.select('#project-graph-container')
+    .append('div')
+    .style('position', 'absolute')
+    .style('display', 'none')
+    .style('background', '#fdfdfd')
+    .style('border', '1px solid rgb(122, 6, 97)')
+    .style('padding', '0.35rem 0.65rem')
+    .style('font-size', '0.78rem')
+    .style('font-family', "'Courier Prime', monospace")
+    .style('color', '#333')
+    .style('border-radius', '3px')
+    .style('pointer-events', 'none')
+    .style('max-width', '220px')
+    .style('line-height', '1.4')
+    .style('z-index', '10');
+
   node.filter(d => d.type === 'tag')
     .on('click', (event, d) => {
       event.stopPropagation();
@@ -143,6 +172,19 @@ const graphData = {
       link.attr('opacity', l =>
         (l.source.id || l.source) === d.id || (l.target.id || l.target) === d.id ? 1 : 0.1
       );
+    })
+    .on('mouseover', function(event, d) {
+      if (tagDescriptions[d.id]) {
+        const rect = document.getElementById('project-graph-container').getBoundingClientRect();
+        tooltip
+          .style('display', 'block')
+          .style('left', (event.clientX - rect.left + 14) + 'px')
+          .style('top', (event.clientY - rect.top - 8) + 'px')
+          .text(tagDescriptions[d.id]);
+      }
+    })
+    .on('mouseout', function() {
+      tooltip.style('display', 'none');
     });
 
   svg.on('click', () => {
@@ -154,7 +196,7 @@ const graphData = {
     .selectAll('text')
     .data(graphData.nodes)
     .join('text')
-    .attr('class', d => d.type === 'tag' ? 'node-label tag-label' : 'node-label')
+    .attr('class', d => d.type === 'project' ? 'node-label' : courseTagIds.has(d.id) ? 'node-label course-tag-label' : 'node-label tag-label')
     .attr('dy', d => d.type === 'project' ? -16 : -12)
     .attr('text-anchor', 'middle')
     .text(d => d.label);
