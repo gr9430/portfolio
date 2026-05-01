@@ -61,7 +61,8 @@
       "Bash(grep -v \"^commit\\\\|^Author\\\\|^Date\\\\|^$\\\\|^    \\\\|vendor/\")",
       "Bash(python3 -c ' *)",
       "Bash(xargs -d'\\\\n' du -sh)",
-      "Bash(python3 *)"
+      "Bash(python3 *)",
+      "WebFetch(domain:glennritchey.net)"
     ]
   }
 }

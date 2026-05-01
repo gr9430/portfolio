@@ -3,7 +3,7 @@ layout: default
 title: "SMT Celtic Mythology Network"
 description: "A network graph mapping Celtic mythology sources in the Shin Megami Tensei game series"
 project: true
-tags: [phd, data-visualization, collaborative]
+tags: [phd, data-visualization, network, history, collaborative]
 ---
 
 # SMT Celtic Mythology Network
