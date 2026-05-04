@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UCF ePortfolio Glossary</title>
+<title>ePortfolio's: A Guide for Writers - Glossary</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -171,7 +171,7 @@
 
 <div class="topbar">
   <div class="ucf-badge">UCF</div>
-  <h1>ePortfolio <span>Glossary</span></h1>
+  <h1><i>ePortfolio's: A Guide for Writers</i> <span>Glossary</span></h1>
   <div class="search-wrap">
     <svg viewBox="0 0 16 16" stroke-width="1.5" stroke-linecap="round">
       <circle cx="6.5" cy="6.5" r="4.5"/><line x1="10" y1="10" x2="14.5" y2="14.5"/>
@@ -197,7 +197,6 @@
     <div class="panel-inner" id="panel-inner">
       <p class="panel-default">Click any term to read its definition and see related concepts. Drag to rearrange. Scroll to zoom.</p>
     </div>
-    <div class="panel-footer">ENC 1101/1102 ePortfolio Glossary</div>
   </div>
 </div>
 
@@ -209,8 +208,7 @@ const CATS = [
   { id: 'knowledge', label: 'Knowledge & Learning',  css: 1 },
   { id: 'writing',   label: 'Writing Processes',     css: 2 },
   { id: 'rhetoric',  label: 'Rhetorical Concepts',   css: 3 },
-  { id: 'language',  label: 'Language & Power',      css: 4 },
-  { id: 'research',  label: 'Research & Evidence',   css: 5 },
+  { id: 'research',  label: 'Research & Evidence',   css: 4 },
 ];
 
 function catFor(id) { return CATS.find(c => c.id === id); }
@@ -230,74 +228,89 @@ const NODES = [
   { id: 'eportfolio',    label: 'ePortfolio',                   cat: 'core', stub: false,
     def: `A curated digital collection of work that demonstrates what you've learned and how you've grown as a writer and thinker. It includes <em>deep, meaningful reflection</em> and helps you showcase your accomplishments while making connections across and between your coursework.` },
   { id: 'artifact',      label: 'Artifact(s)',                  cat: 'core', stub: false,
-    def: `Any work you include in your ePortfolio—such as a reflective piece or a selection from your primary research—that provides <em>evidence of your learning</em>.` },
-  { id: 'reflection',    label: 'Reflection',                   cat: 'core', stub: true },
+    def: `Any work you include in your ePortfolio, such as a reflective piece or a selection from your primary research, that provides <em>evidence of your learning</em>.` },
+  { id: 'assessment',    label: 'Assessment',                   cat: 'core', stub: false,
+    def: `The intentional, reflective evaluation of student writing through ePortfolio artifacts and evidence evaluated in relation to clearly defined course goals to demonstrate <em>learning and growth</em>.` },
+  { id: 'attribution',   label: 'Attribution',                  cat: 'core', stub: false,
+    def: `Providing proper credit to the original creators of any content you include, such as images, videos, quotes, data, or ideas, by noting who created the content and where it originated from. This process raises awareness of ownership and ensures the <em>ethical use of materials</em> used in ePortfolios or any online environment.` },
+  { id: 'authentic',     label: 'Authentic Assessment',         cat: 'core', stub: false,
+    def: `The practice of evaluating writing tasks, such as drafts, reflections, and multimodal projects, that demonstrate <em>cumulative learning in genuine contexts</em> rather than through traditional tests. This process validates students as whole people and learners by emphasizing process, growth, and the purposeful application of writing skills for real audiences.` },
+  { id: 'contextualization', label: 'Contextualization (of content and artifacts)', cat: 'core', stub: false,
+    def: `The practice of framing ePortfolio artifacts within rhetorical and learning contexts (what they are, why they were created, for whom, and what they demonstrate) to clarify <em>purpose, significance, learning, and growth</em>.` },
+  { id: 'creation_space', label: 'Creation space (multimodal)', cat: 'core', stub: false,
+    def: `A dedicated environment within an ePortfolio system (or related tools) where students compose, revise, and assemble work in multiple modalities—text, image, audio, video, and links—both independently or in teams, with <em>support for drafting, feedback, reflection, and collaboration</em>.` },
+  { id: 'cc',            label: 'Creative Commons (CC) Licensing', cat: 'core', stub: false,
+    def: `These allow creators to decide how others can use, share, or adapt their work. By offering standardized, easy‑to-understand licenses, CC licenses <em>encourage lawful sharing and collaboration</em> by protecting creators' rights while expanding access. They are widely used for educational materials, photographs, music, and other artistic and research works.` },
+  { id: 'credentialing',  label: 'Credentialing',               cat: 'core', stub: false,
+    def: `The use of ePortfolios to verify, document, and certify a student's achievement of defined competencies or program requirements resulting in a <em>formal recognition</em> such as a badge, certificate, endorsement, or degree milestone.` },
   { id: 'curation',      label: 'Curation',                     cat: 'core', stub: false,
     def: `The process of choosing and arranging artifacts so they tell a story and highlight your growth and development as a writer. This is an <em>intentional activity</em> that includes thoughtful selection, contextualization, and presentation of the artifacts in your portfolio.` },
-  { id: 'accessibility', label: 'Accessibility',                cat: 'core', stub: false,
-    def: `The practice of designing and presenting online content so all users can understand, navigate, and interact with the materials. This includes creating a clear structure, <em>alternative text for media</em>, readable formats, and tools that support assistive technologies to ensure everyone can fully engage with your portfolio.` },
-  { id: 'navigation',    label: 'Navigation',                   cat: 'core', stub: false,
-    def: `The clear, logical organization of pages, sections, and content that helps readers easily locate information and understand how the portfolio is structured. <em>Effective navigation ensures a smooth, intuitive user experience.</em>` },
-  { id: 'attribution',   label: 'Attribution',                  cat: 'core', stub: false,
-    def: `Providing proper credit to the original creators of any content you include, such as images, videos, quotes, data, or ideas, by noting who created the content and where it originated from. This process raises awareness of ownership and ensures the <em>ethical use of materials</em> in ePortfolios or any online environment.` },
-  { id: 'ip',            label: 'Intellectual Property',        cat: 'core', stub: false,
-    def: `Refers to the ownership of ideas, inventions, designs, artistic works, and brand elements that are legally protected under copyright law. While you own anything you create, you must ensure you have the right to reproduce anything included in your ePortfolio—such as images and other media—by providing <em>proper attribution when required</em>.` },
-  { id: 'cc',            label: 'Creative Commons (CC)',        cat: 'core', stub: false,
-    def: `Standardized licenses that allow creators to decide how others can use, share, or adapt their work. CC licenses <em>encourage lawful sharing and collaboration</em> by protecting creators' rights while expanding access. They are widely used for educational materials, photographs, music, and other artistic and research works.` },
-  { id: 'authentic',     label: 'Authentic Assessment',         cat: 'core', stub: false,
-    def: `The practice of evaluating writing tasks—such as drafts, reflections, and multimodal projects—that demonstrate <em>cumulative learning in genuine contexts</em> rather than through traditional tests. This process validates students as whole people and learners by emphasizing process, growth, and the purposeful application of writing skills for real audiences.` },
-  { id: 'rubric',        label: 'Rubric(s)',                    cat: 'core', stub: false,
-    def: `A clearly defined grading guideline that outlines the criteria and performance standards used to evaluate the content, organization, design, and reflection within an ePortfolio. Rubrics help students <em>understand expectations</em> while supporting consistent and transparent assessment and providing constructive feedback on their learning and growth.` },
-  { id: 'slo',           label: 'Student Learning Outcomes',    cat: 'core', stub: false,
-    def: `SLOs guide the work students produce in UCF's first-year composition courses, helping them develop into <em>flexible, reflective, and informed writers</em>. These goals include generating meaningful inquiry, integrating multimodal forms of writing, practicing effective research strategies, and revising with intention.` },
-  { id: 'multimodal',    label: 'Multimodal Composition',       cat: 'core', stub: false,
-    def: `Writing that includes more than one communication mode—such as images, infographics, audio, video, or storyboards. It allows students to <em>communicate ideas in diverse and creative ways</em> by incorporating both textual and non-textual elements into their writing.` },
-  { id: 'presence',      label: 'Professional Online Presence', cat: 'core', stub: false,
-    def: `The image you create about yourself across digital platforms to <em>support your educational or career goals</em>.` },
-  { id: 'privacy',       label: 'Privacy & Data Protection',    cat: 'core', stub: true },
   { id: 'genre',         label: 'Genre',                        cat: 'core', stub: false,
     def: `A form of communication shaped by specific patterns, purposes, expectations, and conventions. An ePortfolio functions as a genre because it requires you to make <em>intentional choices about how you present your work</em> in ways that are meaningful for particular audiences and goals.` },
+  { id: 'ip',            label: 'Intellectual Property',        cat: 'core', stub: false,
+    def: `Refers to the ownership of ideas, inventions, designs, artistic works, and brand elements that are legally protected under copyright law. While you own anything you create, you must ensure you have the right to reproduce anything included in your ePortfolio, such as images and other media, by providing <em>proper attribution when required</em>.` },
+  { id: 'multimodal',    label: 'Multimodal Composition',       cat: 'core', stub: false,
+    def: `Writing that includes more than one communication mode such as images, infographics, audio, video, a storyboard, etc. It allows students to <em>communicate ideas in diverse and creative ways</em> by incorporating both textual and non‑textual elements into their writing.` },
+  { id: 'navigation',    label: 'Navigation',                   cat: 'core', stub: false,
+    def: `Refers to the clear, logical organization of pages, sections, and content that helps readers easily locate information and understand how the portfolio is structured. <em>Effective navigation ensures a smooth, intuitive user experience.</em>` },
+  { id: 'presence',      label: 'Professional Online Presence', cat: 'core', stub: false,
+    def: `The image you create about yourself across digital platforms to <em>support your educational or career goals</em>.` },
+  { id: 'privacy',       label: 'Privacy & Data Protection',    cat: 'core', stub: false,
+    def: `Policies, practices, and tools that manage who can access ePortfolio content and how data is collected, stored, shared, and retained. This includes <em>informed and intentional decisions about visibility</em>, consent for sharing work, safeguarding personal information, and using secure platforms and settings to prevent unintended exposure or misuse.` },
+  { id: 'rubric',        label: 'Rubric(s)',                    cat: 'core', stub: false,
+    def: `A clearly defined grading guideline that outlines the criteria and performance standards used to evaluate the content, organization, design, and reflection within an ePortfolio. Rubrics help students <em>understand expectations</em> while supporting consistent and transparent assessment and providing constructive feedback on their learning and growth.` },
+  { id: 'slo',           label: 'Student Learning Outcomes (SLOs)', cat: 'core', stub: false,
+    def: `SLOs guide the work students produce in UCF's first‑year composition courses, helping them develop into <em>flexible, reflective, and informed writers</em>. These goals include generating meaningful inquiry, integrating multimodal forms of writing, practicing effective research strategies, and revising with intention.` },
+  { id: 'accessibility', label: 'Accessibility',                cat: 'core', stub: false,
+    def: `The practice of designing and presenting online content so all users can understand, navigate, and interact with the materials. This includes creating a clear structure, <em>alternative text for media</em>, readable formats, and tools that support assistive technologies to ensure everyone can fully engage with your portfolio.` },
+  { id: 'alt_text',     label: 'Alt text',                     cat: 'core', stub: false,
+    def: `A brief written description attached to an image (or other non-text visual) that conveys its essential content and function for people who can't see it. <em>Screen readers read alt text aloud</em>, so it also appears when an image fails to load, which makes ePortfolios more accessible.` },
 
   /* Knowledge & Learning */
-  { id: 'declarative',   label: 'Declarative Knowledge',        cat: 'knowledge', stub: true },
-  { id: 'procedural',    label: 'Procedural Knowledge',         cat: 'knowledge', stub: true },
-  { id: 'metacognitive', label: 'Metacognitive Knowledge',      cat: 'knowledge', stub: true },
-  { id: 'transfer',      label: 'Knowledge Transfer',           cat: 'knowledge', stub: true },
-  { id: 'literacy',      label: 'Literacy',                     cat: 'knowledge', stub: true },
-  { id: 'digital_lit',   label: 'Digital Literacy',             cat: 'knowledge', stub: true },
-  { id: 'info_lit',      label: 'Information Literacy',         cat: 'knowledge', stub: true },
-  { id: 'integrative',   label: 'Integrative Learning',         cat: 'knowledge', stub: true },
+  { id: 'digital_lit',   label: 'Digital Literacy',             cat: 'knowledge', stub: false,
+    def: `The ability to use digital tools purposefully and critically to compose, revise, and share writing in an ePortfolio. It includes the ability to locate and evaluate information, create multimodal texts, <em>design for audience and accessibility</em>, and make informed ethical choices about citation, privacy, and data.` },
+  { id: 'evidence',      label: 'Evidence',                     cat: 'knowledge', stub: false,
+    def: `Artifacts and supporting materials in an ePortfolio that demonstrate a writer's learning and growth. This can include both finished and in-progress works such as <em>drafts, reflections, feedback, and contextual documentation</em> that illustrate how outcomes were met and how development occurred over time.` },
+  { id: 'learning_outcomes', label: 'Learning Outcomes',        cat: 'knowledge', stub: false,
+    def: `Clearly defined expectations for what students should know, do, demonstrate by the end of a course, unit, or program. In ePortfolios, learning outcomes serve as <em>criteria for selecting artifacts</em>, shaping reflection, and guiding assessment. They help writers connect specific pieces of work to specific skills, habits, or competencies.` },
+  { id: 'metacognition', label: 'Metacognition',               cat: 'knowledge', stub: false,
+    def: `Thinking about your own thinking as you write and learn. In writing studies, it means noticing how you plan, draft, revise, solve problems, respond to feedback, and make choices. It also means <em>understanding what strategies help you improve</em> so you can use them again in future writing situations.` },
+  { id: 'process_pedagogy', label: 'Process-oriented pedagogy',  cat: 'knowledge', stub: false,
+    def: `An approach to teaching that emphasizes composing as an iterative process in which writing is shaped by invention, drafting, feedback, revision, and reflection rather than a single finished product. This approach foregrounds <em>ongoing learning by documenting choices, changes, and growth</em> across artifacts.` },
+  { id: 'transfer',      label: 'Transfer',                     cat: 'knowledge', stub: false,
+    def: `Applying and adapting existing knowledge, concepts, principles, or problem-solving skills for use in <em>new or different situations</em>.` },
+  { id: 'visual_lit',    label: 'Visual literacy',              cat: 'knowledge', stub: false,
+    def: `The ability to interpret, analyze, and evaluate visual information including images, videos, graphs, symbols, typography, and color choices. In an ePortfolio, this involves <em>making intentional design choices</em>, integrating visuals ethically (copyright/attribution), and attending to accessibility such as alt text, captions, and contrast.` },
 
   /* Writing Processes */
-  { id: 'drafting',      label: 'Drafting',                     cat: 'writing', stub: true },
-  { id: 'revision',      label: 'Revision',                     cat: 'writing', stub: true },
-  { id: 'process',       label: 'Writing Process(es)',          cat: 'writing', stub: true },
-  { id: 'purposeful',    label: 'Purposeful Writing',           cat: 'writing', stub: true },
-  { id: 'transactional', label: 'Transactional Writing',        cat: 'writing', stub: true },
-  { id: 'communicative', label: 'Communicative Writing',        cat: 'writing', stub: true },
-  { id: 'contributive',  label: 'Contributive Writing',         cat: 'writing', stub: true },
-  { id: 'intentionality',label: 'Intentionality',               cat: 'writing', stub: true },
-  { id: 'inquiry',       label: 'Inquiry',                      cat: 'writing', stub: true },
+  { id: 'drafting',      label: 'Drafting',                     cat: 'writing', stub: false,
+    def: `The process of creating an initial version of a text and developing it through additional versions as ideas, organization, evidence, and design take shape. In ePortfolios, drafting includes <em>saving multiple iterations</em>, along with feedback or reflections, to make the writer's decision-making process and growth visible.` },
+  { id: 'feedback',      label: 'Feedback',                     cat: 'writing', stub: false,
+    def: `Formative responses to ePortfolio work including comments, questions, and suggestions from instructors, peers, and other readers that helps writers make informed decisions about revision, reflection, design, and curation. In ePortfolios, feedback may address the quality of individual artifacts as well as <em>the organization, navigation, contextualization, and evidence of learning outcomes</em>.` },
+  { id: 'inquiry',       label: 'Inquiry',                      cat: 'writing', stub: false,
+    def: `The purposeful exploration of a question, problem, or idea that guides writing and research. It involves asking focused questions, seeking and evaluating information, testing possibilities through drafting, and refining one's thinking through reflection and revision. In ePortfolios, inquiry is visible in <em>research trails, annotated sources, process notes, artifacts, and reflections</em> that demonstrate how questions evolve through research and exploration.` },
+  { id: 'intentional_design', label: 'Intentional Design (of structure and navigation)', cat: 'writing', stub: false,
+    def: `The purposeful planning of an ePortfolio's organization and pathways (how pages, sections, menus, and links are arranged) so readers can <em>easily follow and understand</em> the writer's work, reflections, and claims of learning.` },
+  { id: 'iterative',     label: 'Iterative',                    cat: 'writing', stub: false,
+    def: `Repeating a process multiple times to improve or refine the result with each repetition. In an ePortfolio project, this can include <em>cycles of drafting, feedback, revision, and reflection</em>. In other words, rather than aiming for perfection right away, you make purposeful changes, often in a non-linear manner, using peer review, instructor feedback, and your own evaluation to refine your writing and strengthen the story your portfolio tells about your learning.` },
+  { id: 'reflection',    label: 'Reflection',                   cat: 'writing', stub: false,
+    def: `A short piece of writing that explains why an artifact is important, what you learned, and how it meets an outcome. As an <em>intentional, metacognitive practice</em>, it makes visible connections among goals, choices, feedback, revision, and growth. It can be helpful to use three stages of reflection: 1) looking back at previous understandings or earlier work, 2) looking presently at what you are doing now and how the artifact shows your current learning, and 3) looking forward to how what you learned can transfer to future writing situations.` },
+  { id: 'revision',      label: 'Revision',                     cat: 'writing', stub: false,
+    def: `The deliberate reworking of a draft's ideas and rhetorical design guided by feedback and reflection to align with purpose, audience, and learning outcomes. In ePortfolios, revision is made visible through <em>drafts and reflective commentary</em> that explain what changed and why.` },
+  { id: 'process',       label: 'Writing process(es)',          cat: 'writing', stub: false,
+    def: `The recursive, non-linear practices writers use to generate and refine texts including inquiry, invention, drafting, feedback, revision, editing, reflection, and publication. In ePortfolios, writing processes are made visible through <em>various draft iterations, research materials, peer and instructor feedback, and reflections</em> that trace how ideas, decisions, and texts evolved over the course of a project.` },
 
   /* Rhetorical Concepts */
-  { id: 'rhetoric',      label: 'Rhetoric',                     cat: 'rhetoric', stub: true },
-  { id: 'rhet_sit',      label: 'Rhetorical Situation',         cat: 'rhetoric', stub: true },
-  { id: 'rhet_eco',      label: 'Rhetorical Ecology',           cat: 'rhetoric', stub: true },
-  { id: 'context',       label: 'Context',                      cat: 'rhetoric', stub: true },
-  { id: 'genre_sys',     label: 'Genre Systems',                cat: 'rhetoric', stub: true },
-  { id: 'activity_sys',  label: 'Activity Systems',             cat: 'rhetoric', stub: true },
-  { id: 'disciplinarity',label: 'Disciplinarity',               cat: 'rhetoric', stub: true },
-
-  /* Language & Power */
-  { id: 'multimodality', label: 'Multimodality',                cat: 'language', stub: true },
-  { id: 'multiliteracies',label:'Multiple Literacies',          cat: 'language', stub: true },
-  { id: 'multilingualism',label:'Multilingualism',              cat: 'language', stub: true },
-  { id: 'lang_var',      label: 'Language Variation',           cat: 'language', stub: true },
-  { id: 'power',         label: 'Power',                        cat: 'language', stub: true },
+  { id: 'exigency',      label: 'Exigency',                     cat: 'rhetoric', stub: false,
+    def: `The need or problem that prompts a piece of writing: what creates the urgency to communicate and shapes what the writer is trying to accomplish for a particular audience. In ePortfolios, identifying exigency helps writers explain <em>why an artifact was created</em>, what situation or assignment called for it, and how its purpose and design respond to that context.` },
+  { id: 'flexible_voices', label: 'Flexible Use of Voices',     cat: 'rhetoric', stub: false,
+    def: `A writer's ability to adapt tone, style, and formality to meet the needs and expectations of different audiences and purposes. In ePortfolios, this involves <em>shifting from a reflective voice for classroom readers to a more public or professional voice</em> for external audiences while maintaining a coherent identity across the portfolio.` },
+  { id: 'voice',         label: 'Voice',                        cat: 'rhetoric', stub: false,
+    def: `The distinctive way a writer comes across to readers through rhetorical choices such as tone, diction, style, perspective, and attitude. It is how the writing sounds and feels on the page. In an ePortfolio, voice emerges within individual artifacts and across reflections and framing texts, helping writers <em>present a coherent identity</em> while adapting to different audiences and purposes.` },
 
   /* Research & Evidence */
-  { id: 'research_genre',label: 'Research Genre(s)',            cat: 'research', stub: true },
-  { id: 'plagiarism',    label: 'Plagiarism',                   cat: 'research', stub: true },
+  { id: 'research_trail', label: 'Research Trail',              cat: 'research', stub: false,
+    def: `The documented record of how a writer's inquiry evolved throughout the research process including where information was found, how sources were evaluated and selected, and how <em>ideas, questions, and evidence evolved</em> through notes, annotations, drafts, and reflections.` },
 ];
 
 /* ── Edges — conceptual relationships ── */
@@ -313,9 +326,9 @@ const EDGES = [
   { s: 'eportfolio',    t: 'presence' },
   { s: 'eportfolio',    t: 'genre' },
   { s: 'eportfolio',    t: 'privacy' },
-  { s: 'curation',      t: 'intentionality' },
+  { s: 'curation',      t: 'intentional_design' },
   { s: 'curation',      t: 'artifact' },
-  { s: 'reflection',    t: 'metacognitive' },
+  { s: 'reflection',    t: 'metacognition' },
   { s: 'reflection',    t: 'revision' },
   { s: 'reflection',    t: 'authentic' },
   { s: 'authentic',     t: 'rubric' },
@@ -324,58 +337,47 @@ const EDGES = [
   { s: 'accessibility', t: 'multimodal' },
   { s: 'attribution',   t: 'ip' },
   { s: 'attribution',   t: 'cc' },
-  { s: 'attribution',   t: 'plagiarism' },
   { s: 'ip',            t: 'cc' },
   { s: 'artifact',      t: 'attribution' },
   { s: 'presence',      t: 'privacy' },
 
   /* Knowledge cluster */
-  { s: 'metacognitive', t: 'declarative' },
-  { s: 'metacognitive', t: 'procedural' },
-  { s: 'metacognitive', t: 'transfer' },
-  { s: 'transfer',      t: 'integrative' },
-  { s: 'integrative',   t: 'eportfolio' },
-  { s: 'literacy',      t: 'digital_lit' },
-  { s: 'literacy',      t: 'info_lit' },
-  { s: 'digital_lit',   t: 'info_lit' },
-  { s: 'digital_lit',   t: 'multiliteracies' },
+  { s: 'metacognition', t: 'transfer' },
+  { s: 'digital_lit',   t: 'visual_lit' },
+  { s: 'learning_outcomes', t: 'slo' },
+  { s: 'evidence',      t: 'artifact' },
+  { s: 'process_pedagogy', t: 'process' },
 
   /* Writing processes cluster */
   { s: 'process',       t: 'drafting' },
   { s: 'process',       t: 'revision' },
   { s: 'process',       t: 'inquiry' },
   { s: 'revision',      t: 'drafting' },
-  { s: 'purposeful',    t: 'intentionality' },
-  { s: 'purposeful',    t: 'communicative' },
-  { s: 'purposeful',    t: 'contributive' },
-  { s: 'communicative', t: 'transactional' },
-  { s: 'inquiry',       t: 'research_genre' },
+  { s: 'inquiry',       t: 'research_trail' },
   { s: 'slo',           t: 'process' },
+  { s: 'intentional_design', t: 'navigation' },
+  { s: 'iterative',     t: 'process' },
+  { s: 'iterative',     t: 'revision' },
+  { s: 'feedback',      t: 'revision' },
+  { s: 'feedback',      t: 'reflection' },
 
   /* Rhetorical concepts cluster */
-  { s: 'rhetoric',      t: 'rhet_sit' },
-  { s: 'rhetoric',      t: 'rhet_eco' },
-  { s: 'rhet_sit',      t: 'context' },
-  { s: 'rhet_sit',      t: 'genre' },
-  { s: 'genre',         t: 'genre_sys' },
-  { s: 'genre_sys',     t: 'activity_sys' },
-  { s: 'rhet_eco',      t: 'activity_sys' },
-  { s: 'disciplinarity',t: 'genre' },
-  { s: 'disciplinarity',t: 'context' },
+  { s: 'voice',         t: 'flexible_voices' },
+  { s: 'exigency',      t: 'genre' },
 
-  /* Language & Power cluster */
-  { s: 'multimodality', t: 'multimodal' },
-  { s: 'multimodality', t: 'multiliteracies' },
-  { s: 'multiliteracies',t:'multilingualism' },
-  { s: 'lang_var',      t: 'multilingualism' },
-  { s: 'lang_var',      t: 'power' },
-  { s: 'power',         t: 'rhetoric' },
-  { s: 'power',         t: 'disciplinarity' },
-
-  /* Research cluster */
-  { s: 'research_genre',t: 'artifact' },
-  { s: 'research_genre',t: 'info_lit' },
-  { s: 'plagiarism',    t: 'ip' },
+  /* Additional meaningful connections */
+  { s: 'alt_text',      t: 'accessibility' },
+  { s: 'assessment',    t: 'authentic' },
+  { s: 'assessment',    t: 'evidence' },
+  { s: 'contextualization', t: 'artifact' },
+  { s: 'contextualization', t: 'reflection' },
+  { s: 'creation_space', t: 'multimodal' },
+  { s: 'creation_space', t: 'feedback' },
+  { s: 'credentialing', t: 'slo' },
+  { s: 'credentialing', t: 'learning_outcomes' },
+  { s: 'visual_lit',    t: 'accessibility' },
+  { s: 'visual_lit',    t: 'multimodal' },
+  { s: 'research_trail', t: 'evidence' },
 ];
 
 /* ── Build adjacency for panel ── */
