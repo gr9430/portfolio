@@ -2,7 +2,7 @@ theme: minima
 title: Glenn S. Ritchey III
 description: The academic and creative works.
 header_pages: []
-url: "http://glennritchey.com"
+url: "https://glennritchey.net"
 baseurl: ""
 exclude:
   - docs/
