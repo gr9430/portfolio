@@ -2,7 +2,8 @@ statement:
   title: "Teaching Statement"
   url: "/teaching/statement/"
 
-slos:
+# ENC 1101 Student Learning Outcomes
+enc1101_slos:
   - id: "writing-processes"
     label: "Writing Processes & Adaptation"
     short: "Writing Processes"
@@ -20,6 +21,27 @@ slos:
     short: "Writing & Power"
   - id: "revision"
     label: "Revision"
+    short: "Revision"
+
+# ENC 1102 Student Learning Outcomes
+enc1102_slos:
+  - id: "generating-inquiry"
+    label: "Generating Inquiry. Students will be able to generate and explore genuine lines of inquiry related to writing, language, literacy, and/or rhetoric."
+    short: "Generating Inquiry"
+  - id: "multiple-ways-writing"
+    label: "Multiple ways of writing. Students will be able to purposefully integrate multimodality, multiple languages, and/or multiliteracies into writing products to support their goals."
+    short: "Multiple Ways of Writing"
+  - id: "information-literacy"
+    label: "Information Literacy. Students will be able to evaluate and act on criteria for relevance, credibility, and ethics when gathering, analyzing, and presenting primary and secondary source materials."
+    short: "Information Literacy"
+  - id: "research-genre-production"
+    label: "Research Genre Production. Students will be able to produce writing that demonstrates their ability to navigate choices and constraints in a variety of public and/or academic research genres that matter to specific communities."
+    short: "Research Genre Production"
+  - id: "contributing-knowledge"
+    label: "Contributing Knowledge. Students will be able to draw conclusions based on analysis and interpretation of primary evidence and place that work in conversation with other source materials."
+    short: "Contributing Knowledge"
+  - id: "revision-1102"
+    label: "Revision. Students will be able to negotiate differences in and act with intention on feedback from readers when drafting, revising, and editing their writing."
     short: "Revision"
 
 lectures:
