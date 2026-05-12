@@ -100,6 +100,7 @@ function navigateToSection(anchor) {
 
 ## Place-Based Projects
 - BAKE. Performance; 2023 – Ongoing, [[details]](/creative/bake/).
+- A POEM is. Generative web poem; ongoing, [[contribute]](/creative/poem/).
 
 - Marie, Mon Amour. Short Film; Self-released, limited VHS run, 2018, [[details]](/creative/marie-mon-amour/).
 
