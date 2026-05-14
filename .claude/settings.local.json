@@ -62,7 +62,8 @@
       "Bash(python3 -c ' *)",
       "Bash(xargs -d'\\\\n' du -sh)",
       "Bash(python3 *)",
-      "WebFetch(domain:glennritchey.net)"
+      "WebFetch(domain:glennritchey.net)",
+      "Read(//home/user/**)"
     ]
   }
 }
