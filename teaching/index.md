@@ -20,6 +20,7 @@ Please find my teaching statement <a href="{{ site.baseurl }}/teaching/statement
     <span class="legend-item"><span class="legend-dot course-dot"></span> Course</span>
     <span class="legend-item"><span class="legend-dot lecture-dot"></span> Lecture</span>
     <span class="legend-item"><span class="legend-dot slo-dot"></span> Student Learning Outcome</span>
+    <span class="legend-item"><span class="legend-dot semester-dot"></span> Semester</span>
     <span class="legend-item"><span class="legend-dot material-dot"></span> Teaching Material</span>
     <p class="legend-hint">Click a node to navigate · Drag to explore · Click courses or SLOs to filter</p>
   </div>
@@ -54,6 +55,7 @@ Please find my teaching statement <a href="{{ site.baseurl }}/teaching/statement
   .course-dot { background: rgb(6, 122, 97); }
   .lecture-dot { background: rgb(6, 97, 122); }
   .slo-dot { background: rgb(97, 122, 6); }
+  .semester-dot { background: rgb(97, 6, 122); }
   .material-dot { background: rgb(122, 97, 6); }
   .legend-hint { margin: 0; font-size: 0.8rem; color: #5a5a56; }
   .node-label {
@@ -93,12 +95,21 @@ const teachingData = {
     {% endfor %},
 
     // Lectures (ENC 1101)
-    {% for lecture in site.data.teaching_graph.lectures %}
+    {% for lecture in site.data.teaching_graph.enc1101_lectures %}
     { id: "{{ lecture.title }}", label: "{{ lecture.title }}", url: "{{ site.baseurl }}{{ lecture.url }}", type: "lecture", slos: [{% for slo_id in lecture.slos %}"{{ slo_id }}"{% unless forloop.last %},{% endunless %}{% endfor %}] }{% unless forloop.last %},{% endunless %}
     {% endfor %},
 
+    // ENC 1102 Semesters
+    { id: "ENC 1102 — Summer 26", label: "Summer 26", url: "{{ site.baseurl }}/teaching/enc1102/summer26/", type: "semester" },
+
+    // ENC 1102 Lectures
+    {% for lecture in site.data.teaching_graph.enc1102_lectures %}
+    { id: "{{ lecture.title }}", label: "{{ lecture.title }}", url: "{{ site.baseurl }}{{ lecture.url }}", type: "lecture", slos: [{% for slo_id in lecture.slos %}"1102-{{ slo_id }}"{% unless forloop.last %},{% endunless %}{% endfor %}], semester: "{{ lecture.semester }}" }{% unless forloop.last %},{% endunless %}
+    {% endfor %},
+
     // ENC 1102 Materials
-    { id: "AI Policy Summer 26", label: "AI Policy Summer 26", url: "{{ site.baseurl }}/teaching/enc1102/summer26/aipolicy/", type: "lecture" },
+    { id: "AI Policy Summer 26", label: "AI Policy", url: "{{ site.baseurl }}/teaching/enc1102/summer26/aipolicy/", type: "material", semester: "ENC 1102 — Summer 26" },
+    { id: "Syllabus Summer 26", label: "Syllabus", url: "{{ site.baseurl }}/teaching/enc1102/summer26/syllabus/", type: "material", semester: "ENC 1102 — Summer 26" },
 
     // General Teaching Materials
     { id: "Course Syllabi", label: "Course Syllabi", url: "{{ site.baseurl }}/teaching/syllabi/", type: "material" },
@@ -122,11 +133,25 @@ const teachingData = {
     { source: "ENC 1102 at UCF", target: "1102-{{ slo.id }}" }{% unless forloop.last %},{% endunless %}
     {% endfor %},
 
-    // Connect ENC 1102 to its materials
-    { source: "ENC 1102 at UCF", target: "AI Policy Summer 26" },
+    // Connect ENC 1102 to its semesters
+    { source: "ENC 1102 at UCF", target: "ENC 1102 — Summer 26" },
 
-    // Connect SLOs to their lectures (update with new ENC 1101 SLO IDs)
-    {% for lecture in site.data.teaching_graph.lectures %}
+    // Connect Summer 26 to its lectures and materials
+    {% for lecture in site.data.teaching_graph.enc1102_lectures %}
+    { source: "ENC 1102 — Summer 26", target: "{{ lecture.title }}" },
+    {% endfor %}
+    { source: "ENC 1102 — Summer 26", target: "AI Policy Summer 26" },
+    { source: "ENC 1102 — Summer 26", target: "Syllabus Summer 26" },
+
+    // Connect ENC 1102 SLOs to their lectures
+    {% for lecture in site.data.teaching_graph.enc1102_lectures %}
+      {% for slo_id in lecture.slos %}
+    { source: "1102-{{ slo_id }}", target: "{{ lecture.title }}" },
+      {% endfor %}
+    {% endfor %}
+
+    // Connect ENC 1101 SLOs to their lectures
+    {% for lecture in site.data.teaching_graph.enc1101_lectures %}
       {% for slo_id in lecture.slos %}
     { source: "1101-{{ slo_id }}", target: "{{ lecture.title }}" }{% unless forloop.last and forloop.parentloop.last %},{% endunless %}
       {% endfor %}
@@ -175,7 +200,8 @@ const teachingData = {
       if (d.type === 'ucf') return 16;
       if (d.type === 'statement') return 14;
       if (d.type === 'course') return 12;
-      if (d.type === 'slo') return 10;
+      if (d.type === 'semester') return 10;
+      if (d.type === 'slo') return 9;
       if (d.type === 'lecture') return 8;
       return 7;
     })
@@ -183,6 +209,7 @@ const teachingData = {
       if (d.type === 'ucf') return '#FFC904';
       if (d.type === 'statement') return 'rgb(122, 6, 97)';
       if (d.type === 'course') return 'rgb(6, 122, 97)';
+      if (d.type === 'semester') return 'rgb(97, 6, 122)';
       if (d.type === 'lecture') return 'rgb(6, 97, 122)';
       if (d.type === 'slo') return 'rgb(97, 122, 6)';
       return 'rgb(122, 97, 6)';
@@ -273,18 +300,24 @@ const teachingData = {
             return 0.1;
           });
         } else if (d.id === 'ENC 1102 at UCF') {
-          // Show UCF, teaching statement, ENC 1102, ENC 1102 SLOs, and ENC 1102 materials
+          // Show UCF, statement, ENC 1102, semesters, SLOs, lectures, materials
+          const enc1102Ids = new Set([
+            {% for lecture in site.data.teaching_graph.enc1102_lectures %}"{{ lecture.title }}"{% unless forloop.last %},{% endunless %}{% endfor %},
+            'ENC 1102 — Summer 26', 'AI Policy Summer 26', 'Syllabus Summer 26'
+          ]);
           node.attr('opacity', n => {
-            if (n.type === 'ucf' || n.type === 'statement' || n.id === 'ENC 1102 at UCF' || (n.type === 'slo' && n.course === 'ENC 1102') || n.id === 'AI Policy Summer 26') return 1;
+            if (n.type === 'ucf' || n.type === 'statement' || n.id === 'ENC 1102 at UCF' || (n.type === 'slo' && n.course === 'ENC 1102') || enc1102Ids.has(n.id)) return 1;
             return 0.2;
           }).attr('data-filtered', 'true');
 
           link.attr('opacity', l => {
             const sourceId = l.source.id || l.source;
             const targetId = l.target.id || l.target;
-            // Show links involving ENC 1102
             if (sourceId === 'UCF' && (targetId === 'Teaching Statement' || targetId === 'ENC 1102 at UCF')) return 1;
             if (sourceId === 'ENC 1102 at UCF' || targetId === 'ENC 1102 at UCF') return 1;
+            if (enc1102Ids.has(sourceId) || enc1102Ids.has(targetId)) return 1;
+            const srcNode = teachingData.nodes.find(n => n.id === sourceId);
+            if (srcNode && srcNode.type === 'slo' && srcNode.course === 'ENC 1102' && enc1102Ids.has(targetId)) return 1;
             return 0.1;
           });
         }

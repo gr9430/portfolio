@@ -44,7 +44,17 @@ enc1102_slos:
     label: "Revision. Students will be able to negotiate differences in and act with intention on feedback from readers when drafting, revising, and editing their writing."
     short: "Revision"
 
-lectures:
+enc1102_lectures:
+  - title: "ENC 1102: Day 1"
+    url: "/teaching/enc1102/summer26/lectures/day-1.html"
+    semester: "ENC 1102 — Summer 26"
+    slos: ["generating-inquiry", "information-literacy", "research-genre-production"]
+  - title: "ENC 1102: Day 2"
+    url: "/teaching/enc1102/summer26/lectures/day-2.html"
+    semester: "ENC 1102 — Summer 26"
+    slos: ["information-literacy", "generating-inquiry", "contributing-knowledge"]
+
+enc1101_lectures:
   - title: "Discourse Communities"
     url: "/teaching/lectures/s26/discourse-communities.html"
     slos: ["variation-across-contexts", "writing-and-power"]
