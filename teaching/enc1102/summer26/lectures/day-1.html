@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ENC 1102 — Day 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<template id="__bundler_thumbnail" data-bg-color="#F4EFE6">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#F4EFE6"/>
+    <rect x="80" y="80" width="8" height="160" rx="4" fill="#7a0661"/>
+    <text x="110" y="180" font-family="Georgia,serif" font-size="100" font-weight="900" fill="#18160F">ENC 1102</text>
+    <text x="110" y="240" font-family="Georgia,serif" font-size="44" font-style="italic" fill="#4A4537">Composition II — Day 1</text>
+    <rect x="80" y="300" width="500" height="2" fill="rgba(24,22,15,0.12)"/>
+    <text x="80" y="350" font-family="Georgia,serif" font-size="28" fill="#8A8070">Glenn S. Ritchey III</text>
+  </svg>
+</template>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="deck-stage.js"></script>
+<style>
+  /* ── Reset ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ── Theme tokens (warm editorial default) ── */
+  :root {
+    --bg:       #F4EFE6;
+    --fg:       #18160F;
+    --fg-mid:   #4A4537;
+    --fg-dim:   #8A8070;
+    --accent:   #C4873A;
+    --accent2:  #3A7DC4;
+    --rule:     rgba(24,22,15,0.12);
+    --card-bg:  rgba(24,22,15,0.04);
+
+    --f-display: 'Playfair Display', Georgia, serif;
+    --f-body:    'DM Sans', Helvetica, sans-serif;
+    --f-mono:    'DM Mono', monospace;
+
+    /* TYPE SCALE (1920×1080) */
+    --t-hero:     96px;
+    --t-title:    68px;
+    --t-subtitle: 46px;
+    --t-body:     34px;
+    --t-small:    27px;
+    --t-label:    26px;
+
+    /* SPACING */
+    --px:  120px;
+    --pt:  96px;
+    --pb:  80px;
+    --gap-title: 52px;
+    --gap-item:  28px;
+  }
+
+  /* ── Dark theme ── */
+  .theme-dark {
+    --bg:       #0E0D0B;
+    --fg:       #F0ECE4;
+    --fg-mid:   #B8B0A0;
+    --fg-dim:   #6A6358;
+    --accent:   #E05C35;
+    --accent2:  #35A0E0;
+    --rule:     rgba(240,236,228,0.10);
+    --card-bg:  rgba(240,236,228,0.04);
+  }
+
+  deck-stage { font-family: var(--f-body); }
+
+  /* ── Shared slide base ── */
+  section {
+    background: var(--bg);
+    color: var(--fg);
+    display: flex;
+    flex-direction: column;
+    padding: var(--pt) var(--px) var(--pb);
+  }
+
+  /* ── Typography helpers ── */
+  .label {
+    font-family: var(--f-mono);
+    font-size: var(--t-label);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+  }
+  .hero { font-family: var(--f-display); font-size: var(--t-hero); font-weight: 900; line-height: 1.0; letter-spacing: -0.02em; }
+  .title { font-family: var(--f-display); font-size: var(--t-title); font-weight: 700; line-height: 1.1; letter-spacing: -0.01em; }
+  .subtitle { font-size: var(--t-subtitle); font-weight: 300; line-height: 1.3; color: var(--fg-mid); }
+  .body { font-size: var(--t-body); font-weight: 400; line-height: 1.5; color: var(--fg-mid); }
+  .small { font-size: var(--t-small); font-weight: 400; line-height: 1.5; color: var(--fg-dim); }
+
+  .accent { color: var(--accent); }
+  .italic { font-style: italic; }
+
+  hr.rule {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: var(--gap-item) 0;
+  }
+
+  /* Accent bar on left */
+  .bar-accent {
+    display: inline-block;
+    width: 6px;
+    height: 100%;
+    background: var(--accent);
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  /* ── Activity slide ── */
+  .activity-bg {
+    background: var(--fg) !important;
+    color: var(--bg) !important;
+  }
+  .activity-bg .label { color: var(--accent); }
+  .activity-bg .hero { color: var(--bg); }
+  .activity-bg .body { color: rgba(240,236,228,0.7); }
+
+  /* ── Grid helpers ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 60px; }
+
+  /* ── Policy cards ── */
+  .policy-card {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 48px 52px;
+  }
+  .policy-card .pc-num {
+    font-family: var(--f-display);
+    font-size: 80px;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 20px;
+    opacity: 0.35;
+  }
+  .policy-card .pc-title {
+    font-family: var(--f-display);
+    font-size: 38px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--fg);
+  }
+  .policy-card .pc-body {
+    font-size: var(--t-small);
+    color: var(--fg-mid);
+    line-height: 1.6;
+  }
+
+  /* ── Grading bar ── */
+  .grade-bar-wrap { margin-top: 8px; }
+  .grade-bar-row { display: flex; align-items: center; gap: 28px; margin-bottom: 20px; }
+  .grade-bar-label { font-size: var(--t-small); width: 340px; flex-shrink: 0; color: var(--fg-mid); }
+  .grade-bar-track { flex: 1; height: 14px; background: var(--rule); border-radius: 999px; overflow: hidden; }
+  .grade-bar-fill { height: 100%; border-radius: 999px; background: var(--accent); }
+  .grade-bar-pct { font-family: var(--f-mono); font-size: var(--t-small); width: 60px; text-align: right; color: var(--fg); font-weight: 500; }
+
+  /* ── Assignment cards ── */
+  .assign-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 36px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .assign-row:last-child { border-bottom: none; }
+  .assign-num {
+    font-family: var(--f-display);
+    font-size: 52px;
+    font-weight: 900;
+    color: var(--accent);
+    opacity: 0.4;
+    line-height: 1;
+    width: 72px;
+    flex-shrink: 0;
+    padding-top: 4px;
+  }
+  .assign-title { font-size: 36px; font-weight: 600; margin-bottom: 8px; color: var(--fg); }
+  .assign-body { font-size: var(--t-small); color: var(--fg-mid); line-height: 1.5; }
+  .assign-weight {
+    margin-left: auto;
+    font-family: var(--f-mono);
+    font-size: var(--t-small);
+    color: var(--accent);
+    font-weight: 500;
+    padding-top: 8px;
+    flex-shrink: 0;
+  }
+
+  /* ── Section divider slides ── */
+  .divider-slide {
+    background: var(--accent) !important;
+    color: var(--bg) !important;
+    justify-content: flex-end;
+  }
+  .divider-slide .label { color: rgba(255,255,255,0.6); }
+  .divider-slide .hero { color: var(--bg); }
+
+  /* ── Timeline ── */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .tl-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .tl-row:last-child { border-bottom: none; }
+  .tl-week {
+    font-family: var(--f-mono);
+    font-size: var(--t-label);
+    color: var(--accent);
+    width: 120px;
+    flex-shrink: 0;
+    letter-spacing: 0.05em;
+  }
+  .tl-dates { font-size: var(--t-small); color: var(--fg-dim); width: 220px; flex-shrink: 0; }
+  .tl-topic { font-size: var(--t-small); color: var(--fg-mid); }
+  .tl-row.tl-highlight .tl-topic { color: var(--fg); font-weight: 500; }
+
+  /* Pull quote */
+  .pull-quote {
+    font-family: var(--f-display);
+    font-size: 54px;
+    font-weight: 700;
+    font-style: italic;
+    line-height: 1.25;
+    color: var(--fg);
+    padding-left: 48px;
+    border-left: 5px solid var(--accent);
+  }
+
+  /* Tweak panel */
+  #tweak-panel {
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    right: 32px;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px 24px;
+    z-index: 9999;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #222;
+    min-width: 240px;
+  }
+  #tweak-panel h3 { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-bottom: 16px; }
+  .tweak-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; gap: 12px; }
+  .tweak-row label { font-size: 14px; color: #333; }
+  .tweak-toggle { display: flex; gap: 6px; }
+  .tweak-toggle button {
+    padding: 5px 14px; border-radius: 999px; border: 1px solid #ddd; font-size: 13px;
+    cursor: pointer; background: white; color: #555; font-family: inherit;
+    transition: all 0.15s;
+  }
+  .tweak-toggle button.active { background: #111; color: white; border-color: #111; }
+</style>
+</head>
+<body>
+
+<div id="tweak-panel">
+  <h3>Tweaks</h3>
+  <div class="tweak-row">
+    <label>Theme</label>
+    <div class="tweak-toggle">
+      <button id="t-warm" class="active" onclick="setTheme('warm')">Warm</button>
+      <button id="t-dark" onclick="setTheme('dark')">Dark</button>
+    </div>
+  </div>
+  <div class="tweak-row">
+    <label>Accent</label>
+    <div class="tweak-toggle">
+      <button id="a-amber" onclick="setAccent('amber')">Amber</button>
+      <button id="a-red" onclick="setAccent('red')">Red</button>
+      <button id="a-teal" class="active" onclick="setAccent('teal')">Purple</button>
+    </div>
+  </div>
+</div>
+
+<deck-stage width="1920" height="1080">
+
+  <!-- ═══════════════════════════════════════════════════════
+       SLIDE 1 — TITLE
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Title" style="justify-content: space-between;">
+    <div>
+      <div class="label">Summer 2026 — Day 1</div>
+      <div class="hero" style="margin-bottom: 20px;">ENC&thinsp;1102</div>
+      <div style="font-family: var(--f-display); font-size: var(--t-subtitle); font-weight: 400; font-style: italic; color: var(--fg-mid);">Composition II</div>
+    </div>
+    <div style="display: flex; align-items: flex-end; justify-content: space-between;">
+      <div>
+        <div class="body" style="margin-bottom: 6px;">Professor Glenn S. Ritchey III</div>
+      </div>
+      <div style="text-align: right;">
+        <div class="small" style="margin-bottom: 6px;">College of Arts and Humanities</div>
+        <div class="small">Department of Writing and Rhetoric</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SLIDE 2 — ABOUT INSTRUCTOR
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="About Your Instructor" class="two-col" style="gap: 120px; align-items: center;">
+    <div>
+      <div class="label" style="color: #7a0661;">Your instructor</div>
+      <div class="title" style="margin-bottom: var(--gap-title);">Glenn S.<br>Ritchey III</div>
+      <div class="body" style="margin-bottom: var(--gap-item); color: rgb(138, 128, 112);">PhD student in <span class="accent">Texts &amp; Technology</span> at UCF. Research focuses on electronic texts and visual cultures.</div>
+      <hr class="rule">
+      <div class="small" style="color: var(--fg-dim);">Office: TCH 171A  ·  Hours: 4:00 PM–5:00 PM
+Contact via Canvas Webcourses (not through Outlook email)</div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 36px;">
+      <div style="display: flex; align-items: flex-start; gap: 28px;">
+        <div style="width: 5px; min-height: 100%; background: var(--accent); border-radius: 3px; margin-top: 6px; align-self: stretch;"></div>
+        <div>
+          <div style="font-size: 30px; font-weight: 600; margin-bottom: 8px; color: var(--fg);">Creative Practice</div>
+          <div class="small">Generative text--novels, even--with Markov chains &amp; cut-up algorithms. Thermal printer devices, conceptual sculpture, zines &amp; small press labor. Focuses on making processes, visibility and accessibility.</div>
+        </div>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 28px;">
+        <div style="width: 5px; min-height: 100%; background: var(--accent); border-radius: 3px; margin-top: 6px; align-self: stretch;"></div>
+        <div>
+          <div style="font-size: 30px; font-weight: 600; margin-bottom: 8px; color: var(--fg);">Research</div>
+          <div class="small">Decentralizing traditional textuality through new media, emphasizing visual culture and "distant viewing."</div>
+        </div>
+      </div>
+      <div style="display: flex; align-items: flex-start; gap: 28px;">
+        <div style="width: 5px; min-height: 100%; background: var(--accent); border-radius: 3px; margin-top: 6px; align-self: stretch;"></div>
+        <div>
+          <div style="font-size: 30px; font-weight: 600; margin-bottom: 8px; color: var(--fg);">Outside the Office</div>
+          <div class="small">Playing mandolin in traditional Irish music sessions. Skateboarding. Used to play in bands — which is actually what got me into research.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SLIDE 3 — THE CENTRAL QUESTION
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Course Philosophy" style="justify-content: center; align-items: flex-start; max-width: 1400px; gap: 64px;">
+    <div class="label">THE PREMISE OF THIS COURSE</div>
+    <div class="pull-quote" style="font-size: 62px;">Media is everywhere.<br>Take yours seriously.</div>
+    <div class="body" style="max-width: 1100px;">This class treats your media interests—televison, film, podcasts, video essays, games, social media—as serious sites of inquiry. Because media is ubiquitous, it shapes how we think whether we examine it or not. We'll build a vocabulary together for being critical of it. And you'll find that a strong research project is more feasible than you think.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SLIDE 4 — STUDENT LEARNING OUTCOMES
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Student Learning Outcomes">
+    <div class="label">By the end of this semester</div>
+    <div class="title" style="margin-bottom: 52px;">Student Learning Outcomes</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: auto auto; gap: 40px 64px;">
+      <div style="border-top: 3px solid var(--accent); padding-top: 24px;">
+        <div style="font-size: 30px; font-weight: 600; margin-bottom: 10px; color: var(--fg);">Generating Inquiry</div>
+        <div class="small">Generate and explore genuine lines of inquiry related to writing, language, literacy, and rhetoric.</div>
+      </div>
+      <div style="border-top: 1px solid var(--rule); padding-top: 24px;">
+        <div style="font-size: 30px; font-weight: 600; margin-bottom: 10px; color: var(--fg);">Multiple Ways of Writing</div>
+        <div class="small">Purposefully integrate multimodality, multiple languages, and multiliteracies into writing products.</div>
+      </div>
+      <div style="border-top: 1px solid var(--rule); padding-top: 24px;">
+        <div style="font-size: 30px; font-weight: 600; margin-bottom: 10px; color: var(--fg);">Information Literacy</div>
+        <div class="small">Evaluate sources for relevance, credibility, and ethics when gathering and presenting research.</div>
+      </div>
+      <div style="border-top: 1px solid var(--rule); padding-top: 24px;">
+        <div style="font-size: 30px; font-weight: 600; margin-bottom: 10px; color: var(--fg);">Research Genre Production</div>
+        <div class="small">Produce writing that navigates choices and constraints in public and academic research genres.</div>
+      </div>
+      <div style="border-top: 1px solid var(--rule); padding-top: 24px;">
+        <div style="font-size: 30px; font-weight: 600; margin-bottom: 10px; color: var(--fg);">Contributing Knowledge</div>
+        <div class="small">Draw conclusions from primary evidence and place your work in conversation with other sources.</div>
+      </div>
+      <div style="border-top: 1px solid var(--rule); padding-top: 24px;">
+        <div style="font-size: 30px; font-weight: 600; margin-bottom: 10px; color: var(--fg);">Revision</div>
+        <div class="small">Negotiate differences and act with intention on feedback when drafting, revising, and editing.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SLIDE 5 — GRADING
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="How You're Graded" class="two-col" style="align-items: center; gap: 100px;">
+    <div>
+      <div class="label">Grading breakdown</div>
+      <div class="title" style="margin-bottom: var(--gap-title);">How you'll<br>be graded.</div>
+      <div class="small" style="color: var(--fg-dim); max-width: 480px;">Every assignment builds on the last. Falling behind compounds. The course is designed so that doing the work is the path through.</div>
+    </div>
+    <div style="flex: 1;">
+      <div class="grade-bar-wrap">
+        <div class="grade-bar-row">
+          <div class="grade-bar-label">Major Assignments<br><span style="font-size: 24px; color: var(--fg-dim);">Proposal · Bib · Paper · ePortfolio</span></div>
+          <div class="grade-bar-track"><div class="grade-bar-fill" style="width: 60%;"></div></div>
+          <div class="grade-bar-pct">60%</div>
+        </div>
+        <div class="grade-bar-row">
+          <div class="grade-bar-label">Professionalism<br><span style="font-size: 24px; color: var(--fg-dim);">Attendance · Professional comm.</span></div>
+          <div class="grade-bar-track"><div class="grade-bar-fill" style="width: 20%;"></div></div>
+          <div class="grade-bar-pct">15%</div>
+        </div>
+        <div class="grade-bar-row">
+          <div class="grade-bar-label">Participation<br><span style="font-size: 24px; color: var(--fg-dim);">Activities · Summaries · Presentation</span></div>
+          <div class="grade-bar-track"><div class="grade-bar-fill" style="width: 15%;"></div></div>
+          <div class="grade-bar-pct">15%</div>
+        </div>
+        <div class="grade-bar-row">
+          <div class="grade-bar-label">Drafting &amp; Peer Review</div>
+          <div class="grade-bar-track"><div class="grade-bar-fill" style="width: 10%;"></div></div>
+          <div class="grade-bar-pct">10%</div>
+        </div>
+      </div>
+      <hr class="rule" style="margin-top: 36px;">
+      <div class="small" style="color: var(--fg-dim);">A = 94–100% &nbsp;·&nbsp; B = 84–86% &nbsp;·&nbsp; C = 74–76% &nbsp;·&nbsp; D = 64–66% &nbsp;·&nbsp; F = 0–60%</div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SLIDE 6 — KEY POLICIES
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Key Policies">
+    <div class="label">A few things to know now</div>
+    <div class="title" style="margin-bottom: var(--gap-title);">Policies that matter.</div>
+    <div class="three-col">
+      <div class="policy-card">
+        <div class="pc-num">3</div>
+        <div class="pc-title">Free Absences</div>
+        <div class="pc-body">You have 3 no-questions-asked absences. Use them wisely.<br><br>If you'll miss class, email me — ideally 12 hours ahead, minimum 3. Beyond 3 absences, your Professionalism grade is affected.</div>
+      </div>
+      <div class="policy-card">
+        <div class="pc-num" style="font-size: 60px; opacity: 0.35;">Late<br>Work</div>
+        <div class="pc-title">Late Work Policy</div>
+        <div class="pc-body">Late work is generally not accepted. But if you contact me <em>in advance</em>, I may consider an alternative due date.<br><br>I am more forgiving of a late paper than of an AI policy breach.</div>
+      </div>
+      <div class="policy-card">
+        <div class="pc-num" style="font-size: 60px; opacity: 0.35;">Canvas</div>
+        <div class="pc-title">How to Reach Me</div>
+        <div class="pc-body">Message me through Canvas Webcourses — not my university email. I do my best to respond within 48 hours, not on weekends.
+
+If I do not answer before the next class, just follow-up with me then.
+
+Office Hours: TCH 171A, 4:00–5:00 PM.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SLIDE 7 — TWINE INTRO + ACTIVITY 1 (CULTUR!)
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Twine Activity 1 — Cultur!" class="activity-bg" style="justify-content: center;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; width: 100%;">
+      <div style="display: flex; flex-direction: column; gap: 28px;">
+        <div class="label">Activity 1 of 2 — Twine</div>
+        <div style="font-family: var(--f-display); font-size: 84px; font-weight: 900; color: var(--bg); line-height: 1;">Cultur!™</div>
+        <div class="body" style="color: rgba(240,236,228,0.7); line-height: 1.6;">Twine is a free browser-based tool for interactive, branching narratives — no coding required. We're using it today as a scaffold for reflection.</div>
+        <div class="body" style="color: rgba(240,236,228,0.7); line-height: 1.6;"><strong style="color: var(--bg);">Cultur!</strong> is an Interest Discovery Engine. It helps you map your intellectual territory — the things you actually care about — and begin transforming them into research-worthy questions.</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div style="background: rgba(240,236,228,0.06); border: 1px solid rgba(240,236,228,0.12); border-radius: 8px; padding: 36px 40px;">
+          <div style="font-size: 26px; font-weight: 600; color: var(--bg); margin-bottom: 16px;">What you'll do</div>
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div style="display: flex; gap: 16px; align-items: flex-start;"><div style="font-family: var(--f-mono); color: var(--accent); font-size: 24px; flex-shrink: 0;">01</div><div class="small" style="color: rgba(240,236,228,0.7);">Identify three interests that genuinely capture your attention</div></div>
+            <div style="display: flex; gap: 16px; align-items: flex-start;"><div style="font-family: var(--f-mono); color: var(--accent); font-size: 24px; flex-shrink: 0;">02</div><div class="small" style="color: rgba(240,236,228,0.7);">Dig into one — what patterns do you notice? Why does it matter to you?</div></div>
+            <div style="display: flex; gap: 16px; align-items: flex-start;"><div style="font-family: var(--f-mono); color: var(--accent); font-size: 24px; flex-shrink: 0;">03</div><div class="small" style="color: rgba(240,236,228,0.7);">Connect it to a broader cultural or rhetorical question</div></div>
+            <div style="display: flex; gap: 16px; align-items: flex-start;"><div style="font-family: var(--f-mono); color: var(--accent); font-size: 24px; flex-shrink: 0;">04</div><div class="small" style="color: rgba(240,236,228,0.7);">Sketch a potential research direction and what evidence you might examine</div></div>
+          </div>
+        </div>
+        <div style="display: inline-flex; align-items: center; gap: 20px; background: rgba(240,236,228,0.06); border: 1px solid rgba(240,236,228,0.12); border-radius: 8px; padding: 24px 32px;">
+          <div style="font-family: var(--f-mono); font-size: 28px; color: var(--accent);">→</div>
+          <div>
+            <div style="font-size: 28px; font-weight: 600; color: var(--bg); margin-bottom: 4px;">Link on Canvas</div>
+            <div style="font-size: var(--t-small); color: rgba(240,236,228,0.45);">~10 minutes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SLIDE 8 — WELCOME BACK / TRANSITION
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Welcome Back" style="justify-content: center; align-items: flex-start;">
+    <div class="label">Part 2 of today</div>
+    <div class="hero" style="margin-bottom: 40px; max-width: 1200px; line-height: 1.05;">What is<br>research?</div>
+    <div class="subtitle" style="max-width: 860px;">Not "finding sources." Not summaries. Genuine inquiry — a question you don't yet know the answer to, pursued honestly.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SLIDE 9 — CORE READINGS
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Core Readings">
+    <div class="label">THE TEXTS THAT GROUND THIS SEMESTER</div>
+    <div class="title" style="margin-bottom: var(--gap-title);">Three lenses for<br>reading the world.</div>
+    <div class="three-col">
+      <div>
+        <div style="font-family: var(--f-mono); font-size: var(--t-small); color: var(--accent); margin-bottom: 20px; letter-spacing: 0.05em;">BARTHES, ROLAND.</div>
+        <div style="font-family: var(--f-display); font-size: 34px; font-weight: 700; font-style: italic; margin-bottom: 16px; color: var(--fg); line-height: 1.2;">"Rhetoric of the Image"</div>
+        <div style="font-size: var(--t-small); color: var(--fg-dim); margin-bottom: 20px; font-style: italic;">Image-Music-Text, pp. 32–51</div>
+        <div class="small" style="color: var(--fg-mid); line-height: 1.6;">How do images communicate meaning? Barthes argues images carry layers of denotation, connotation, and ideology — and that reading them is as rhetorical as reading words.</div>
+      </div>
+      <div>
+        <div style="font-family: var(--f-mono); font-size: var(--t-small); color: var(--accent); margin-bottom: 20px; letter-spacing: 0.05em;">BENJAMIN, WALTER.</div>
+        <div style="font-family: var(--f-display); font-size: 34px; font-weight: 700; font-style: italic; margin-bottom: 16px; color: var(--fg); line-height: 1.2;">"The Work of Art in the Age of Mechanical Reproduction"</div>
+        <div style="font-size: var(--t-small); color: var(--fg-dim); margin-bottom: 20px; font-style: italic;">Illuminations, pp. 1–26</div>
+        <div class="small" style="color: var(--fg-mid); line-height: 1.6;">What happens to meaning when art can be infinitely copied? Benjamin asks who controls the image — and what "authenticity" even means once reproduction is possible.</div>
+      </div>
+      <div>
+        <div style="font-family: var(--f-mono); font-size: var(--t-small); color: var(--accent); margin-bottom: 20px; letter-spacing: 0.05em;">McLUHAN, MARSHALL</div>
+        <div style="font-family: var(--f-display); font-size: 34px; font-weight: 700; font-style: italic; margin-bottom: 16px; color: var(--fg); line-height: 1.2;">"The Medium is the Message"</div>
+        <div style="font-size: var(--t-small); color: var(--fg-dim); margin-bottom: 20px; font-style: italic;">Understanding Media, pp. 1–18</div>
+        <div class="small" style="color: var(--fg-mid); line-height: 1.6;">It's not just <em>what</em> you say — it's the form you say it in. McLuhan argues the medium itself shapes how meaning is made and received.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SLIDE 10 — WHAT IS RESEARCH
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Research as Inquiry" class="two-col" style="align-items: center; gap: 120px;">
+    <div>
+      <div class="label">Research is not</div>
+      <div style="display: flex; flex-direction: column; gap: 24px; margin-bottom: 60px;">
+        <div style="font-size: 32px; color: var(--fg-dim); text-decoration: line-through; font-style: italic;">Googling until you find something that agrees with you</div>
+        <div style="font-size: 32px; color: var(--fg-dim); text-decoration: line-through; font-style: italic;">Summarizing what others have said</div>
+        <div style="font-size: 32px; color: var(--fg-dim); text-decoration: line-through; font-style: italic;">Proving a point you already believe</div>
+      </div>
+    </div>
+    <div>
+      <div class="label">Research is</div>
+      <div style="display: flex; flex-direction: column; gap: 28px;">
+        <div style="display: flex; gap: 20px; align-items: flex-start;">
+          <div style="width: 5px; background: var(--accent); border-radius: 3px; margin-top: 8px; flex-shrink: 0; align-self: stretch;"></div>
+          <div style="font-size: 32px; color: var(--fg); line-height: 1.4;">Asking a question you genuinely don't know the answer to</div>
+        </div>
+        <div style="display: flex; gap: 20px; align-items: flex-start;">
+          <div style="width: 5px; background: var(--accent); border-radius: 3px; margin-top: 8px; flex-shrink: 0; align-self: stretch;"></div>
+          <div style="font-size: 32px; color: var(--fg); line-height: 1.4;">Listening to what the literature actually says</div>
+        </div>
+        <div style="display: flex; gap: 20px; align-items: flex-start;">
+          <div style="width: 5px; background: var(--accent); border-radius: 3px; margin-top: 8px; flex-shrink: 0; align-self: stretch;"></div>
+          <div style="font-size: 32px; color: var(--fg); line-height: 1.4;">Placing your own interpretation in conversation with others</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SLIDE 10 — AI POLICY
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="AI in This Class" style="justify-content: space-between;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+      <div>
+        <div class="label">Artificial Intelligence</div>
+        <div class="title" style="margin-bottom: 0;">A frank conversation.</div>
+      </div>
+      <div style="font-family: var(--f-mono); font-size: var(--t-small); color: var(--fg-dim); text-align: right; padding-top: 16px;">Read the AI contract carefully.</div>
+    </div>
+    <div class="two-col" style="gap: 80px; align-items: start; margin-top: 20px;">
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div class="body" style="color: var(--fg);">I work extensively with generative AI in my own research. I know what it can and can't do. I also know that a lot of undergrads use it to skip the learning—which defeats the point of being here.</div>
+        <div class="body" style="color: var(--fg-mid);">This course is designed so you don't need it. The assignments build on each other. If you use AI to bypass that, you're not building anything.</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <div style="background: var(--card-bg); border: 1px solid var(--rule); border-radius: 8px; padding: 32px 36px;">
+          <div style="font-size: 30px; font-weight: 600; margin-bottom: 10px;">The Contract</div>
+          <div class="small">We will sign an AI Usage contract. Specific guided uses are permitted, with documentation. Breach = minimum 15% off the final grade for that assignment.</div>
+        </div>
+        <div style="background: var(--card-bg); border: 1px solid var(--rule); border-radius: 8px; padding: 32px 36px;">
+          <div style="font-size: 30px; font-weight: 600; margin-bottom: 10px;">The Real Ask</div>
+          <div class="small">If you're overwhelmed—by this class or others—talk to me. I'll work with you. Late is forgivable. Shortcuts that undermine your learning are not.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SLIDE 11 — MAJOR ASSIGNMENTS
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Major Assignments">
+    <div class="label">What you'll produce this semester</div>
+    <div class="assign-row">
+      <div class="assign-num">01</div>
+      <div>
+        <div class="assign-title">Research Proposal</div>
+        <div class="assign-body">A formal academic proposal: topic, literature review, research questions, methods, and aims.</div>
+      </div>
+      <div class="assign-weight">10%</div>
+    </div>
+    <div class="assign-row">
+      <div class="assign-num">02</div>
+      <div>
+        <div class="assign-title">Annotated Bibliography</div>
+        <div class="assign-body">8 scholarly sources, cited in MLA. Each annotation summarizes, evaluates, and connects the source to your research.</div>
+      </div>
+      <div class="assign-weight">15%</div>
+    </div>
+    <div class="assign-row">
+      <div class="assign-num">03</div>
+      <div>
+        <div class="assign-title">Research Essay + Presentation</div>
+        <div class="assign-body">8–10 pages with a clear, original argument. Plus a ~7-minute multimodal presentation using images, video, audio, charts, or design.</div>
+      </div>
+      <div class="assign-weight">15%</div>
+    </div>
+    <div class="assign-row">
+      <div class="assign-num">04</div>
+      <div>
+        <div class="assign-title">ePortfolio</div>
+        <div class="assign-body">A curated digital collection of your major work and a metacognitive reflection on your growth as a writer this semester.</div>
+      </div>
+      <div class="assign-weight">20%</div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SLIDE 14 — COURSE SCHEDULE / UNIT MAP
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Course Schedule">
+    <div class="label">12 weeks, four units, one paper at the end</div>
+    <div class="title" style="margin-bottom: 48px;">Your roadmap.</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 32px;">
+      <div style="border-top: 4px solid var(--accent); padding-top: 22px;">
+        <div style="font-family: var(--f-mono); font-size: var(--t-label); color: var(--accent); letter-spacing: 0.08em; margin-bottom: 12px;">UNIT 01 · WEEKS 1–4</div>
+        <div style="font-family: var(--f-display); font-size: 36px; font-weight: 700; line-height: 1.15; color: var(--fg); margin-bottom: 14px;">Research Proposal</div>
+        <div class="small" style="line-height: 1.55; margin-bottom: 18px;">Defining research, library work, paper structure, methods, abstracts &amp; style guides.</div>
+        <div style="font-family: var(--f-mono); font-size: 24px; color: var(--fg-mid); padding-top: 14px; border-top: 1px solid var(--rule);">MA 1 due <span style="color: var(--fg); font-weight: 500;">Jun 12</span></div>
+      </div>
+      <div style="border-top: 1px solid var(--rule); padding-top: 22px;">
+        <div style="font-family: var(--f-mono); font-size: var(--t-label); color: var(--accent); letter-spacing: 0.08em; margin-bottom: 12px;">UNIT 02 · WEEKS 5–7</div>
+        <div style="font-family: var(--f-display); font-size: 36px; font-weight: 700; line-height: 1.15; color: var(--fg); margin-bottom: 14px;">Annotated Bibliography</div>
+        <div class="small" style="line-height: 1.55; margin-bottom: 18px;">Bibs &amp; references, mid-term conferences, literature reviews.</div>
+        <div style="font-family: var(--f-mono); font-size: 24px; color: var(--fg-mid); padding-top: 14px; border-top: 1px solid var(--rule);">MA 2 due <span style="color: var(--fg); font-weight: 500;">Jun 26</span></div>
+      </div>
+      <div style="border-top: 1px solid var(--rule); padding-top: 22px;">
+        <div style="font-family: var(--f-mono); font-size: var(--t-label); color: var(--accent); letter-spacing: 0.08em; margin-bottom: 12px;">UNIT 03 · WEEKS 8–11</div>
+        <div style="font-family: var(--f-display); font-size: 36px; font-weight: 700; line-height: 1.15; color: var(--fg); margin-bottom: 14px;">Research Paper</div>
+        <div class="small" style="line-height: 1.55; margin-bottom: 18px;">Results &amp; discussions, conclusions/intros/abstracts, ePortfolio work, presenting research.</div>
+        <div style="font-family: var(--f-mono); font-size: 24px; color: var(--fg-mid); padding-top: 14px; border-top: 1px solid var(--rule);">MA 3 due <span style="color: var(--fg); font-weight: 500;">Jul 24</span></div>
+      </div>
+      <div style="border-top: 1px solid var(--rule); padding-top: 22px;">
+        <div style="font-family: var(--f-mono); font-size: var(--t-label); color: var(--accent); letter-spacing: 0.08em; margin-bottom: 12px;">UNIT 04 · WEEK 12</div>
+        <div style="font-family: var(--f-display); font-size: 36px; font-weight: 700; line-height: 1.15; color: var(--fg); margin-bottom: 14px;">Wrapping Up</div>
+        <div class="small" style="line-height: 1.55; margin-bottom: 18px;">Final reflections, ePortfolio submission, closing the loop.</div>
+        <div style="font-family: var(--f-mono); font-size: 24px; color: var(--fg-mid); padding-top: 14px; border-top: 1px solid var(--rule);">MA 4 due <span style="color: var(--fg); font-weight: 500;">Jul 29</span></div>
+      </div>
+    </div>
+    <hr class="rule" style="margin: 48px 0 28px;">
+    <div style="display: flex; gap: 56px; align-items: center; flex-wrap: wrap;">
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <div style="font-family: var(--f-mono); font-size: var(--t-label); color: var(--accent); letter-spacing: 0.08em;">DATES TO KNOW</div>
+      </div>
+      <div style="display: flex; gap: 40px; flex-wrap: wrap;">
+        <div>
+          <div style="font-family: var(--f-mono); font-size: 24px; color: var(--fg-dim);">MAY 25</div>
+          <div style="font-size: 26px; color: var(--fg-mid);">Memorial Day — no class</div>
+        </div>
+        <div>
+          <div style="font-family: var(--f-mono); font-size: 24px; color: var(--fg-dim);">JUL 8</div>
+          <div style="font-size: 26px; color: var(--fg-mid);">Withdrawal deadline</div>
+        </div>
+        <div>
+          <div style="font-family: var(--f-mono); font-size: 24px; color: var(--fg-dim);">JUL 15</div>
+          <div style="font-size: 26px; color: var(--fg-mid);">No class (notify if needed)</div>
+        </div>
+        <div>
+          <div style="font-family: var(--f-mono); font-size: 24px; color: var(--accent);">EVERY CLASS</div>
+          <div style="font-size: 26px; color: var(--fg);">Bring your laptop</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SLIDE 15 — TWINE ACTIVITY 2 (MAJR)
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Twine Activity 2 — Majr!" class="activity-bg" style="justify-content: center;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; width: 100%;">
+      <div style="display: flex; flex-direction: column; gap: 28px;">
+        <div class="label">Activity 2 of 2 — Twine</div>
+        <div style="font-family: var(--f-display); font-size: 84px; font-weight: 900; color: var(--bg); line-height: 1;">Majr™</div>
+        <div class="body" style="color: rgba(240,236,228,0.7); line-height: 1.6;"><strong style="color: var(--bg);">Majr</strong> is an Academic Integration Engine. Using what you discovered in Cultur!, it asks: does your research interest live inside your major, beyond it, or somewhere in between?</div>
+        <div class="body" style="color: rgba(240,236,228,0.7); line-height: 1.6;">There's no wrong answer. The goal is a clearer sense of <em>why</em> you're asking what you're asking — and what makes your perspective unique.</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div style="background: rgba(240,236,228,0.06); border: 1px solid rgba(240,236,228,0.12); border-radius: 8px; padding: 36px 40px;">
+          <div style="font-size: 26px; font-weight: 600; color: var(--bg); margin-bottom: 16px;">Three paths</div>
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div style="display: flex; gap: 16px; align-items: flex-start;"><div style="font-family: var(--f-mono); color: var(--accent); font-size: 24px; flex-shrink: 0;">A</div><div class="small" style="color: rgba(240,236,228,0.7);"><strong style="color: var(--bg);">Major-Integrated</strong> — research your interest through your field's methods</div></div>
+            <div style="display: flex; gap: 16px; align-items: flex-start;"><div style="font-family: var(--f-mono); color: var(--accent); font-size: 24px; flex-shrink: 0;">B</div><div class="small" style="color: rgba(240,236,228,0.7);"><strong style="color: var(--bg);">Interest-Driven</strong> — follow pure curiosity beyond your major's boundaries</div></div>
+            <div style="display: flex; gap: 16px; align-items: flex-start;"><div style="font-family: var(--f-mono); color: var(--accent); font-size: 24px; flex-shrink: 0;">C</div><div class="small" style="color: rgba(240,236,228,0.7);"><strong style="color: var(--bg);">Interdisciplinary</strong> — create connections neither field alone could show</div></div>
+          </div>
+        </div>
+        <div style="display: inline-flex; align-items: center; gap: 20px; background: rgba(240,236,228,0.06); border: 1px solid rgba(240,236,228,0.12); border-radius: 8px; padding: 24px 32px;">
+          <div style="font-family: var(--f-mono); font-size: 28px; color: var(--accent);">→</div>
+          <div>
+            <div style="font-size: 28px; font-weight: 600; color: var(--bg); margin-bottom: 4px;">Link on Canvas</div>
+            <div style="font-size: var(--t-small); color: rgba(240,236,228,0.45);">We'll regroup right after</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SLIDE 15 — WILLIAMS MINI-LECTURE
+  ═══════════════════════════════════════════════════════════ -->
+  <section data-label="Williams — Pop Culture &amp; Writing">
+    <div style="display: grid; grid-template-columns: 1fr 1.4fr; gap: 100px; align-items: start; height: 100%;">
+      <div style="display: flex; flex-direction: column; gap: 32px;">
+        <div class="label">A counter-narrative</div>
+        <div style="font-family: var(--f-display); font-size: 60px; font-weight: 700; line-height: 1.1; letter-spacing: -0.01em;">“Popular Culture<br>is Killing Writing”</div>
+        <div style="font-family: var(--f-display); font-size: 30px; font-style: italic; color: var(--fg-mid);">Bronwyn T. Williams</div>
+        <div class="pull-quote" style="font-size: 32px; padding-left: 28px; border-left-width: 4px;">“We rarely trust the imposition of a new magic on our lives, and we rarely fail to work up nostalgia for the older magic it replaces.”</div>
+        <div class="small" style="color: var(--fg-dim); font-style: italic;">— Mitchell Stephens, qtd. in Williams</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 28px;">
+        <div>
+          <div style="font-family: var(--f-mono); font-size: var(--t-label); color: var(--accent); letter-spacing: 0.08em; margin-bottom: 14px;">THE CRISIS NARRATIVE — OLD AS DIRT</div>
+          <div class="small" style="color: var(--fg-mid); line-height: 1.6;">1887: Harvard's Adams Sherman Hill warned that newspapers and “second-rate novels” were destroying student writing. Same complaint, every generation — just swap the medium: comics, television, video games, social media, AI.</div>
+        </div>
+        <hr class="rule" style="margin: 4px 0;">
+        <div>
+          <div style="font-family: var(--f-mono); font-size: var(--t-label); color: var(--accent); letter-spacing: 0.08em; margin-bottom: 14px;">WHAT THE RESEARCH ACTUALLY SHOWS</div>
+          <div class="small" style="color: var(--fg-mid); line-height: 1.6;">Today's students write <em>more</em> than any prior generation — longer papers, fewer errors (Lunsford, Stanford). Pop culture engagement builds exactly the rhetorical skills we need: <strong style="color: var(--fg);">audience, genre, and style</strong>.</div>
+        </div>
+        <hr class="rule" style="margin: 4px 0;">
+        <div>
+          <div style="font-family: var(--f-mono); font-size: var(--t-label); color: var(--accent); letter-spacing: 0.08em; margin-bottom: 14px;">CONNECTING BACK</div>
+          <div class="small" style="color: var(--fg-mid); line-height: 1.6;">Barthes gives us tools to read images rhetorically. Benjamin asks who controls reproduction. McLuhan reminds us the medium shapes the message. Together — these are exactly the lenses you need to take pop culture <em>seriously</em>.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SLIDE 16 — WHY POP CULTURE FOR YOUR PROJECT
+  ═══════════════════════════════════════════════════════════ -->
+  <section data-label="Why Media &amp; Pop Culture">
+    <div class="label">So why is this the focus of your project?</div>
+    <div class="title" style="margin-bottom: 56px;">Why media &amp; pop culture<br>for your research.</div>
+    <div class="three-col">
+      <div>
+        <div style="font-family: var(--f-display); font-size: 80px; font-weight: 900; color: var(--accent); opacity: 0.3; line-height: 1; margin-bottom: 16px;">01</div>
+        <div style="font-size: 32px; font-weight: 600; margin-bottom: 12px; color: var(--fg);">Stealth Skill-Building</div>
+        <div class="small" style="line-height: 1.6;">You already have rhetorical fluency in this space — audience, genre, style. Researching what genuinely interests you lets you absorb research methods that transfer to every other course.</div>
+      </div>
+      <div>
+        <div style="font-family: var(--f-display); font-size: 80px; font-weight: 900; color: var(--accent); opacity: 0.3; line-height: 1; margin-bottom: 16px;">02</div>
+        <div style="font-size: 32px; font-weight: 600; margin-bottom: 12px; color: var(--fg);">Real Mentorship</div>
+        <div class="small" style="line-height: 1.6;">This is my area. I can actually evaluate the work, point you toward the right scholarly conversations, and recommend sources you'd never find on your own.</div>
+      </div>
+      <div>
+        <div style="font-family: var(--f-display); font-size: 80px; font-weight: 900; color: var(--accent); opacity: 0.3; line-height: 1; margin-bottom: 16px;">03</div>
+        <div style="font-size: 32px; font-weight: 600; margin-bottom: 12px; color: var(--fg);">Afterlife</div>
+        <div class="small" style="line-height: 1.6;">Your final paper could become a blog post, a <em>Stylus</em> submission (DWR's undergrad journal), or a writing sample. These show up well on scholarship, job, and grad-school applications.</div>
+      </div>
+    </div>
+    <hr class="rule" style="margin: 56px 0 32px;">
+    <div class="body" style="max-width: 1500px; color: var(--fg-mid);">The semester is built around <span class="accent" style="font-weight: 600;">taking what you already love seriously</span> — applying scholarly tools to texts that matter to you. See you Wednesday.</div>
+  </section>
+
+</deck-stage>
+
+<script>
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "theme": "warm",
+    "accent": "teal"
+  }/*EDITMODE-END*/;
+
+  const ACCENTS = {
+    amber: { warm: '#C4873A', dark: '#E0853A' },
+    red:   { warm: '#C43A3A', dark: '#E05C35' },
+    teal:  { warm: '#7a0661', dark: '#9a0881' },
+  };
+
+  let currentTheme = TWEAK_DEFAULTS.theme;
+  let currentAccent = TWEAK_DEFAULTS.accent;
+
+  function setTheme(t) {
+    currentTheme = t;
+    const stage = document.querySelector('deck-stage');
+    if (t === 'dark') {
+      stage.querySelectorAll('section:not(.activity-bg)').forEach(s => s.classList.add('theme-dark'));
+      stage.classList.add('theme-dark');
+    } else {
+      stage.querySelectorAll('section').forEach(s => s.classList.remove('theme-dark'));
+      stage.classList.remove('theme-dark');
+    }
+    document.querySelectorAll('.tweak-toggle button[id^="t-"]').forEach(b => b.classList.remove('active'));
+    document.getElementById('t-' + t).classList.add('active');
+    applyAccent();
+    saveEdits();
+  }
+
+  function setAccent(a) {
+    currentAccent = a;
+    document.querySelectorAll('.tweak-toggle button[id^="a-"]').forEach(b => b.classList.remove('active'));
+    document.getElementById('a-' + a).classList.add('active');
+    applyAccent();
+    saveEdits();
+  }
+
+  function applyAccent() {
+    const color = ACCENTS[currentAccent][currentTheme] || ACCENTS.amber.warm;
+    document.documentElement.style.setProperty('--accent', color);
+    document.querySelectorAll('section.theme-dark').forEach(s => s.style.setProperty('--accent', ACCENTS[currentAccent].dark));
+  }
+
+  function saveEdits() {
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { theme: currentTheme, accent: currentAccent } }, '*');
+  }
+
+  // Tweak panel show/hide
+  window.addEventListener('message', (e) => {
+    if (e.data?.type === '__activate_edit_mode') document.getElementById('tweak-panel').style.display = 'block';
+    if (e.data?.type === '__deactivate_edit_mode') document.getElementById('tweak-panel').style.display = 'none';
+  });
+  window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+
+  // Init from saved defaults
+  setTheme(TWEAK_DEFAULTS.theme);
+  setAccent(TWEAK_DEFAULTS.accent);
+</script>
+</body>
+</html>

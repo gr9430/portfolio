@@ -63,7 +63,10 @@
       "Bash(xargs -d'\\\\n' du -sh)",
       "Bash(python3 *)",
       "WebFetch(domain:glennritchey.net)",
-      "Read(//home/user/**)"
+      "Read(//home/user/**)",
+      "WebFetch(domain:api.anthropic.com)",
+      "Read(//tmp/**)",
+      "Bash(tar -xf design_extracted)"
     ]
   }
 }

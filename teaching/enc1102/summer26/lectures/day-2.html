@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ENC 1102 — Day 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<template id="__bundler_thumbnail" data-bg-color="#F4EFE6">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#F4EFE6"/>
+    <rect x="80" y="80" width="8" height="160" rx="4" fill="#7a0661"/>
+    <text x="110" y="180" font-family="Georgia,serif" font-size="100" font-weight="900" fill="#18160F">ENC 1102</text>
+    <text x="110" y="240" font-family="Georgia,serif" font-size="44" font-style="italic" fill="#4A4537">Composition II — Day 2</text>
+    <rect x="80" y="300" width="500" height="2" fill="rgba(24,22,15,0.12)"/>
+    <text x="80" y="350" font-family="Georgia,serif" font-size="28" fill="#8A8070">Reading the Web Critically</text>
+  </svg>
+</template>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="deck-stage.js"></script>
+<script src="image-slot.js"></script>
+<style>
+  /* ── Reset ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #F4EFE6;
+    --fg:       #18160F;
+    --fg-mid:   #4A4537;
+    --fg-dim:   #8A8070;
+    --accent:   #7a0661;
+    --accent2:  #3A7DC4;
+    --rule:     rgba(24,22,15,0.12);
+    --card-bg:  rgba(24,22,15,0.04);
+
+    --f-display: 'Playfair Display', Georgia, serif;
+    --f-body:    'DM Sans', Helvetica, sans-serif;
+    --f-mono:    'DM Mono', monospace;
+
+    --t-hero:     96px;
+    --t-title:    68px;
+    --t-subtitle: 46px;
+    --t-body:     34px;
+    --t-small:    27px;
+    --t-label:    26px;
+
+    --px:  120px;
+    --pt:  96px;
+    --pb:  80px;
+    --gap-title: 52px;
+    --gap-item:  28px;
+  }
+
+  .theme-dark {
+    --bg:       #0E0D0B;
+    --fg:       #F0ECE4;
+    --fg-mid:   #B8B0A0;
+    --fg-dim:   #6A6358;
+    --accent:   #9a0881;
+    --rule:     rgba(240,236,228,0.10);
+    --card-bg:  rgba(240,236,228,0.04);
+  }
+
+  deck-stage { font-family: var(--f-body); }
+
+  section {
+    background: var(--bg);
+    color: var(--fg);
+    display: flex;
+    flex-direction: column;
+    padding: var(--pt) var(--px) var(--pb);
+  }
+
+  .label {
+    font-family: var(--f-mono);
+    font-size: var(--t-label);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+  }
+  .hero { font-family: var(--f-display); font-size: var(--t-hero); font-weight: 900; line-height: 1.0; letter-spacing: -0.02em; }
+  .title { font-family: var(--f-display); font-size: var(--t-title); font-weight: 700; line-height: 1.1; letter-spacing: -0.01em; }
+  .subtitle { font-size: var(--t-subtitle); font-weight: 300; line-height: 1.3; color: var(--fg-mid); }
+  .body { font-size: var(--t-body); font-weight: 400; line-height: 1.5; color: var(--fg-mid); }
+  .small { font-size: var(--t-small); font-weight: 400; line-height: 1.5; color: var(--fg-dim); }
+
+  .accent { color: var(--accent); }
+  .italic { font-style: italic; }
+
+  hr.rule { border: none; border-top: 1px solid var(--rule); margin: var(--gap-item) 0; }
+
+  .activity-bg { background: var(--fg) !important; color: var(--bg) !important; }
+  .activity-bg .label { color: var(--accent); }
+  .activity-bg .hero { color: var(--bg); }
+  .activity-bg .title { color: var(--bg); }
+  .activity-bg .body { color: rgba(240,236,228,0.7); }
+
+  .divider-slide {
+    background: var(--accent) !important;
+    color: var(--bg) !important;
+    justify-content: flex-end;
+  }
+  .divider-slide .label { color: rgba(255,255,255,0.6); }
+  .divider-slide .hero { color: var(--bg); }
+  .divider-slide .subtitle { color: rgba(255,255,255,0.85); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 60px; }
+
+  .policy-card {
+    background: var(--card-bg);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 48px 52px;
+  }
+  .policy-card .pc-num {
+    font-family: var(--f-display);
+    font-size: 80px;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 20px;
+    opacity: 0.35;
+  }
+  .policy-card .pc-title {
+    font-family: var(--f-display);
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--fg);
+    line-height: 1.2;
+  }
+  .policy-card .pc-body {
+    font-size: var(--t-small);
+    color: var(--fg-mid);
+    line-height: 1.6;
+  }
+
+  .pull-quote {
+    font-family: var(--f-display);
+    font-size: 54px;
+    font-weight: 700;
+    font-style: italic;
+    line-height: 1.25;
+    color: var(--fg);
+    padding-left: 48px;
+    border-left: 5px solid var(--accent);
+  }
+
+  /* Citation block */
+  .cite {
+    font-family: var(--f-mono);
+    font-size: 24px;
+    color: var(--fg-dim);
+    line-height: 1.55;
+    letter-spacing: 0.01em;
+  }
+  .cite .au { color: var(--fg-mid); font-weight: 500; }
+
+  /* Step list */
+  .step-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 36px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .step-row:last-child { border-bottom: none; }
+  .step-num {
+    font-family: var(--f-display);
+    font-weight: 900;
+    font-size: 56px;
+    color: var(--accent);
+    line-height: 0.9;
+    width: 84px;
+    flex-shrink: 0;
+    opacity: 0.45;
+  }
+  .step-leave {
+    font-family: var(--f-mono);
+    font-size: 24px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .step-head {
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .step-body {
+    font-size: 25px;
+    color: var(--fg-mid);
+    line-height: 1.5;
+  }
+
+  /* Placeholder slice */
+  .placeholder {
+    background: repeating-linear-gradient(135deg, rgba(24,22,15,0.04), rgba(24,22,15,0.04) 14px, rgba(24,22,15,0.07) 14px, rgba(24,22,15,0.07) 28px);
+    border: 1px dashed rgba(24,22,15,0.25);
+    border-radius: 8px;
+    padding: 40px;
+    font-family: var(--f-mono);
+    font-size: 24px;
+    color: var(--fg-mid);
+    line-height: 1.7;
+  }
+  .placeholder .ph-tag {
+    display: inline-block;
+    background: var(--fg);
+    color: var(--bg);
+    font-size: 20px;
+    letter-spacing: 0.1em;
+    padding: 6px 12px;
+    border-radius: 4px;
+    margin-bottom: 18px;
+  }
+
+  /* Vertical vs lateral */
+  .vs-card {
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 44px 48px;
+    background: var(--card-bg);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .vs-card .vs-tag {
+    font-family: var(--f-mono);
+    font-size: 24px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+  }
+  .vs-card .vs-name {
+    font-family: var(--f-display);
+    font-size: 46px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--fg);
+  }
+  .vs-card.win {
+    border-color: var(--accent);
+    background: color-mix(in oklab, var(--accent) 8%, var(--bg));
+  }
+  .vs-card.win .vs-tag, .vs-card.win .vs-name { color: var(--accent); }
+
+  /* Source type comparison */
+  .src-card {
+    border-top: 4px solid var(--accent);
+    padding: 28px 0 0;
+  }
+  .src-card.sec { border-top-color: var(--rule); }
+  .src-card .src-kind {
+    font-family: var(--f-mono);
+    font-size: 24px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .src-card.sec .src-kind { color: var(--fg-dim); }
+  .src-card .src-head {
+    font-family: var(--f-display);
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--fg);
+    line-height: 1.15;
+  }
+  .src-card .src-body {
+    font-size: var(--t-small);
+    color: var(--fg-mid);
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+  .src-card .src-examples {
+    font-family: var(--f-mono);
+    font-size: 24px;
+    color: var(--fg-dim);
+    line-height: 1.7;
+    letter-spacing: 0.02em;
+  }
+
+  /* Template grid for the summary criteria */
+  .tpl-row {
+    display: grid;
+    grid-template-columns: 60px 340px 1fr 120px;
+    gap: 32px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .tpl-row:last-child { border-bottom: none; }
+  .tpl-n {
+    font-family: var(--f-mono);
+    font-size: 24px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  .tpl-name {
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--fg);
+    line-height: 1.25;
+  }
+  .tpl-detail {
+    font-size: 24px;
+    color: var(--fg-mid);
+    line-height: 1.4;
+  }
+  .tpl-qty {
+    font-family: var(--f-mono);
+    font-size: 24px;
+    color: var(--fg-dim);
+    text-align: right;
+  }
+
+  /* Tweak panel */
+  #tweak-panel {
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    right: 32px;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px 24px;
+    z-index: 9999;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #222;
+    min-width: 240px;
+  }
+  #tweak-panel h3 { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-bottom: 16px; }
+  .tweak-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; gap: 12px; }
+  .tweak-row label { font-size: 14px; color: #333; }
+  .tweak-toggle { display: flex; gap: 6px; }
+  .tweak-toggle button {
+    padding: 5px 14px; border-radius: 999px; border: 1px solid #ddd; font-size: 13px;
+    cursor: pointer; background: white; color: #555; font-family: inherit;
+    transition: all 0.15s;
+  }
+  .tweak-toggle button.active { background: #111; color: white; border-color: #111; }
+</style>
+</head>
+<body>
+
+<div id="tweak-panel">
+  <h3>Tweaks</h3>
+  <div class="tweak-row">
+    <label>Theme</label>
+    <div class="tweak-toggle">
+      <button id="t-warm" class="active" onclick="setTheme('warm')">Warm</button>
+      <button id="t-dark" onclick="setTheme('dark')">Dark</button>
+    </div>
+  </div>
+  <div class="tweak-row">
+    <label>Accent</label>
+    <div class="tweak-toggle">
+      <button id="a-amber" onclick="setAccent('amber')">Amber</button>
+      <button id="a-red" onclick="setAccent('red')">Red</button>
+      <button id="a-teal" class="active" onclick="setAccent('teal')">Purple</button>
+    </div>
+  </div>
+</div>
+
+<deck-stage width="1920" height="1080">
+
+  <!-- ═══════════════════════════════════════════════════════
+       01 — TITLE
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Title" style="justify-content: space-between;">
+    <div>
+      <div class="label">Summer 2026 — Day 2 · May 18</div>
+      <div class="hero" style="margin-bottom: 20px;">Reading critically,
+for credibility.</div>
+      <div style="font-family: var(--f-display); font-size: var(--t-subtitle); font-weight: 400; font-style: italic; color: var(--fg-mid);">Lateral reading and how we research.</div>
+    </div>
+    <div style="display: flex; align-items: flex-end; justify-content: space-between;">
+      <div>
+        <div class="body" style="margin-bottom: 6px;">Professor Glenn S. Ritchey III</div>
+      </div>
+      <div style="text-align: right;">
+        <div class="small" style="margin-bottom: 6px;">ENC 1102 · Composition II</div>
+        <div class="small">Department of Writing and Rhetoric</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       02 — AGENDA
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Today's Agenda">
+    <div class="label">Today — 110 minutes</div>
+    <div class="title" style="margin-bottom: 56px;">Where we're going.</div>
+    <div style="display: grid; grid-template-columns: 110px 1fr 220px; gap: 24px 40px; align-items: baseline;">
+
+      <div style="font-family: var(--f-mono); font-size: 26px; color: var(--accent); letter-spacing: 0.05em;">01</div>
+      <div style="font-size: 34px; font-weight: 600; color: var(--fg);">Recap &amp; this week's logistics</div>
+      <div style="font-family: var(--f-mono); font-size: 24px; color: var(--fg-dim); text-align: right;">~10 min</div>
+
+      <div style="grid-column: 1 / -1;"><hr class="rule" style="margin: 0;"></div>
+
+      <div style="font-family: var(--f-mono); font-size: 26px; color: var(--accent); letter-spacing: 0.05em;">02</div>
+      <div>
+        <div style="font-size: 34px; font-weight: 600; color: var(--fg); margin-bottom: 6px;">Carillo &amp; Horning on credibility</div>
+        <div class="small">Lateral reading · misinformation vs. disinformation · primary vs. secondary · bias.</div>
+      </div>
+      <div style="font-family: var(--f-mono); font-size: 24px; color: var(--fg-dim); text-align: right;">~40 min</div>
+
+      <div style="grid-column: 1 / -1;"><hr class="rule" style="margin: 0;"></div>
+
+      <div style="font-family: var(--f-mono); font-size: 26px; color: var(--accent); letter-spacing: 0.05em;">03</div>
+      <div>
+        <div style="font-size: 34px; font-weight: 600; color: var(--fg); margin-bottom: 6px;">Activity — applying lateral reading</div>
+        <div class="small">In small groups, from the chapter.</div>
+      </div>
+      <div style="font-family: var(--f-mono); font-size: 24px; color: var(--fg-dim); text-align: right;">~20 min</div>
+
+      <div style="grid-column: 1 / -1;"><hr class="rule" style="margin: 0;"></div>
+
+      <div style="font-family: var(--f-mono); font-size: 26px; color: var(--accent); letter-spacing: 0.05em;">04</div>
+      <div>
+        <div style="font-size: 34px; font-weight: 600; color: var(--fg); margin-bottom: 6px;">Walking through a theoretical reading</div>
+        <div class="small">One of <em>Barthes / Benjamin / McLuhan</em> — modeled together for Reading Summary 1.</div>
+      </div>
+      <div style="font-family: var(--f-mono); font-size: 24px; color: var(--fg-dim); text-align: right;">~25 min</div>
+
+      <div style="grid-column: 1 / -1;"><hr class="rule" style="margin: 0;"></div>
+
+      <div style="font-family: var(--f-mono); font-size: 26px; color: var(--accent); letter-spacing: 0.05em;">05</div>
+      <div>
+        <div style="font-size: 34px; font-weight: 600; color: var(--fg); margin-bottom: 6px;">Activity — reverse outline + summary scaffold</div>
+        <div class="small">Practice for the Reading Summary template.</div>
+      </div>
+      <div style="font-family: var(--f-mono); font-size: 24px; color: var(--fg-dim); text-align: right;">~15 min</div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       03 — RECAP / HOUSEKEEPING (Wednesday at library)
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="This Week" class="two-col" style="gap: 100px; align-items: center;">
+    <div>
+      <div class="label">Heads up — Wednesday</div>
+      <div class="title" style="margin-bottom: 36px;">We meet at<br>the library.</div>
+      <div class="body" style="margin-bottom: var(--gap-item);">A librarian is giving us a research presentation. <span class="accent" style="font-weight: 600;">Don't come to our usual classroom.</span></div>
+      <hr class="rule">
+      <div class="small">I'll be standing out front of the library, near the entrance by the Chick-fil-A in the breezeway, to usher everyone in. If you're lost — find me there.</div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 24px;">
+      <div style="background: var(--card-bg); border: 1px solid var(--rule); border-radius: 8px; padding: 36px 40px;">
+        <div style="font-family: var(--f-mono); font-size: 24px; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 12px;">WHERE</div>
+        <div style="font-size: 32px; font-weight: 600; color: var(--fg); line-height: 1.3; margin-bottom: 8px;">UCF Library — breezeway entrance</div>
+        <div class="small">By the Chick-fil-A. Look for me out front.</div>
+      </div>
+      <div style="background: var(--card-bg); border: 1px solid var(--rule); border-radius: 8px; padding: 36px 40px;">
+        <div style="font-family: var(--f-mono); font-size: 24px; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 12px;">AFTER THE TALK</div>
+        <div style="font-size: 32px; font-weight: 600; color: var(--fg); line-height: 1.3; margin-bottom: 8px;">Reflection on the discussion board</div>
+        <div class="small">We'll reflect on the presentation and help each other surface other aspects of library research worth knowing.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       04 — SECTION DIVIDER: CARILLO & HORNING
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Section · Carillo &amp; Horning" class="divider-slide">
+    <div class="label">Part 1 — A reading I'm walking you through</div>
+    <div class="hero" style="max-width: 1500px; line-height: 1.0;">How do you<br>trust a source?</div>
+    <div class="subtitle" style="margin-top: 36px; max-width: 1100px;">Carillo &amp; Horning on critical reading, lateral reading, and the credibility of what you find online.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       05 — THE TEXT (citation + premise)
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="The Text" class="two-col" style="gap: 100px; align-items: start;">
+    <div>
+      <div class="label">The reading</div>
+      <div style="font-family: var(--f-display); font-size: 52px; font-weight: 700; font-style: italic; line-height: 1.15; color: var(--fg); margin-bottom: 32px;">"Effectively and Efficiently Reading the Credibility of Online Sources"</div>
+      <div class="cite" style="margin-bottom: 28px;">
+        <span class="au">Carillo, Ellen, and Alice Horning.</span><br>
+        <em>Writing Spaces</em>, vol. 4, eds. Driscoll, Heise,<br>
+        Stewart &amp; Vetter. Parlor Press, 2022, pp. 35–50.
+      </div>
+      <hr class="rule">
+      <div class="small" style="color: var(--fg-mid);">
+</div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 32px;">
+      <div class="label" style="margin-bottom: 0;">The central premise</div>
+      <div class="pull-quote" style="font-size: 44px;">Reading and writing are<br>related interpretive practices.</div>
+      <div class="body">Good reading skills are essential to developing effective writing abilities. You can't write a credible source-based paper if you can't read sources credibly.</div>
+      <div class="body" style="color: var(--fg);">And on the open web, that means leaving the page in front of you.</div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       06 — MISINFORMATION vs DISINFORMATION
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Mis- vs Disinformation">
+    <div class="label">Two ways the web misleads you</div>
+    <div class="title" style="margin-bottom: 48px;">Both are wrong.<br>Only one is on purpose.</div>
+    <div class="two-col" style="gap: 64px;">
+      <div class="vs-card">
+        <div class="vs-tag">WRONG, BUT NOT MALICIOUS.</div>
+        <div class="vs-name">Misinformation</div>
+        <hr class="rule" style="margin: 8px 0;">
+        <div class="small" style="color: var(--fg-mid);">Incorrect information that gets passed along without the intent to deceive. A friend repeating a bad statistic. A blog citing an outdated study.</div>
+      </div>
+      <div class="vs-card win">
+        <div class="vs-tag">WRONG, AND WEAPONIZED.</div>
+        <div class="vs-name">Disinformation</div>
+        <hr class="rule" style="margin: 8px 0; border-top-color: color-mix(in oklab, var(--accent) 30%, transparent);">
+        <div class="small" style="color: var(--fg-mid);">Factually incorrect information spread <em>maliciously</em> — designed to deceive, manipulate, or harm. Intent is the line that separates the two.</div>
+      </div>
+    </div>
+    <hr class="rule" style="margin-top: 56px;">
+    <div class="small" style="color: var(--fg-dim); font-style: italic;">Definitions from Carillo, MLA Guide to Digital Literacy, p. 13, as cited in Carillo &amp; Horning 43-44.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       07 — VERTICAL vs LATERAL (Wineburg & McGrew)
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Vertical vs Lateral">
+    <div class="label">A small study with a big finding</div>
+    <div class="title" style="margin-bottom: 28px;">Fact-checkers don't<br>stay on the page.</div>
+    <div class="body" style="max-width: 1500px; margin-bottom: 48px;">Wineburg and McGrew gave the same digital sources to three groups — Stanford undergrads, PhD historians, and professional fact-checkers — and asked them to assess credibility. Two groups did the same thing. One group did something different.</div>
+    <div class="two-col" style="gap: 48px;">
+      <div class="vs-card">
+        <div class="vs-tag">Undergrads &amp; PhDs</div>
+        <div class="vs-name" style="font-size: 38px;">Read vertically.</div>
+        <div class="small" style="color: var(--fg-mid);">Stayed on the source. Scanned up and down the page. Judged the source by its <em>own</em> design, typos, references, and presentation.</div>
+        <div class="small" style="color: var(--fg-dim); font-style: italic; margin-top: 12px;">A site that looks credible <em>looks</em> credible. Which is exactly the problem.</div>
+      </div>
+      <div class="vs-card win">
+        <div class="vs-tag">Professional fact-checkers</div>
+        <div class="vs-name" style="font-size: 38px;">Read laterally.</div>
+        <div class="small" style="color: var(--fg-mid);">Immediately <em>left</em> the source. Opened tab after tab to look up the sponsoring organization, the author, and what other sites said about both.</div>
+        <div class="small" style="color: var(--fg-dim); font-style: italic; margin-top: 12px;">They judged the source from outside it.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       08 — PULL QUOTE — CARILLO
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Pull-quote · Carillo" style="justify-content: center; gap: 48px; max-width: 1500px;">
+    <div class="label">The move that changes everything</div>
+    <div class="pull-quote" style="font-size: 62px;">"Lateral reading… involves<br>leaving the source and moving<br>to other sources across the Web<br>to assess the source's credibility."</div>
+    <div class="small" style="margin-left: 56px; color: var(--fg-dim);">— Carillo &amp; Horning, p. 38</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       09 — THE THREE STEPS
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Three Steps for Lateral Reading">
+    <div class="label">A method you can actually use</div>
+    <div class="title" style="margin-bottom: 24px;">Three steps for<br>reading laterally.</div>
+
+    <div class="step-row">
+      <div class="step-num">01</div>
+      <div style="flex: 1;">
+        <div class="step-leave">Leave the site →</div>
+        <div class="step-head">Check it against fact-checking sites.</div>
+        <div class="step-body">Does the site or claim already appear on a hoax-busting site? Try <strong style="color: var(--fg);">Snopes</strong>, <strong style="color: var(--fg);">PolitiFact</strong>, or <strong style="color: var(--fg);">FactCheck.org</strong> — nonpartisan and designed for exactly this question.</div>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-num">02</div>
+      <div style="flex: 1;">
+        <div class="step-leave">Leave the site →</div>
+        <div class="step-head">Investigate the author.</div>
+        <div class="step-body">What can you find about them elsewhere? Are they an expert on this subject? What else have they written? What organizations are they affiliated with — and what biases might that surface?</div>
+      </div>
+    </div>
+
+    <div class="step-row">
+      <div class="step-num">03</div>
+      <div style="flex: 1;">
+        <div class="step-leave">Leave the site →</div>
+        <div class="step-head">Investigate the site itself.</div>
+        <div class="step-body">Who or what sponsors or owns the site? Does that ownership suggest a bias? Is the site selling something? Who is its audience? Could a commercial interest be in conflict with the information it provides?</div>
+      </div>
+    </div>
+
+    <hr class="rule" style="margin-top: 28px;">
+    <div class="small" style="color: var(--fg-dim); font-style: italic; max-width: 1500px; font-size: 24px;">A small aside: I'd recommend a search engine that isn't Google for this — Google places ads first. <strong style="color: var(--fg-mid); font-style: normal;">DuckDuckGo</strong> and <strong style="color: var(--fg-mid); font-style: normal;">Qwant</strong> are both privacy-focused and tend to return cleaner results for credibility checks.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       10 — PRIMARY vs SECONDARY
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Primary vs Secondary">
+    <div class="label">A distinction that protects your reading</div>
+    <div class="title" style="margin-bottom: 48px;">Primary sources first.<br>Then everyone else.</div>
+    <div class="two-col" style="gap: 80px;">
+      <div class="src-card">
+        <div class="src-kind">Primary</div>
+        <div class="src-head">First-hand,<br>direct information.</div>
+        <div class="src-body">The thing itself — produced at the source, not about it.</div>
+        <div class="src-examples">photographs · audio &amp; video recordings · letters &amp; diaries · government documents · speeches · historical documents · literature · art · research studies · interviews</div>
+      </div>
+      <div class="src-card sec">
+        <div class="src-kind">Secondary</div>
+        <div class="src-head">Accounts <em>about</em><br>primary sources.</div>
+        <div class="src-body">Sources that summarize, interpret, or draw on primary sources in some way.</div>
+        <div class="src-examples">book &amp; movie reviews · scholarly articles about novels · news stories about scientific studies · explainers · syntheses</div>
+      </div>
+    </div>
+    <hr class="rule" style="margin-top: 52px;">
+    <div class="body" style="max-width: 1600px;">Go to the primary source first when you can. It lets you <span class="accent" style="font-weight: 600;">form your own judgments</span> before someone else's framing influences yours — and it lets you recognize the biases in the secondary sources you find later.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       11 — IMAGES & REVERSE IMAGE SEARCH (with AI aside)
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Images on the Web" class="two-col" style="gap: 100px; align-items: start;">
+    <div>
+      <div class="label">When the primary source is an image</div>
+      <div class="title" style="margin-bottom: 36px;">"Seeing is<br>believing" — isn't.</div>
+      <div class="body">Photoshop and similar software have been around long enough that any image online could be a manipulation of an earlier one. The fix is the same move: <span class="accent" style="font-weight: 600;">leave the image and look it up elsewhere.</span></div>
+      <hr class="rule">
+      <div class="small">A reverse image search shows you everywhere the image appears on the web — so you can find the original, find earlier versions, and read laterally about who's used it and how.</div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 28px;">
+      <div class="policy-card">
+        <div class="pc-num" style="font-size: 60px;">RIS</div>
+        <div class="pc-title">Reverse image search.</div>
+        <div class="pc-body">Drop the image into a reverse-image tool. Track down where it first appeared. Compare versions. Read what others have said about it. Then decide what it is.</div>
+      </div>
+      <div style="background: color-mix(in oklab, var(--accent) 10%, var(--bg)); border: 1px solid color-mix(in oklab, var(--accent) 30%, transparent); border-radius: 8px; padding: 32px 36px;">
+        <div style="font-family: var(--f-mono); font-size: 24px; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 12px;">A 2026 ADDENDUM</div>
+        <div style="font-size: 28px; font-weight: 600; color: var(--fg); line-height: 1.3; margin-bottom: 10px;">This chapter is from 2022.</div>
+        <div class="small" style="color: var(--fg-mid);">Photoshop-style edits aren't the sole threat anymore — but the proliferation of generative AI represents a significant concern. The <em>practice</em> listed here still works (leave the image, look it up), but expect to find originals that don't exist.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       12 — BIAS (others' + your own)
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Bias">
+    <div class="label">The last (and hardest) piece</div>
+    <div class="title" style="margin-bottom: 48px;">Recognize bias —<br>especially your own.</div>
+    <div class="three-col">
+      <div>
+        <div style="font-family: var(--f-display); font-size: 64px; font-weight: 900; color: var(--accent); opacity: 0.35; line-height: 1; margin-bottom: 14px;">A</div>
+        <div style="font-size: 30px; font-weight: 600; margin-bottom: 12px; color: var(--fg);">Biased ≠ incorrect.</div>
+        <div class="small" style="line-height: 1.6;">Biased information is <em>skewed</em>. Incorrect information is wrong. Don't conflate them — a source can be biased and still factually accurate.</div>
+      </div>
+      <div>
+        <div style="font-family: var(--f-display); font-size: 64px; font-weight: 900; color: var(--accent); opacity: 0.35; line-height: 1; margin-bottom: 14px;">B</div>
+        <div style="font-size: 30px; font-weight: 600; margin-bottom: 12px; color: var(--fg);">You can't remove bias.</div>
+        <div class="small" style="line-height: 1.6;">Your job isn't to find an unbiased source. It's to <em>recognize</em> the bias in each perspective, weigh its effect on credibility, and negotiate it as you build your own argument.</div>
+      </div>
+      <div>
+        <div style="font-family: var(--f-display); font-size: 64px; font-weight: 900; color: var(--accent); opacity: 0.35; line-height: 1; margin-bottom: 14px;">C</div>
+        <div style="font-size: 30px; font-weight: 600; margin-bottom: 12px; color: var(--fg);">Confirmation bias.</div>
+        <div class="small" style="line-height: 1.6;">When you only seek out and believe evidence that confirms what you already think. It feels like research. It isn't.</div>
+      </div>
+    </div>
+    <hr class="rule" style="margin: 56px 0 24px;">
+    <div class="body" style="max-width: 1700px;">In practice: monitor the perspectives of your sources, and <span class="accent" style="font-weight: 600;">deliberately seek out sources that oppose your idea</span>. A well-rounded read of a topic is the only honest one.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       13 — ACTIVITY 1 — Reflect on your reading practices
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Activity 1 — Reflect on Your Reading" class="activity-bg" style="justify-content: center;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; width: 100%;">
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div class="label">Activity 1 of 2 — from the chapter</div>
+        <div style="font-family: var(--f-display); font-size: 76px; font-weight: 900; color: var(--bg); line-height: 1;">How do you<br>read the web?</div>
+        <div class="body" style="color: rgba(240,236,228,0.7); line-height: 1.55;">Before we practice a new method, let's notice the one you already have.</div>
+        <div style="background: color-mix(in oklab, var(--accent) 18%, transparent); border: 1px solid color-mix(in oklab, var(--accent) 40%, transparent); border-radius: 8px; padding: 28px 32px;">
+          <div style="font-family: var(--f-mono); font-size: 24px; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 12px;">DO THIS — 8 MINUTES</div>
+          <div style="font-size: 28px; color: var(--bg); line-height: 1.45; font-weight: 500;">Pick a <strong style="color: var(--accent);">media artifact you actually care about</strong> — a show, film, album, game, creator, subculture — and research it as if you were starting a paper on it.</div>
+          <div class="small" style="color: rgba(240,236,228,0.7); margin-top: 12px;">Open whatever tabs you'd normally open. Click whatever you'd normally click. The point isn't to <em>find</em> anything — it's to <em>watch yourself look</em>.</div>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div style="background: rgba(240,236,228,0.06); border: 1px solid rgba(240,236,228,0.12); border-radius: 8px; padding: 32px 36px;">
+          <div style="font-size: 24px; font-weight: 600; color: var(--bg); margin-bottom: 16px;">While you search, take notes:</div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="display: flex; gap: 16px; align-items: flex-start;"><div style="font-family: var(--f-mono); color: var(--accent); font-size: 24px; flex-shrink: 0;">01</div><div class="small" style="color: rgba(240,236,228,0.7);">How do you move from one site to the next?</div></div>
+            <div style="display: flex; gap: 16px; align-items: flex-start;"><div style="font-family: var(--f-mono); color: var(--accent); font-size: 24px; flex-shrink: 0;">02</div><div class="small" style="color: rgba(240,236,228,0.7);">Did you open new tabs? Follow hyperlinks?</div></div>
+            <div style="display: flex; gap: 16px; align-items: flex-start;"><div style="font-family: var(--f-mono); color: var(--accent); font-size: 24px; flex-shrink: 0;">03</div><div class="small" style="color: rgba(240,236,228,0.7);">Did you move <strong style="color: var(--bg);">deliberately</strong> or <strong style="color: var(--bg);">haphazardly</strong>?</div></div>
+            <div style="display: flex; gap: 16px; align-items: flex-start;"><div style="font-family: var(--f-mono); color: var(--accent); font-size: 24px; flex-shrink: 0;">04</div><div class="small" style="color: rgba(240,236,228,0.7);">Did you stop at the first source — or check it against others?</div></div>
+            <div style="display: flex; gap: 16px; align-items: flex-start;"><div style="font-family: var(--f-mono); color: var(--accent); font-size: 24px; flex-shrink: 0;">05</div><div class="small" style="color: rgba(240,236,228,0.7);">What does this tell you about yourself as a digital reader?</div></div>
+          </div>
+        </div>
+        <div style="display: inline-flex; align-items: center; gap: 20px; background: rgba(240,236,228,0.06); border: 1px solid rgba(240,236,228,0.12); border-radius: 8px; padding: 22px 30px;">
+          <div style="font-family: var(--f-mono); font-size: 28px; color: var(--accent);">→</div>
+          <div>
+            <div style="font-size: 26px; font-weight: 600; color: var(--bg); margin-bottom: 4px;">Then get into groups of 3-4 and share.</div>
+            <div style="font-size: var(--t-small); color: rgba(240,236,228,0.45);">~5 min · what surprised you about your own habits?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       14 — SECTION DIVIDER: READING SUMMARY 1
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Section · Reading Summary 1" class="divider-slide">
+    <div class="label">Part 2 — Reading Summary 1</div>
+    <div class="hero" style="max-width: 1500px; line-height: 1.0;">Modeling a<br>summary, together.</div>
+    <div class="subtitle" style="margin-top: 36px; max-width: 1100px;">One of Barthes, Benjamin, or McLuhan — read carefully, summarized rigorously, scaffolded for your bibliography.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       15 — BARTHES — Citation + Three Messages
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Barthes — Three Messages" class="two-col" style="gap: 100px; align-items: start;">
+    <div>
+      <div class="label">The text I'm walking you through</div>
+      <div style="font-family: var(--f-display); font-size: 50px; font-weight: 700; font-style: italic; line-height: 1.15; color: var(--fg); margin-bottom: 32px;">"Rhetoric of the Image"</div>
+      <div class="cite" style="margin-bottom: 28px;">
+        <span class="au">Barthes, Roland.</span><br>
+        <em>Image–Music–Text</em>, translated by Stephen Heath,<br>
+        Hill and Wang, 1977, pp. 32–51.
+      </div>
+      <hr class="rule">
+      <div class="pull-quote" style="font-size: 38px; padding-left: 32px; border-left-width: 4px; margin-top: 28px;">"How does meaning get into the image? Where does it end? And if it ends, what is there beyond?"</div>
+      <div class="small" style="color: var(--fg-dim); margin-top: 12px; margin-left: 36px;">— Barthes, p. 32</div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 24px;">
+      <div class="label" style="margin-bottom: 0;">The argument, in one sentence</div>
+      <div style="background: var(--card-bg); border-left: 5px solid var(--accent); padding: 28px 36px; border-radius: 0 8px 8px 0;">
+        <div style="font-family: var(--f-display); font-style: italic; font-size: 32px; color: var(--fg); line-height: 1.4;">Every image carries <span class="accent" style="font-weight: 600; font-style: normal;">three simultaneous messages</span> — and reading an image rhetorically means separating them.</div>
+      </div>
+
+      <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 18px;">
+
+        <div style="display: grid; grid-template-columns: 180px 1fr; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--rule); align-items: baseline;">
+          <div style="font-family: var(--f-mono); font-size: 24px; letter-spacing: 0.08em; color: var(--accent); text-transform: uppercase;">01 · Linguistic</div>
+          <div>
+            <div style="font-size: 26px; font-weight: 600; color: var(--fg); margin-bottom: 6px;">The text on or with the image.</div>
+            <div class="small" style="color: var(--fg-mid); line-height: 1.5;">Caption, headline, dialogue, label. Carries both denotation (what it says) and connotation (what it suggests).</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 180px 1fr; gap: 24px; padding: 0 0 18px; border-bottom: 1px solid var(--rule); align-items: baseline;">
+          <div style="font-family: var(--f-mono); font-size: 24px; letter-spacing: 0.08em; color: var(--accent); text-transform: uppercase;">02 · Denoted</div>
+          <div>
+            <div style="font-size: 26px; font-weight: 600; color: var(--fg); margin-bottom: 6px;">The literal image — what is <em>there</em>.</div>
+            <div class="small" style="color: var(--fg-mid); line-height: 1.5;">A "message without a code." A tomato is a tomato. Almost anthropological knowledge — you just need to know what a tomato is.</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 180px 1fr; gap: 24px; padding: 0; align-items: baseline;">
+          <div style="font-family: var(--f-mono); font-size: 24px; letter-spacing: 0.08em; color: var(--accent); text-transform: uppercase;">03 · Connoted</div>
+          <div>
+            <div style="font-size: 26px; font-weight: 600; color: var(--fg); margin-bottom: 6px;">The symbolic image — what it <em>means</em>.</div>
+            <div class="small" style="color: var(--fg-mid); line-height: 1.5;">Cultural codes layered on top. Requires shared knowledge: stereotypes, conventions, aesthetic traditions. This is where rhetoric lives.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       16 — BARTHES — Panzani Case Study
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Barthes — Panzani Case Study">
+    <div class="label">A worked example — Barthes' Panzani advertisement</div>
+    <div class="title" style="margin-bottom: 16px; font-size: 60px;">Reading one image,<br>four ways at once.</div>
+    <div style="display: grid; grid-template-columns: 520px 1fr; gap: 72px; align-items: stretch;">
+
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <img src="media/panzani-barthes.png" alt="Panzani advertisement (1964) — pasta, tin, sachet, tomatoes, onions, peppers, mushroom spilling from a half-open string bag on a red background" style="width: 520px; height: 520px; object-fit: cover; border-radius: 6px; display: block;">
+        <div class="small" style="color: var(--fg-dim); font-style: italic; font-size: 24px;">Pasta, tin, sachet, tomatoes, onions, peppers, a mushroom — spilling from a half-open string bag. Yellows &amp; greens on red.</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column;">
+        <div style="display: flex; gap: 20px; align-items: flex-start; padding: 6px 0 14px; border-bottom: 1px solid var(--rule);">
+          <div style="font-family: var(--f-display); font-size: 44px; font-weight: 900; color: var(--accent); opacity: 0.4; line-height: 0.9; width: 56px; flex-shrink: 0;">A</div>
+          <div>
+            <div style="font-size: 28px; font-weight: 600; color: var(--fg); margin-bottom: 6px;">"Return from the market."</div>
+            <div class="small" style="color: var(--fg-mid); line-height: 1.5;">The bag spilling open signifies <em>freshness</em> and <em>domestic preparation</em>, rather than the "mechanical civilization" of preserves and refrigerators.</div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 20px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--rule);">
+          <div style="font-family: var(--f-display); font-size: 44px; font-weight: 900; color: var(--accent); opacity: 0.4; line-height: 0.9; width: 56px; flex-shrink: 0;">B</div>
+          <div>
+            <div style="font-size: 28px; font-weight: 600; color: var(--fg); margin-bottom: 6px;">"Italianicity."</div>
+            <div class="small" style="color: var(--fg-mid); line-height: 1.5;">The yellow / green / red palette plus the name <em>Panzani</em> — the assonance is itself a connoted sign. Requires knowing tourist stereotypes of Italy and the colors of its flag.</div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 20px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--rule);">
+          <div style="font-family: var(--f-display); font-size: 44px; font-weight: 900; color: var(--accent); opacity: 0.4; line-height: 0.9; width: 56px; flex-shrink: 0;">C</div>
+          <div>
+            <div style="font-size: 28px; font-weight: 600; color: var(--fg); margin-bottom: 6px;">"Still life."</div>
+            <div class="small" style="color: var(--fg-mid); line-height: 1.5;">The composition itself — arrangement, framing, light — evokes the aesthetic tradition of <em>nature morte</em>. Requires art-historical literacy to read.</div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 20px; align-items: flex-start; padding: 10px 0;">
+          <div style="font-family: var(--f-display); font-size: 44px; font-weight: 900; color: var(--accent); opacity: 0.4; line-height: 0.9; width: 56px; flex-shrink: 0;">D</div>
+          <div>
+            <div style="font-size: 28px; font-weight: 600; color: var(--fg); margin-bottom: 6px;">"This is an advertisement."</div>
+            <div class="small" style="color: var(--fg-mid); line-height: 1.5;">A meta-signal — the labels, the placement in a magazine. The image declares its <em>function</em>, even when nothing in the scene itself says so.</div>
+          </div>
+        </div>
+
+        <div style="margin-top: auto; padding-top: 14px; border-top: 2px solid var(--accent);">
+          <div style="font-family: var(--f-mono); font-size: 24px; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 6px;">THE TAKEAWAY</div>
+          <div class="small" style="color: var(--fg-mid); line-height: 1.45; font-size: 24px;">Four readings, one image — and the number <em>varies by viewer</em>. Each of us brings a different set of "lexicons" (practical, national, cultural, aesthetic). The image doesn't have <em>one</em> meaning — it has as many as we can read into it.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       17 — BARTHES — Linguistic Message: Anchor vs Relay
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Barthes — Anchor vs Relay">
+    <div class="label">The linguistic message — what text <em>does</em> to image</div>
+    <div class="title" style="margin-bottom: 28px;">Two ways words and<br>images live together.</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start;">
+
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <img src="media/magritte-barthes.png" alt="René Magritte, La Trahison des images — a painting of a pipe with the caption 'Ceci n'est pas une pipe.'" style="width: 100%; height: 380px; object-fit: contain; border-radius: 6px; display: block; background: #ECEAE4; padding: 12px;">
+        <div style="display: flex; align-items: baseline; gap: 16px; margin-top: 4px;">
+          <div style="font-family: var(--f-mono); font-size: 24px; letter-spacing: 0.08em; color: var(--accent); text-transform: uppercase;">01 · Anchor</div>
+          <div style="font-family: var(--f-mono); font-size: 24px; color: var(--fg-dim); font-style: italic;">Magritte, 1929</div>
+        </div>
+        <div style="font-size: 30px; font-weight: 600; color: var(--fg); line-height: 1.2;">Text <em>directs</em> the reading of the image.</div>
+        <div class="small" style="color: var(--fg-mid); line-height: 1.5; font-size: 25px;">The caption "remote-controls" the viewer toward a chosen meaning — banishing some signifieds, foregrounding others. Magritte weaponizes the move: the words override what the picture <em>seems</em> to denote.</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <img src="media/garfield-barthes.jpg" alt="Garfield comic strip — Jon says 'I am not pathetic!' then asks himself 'Am I?'" style="width: 100%; height: 380px; object-fit: contain; border-radius: 6px; display: block; background: #ECEAE4; padding: 12px;">
+        <div style="display: flex; align-items: baseline; gap: 16px; margin-top: 4px;">
+          <div style="font-family: var(--f-mono); font-size: 24px; letter-spacing: 0.08em; color: var(--accent); text-transform: uppercase;">02 · Relay</div>
+          <div style="font-family: var(--f-mono); font-size: 24px; color: var(--fg-dim); font-style: italic;">Davis, Garfield</div>
+        </div>
+        <div style="font-size: 30px; font-weight: 600; color: var(--fg); line-height: 1.2;">Text and image are <em>fragments</em> of one story.</div>
+        <div class="small" style="color: var(--fg-mid); line-height: 1.5; font-size: 25px;">Neither carries the whole meaning. Comics live here: the dialogue does the narrative work, the image carries the character — pull either and the joke collapses (hence <em>Garfield Minus Garfield</em>).</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       18 — BARTHES — Pull Quote (Having-Been-There)
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Barthes — Pull-quote" style="justify-content: center; gap: 36px; max-width: 1600px;">
+    <div class="label">The line worth sitting with</div>
+    <div class="pull-quote" style="font-size: 56px;">"The more technology develops the diffusion of information<br>(and notably of images), the more it provides the means<br>of masking the constructed meaning under the<br>appearance of the given meaning."</div>
+    <div class="small" style="margin-left: 56px; color: var(--fg-dim);">— Barthes, p. 46</div>
+    <hr class="rule" style="margin: 32px 0 16px;">
+    <div class="body" style="max-width: 1500px;">Barthes is writing in 1964 about magazine ads. Read this sentence again with <span class="accent" style="font-weight: 600;">algorithmic feeds, deepfakes, and generative imagery</span> in mind. The construction has only gotten better at hiding itself.</div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       17 — READING SUMMARY 1 — THE ASSIGNMENT
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Reading Summary 1 — Why" class="two-col" style="align-items: center; gap: 100px;">
+    <div>
+      <div class="label">Reading Summary 1 · due today</div>
+      <div class="title" style="margin-bottom: 36px;">Why we're<br>summarizing.</div>
+      <div class="body" style="margin-bottom: var(--gap-item);">Becoming a researcher means doing a <em>lot</em> of reading. Not every article will end up in your paper — but you need a record of what you read and what it gave you.</div>
+      <div class="small">These first two summaries are <span class="accent" style="font-weight: 600;">low-stakes practice</span> for the annotated bibliography. The framework is the same. You'll just do it ten more times when it counts.</div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 22px;">
+      <div style="background: var(--card-bg); border: 1px solid var(--rule); border-radius: 8px; padding: 32px 36px;">
+        <div style="font-family: var(--f-mono); font-size: 24px; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 10px;">STEP 1 — ANNOTATE</div>
+        <div style="font-size: 28px; font-weight: 600; margin-bottom: 10px; color: var(--fg);">Choose a reading from the Class Library.</div>
+        <div class="small">One of Barthes, Benjamin, or McLuhan — they're at the top of the Modules page. You'll need at least 2 of the 3 for the final paper, so this is also you building your theoretical framework.</div>
+      </div>
+      <div style="background: var(--card-bg); border: 1px solid var(--rule); border-radius: 8px; padding: 32px 36px;">
+        <div style="font-family: var(--f-mono); font-size: 24px; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 10px;">STEP 2 — DEVELOP</div>
+        <div style="font-size: 28px; font-weight: 600; margin-bottom: 10px; color: var(--fg);">Turn your notes into the summary.</div>
+        <div class="small">You'll submit proof of the annotation work <em>and</em> the developed summary — together. The template (next slide) is what we're filling in.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       18 — THE SUMMARY TEMPLATE
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Summary Template">
+    <div class="label">Reading Summary Template — Dr. Mel Stanfill, ENG 6812 (Fall 2025)</div>
+    <div class="title" style="margin-bottom: 24px;">What the summary<br>has to do.</div>
+
+    <div class="tpl-row">
+      <div class="tpl-n">01</div>
+      <div class="tpl-name">Citation</div>
+      <div class="tpl-detail">In MLA format. See Purdue OWL for tips.</div>
+      <div class="tpl-qty">MLA</div>
+    </div>
+    <div class="tpl-row">
+      <div class="tpl-n">02</div>
+      <div class="tpl-name">The author's argument</div>
+      <div class="tpl-detail">Ideally in <em>one sentence</em>.</div>
+      <div class="tpl-qty">1 sentence</div>
+    </div>
+    <div class="tpl-row">
+      <div class="tpl-n">03</div>
+      <div class="tpl-name">Key points</div>
+      <div class="tpl-detail">The 2–3 main moves the argument makes.</div>
+      <div class="tpl-qty">2–3 bullets</div>
+    </div>
+    <div class="tpl-row">
+      <div class="tpl-n">04</div>
+      <div class="tpl-name">Key terms / concepts</div>
+      <div class="tpl-detail">With definitions and page numbers.</div>
+      <div class="tpl-qty">2–3</div>
+    </div>
+    <div class="tpl-row">
+      <div class="tpl-n">05</div>
+      <div class="tpl-name">Key quotations</div>
+      <div class="tpl-detail">With page numbers — the lines worth quoting back.</div>
+      <div class="tpl-qty">2–3</div>
+    </div>
+    <div class="tpl-row">
+      <div class="tpl-n">06</div>
+      <div class="tpl-name">Strengths &amp; limitations</div>
+      <div class="tpl-detail">This is where summary becomes <span class="accent" style="font-weight: 600;">analysis</span>. What does the reading help you understand? What's strong about the writing? What's unanswered? What did the author miss?</div>
+      <div class="tpl-qty">2–3 of each</div>
+    </div>
+    <div class="tpl-row">
+      <div class="tpl-n">07</div>
+      <div class="tpl-name">How it relates to your research</div>
+      <div class="tpl-detail">Topic, method, shared theorists, framing — any line of connection.</div>
+      <div class="tpl-qty">—</div>
+    </div>
+    <div class="tpl-row">
+      <div class="tpl-n">08</div>
+      <div class="tpl-name">Connections to other authors</div>
+      <div class="tpl-detail">Who's in conversation? Who's talking about the same thing but <em>not</em> engaging each other? This gets easier as the semester goes on.</div>
+      <div class="tpl-qty">—</div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       19 — ACTIVITY 2 — REVERSE OUTLINE
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Activity 2 — Reverse Outline" class="activity-bg" style="justify-content: center;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; width: 100%;">
+      <div style="display: flex; flex-direction: column; gap: 28px;">
+        <div class="label">Activity 2 of 2 — In-class practice</div>
+        <div style="font-family: var(--f-display); font-size: 84px; font-weight: 900; color: var(--bg); line-height: 1;">Reverse outline.</div>
+        <div class="body" style="color: rgba(240,236,228,0.7); line-height: 1.6;">A <em>reverse</em> outline is the outline the author <em>would have written</em> if they'd written one before drafting. You make it after-the-fact by asking, of each paragraph: <strong style="color: var(--bg);">what does this paragraph do, and what claim does it make?</strong></div>
+        <div class="body" style="color: rgba(240,236,228,0.7); line-height: 1.6;">By the end, you should be staring at the skeleton of the argument — which is exactly what you need to fill in the summary template.</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div style="background: rgba(240,236,228,0.06); border: 1px solid rgba(240,236,228,0.12); border-radius: 8px; padding: 36px 40px;">
+          <div style="font-size: 26px; font-weight: 600; color: var(--bg); margin-bottom: 16px;">For each paragraph, write one line:</div>
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div style="display: flex; gap: 16px; align-items: flex-start;"><div style="font-family: var(--f-mono); color: var(--accent); font-size: 24px; flex-shrink: 0;">01</div><div class="small" style="color: rgba(240,236,228,0.7);"><strong style="color: var(--bg);">Topic</strong> — what is this paragraph about?</div></div>
+            <div style="display: flex; gap: 16px; align-items: flex-start;"><div style="font-family: var(--f-mono); color: var(--accent); font-size: 24px; flex-shrink: 0;">02</div><div class="small" style="color: rgba(240,236,228,0.7);"><strong style="color: var(--bg);">Move</strong> — what is the paragraph <em>doing</em>? (defining, contrasting, citing, arguing, qualifying…)</div></div>
+            <div style="display: flex; gap: 16px; align-items: flex-start;"><div style="font-family: var(--f-mono); color: var(--accent); font-size: 24px; flex-shrink: 0;">03</div><div class="small" style="color: rgba(240,236,228,0.7);"><strong style="color: var(--bg);">Claim</strong> — what point is the author making here?</div></div>
+            <div style="display: flex; gap: 16px; align-items: flex-start;"><div style="font-family: var(--f-mono); color: var(--accent); font-size: 24px; flex-shrink: 0;">04</div><div class="small" style="color: rgba(240,236,228,0.7);">Then step back: what's the <strong style="color: var(--bg);">one-sentence argument</strong> the whole sequence adds up to?</div></div>
+          </div>
+        </div>
+        <div style="display: inline-flex; align-items: center; gap: 20px; background: rgba(240,236,228,0.06); border: 1px solid rgba(240,236,228,0.12); border-radius: 8px; padding: 24px 32px;">
+          <div style="font-family: var(--f-mono); font-size: 28px; color: var(--accent);">→</div>
+          <div>
+            <div style="font-size: 28px; font-weight: 600; color: var(--bg); margin-bottom: 4px;">Work in pairs · 15 min</div>
+            <div style="font-size: var(--t-small); color: rgba(240,236,228,0.45);">Bring it to your chosen reading. Swap outlines. Compare what you each pulled out.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       20 — LOOKING AHEAD
+  ═══════════════════════════════════════════════════════ -->
+  <section data-label="Looking Ahead">
+    <div class="label">Before you leave</div>
+    <div class="title" style="margin-bottom: 56px;">What to do<br>next.</div>
+    <div class="three-col">
+      <div>
+        <div style="font-family: var(--f-display); font-size: 80px; font-weight: 900; color: var(--accent); opacity: 0.3; line-height: 1; margin-bottom: 16px;">01</div>
+        <div style="font-size: 32px; font-weight: 600; margin-bottom: 12px; color: var(--fg);">Submit Reading Summary 1.</div>
+        <div class="small" style="line-height: 1.6;">Due <strong style="color: var(--fg);">today, May 18</strong> · 50 pts. Annotation proof + the developed summary using the template.</div>
+      </div>
+      <div>
+        <div style="font-family: var(--f-display); font-size: 80px; font-weight: 900; color: var(--accent); opacity: 0.3; line-height: 1; margin-bottom: 16px;">02</div>
+        <div style="font-size: 32px; font-weight: 600; margin-bottom: 12px; color: var(--fg);">Library on Wednesday.</div>
+        <div class="small" style="line-height: 1.6;">Meet me at the breezeway entrance by Chick-fil-A. <strong style="color: var(--fg);">Not</strong> our usual classroom. Discussion-board reflection after.</div>
+      </div>
+      <div>
+        <div style="font-family: var(--f-display); font-size: 80px; font-weight: 900; color: var(--accent); opacity: 0.3; line-height: 1; margin-bottom: 16px;">03</div>
+        <div style="font-size: 32px; font-weight: 600; margin-bottom: 12px; color: var(--fg);">Reading Summary 2.</div>
+        <div class="small" style="line-height: 1.6;">Due <strong style="color: var(--fg);">May 22</strong> · 50 pts. A <em>different</em> one of Barthes / Benjamin / McLuhan. Same template, your second rep.</div>
+      </div>
+    </div>
+    <hr class="rule" style="margin: 56px 0 28px;">
+    <div class="body" style="max-width: 1600px;">Lateral reading is the move underneath everything we'll do this semester — finding sources, weighing them, putting them in conversation. Today was the practice. The rest is reps.</div>
+  </section>
+
+</deck-stage>
+
+<script>
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "theme": "warm",
+    "accent": "teal"
+  }/*EDITMODE-END*/;
+
+  const ACCENTS = {
+    amber: { warm: '#C4873A', dark: '#E0853A' },
+    red:   { warm: '#C43A3A', dark: '#E05C35' },
+    teal:  { warm: '#7a0661', dark: '#9a0881' },
+  };
+
+  let currentTheme = TWEAK_DEFAULTS.theme;
+  let currentAccent = TWEAK_DEFAULTS.accent;
+
+  function setTheme(t) {
+    currentTheme = t;
+    const stage = document.querySelector('deck-stage');
+    if (t === 'dark') {
+      stage.querySelectorAll('section:not(.activity-bg):not(.divider-slide)').forEach(s => s.classList.add('theme-dark'));
+      stage.classList.add('theme-dark');
+    } else {
+      stage.querySelectorAll('section').forEach(s => s.classList.remove('theme-dark'));
+      stage.classList.remove('theme-dark');
+    }
+    document.querySelectorAll('.tweak-toggle button[id^="t-"]').forEach(b => b.classList.remove('active'));
+    document.getElementById('t-' + t).classList.add('active');
+    applyAccent();
+    saveEdits();
+  }
+
+  function setAccent(a) {
+    currentAccent = a;
+    document.querySelectorAll('.tweak-toggle button[id^="a-"]').forEach(b => b.classList.remove('active'));
+    document.getElementById('a-' + a).classList.add('active');
+    applyAccent();
+    saveEdits();
+  }
+
+  function applyAccent() {
+    const color = ACCENTS[currentAccent][currentTheme] || ACCENTS.amber.warm;
+    document.documentElement.style.setProperty('--accent', color);
+    document.querySelectorAll('section.theme-dark').forEach(s => s.style.setProperty('--accent', ACCENTS[currentAccent].dark));
+  }
+
+  function saveEdits() {
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { theme: currentTheme, accent: currentAccent } }, '*');
+  }
+
+  window.addEventListener('message', (e) => {
+    if (e.data?.type === '__activate_edit_mode') document.getElementById('tweak-panel').style.display = 'block';
+    if (e.data?.type === '__deactivate_edit_mode') document.getElementById('tweak-panel').style.display = 'none';
+  });
+  window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+
+  setTheme(TWEAK_DEFAULTS.theme);
+  setAccent(TWEAK_DEFAULTS.accent);
+</script>
+</body>
+</html>
