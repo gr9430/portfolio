@@ -34,7 +34,7 @@ Please find my teaching statement <a href="{{ site.baseurl }}/teaching/statement
   }
   #teaching-graph {
     width: 100%;
-    height: 600px;
+    height: max(650px, 80vh);
     background: rgb(248, 248, 255);
     border-radius: 4px;
     overflow: hidden;
@@ -173,7 +173,7 @@ const teachingData = {
 (function() {
   const container = document.getElementById('teaching-graph');
   const W = container.clientWidth || 800;
-  const H = 600;
+  const H = Math.max(650, Math.min(950, window.innerHeight * 0.8));
 
   const svg = d3.select('#teaching-graph')
     .append('svg')

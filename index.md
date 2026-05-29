@@ -150,7 +150,7 @@ const graphData = { nodes, links };
   function getDimensions() {
     return {
       width: container.clientWidth || 800,
-      height: Math.max(500, Math.min(700, window.innerHeight * 0.7))
+      height: Math.max(650, Math.min(950, window.innerHeight * 0.9))
     };
   }
 
@@ -306,9 +306,9 @@ const graphData = { nodes, links };
 }
 #home-graph {
   width: 100%;
-  height: 70vh;
-  min-height: 500px;
-  max-height: 700px;
+  height: 90vh;
+  min-height: 650px;
+  max-height: 950px;
   background: transparent;
   overflow: visible;
 }
@@ -347,11 +347,11 @@ circle.hg-clickable-node:hover { stroke: rgb(122, 6, 97); stroke-width: 2px; }
 .hg-material-dot  { background: rgb(122, 97, 6); }
 @media (max-width: 768px) {
   #home-graph-container { width: 110%; left: -5%; }
-  #home-graph { height: 60vh; min-height: 400px; }
+  #home-graph { height: 80vh; min-height: 500px; }
 }
 @media (max-width: 480px) {
   #home-graph-container { width: 100%; left: 0; }
-  #home-graph { height: 50vh; min-height: 350px; }
+  #home-graph { height: 70vh; min-height: 420px; }
 }
 </style>
 
