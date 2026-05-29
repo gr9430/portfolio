@@ -6,12 +6,10 @@ title: Teaching
 <div id="teaching-graph-container">
   <div id="teaching-graph"></div>
   <div id="teaching-legend">
-    <span class="legend-item"><span class="legend-dot ucf-dot"></span> UCF</span>
     <span class="legend-item"><span class="legend-dot statement-dot"></span> Statement</span>
     <span class="legend-item"><span class="legend-dot course-dot"></span> Course</span>
-    <span class="legend-item"><span class="legend-dot grad-course-dot"></span> PhD Course</span>
     <span class="legend-item"><span class="legend-dot material-dot"></span> Material</span>
-    <p class="legend-hint">Click a node to navigate · Drag to explore · Click UCF to highlight connections</p>
+    <p class="legend-hint">Click a node to navigate · Drag to explore</p>
   </div>
 </div>
 
@@ -139,10 +137,8 @@ title: Teaching
   }
   .legend-item { display: flex; align-items: center; gap: 0.4rem; }
   .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-  .ucf-dot       { background: #FFC904; }
   .statement-dot { background: rgb(122, 6, 97); }
   .course-dot    { background: rgb(6, 122, 97); }
-  .grad-course-dot { background: rgb(6, 97, 122); }
   .material-dot  { background: rgb(122, 97, 6); }
   .legend-hint { margin: 0; font-size: 0.8rem; color: #5a5a56; }
   .node-label {
@@ -239,11 +235,10 @@ title: Teaching
 <script>
 const teachingData = {
   nodes: [
-    { id: "UCF", label: "UCF", url: null, type: "ucf" },
     { id: "{{ site.data.teaching_graph.statement.title }}", label: "{{ site.data.teaching_graph.statement.title }}", url: "{{ site.baseurl }}{{ site.data.teaching_graph.statement.url }}", type: "statement" },
     { id: "ENC 1101 at UCF", label: "ENC 1101", url: "{{ site.baseurl }}/teaching/enc-1101/", type: "course" },
     { id: "ENC 1102 at UCF", label: "ENC 1102", url: "{{ site.baseurl }}/teaching/enc1102/", type: "course" },
-    { id: "{{ site.data.teaching_graph.interdisciplinary_teaching.title }}", label: "Interdisciplinary Teaching", url: "{{ site.baseurl }}{{ site.data.teaching_graph.interdisciplinary_teaching.url }}", type: "grad-course" },
+    { id: "{{ site.data.teaching_graph.interdisciplinary_teaching.title }}", label: "Interdisciplinary Teaching", url: "{{ site.baseurl }}{{ site.data.teaching_graph.interdisciplinary_teaching.url }}", type: "course" },
     {% for component in site.data.teaching_graph.interdisciplinary_teaching_components %}
     { id: {{ component.title | jsonify }}, label: {{ component.title | jsonify }}, url: "{{ site.baseurl }}{{ component.url }}", type: "material" }{% unless forloop.last %},{% endunless %}
     {% endfor %},
@@ -251,16 +246,16 @@ const teachingData = {
     { id: "DIY Zine Library", label: "DIY Zine Library", url: "{{ site.baseurl }}/teaching/zines/", type: "material" }
   ],
   links: [
-    { source: "UCF", target: "{{ site.data.teaching_graph.statement.title }}" },
-    { source: "UCF", target: "ENC 1101 at UCF" },
-    { source: "UCF", target: "ENC 1102 at UCF" },
-    { source: "UCF", target: "{{ site.data.teaching_graph.interdisciplinary_teaching.title }}" },
-    { source: "UCF", target: "Course Syllabi" },
-    { source: "UCF", target: "DIY Zine Library" },
+    { source: "{{ site.data.teaching_graph.statement.title }}", target: "ENC 1101 at UCF" },
+    { source: "{{ site.data.teaching_graph.statement.title }}", target: "ENC 1102 at UCF" },
+    { source: "{{ site.data.teaching_graph.statement.title }}", target: "{{ site.data.teaching_graph.interdisciplinary_teaching.title }}" },
+    { source: "{{ site.data.teaching_graph.statement.title }}", target: "Course Syllabi" },
+    { source: "{{ site.data.teaching_graph.statement.title }}", target: "DIY Zine Library" },
+    { source: "ENC 1101 at UCF", target: "ENC 1102 at UCF" },
     {% for component in site.data.teaching_graph.interdisciplinary_teaching_components %}
     { source: "{{ site.data.teaching_graph.interdisciplinary_teaching.title }}", target: {{ component.title | jsonify }} },
     {% endfor %}
-    { source: "ENC 1101 at UCF", target: "ENC 1102 at UCF" }
+    { source: "ENC 1101 at UCF", target: "Course Syllabi" }
   ]
 };
 </script>
@@ -291,17 +286,13 @@ const teachingData = {
 
   const node = g.append('g').selectAll('circle').data(teachingData.nodes).join('circle')
     .attr('r', d => {
-      if (d.type === 'ucf') return 16;
       if (d.type === 'statement') return 14;
       if (d.type === 'course') return 12;
-      if (d.type === 'grad-course') return 11;
       return 8;
     })
     .attr('fill', d => {
-      if (d.type === 'ucf') return '#FFC904';
       if (d.type === 'statement') return 'rgb(122, 6, 97)';
       if (d.type === 'course') return 'rgb(6, 122, 97)';
-      if (d.type === 'grad-course') return 'rgb(6, 97, 122)';
       return 'rgb(122, 97, 6)';
     })
     .attr('class', d => d.url ? 'clickable-node' : 'node')
@@ -331,16 +322,14 @@ const teachingData = {
   svg.on('click', () => { node.attr('opacity', 1); link.attr('opacity', 1); });
 
   function isAlwaysLabeled(d) {
-    return ['ucf', 'statement', 'course', 'grad-course'].includes(d.type);
+    return d.type === 'statement' || d.type === 'course';
   }
 
   const label = g.append('g').selectAll('text').data(teachingData.nodes).join('text')
     .attr('class', d => d.type === 'material' ? 'node-label material-label' : 'node-label')
     .attr('dy', d => {
-      if (d.type === 'ucf') return -20;
       if (d.type === 'statement') return -18;
       if (d.type === 'course') return -16;
-      if (d.type === 'grad-course') return -15;
       return -12;
     })
     .attr('text-anchor', 'middle')
