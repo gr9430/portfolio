@@ -296,9 +296,11 @@ const graphData = { nodes, links };
 
 <style>
 #home-graph-container {
-  width: 120%;
+  width: 900px;
+  max-width: 100vw;
   position: relative;
-  left: -10%;
+  left: 50%;
+  transform: translateX(-50%);
   margin-bottom: 3rem;
 }
 #home-graph {
@@ -340,12 +342,6 @@ circle.hg-clickable-node:hover { stroke: rgb(122, 6, 97); stroke-width: 2px; }
 .hg-lecture-dot   { background: rgb(6, 97, 122); }
 .hg-semester-dot  { background: rgb(97, 6, 122); }
 .hg-material-dot  { background: rgb(122, 97, 6); }
-@media (max-width: 768px) {
-  #home-graph-container { width: 110%; left: -5%; }
-}
-@media (max-width: 480px) {
-  #home-graph-container { width: 100%; left: 0; }
-}
 </style>
 
 ## About

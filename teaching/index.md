@@ -28,9 +28,11 @@ Please find my teaching statement <a href="{{ site.baseurl }}/teaching/statement
 
 <style>
   #teaching-graph-container {
-    width: 120%;
+    width: 900px;
+    max-width: 100vw;
     position: relative;
-    left: -10%;
+    left: 50%;
+    transform: translateX(-50%);
     margin: 2rem 0;
   }
   #teaching-graph {

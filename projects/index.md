@@ -354,9 +354,11 @@ project: false
 
   /* Graph Container Styles */
   #project-graph-container {
-    width: 120%;
+    width: 900px;
+    max-width: 100vw;
     position: relative;
-    left: -10%;
+    left: 50%;
+    transform: translateX(-50%);
     margin-bottom: 3rem;
   }
   #project-graph {
@@ -374,12 +376,6 @@ project: false
     }
   }
 
-  @media (max-width: 480px) {
-    #project-graph-container {
-      width: 100%;
-      left: 0;
-    }
-  }
 
   /* Project List Container */
   #project-list-container {
