@@ -96,6 +96,28 @@ project: false
           <span class="tag" onclick="filterByTag('critical-making')">critical-making</span>
         </div>
       </div>
+
+      <div class="project-card" data-tags="phd,pedagogy,multimodal,visual-culture" data-updated="2026-03">
+        <h3><a href="/projects/interviews/">Published Interviews</a></h3>
+        <p>Produced and published video interviews with non-academic writers for pedagogical use in first-year composition courses at UCF. Models creative process and multimodal public scholarship.</p>
+        <div class="project-tags">
+          <span class="tag" onclick="filterByTag('phd')">phd</span>
+          <span class="tag" onclick="filterByTag('pedagogy')">pedagogy</span>
+          <span class="tag" onclick="filterByTag('multimodal')">multimodal</span>
+          <span class="tag" onclick="filterByTag('visual-culture')">visual-culture</span>
+        </div>
+      </div>
+
+      <div class="project-card" data-tags="phd,teaching,pedagogy,interdisciplinary" data-updated="2026-05">
+        <h3><a href="/projects/interdisciplinary-teaching/">Interdisciplinary Teaching</a></h3>
+        <p>Graduate coursework in the theory and practice of designing interdisciplinary humanities courses, addressing pedagogical foundations, AI integration, and inclusive course design. Includes signature assignment, syllabus development, and teaching statement.</p>
+        <div class="project-tags">
+          <span class="tag" onclick="filterByTag('phd')">phd</span>
+          <span class="tag" onclick="filterByTag('teaching')">teaching</span>
+          <span class="tag" onclick="filterByTag('pedagogy')">pedagogy</span>
+          <span class="tag" onclick="filterByTag('interdisciplinary')">interdisciplinary</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -169,6 +191,18 @@ project: false
           <span class="tag" onclick="filterByTag('visual-culture')">visual-culture</span>
           <span class="tag" onclick="filterByTag('design-justice')">design-justice</span>
           <span class="tag" onclick="filterByTag('archive')">archive</span>
+        </div>
+      </div>
+
+      <div class="project-card" data-tags="phd,critical-making,generative,procedural,visual-culture" data-updated="2025-09">
+        <h3><a href="/projects/rudimentary-magits/">Rudimentary Magits</a></h3>
+        <p>A BPM-synced typographic drawing tool built in p5.js for Critical Making, generating text from a weighted anarcho-punk and Lovecraftian corpus in the browser.</p>
+        <div class="project-tags">
+          <span class="tag" onclick="filterByTag('phd')">phd</span>
+          <span class="tag" onclick="filterByTag('critical-making')">critical-making</span>
+          <span class="tag" onclick="filterByTag('generative')">generative</span>
+          <span class="tag" onclick="filterByTag('procedural')">procedural</span>
+          <span class="tag" onclick="filterByTag('visual-culture')">visual-culture</span>
         </div>
       </div>
 
