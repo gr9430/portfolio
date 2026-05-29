@@ -14,13 +14,8 @@ A central question animates all of it: How do we democratize who gets to make me
   <div id="home-graph"></div>
   <div id="home-graph-legend">
     <span class="legend-item"><span class="legend-dot hg-project-dot"></span> Project</span>
-    <span class="legend-item"><span class="legend-dot hg-bridge-dot"></span> Shared Concept</span>
     <span class="legend-item"><span class="legend-dot hg-tag-dot"></span> Topic</span>
-    <span class="legend-item"><span class="legend-dot hg-statement-dot"></span> Statement</span>
-    <span class="legend-item"><span class="legend-dot hg-course-dot"></span> Course</span>
-    <span class="legend-item"><span class="legend-dot hg-gradcourse-dot"></span> Grad Course</span>
-    <span class="legend-item"><span class="legend-dot hg-material-dot"></span> Material</span>
-    <p class="legend-hint">Click a node to navigate · Click a tag to filter · Hover a shared concept for description · Drag to explore</p>
+    <p class="legend-hint">Click a project to open · Click a topic to highlight connections · Drag to explore</p>
   </div>
 </div>
 
@@ -35,11 +30,6 @@ A central question animates all of it: How do we democratize who gets to make me
   {% endfor %}
 {% endfor %}
 
-const bridgeTagIds = new Set([
-  'playable-texts', 'history', 'critical-making', 'theories',
-  'pedagogy', 'composition', 'teaching', 'interdisciplinary'
-]);
-
 const nodes = [];
 const links = [];
 
@@ -48,56 +38,15 @@ const links = [];
 nodes.push({ id: {{ p.title | jsonify }}, label: {{ p.title | jsonify }}, url: "{{ site.baseurl }}{{ p.url }}", type: "project" });
 {% endfor %}
 
-// Tag nodes (all unique tags from project front matter)
+// Topic nodes (unique tags from project front matter)
 {% for tag in all_tag_names %}
 nodes.push({ id: {{ tag | jsonify }}, label: {{ tag | jsonify }}, url: null, type: "tag" });
 {% endfor %}
 
-// Teaching: primary nodes
-nodes.push(
-  { id: "Teaching Statement", label: "Teaching Statement", url: "{{ site.baseurl }}/teaching/statement/", type: "statement" },
-  { id: "ENC 1101 at UCF", label: "ENC 1101", url: "{{ site.baseurl }}/teaching/enc-1101/", type: "course" },
-  { id: "ENC 1102 at UCF", label: "ENC 1102", url: "{{ site.baseurl }}/teaching/enc1102/", type: "course" },
-  { id: "Interdisciplinary Teaching", label: "Interdisciplinary Teaching", url: "{{ site.baseurl }}/teaching/interdisciplinary-teaching/", type: "grad-course" },
-  { id: "Course Syllabi", label: "Course Syllabi", url: "{{ site.baseurl }}/teaching/syllabi/", type: "material" },
-  { id: "DIY Zine Library", label: "DIY Zine Library", url: "{{ site.baseurl }}/teaching/zines/", type: "material" }
-);
-
-// Interdisciplinary Teaching components
-{% for component in site.data.teaching_graph.interdisciplinary_teaching_components %}
-nodes.push({ id: {{ component.title | jsonify }}, label: {{ component.title | jsonify }}, url: "{{ site.baseurl }}{{ component.url }}", type: "material" });
-{% endfor %}
-
-// Project → tag links
+// Project → topic links
 {% for p in project_pages %}{% for tag in p.tags %}
 links.push({ source: {{ p.title | jsonify }}, target: {{ tag | jsonify }} });
 {% endfor %}{% endfor %}
-
-// Teaching cluster links
-links.push(
-  { source: "Teaching Statement", target: "ENC 1101 at UCF" },
-  { source: "Teaching Statement", target: "ENC 1102 at UCF" },
-  { source: "ENC 1101 at UCF",    target: "ENC 1102 at UCF" },
-  { source: "Teaching Statement", target: "Course Syllabi" },
-  { source: "Teaching Statement", target: "DIY Zine Library" },
-  { source: "Interdisciplinary Teaching", target: "Teaching Statement" }
-);
-
-// Interdisciplinary Teaching → components
-{% for component in site.data.teaching_graph.interdisciplinary_teaching_components %}
-links.push({ source: "Interdisciplinary Teaching", target: {{ component.title | jsonify }} });
-{% endfor %}
-
-// Bridge links: cross-domain connections between project tags and teaching nodes
-links.push(
-  { source: "critical-making",    target: "Interdisciplinary Teaching" },
-  { source: "theories",           target: "Interdisciplinary Teaching" },
-  { source: "interdisciplinary",  target: "Interdisciplinary Teaching" },
-  { source: "pedagogy",           target: "Teaching Statement" },
-  { source: "teaching",           target: "Teaching Statement" },
-  { source: "composition",        target: "ENC 1101 at UCF" },
-  { source: "composition",        target: "ENC 1102 at UCF" }
-);
 
 const graphData = { nodes, links };
 </script>
@@ -132,28 +81,12 @@ const graphData = { nodes, links };
     .force('y', d3.forceY(H / 2).strength(0.02));
 
   function nodeRadius(d) {
-    if (d.type === 'statement') return 14;
     if (d.type === 'project') return 12;
-    if (d.type === 'course') return 12;
-    if (d.type === 'grad-course') return 11;
-    if (d.type === 'semester') return 10;
-    if (bridgeTagIds.has(d.id)) return 10;
-    if (d.type === 'slo') return 9;
-    if (d.type === 'lecture') return 8;
-    if (d.type === 'material') return 7;
     return 8;
   }
 
   function nodeColor(d) {
-    if (d.type === 'project')    return 'rgb(122, 6, 97)';
-    if (d.type === 'statement')  return 'rgb(122, 6, 97)';
-    if (d.type === 'course')     return 'rgb(6, 122, 97)';
-    if (d.type === 'grad-course') return 'rgb(97, 6, 122)';
-    if (d.type === 'semester')   return 'rgb(97, 6, 122)';
-    if (d.type === 'slo')        return 'rgb(97, 122, 6)';
-    if (d.type === 'lecture')    return 'rgb(6, 97, 122)';
-    if (d.type === 'material')   return 'rgb(122, 97, 6)';
-    if (bridgeTagIds.has(d.id))  return 'rgb(170, 110, 0)';
+    if (d.type === 'project') return 'rgb(122, 6, 97)';
     return 'rgb(6, 97, 122)';
   }
 
@@ -170,12 +103,12 @@ const graphData = { nodes, links };
       .on('end',   (e, d) => { if (!e.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; })
     );
 
-  // Navigate on click for nodes with URLs (but not tags — tags filter instead)
-  node.filter(d => d.url && d.type !== 'tag' && !bridgeTagIds.has(d.id))
+  // Project nodes: navigate on click
+  node.filter(d => d.type === 'project')
     .on('click', (e, d) => { window.location.href = d.url; });
 
-  // Tag and bridge nodes: highlight connected nodes on click
-  node.filter(d => d.type === 'tag' || bridgeTagIds.has(d.id))
+  // Topic nodes: highlight connected projects on click
+  node.filter(d => d.type === 'tag')
     .on('click', (e, d) => {
       e.stopPropagation();
       const connected = new Set(
@@ -189,46 +122,10 @@ const graphData = { nodes, links };
       );
     });
 
-  // Tooltip for bridge tags and SLOs
-  const bridgeDescriptions = {
-    'playable-texts':   'Playable Texts and Technology — examines digital games and playable media as sites of cultural meaning-making, experimental design, and critical inquiry.',
-    'history':          'Texts and Technology in History — explores how technologies have shaped the nature and production of texts from orality through digital media.',
-    'theories':         'Theories of Texts and Technology — core PhD course introducing the theoretical concepts, methods, and questions foundational to the T&T program.',
-    'critical-making':  'Critical Making — making as scholarship; humanities research-creation interweaving design, function, and theory across code, software, and hardware.',
-    'pedagogy':         'Pedagogy — shared conceptual territory bridging research projects and first-year composition teaching.',
-    'composition':      'Composition — connects writing pedagogy in ENC 1101 and ENC 1102 with tools and projects built for composition contexts.',
-    'teaching':         'Teaching — bridges scholarly work on interdisciplinary pedagogy with classroom practice.',
-    'interdisciplinary':'Interdisciplinary — connects graduate coursework in interdisciplinary course design with research projects crossing disciplinary boundaries.'
-  };
-
-  const tooltip = d3.select('#home-graph-container').append('div')
-    .style('position', 'absolute').style('display', 'none')
-    .style('background', '#fdfdfd').style('border', '1px solid rgb(122, 6, 97)')
-    .style('padding', '0.35rem 0.65rem').style('font-size', '0.78rem')
-    .style('font-family', "'Courier Prime', monospace").style('color', '#333')
-    .style('border-radius', '3px').style('pointer-events', 'none')
-    .style('max-width', '220px').style('line-height', '1.4').style('z-index', '10');
-
-  function showTooltip(event, text) {
-    const rect = document.getElementById('home-graph-container').getBoundingClientRect();
-    tooltip.style('display', 'block')
-      .style('left', (event.clientX - rect.left + 14) + 'px')
-      .style('top',  (event.clientY - rect.top - 8) + 'px')
-      .text(text);
-  }
-
-  node.filter(d => bridgeTagIds.has(d.id))
-    .on('mouseover', (e, d) => { if (bridgeDescriptions[d.id]) showTooltip(e, bridgeDescriptions[d.id]); })
-    .on('mouseout', () => tooltip.style('display', 'none'));
-
-  node.filter(d => d.type === 'slo')
-    .on('mouseover', (e, d) => showTooltip(e, d.fullLabel || d.label))
-    .on('mouseout', () => tooltip.style('display', 'none'));
-
   svg.on('click', () => { node.attr('opacity', 1); link.attr('opacity', 1); });
 
   function isAlwaysLabeled(d) {
-    return ['project', 'course', 'grad-course', 'statement'].includes(d.type) || bridgeTagIds.has(d.id);
+    return d.type === 'project';
   }
 
   const label = g.append('g').selectAll('text').data(graphData.nodes).join('text')
@@ -313,11 +210,6 @@ circle.hg-clickable-node:hover { stroke: rgb(122, 6, 97); stroke-width: 2px; }
 .legend-item { display: flex; align-items: center; gap: 0.4rem; }
 .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 .legend-hint { margin: 0; font-size: 0.8rem; color: #5a5a56; }
-.hg-project-dot   { background: rgb(122, 6, 97); }
-.hg-bridge-dot    { background: rgb(170, 110, 0); }
-.hg-tag-dot       { background: rgb(6, 97, 122); }
-.hg-statement-dot { background: rgb(122, 6, 97); }
-.hg-course-dot    { background: rgb(6, 122, 97); }
-.hg-gradcourse-dot { background: rgb(97, 6, 122); }
-.hg-material-dot  { background: rgb(122, 97, 6); }
+.hg-project-dot { background: rgb(122, 6, 97); }
+.hg-tag-dot     { background: rgb(6, 97, 122); }
 </style>
