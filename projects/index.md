@@ -361,9 +361,7 @@ project: false
   }
   #project-graph {
     width: 100%;
-    height: 80vh;
-    min-height: 550px;
-    max-height: 900px;
+    height: 900px;
     background: transparent;
     overflow: visible;
   }
@@ -374,22 +372,12 @@ project: false
       width: 110%;
       left: -5%;
     }
-    #project-graph {
-      height: 70vh;
-      min-height: 480px;
-      max-height: 750px;
-    }
   }
 
   @media (max-width: 480px) {
     #project-graph-container {
       width: 100%;
       left: 0;
-    }
-    #project-graph {
-      height: 60vh;
-      min-height: 400px;
-      max-height: 600px;
     }
   }
 
@@ -460,10 +448,7 @@ const graphData = {
   const container = document.getElementById('project-graph');
 
   function getContainerDimensions() {
-    return {
-      width: container.clientWidth || 800,
-      height: container.clientHeight || Math.min(window.innerHeight * 0.8, 900)
-    };
+    return { width: 900, height: 900 };
   }
 
   let { width: W, height: H } = getContainerDimensions();

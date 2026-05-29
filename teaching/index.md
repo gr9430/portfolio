@@ -28,13 +28,14 @@ Please find my teaching statement <a href="{{ site.baseurl }}/teaching/statement
 
 <style>
   #teaching-graph-container {
-    width: 100%;
+    width: 120%;
     position: relative;
+    left: -10%;
     margin: 2rem 0;
   }
   #teaching-graph {
     width: 100%;
-    height: max(650px, 80vh);
+    height: 900px;
     background: rgb(248, 248, 255);
     border-radius: 4px;
     overflow: hidden;
@@ -172,8 +173,8 @@ const teachingData = {
 <script>
 (function() {
   const container = document.getElementById('teaching-graph');
-  const W = container.clientWidth || 800;
-  const H = Math.max(650, Math.min(950, window.innerHeight * 0.8));
+  const W = 900;
+  const H = 900;
 
   const svg = d3.select('#teaching-graph')
     .append('svg')
