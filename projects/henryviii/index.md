@@ -3,7 +3,7 @@ layout: default
 title: "Words Across Worlds"
 description: "Mapping the Protestant Reformation as a global textual network"
 project: true
-tags: [phd, twine, network, archive, constraint, pedagogy, history, collaborative]
+tags: [phd, twine, network, archive, constraint, pedagogy, history, collaborative, theories]
 ---
 
 # Words Across Worlds: Mapping the Reformation as a Global Textual Network

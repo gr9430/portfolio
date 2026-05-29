@@ -14,26 +14,365 @@ project: false
   </div>
 </div>
 
+<div id="project-list-container">
+  <div class="filter-controls">
+    <div class="active-filters">
+      <span class="filter-label">Active Filters:</span>
+      <div id="active-filter-list">
+        <span class="clear-filters-btn" onclick="clearAllFilters()">Show All Projects</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="project-category">
+    <div class="project-grid">
+
+      <!-- Celtic Mythology & Network Analysis -->
+      <div class="project-card" data-tags="phd,data-visualization,network,history,collaborative" data-updated="2026-05">
+        <h3><a href="/projects/smt/">Lost in Translation: Celtic Myth and the Persona Series</a></h3>
+        <p>Collaborative digital humanities research examining cultural erasures in video game adaptation of Celtic mythology. Combines interactive D3.js network visualization with team-based critical analysis using Padlet presentations.</p>
+        <div class="project-tags">
+          <span class="tag" onclick="filterByTag('phd')">phd</span>
+          <span class="tag" onclick="filterByTag('data-visualization')">data-visualization</span>
+          <span class="tag" onclick="filterByTag('network')">network</span>
+          <span class="tag" onclick="filterByTag('history')">history</span>
+          <span class="tag" onclick="filterByTag('collaborative')">collaborative</span>
+        </div>
+      </div>
+
+      <div class="project-card" data-tags="phd,data-visualization,network,irish-literature,medieval,theories" data-updated="2026-05">
+        <h3><a href="/projects/ulster-visualization/">Ulster Cycle Network</a></h3>
+        <p>Interactive network visualization of Irish mythology mapping the interconnected narrative structure of the Ulster Cycle stories.</p>
+        <div class="project-tags">
+          <span class="tag" onclick="filterByTag('phd')">phd</span>
+          <span class="tag" onclick="filterByTag('data-visualization')">data-visualization</span>
+          <span class="tag" onclick="filterByTag('network')">network</span>
+          <span class="tag" onclick="filterByTag('irish-literature')">irish-literature</span>
+          <span class="tag" onclick="filterByTag('theories')">theories</span>
+        </div>
+      </div>
+
+      <!-- Collaborative Research Tools -->
+      <div class="project-card" data-tags="phd,twine,network,archive,constraint,pedagogy,history,collaborative,theories" data-updated="2026-03">
+        <h3><a href="/projects/henryviii/">Words Across Worlds</a></h3>
+        <p>Collaborative Twine project mapping Protestant Reformation as global textual network, with interactive GUI demonstrating digital research methodologies across disciplines.</p>
+        <div class="project-tags">
+          <span class="tag" onclick="filterByTag('phd')">phd</span>
+          <span class="tag" onclick="filterByTag('twine')">twine</span>
+          <span class="tag" onclick="filterByTag('collaborative')">collaborative</span>
+          <span class="tag" onclick="filterByTag('history')">history</span>
+          <span class="tag" onclick="filterByTag('theories')">theories</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="project-category">
+    <h2>Pedagogical Tools</h2>
+    <div class="project-grid">
+      <!-- Ziner needs proper tag lookup since it's in tools/ not projects/ -->
+      <div class="project-card" data-tags="pedagogy,accessibility,multimodal,composition,critical-making" data-updated="2026-01">
+        <h3><a href="/tools/zinemkr/">Ziner</a></h3>
+        <p>Accessibility-first web application for creating zines with WCAG compliance, multimodal composition support, and no-code design interface for composition pedagogy.</p>
+        <div class="project-tags">
+          <span class="tag" onclick="filterByTag('pedagogy')">pedagogy</span>
+          <span class="tag" onclick="filterByTag('accessibility')">accessibility</span>
+          <span class="tag" onclick="filterByTag('multimodal')">multimodal</span>
+          <span class="tag" onclick="filterByTag('composition')">composition</span>
+          <span class="tag" onclick="filterByTag('critical-making')">critical-making</span>
+        </div>
+      </div>
+
+      <!-- Need to check what tags ePortfolio actually has -->
+      <div class="project-card" data-tags="pedagogy,network,data-visualization,composition,critical-making" data-updated="2025-11">
+        <h3><a href="/projects/demo/">ePortfolio Resources</a></h3>
+        <p>Interactive network tools and glossary interfaces for composition pedagogy and ePortfolio instruction.</p>
+        <div class="project-tags">
+          <span class="tag" onclick="filterByTag('pedagogy')">pedagogy</span>
+          <span class="tag" onclick="filterByTag('network')">network</span>
+          <span class="tag" onclick="filterByTag('data-visualization')">data-visualization</span>
+          <span class="tag" onclick="filterByTag('composition')">composition</span>
+          <span class="tag" onclick="filterByTag('critical-making')">critical-making</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="project-category">
+    <h2>Experimental & Generative Projects</h2>
+    <div class="project-grid">
+      <div class="project-card" data-tags="phd,generative,procedural,constraint,surveillance,theories" data-updated="2025-10">
+        <h3><a href="/projects/bot/">auto-Glenn</a></h3>
+        <p>Social media bot using Tracery grammar to generate Foucauldian and OuLiPo-inspired text, exploring automation, agency, and platform studies.</p>
+        <div class="project-tags">
+          <span class="tag" onclick="filterByTag('phd')">phd</span>
+          <span class="tag" onclick="filterByTag('generative')">generative</span>
+          <span class="tag" onclick="filterByTag('constraint')">constraint</span>
+          <span class="tag" onclick="filterByTag('theories')">theories</span>
+        </div>
+      </div>
+
+      <div class="project-card" data-tags="phd,eLit,generative,procedural,constraint,critical-making" data-updated="2025-08">
+        <h3><a href="/projects/sasb/">Shooting a Still Bird (Tracery)</a></h3>
+        <p>A Tracery-based generative text project building a combinatorial book from a personal corpus, in the Oulipian tradition.</p>
+        <div class="project-tags">
+          <span class="tag" onclick="filterByTag('phd')">phd</span>
+          <span class="tag" onclick="filterByTag('eLit')">eLit</span>
+          <span class="tag" onclick="filterByTag('generative')">generative</span>
+          <span class="tag" onclick="filterByTag('procedural')">procedural</span>
+          <span class="tag" onclick="filterByTag('constraint')">constraint</span>
+        </div>
+      </div>
+
+      <div class="project-card" data-tags="phd,eLit,playable-texts,critical-making" data-updated="2025-05">
+        <h3><a href="/projects/sasb-bitsy/">Shooting a Still Bird (Bitsy)</a></h3>
+        <p>Bitsy game exploring constraint-based design and environmental storytelling with pixel art and minimal interaction mechanics.</p>
+        <div class="project-tags">
+          <span class="tag" onclick="filterByTag('phd')">phd</span>
+          <span class="tag" onclick="filterByTag('eLit')">eLit</span>
+          <span class="tag" onclick="filterByTag('playable-texts')">playable-texts</span>
+          <span class="tag" onclick="filterByTag('critical-making')">critical-making</span>
+        </div>
+      </div>
+
+      <div class="project-card" data-tags="eLit,twine,constraint,place-based,playable-texts" data-updated="2025-06">
+        <h3><a href="/projects/lamos/">Like a Mountain of Sleep</a></h3>
+        <p>An experimental interactive fiction piece built with SugarCube — a meditation on memory, place, and the weight of dreams.</p>
+        <div class="project-tags">
+          <span class="tag" onclick="filterByTag('eLit')">eLit</span>
+          <span class="tag" onclick="filterByTag('twine')">twine</span>
+          <span class="tag" onclick="filterByTag('constraint')">constraint</span>
+          <span class="tag" onclick="filterByTag('place-based')">place-based</span>
+          <span class="tag" onclick="filterByTag('playable-texts')">playable-texts</span>
+        </div>
+      </div>
+
+      <div class="project-card" data-tags="phd,critical-making,data-visualization,archive,place-based" data-updated="2025-03">
+        <h3><a href="/projects/map/">Walk to School, ~'07</a></h3>
+        <p>A place-based critical making project mapping a childhood walk to school circa 2007, excavating gentrification and memory through Google Earth's temporal archive.</p>
+        <div class="project-tags">
+          <span class="tag" onclick="filterByTag('phd')">phd</span>
+          <span class="tag" onclick="filterByTag('critical-making')">critical-making</span>
+          <span class="tag" onclick="filterByTag('data-visualization')">data-visualization</span>
+          <span class="tag" onclick="filterByTag('archive')">archive</span>
+          <span class="tag" onclick="filterByTag('place-based')">place-based</span>
+        </div>
+      </div>
+
+      <div class="project-card" data-tags="phd,critical-making,visual-culture,design-justice,archive" data-updated="2025-12">
+        <h3><a href="/projects/oppression-aesthetic/">Your Oppression: Our Aesthetic</a></h3>
+        <p>A critical examination of album art that aestheticizes human atrocities, built using design justice principles and comprehensive accessibility controls.</p>
+        <div class="project-tags">
+          <span class="tag" onclick="filterByTag('phd')">phd</span>
+          <span class="tag" onclick="filterByTag('critical-making')">critical-making</span>
+          <span class="tag" onclick="filterByTag('visual-culture')">visual-culture</span>
+          <span class="tag" onclick="filterByTag('design-justice')">design-justice</span>
+          <span class="tag" onclick="filterByTag('archive')">archive</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
 <style>
-  #project-graph-container {
-    width: 100%;
+
+  /* Project List Styles */
+  .project-category {
+    margin-bottom: 3rem;
+  }
+
+  .project-category h2 {
+    color: #7a0661;
+    border-bottom: 2px solid #7a0661;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-family: 'Courier Prime', monospace;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .project-card {
+    padding: 1.5rem;
+    background: transparent;
+    transition: all 0.3s ease;
     position: relative;
+    margin-bottom: 1rem;
+  }
+
+  .project-card:hover {
+    background: #fafafa;
+    border-radius: 8px;
+    transform: translateY(-2px);
+  }
+
+  .project-card.hidden {
+    display: none;
+  }
+
+  /* Filter Controls */
+  .filter-controls {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: #f8f8ff;
+    border-radius: 8px;
+  }
+
+  .active-filters {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-label {
+    font-weight: bold;
+    color: #7a0661;
+    font-family: 'Courier Prime', monospace;
+  }
+
+  .clear-filters-btn {
+    background: #7a0661;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-family: 'Courier Prime', monospace;
+    transition: all 0.3s ease;
+  }
+
+  .clear-filters-btn:hover {
+    background: #5a0441;
+  }
+
+  .active-filter-tag {
+    background: #7a0661;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-family: 'Courier Prime', monospace;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .active-filter-tag:after {
+    content: ' ×';
+    margin-left: 0.5rem;
+  }
+
+  .project-card h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .project-card h3 a {
+    text-decoration: none;
+    color: #7a0661;
+  }
+
+  .project-card h3 a:hover {
+    text-decoration: underline;
+  }
+
+  .project-card p {
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .project-tags .tag {
+    background: #e8d9b5;
+    color: #7a0661;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-family: 'Courier Prime', monospace;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .project-tags .tag:hover {
+    background: #7a0661;
+    color: white;
+    transform: scale(1.05);
+  }
+
+  .project-tags .tag.active {
+    background: #7a0661;
+    color: white;
+  }
+
+  /* Graph Container Styles */
+  #project-graph-container {
+    width: 120%;
+    position: relative;
+    left: -10%;
+    margin-bottom: 3rem;
   }
   #project-graph {
     width: 100%;
-    height: 600px;
-    background: rgb(248, 248, 255);
-    border-radius: 4px;
-    overflow: hidden;
+    height: 50vh;
+    min-height: 400px;
+    max-height: 600px;
+    background: transparent;
+    overflow: visible;
+  }
+
+  /* Responsive adjustments for smaller screens */
+  @media (max-width: 768px) {
+    #project-graph-container {
+      width: 110%;
+      left: -5%;
+    }
+    #project-graph {
+      height: 45vh;
+      min-height: 350px;
+      max-height: 500px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #project-graph-container {
+      width: 100%;
+      left: 0;
+    }
+    #project-graph {
+      height: 40vh;
+      min-height: 300px;
+      max-height: 400px;
+    }
+  }
+
+  /* Project List Container */
+  #project-list-container {
+    width: 100%;
   }
   #graph-legend {
     margin-top: 0.5rem;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 1.5rem;
     font-size: 0.85rem;
     color: #8a8880;
     flex-wrap: wrap;
+    text-align: center;
   }
   .legend-item { display: flex; align-items: center; gap: 0.4rem; }
   .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
@@ -85,13 +424,23 @@ const graphData = {
 <script>
 (function() {
   const container = document.getElementById('project-graph');
-  const W = container.clientWidth || 800;
-  const H = 600;
+
+  function getContainerDimensions() {
+    return {
+      width: container.clientWidth || 800,
+      height: container.clientHeight || Math.min(window.innerHeight * 0.5, 600)
+    };
+  }
+
+  let { width: W, height: H } = getContainerDimensions();
 
   const svg = d3.select('#project-graph')
     .append('svg')
     .attr('width', W)
-    .attr('height', H);
+    .attr('height', H)
+    .attr('viewBox', `0 0 ${W} ${H}`)
+    .style('max-width', '100%')
+    .style('height', 'auto');
 
   const g = svg.append('g');
 
@@ -101,10 +450,12 @@ const graphData = {
   );
 
   const simulation = d3.forceSimulation(graphData.nodes)
-    .force('link', d3.forceLink(graphData.links).id(d => d.id).distance(130))
-    .force('charge', d3.forceManyBody().strength(-450))
+    .force('link', d3.forceLink(graphData.links).id(d => d.id).distance(120))
+    .force('charge', d3.forceManyBody().strength(-400))
     .force('center', d3.forceCenter(W / 2, H / 2))
-    .force('collision', d3.forceCollide(45));
+    .force('collision', d3.forceCollide(35))
+    .force('x', d3.forceX(W / 2).strength(0.02))
+    .force('y', d3.forceY(H / 2).strength(0.05));
 
   const courseTagIds = new Set(['playable-texts', 'history', 'critical-making', 'theories']);
 
@@ -208,5 +559,108 @@ const graphData = {
     node.attr('cx', d => d.x).attr('cy', d => d.y);
     label.attr('x', d => d.x).attr('y', d => d.y);
   });
+
+  // Handle window resize to make visualization responsive
+  function handleResize() {
+    const { width: newW, height: newH } = getContainerDimensions();
+
+    if (newW !== W || newH !== H) {
+      W = newW;
+      H = newH;
+
+      svg.attr('width', W).attr('height', H).attr('viewBox', `0 0 ${W} ${H}`);
+      simulation.force('center', d3.forceCenter(W / 2, H / 2));
+      simulation.alpha(0.3).restart();
+    }
+  }
+
+  // Throttled resize listener
+  let resizeTimeout;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(handleResize, 250);
+  });
 })();
+
+// Project Filtering Functionality
+let activeFilters = new Set();
+
+function filterByTag(tag) {
+  if (activeFilters.has(tag)) {
+    activeFilters.delete(tag);
+  } else {
+    activeFilters.add(tag);
+  }
+
+  updateFilters();
+  applyFilters();
+}
+
+function clearAllFilters() {
+  activeFilters.clear();
+  updateFilters();
+  applyFilters();
+}
+
+function updateFilters() {
+  const activeFilterList = document.getElementById('active-filter-list');
+
+  // Clear current filters display
+  activeFilterList.innerHTML = '';
+
+  if (activeFilters.size === 0) {
+    activeFilterList.innerHTML = '<span class="clear-filters-btn" onclick="clearAllFilters()">Show All Projects</span>';
+  } else {
+    // Add each active filter as removable tag
+    activeFilters.forEach(filter => {
+      const filterTag = document.createElement('span');
+      filterTag.className = 'active-filter-tag';
+      filterTag.textContent = filter;
+      filterTag.onclick = () => filterByTag(filter);
+      activeFilterList.appendChild(filterTag);
+    });
+
+    // Add clear all button
+    const clearBtn = document.createElement('span');
+    clearBtn.className = 'clear-filters-btn';
+    clearBtn.textContent = 'Clear All';
+    clearBtn.onclick = clearAllFilters;
+    activeFilterList.appendChild(clearBtn);
+  }
+
+  // Update tag visual states
+  document.querySelectorAll('.project-tags .tag').forEach(tagEl => {
+    if (activeFilters.has(tagEl.textContent.trim())) {
+      tagEl.classList.add('active');
+    } else {
+      tagEl.classList.remove('active');
+    }
+  });
+}
+
+function applyFilters() {
+  const projectCards = document.querySelectorAll('.project-card');
+
+  projectCards.forEach(card => {
+    if (activeFilters.size === 0) {
+      // Show all projects when no filters active
+      card.classList.remove('hidden');
+    } else {
+      // Check if project has any of the active filter tags
+      const projectTags = card.getAttribute('data-tags').split(',');
+      const hasMatchingTag = projectTags.some(tag => activeFilters.has(tag.trim()));
+
+      if (hasMatchingTag) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    }
+  });
+}
+
+// Initialize filters when page loads
+document.addEventListener('DOMContentLoaded', function() {
+  updateFilters();
+});
 </script>
