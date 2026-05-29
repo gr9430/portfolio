@@ -164,12 +164,12 @@ const graphData = { nodes, links };
   svg.call(zoom);
 
   const simulation = d3.forceSimulation(graphData.nodes)
-    .force('link', d3.forceLink(graphData.links).id(d => d.id).distance(100))
-    .force('charge', d3.forceManyBody().strength(-300))
+    .force('link', d3.forceLink(graphData.links).id(d => d.id).distance(150))
+    .force('charge', d3.forceManyBody().strength(-600))
     .force('center', d3.forceCenter(W / 2, H / 2))
-    .force('collision', d3.forceCollide(30))
-    .force('x', d3.forceX(W / 2).strength(0.01))
-    .force('y', d3.forceY(H / 2).strength(0.01));
+    .force('collision', d3.forceCollide(40))
+    .force('x', d3.forceX(W / 2).strength(0.02))
+    .force('y', d3.forceY(H / 2).strength(0.02));
 
   function nodeRadius(d) {
     if (d.type === 'statement') return 14;
@@ -267,11 +267,19 @@ const graphData = { nodes, links };
 
   svg.on('click', () => { node.attr('opacity', 1); link.attr('opacity', 1); });
 
+  function isAlwaysLabeled(d) {
+    return ['project', 'course', 'grad-course', 'statement'].includes(d.type) || bridgeTagIds.has(d.id);
+  }
+
   const label = g.append('g').selectAll('text').data(graphData.nodes).join('text')
     .attr('class', 'hg-node-label')
     .attr('dy', d => -nodeRadius(d) - 4)
     .attr('text-anchor', 'middle')
+    .attr('opacity', d => isAlwaysLabeled(d) ? 1 : 0)
     .text(d => d.label);
+
+  node.on('mouseover.label', (e, d) => label.filter(l => l.id === d.id).attr('opacity', 1))
+      .on('mouseout.label',  (e, d) => { if (!isAlwaysLabeled(d)) label.filter(l => l.id === d.id).attr('opacity', 0); });
 
   simulation.on('tick', () => {
     link.attr('x1', d => d.source.x).attr('y1', d => d.source.y)

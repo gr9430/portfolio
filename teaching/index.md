@@ -190,10 +190,10 @@ const teachingData = {
   svg.call(zoom);
 
   const simulation = d3.forceSimulation(teachingData.nodes)
-    .force('link', d3.forceLink(teachingData.links).id(d => d.id).distance(90))
-    .force('charge', d3.forceManyBody().strength(-200))
+    .force('link', d3.forceLink(teachingData.links).id(d => d.id).distance(130))
+    .force('charge', d3.forceManyBody().strength(-450))
     .force('center', d3.forceCenter(W / 2, H / 2))
-    .force('collision', d3.forceCollide(30));
+    .force('collision', d3.forceCollide(40));
 
   const link = g.append('g')
     .selectAll('line')
@@ -339,6 +339,10 @@ const teachingData = {
     link.attr('opacity', 1);
   });
 
+  function isAlwaysLabeled(d) {
+    return ['ucf', 'statement', 'course', 'grad-course'].includes(d.type);
+  }
+
   const label = g.append('g')
     .selectAll('text')
     .data(teachingData.nodes)
@@ -356,7 +360,11 @@ const teachingData = {
       return -12;
     })
     .attr('text-anchor', 'middle')
+    .attr('opacity', d => isAlwaysLabeled(d) ? 1 : 0)
     .text(d => d.label);
+
+  node.on('mouseover.label', (e, d) => label.filter(l => l.id === d.id).attr('opacity', 1))
+      .on('mouseout.label',  (e, d) => { if (!isAlwaysLabeled(d)) label.filter(l => l.id === d.id).attr('opacity', 0); });
 
   // Add tooltip for SLOs to show full label
   node.filter(d => d.type === 'slo')

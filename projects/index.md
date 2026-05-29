@@ -464,10 +464,10 @@ const graphData = {
   svg.call(zoom);
 
   const simulation = d3.forceSimulation(graphData.nodes)
-    .force('link', d3.forceLink(graphData.links).id(d => d.id).distance(120))
-    .force('charge', d3.forceManyBody().strength(-400))
+    .force('link', d3.forceLink(graphData.links).id(d => d.id).distance(150))
+    .force('charge', d3.forceManyBody().strength(-600))
     .force('center', d3.forceCenter(W / 2, H / 2))
-    .force('collision', d3.forceCollide(35))
+    .force('collision', d3.forceCollide(40))
     .force('x', d3.forceX(W / 2).strength(0.02))
     .force('y', d3.forceY(H / 2).strength(0.05));
 
@@ -557,6 +557,10 @@ const graphData = {
     link.attr('opacity', 1);
   });
 
+  function isAlwaysLabeled(d) {
+    return d.type === 'project' || courseTagIds.has(d.id);
+  }
+
   const label = g.append('g')
     .selectAll('text')
     .data(graphData.nodes)
@@ -564,7 +568,11 @@ const graphData = {
     .attr('class', d => d.type === 'project' ? 'node-label' : courseTagIds.has(d.id) ? 'node-label course-tag-label' : 'node-label tag-label')
     .attr('dy', d => d.type === 'project' ? -16 : -12)
     .attr('text-anchor', 'middle')
+    .attr('opacity', d => isAlwaysLabeled(d) ? 1 : 0)
     .text(d => d.label);
+
+  node.on('mouseover.label', (e, d) => label.filter(l => l.id === d.id).attr('opacity', 1))
+      .on('mouseout.label',  (e, d) => { if (!isAlwaysLabeled(d)) label.filter(l => l.id === d.id).attr('opacity', 0); });
 
   simulation.on('tick', () => {
     link
