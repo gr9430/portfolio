@@ -66,7 +66,8 @@
       "Read(//home/user/**)",
       "WebFetch(domain:api.anthropic.com)",
       "Read(//tmp/**)",
-      "Bash(tar -xf design_extracted)"
+      "Bash(tar -xf design_extracted)",
+      "Bash(bundle exec *)"
     ]
   }
 }

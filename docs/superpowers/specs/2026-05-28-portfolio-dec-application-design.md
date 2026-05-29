@@ -31,7 +31,7 @@ Two coordinated tasks:
 | Your Oppression: Our Aesthetic | `projects/oppression-aesthetic/` | Tracked | Review |
 | Published Interviews | `projects/interviews/` | Has front matter, **no card in projects/index.md** | Add card |
 | Interdisciplinary Teaching | `projects/interdisciplinary-teaching/` | Untracked | Add card to projects/index.md; wire in |
-| Rudimentary Magits | `projects/rudimentary-magits/` | Raw HTML, no front matter | Add `index.md` with front matter OR exclude from graph |
+| Rudimentary Magits | `projects/rudimentary-magits/` | Raw HTML, no front matter | Add `index.md` with front matter — Critical Making course project |
 
 ### For each project, verify:
 - `project: true` in front matter (required for graph data)
@@ -73,7 +73,7 @@ These project tag nodes gain explicit edges into the teaching cluster, creating 
 | Bridge node | Projects side | Teaching side |
 |---|---|---|
 | `critical-making` | Projects tagged `critical-making` | Interdisciplinary Teaching node |
-| `theories` | Projects tagged `theories` | Interdisciplinary Teaching node |
+| `theories` | Projects tagged `theories` (= "Theories of Texts & Technology" PhD course) | Interdisciplinary Teaching node (both are T&T PhD coursework — shared program context) |
 | `pedagogy` | Ziner, ePortfolio Resources, Interviews | Teaching Statement |
 | `composition` | Ziner, ePortfolio Resources | ENC 1101, ENC 1102 |
 | `teaching` | Interdisciplinary Teaching project | Teaching Statement |
