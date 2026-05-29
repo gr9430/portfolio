@@ -158,7 +158,7 @@ const graphData = { nodes, links };
   const container = document.getElementById('home-graph');
 
   function getDimensions() {
-    return { width: 1600, height: 900 };
+    return { width: 1300, height: 900 };
   }
 
   let { width: W, height: H } = getDimensions();
@@ -328,7 +328,7 @@ const graphData = { nodes, links };
 
 <style>
 #home-graph-container {
-  width: 1600px;
+  width: 1300px;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
