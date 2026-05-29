@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Interdisciplinary Teaching — Glenn S. Ritchey III
+project: true
+tags: [phd, teaching, pedagogy, interdisciplinary]
 ---
 # Interdisciplinary Teaching
 
