@@ -332,6 +332,9 @@ const graphData = { nodes, links };
 }
 circle.hg-clickable-node { cursor: pointer; }
 circle.hg-clickable-node:hover { stroke: rgb(122, 6, 97); stroke-width: 2px; }
+.legend-item { display: flex; align-items: center; gap: 0.4rem; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.legend-hint { margin: 0; font-size: 0.8rem; color: #5a5a56; }
 .hg-project-dot   { background: rgb(122, 6, 97); }
 .hg-bridge-dot    { background: rgb(170, 110, 0); }
 .hg-tag-dot       { background: rgb(6, 97, 122); }
