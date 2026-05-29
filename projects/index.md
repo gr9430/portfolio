@@ -459,10 +459,10 @@ const graphData = {
 
   const g = svg.append('g');
 
-  svg.call(d3.zoom()
-    .scaleExtent([0.4, 3])
-    .on('zoom', (event) => g.attr('transform', event.transform))
-  );
+  const zoom = d3.zoom()
+    .scaleExtent([0.05, 3])
+    .on('zoom', (event) => g.attr('transform', event.transform));
+  svg.call(zoom);
 
   const simulation = d3.forceSimulation(graphData.nodes)
     .force('link', d3.forceLink(graphData.links).id(d => d.id).distance(120))
@@ -573,6 +573,19 @@ const graphData = {
       .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
     node.attr('cx', d => d.x).attr('cy', d => d.y);
     label.attr('x', d => d.x).attr('y', d => d.y);
+  });
+
+  simulation.on('end', () => {
+    const ns = graphData.nodes, pad = 50;
+    const x0 = Math.min(...ns.map(d => d.x)) - pad;
+    const x1 = Math.max(...ns.map(d => d.x)) + pad;
+    const y0 = Math.min(...ns.map(d => d.y)) - pad;
+    const y1 = Math.max(...ns.map(d => d.y)) + pad;
+    const s = Math.min(W / (x1 - x0), H / (y1 - y0));
+    const tx = (W - s * (x0 + x1)) / 2;
+    const ty = (H - s * (y0 + y1)) / 2;
+    svg.transition().duration(750)
+      .call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(s));
   });
 
   // Handle window resize to make visualization responsive
