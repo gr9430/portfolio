@@ -8,7 +8,7 @@ tags: [phd, teaching, pedagogy, interdisciplinary]
 
 # Interdisciplinary Teaching
 
-Graduate coursework in the theory and practice of designing interdisciplinary courses and curricula for the humanities. This work addresses foundational questions of pedagogy while exploring the challenges and opportunities of generative AI tools in contemporary humanities education.
+A PhD course in the theory and practice of designing interdisciplinary humanities curricula. Taken as part of the Texts & Technology doctoral program at UCF, the course addresses foundational questions of pedagogy while exploring how generative AI tools reshape contemporary humanities education.
 
 [View Course Materials](/teaching/interdisciplinary-teaching/) · [Discussion Posts](/teaching/interdisciplinary-teaching/discussion-posts/) · [Teaching Statement](/teaching/interdisciplinary-teaching/teaching-statement/)
 
@@ -19,7 +19,7 @@ Graduate coursework in the theory and practice of designing interdisciplinary co
 **Interdisciplinary Teaching** (Spring 2026)
 *College of Arts and Humanities, University of Central Florida*
 
-This graduate-level course bridges theoretical engagement with pedagogical literature and practical application in course design. As both PhD coursework in Texts and Technology and professional development for academic career preparation, the work explores how to create meaningful connections across disciplinary boundaries while maintaining rigorous scholarship and inclusive teaching practices.
+This graduate-level course bridges theoretical engagement with pedagogical literature and practical application in course design. As a PhD student enrolled in the course, the work explores how to create meaningful connections across disciplinary boundaries while maintaining rigorous scholarship and inclusive teaching practices.
 
 ## Course Components
 

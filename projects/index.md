@@ -110,7 +110,7 @@ project: false
 
       <div class="project-card" data-tags="phd,teaching,pedagogy,interdisciplinary" data-updated="2026-05">
         <h3><a href="/projects/interdisciplinary-teaching/">Interdisciplinary Teaching</a></h3>
-        <p>Graduate coursework in the theory and practice of designing interdisciplinary humanities courses, addressing pedagogical foundations, AI integration, and inclusive course design. Includes signature assignment, syllabus development, and teaching statement.</p>
+        <p>A PhD course in the theory and practice of interdisciplinary course design. Coursework includes a signature assignment, full syllabus development, teaching statement, and final portfolio — all oriented around inclusive and AI-aware humanities pedagogy.</p>
         <div class="project-tags">
           <span class="tag" onclick="filterByTag('phd')">phd</span>
           <span class="tag" onclick="filterByTag('teaching')">teaching</span>
