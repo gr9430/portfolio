@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Interdisciplinary Teaching — Glenn S. Ritchey III
+title: Interdisciplinary Teaching
 project: true
 tags: [phd, teaching, pedagogy, interdisciplinary]
 ---
@@ -21,5 +21,3 @@ Theory and practice of designing interdisciplinary courses and curricula for the
 ## About This Course
 
 This graduate-level course bridges theory and practice in interdisciplinary humanities pedagogy. As both a PhD project in Texts and Technology and a professional development opportunity for future academic positions, the work here explores how to create meaningful connections across disciplines while maintaining rigorous scholarship and inclusive teaching practices.
-
-**Related:** [View as PhD Project](/projects/interdisciplinary-teaching/) — This course also appears in the PhD projects section, contextualizing the work within broader Texts and Technology program goals.

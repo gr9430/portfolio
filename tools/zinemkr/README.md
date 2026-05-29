@@ -1,4 +1,4 @@
-# Zine Maker
+# Ziner
 
 A vanilla JavaScript single-page application for creating zines, designed for amateurs, students, and anyone interested in DIY publishing. Built with a tactile, cut-and-paste editorial aesthetic reminiscent of photocopied zines.
 
