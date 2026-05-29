@@ -4,13 +4,14 @@ title: Teaching
 ---
 
 <div id="teaching-graph-container">
-  <div id="teaching-graph"></div>
   <div id="teaching-legend">
     <span class="legend-item"><span class="legend-dot statement-dot"></span> Statement</span>
     <span class="legend-item"><span class="legend-dot course-dot"></span> Course</span>
     <span class="legend-item"><span class="legend-dot material-dot"></span> Material</span>
+    <div id="teaching-legend">
     <p class="legend-hint">Click a node to navigate · Drag to explore</p>
   </div>
+   <div id="teaching-graph"></div>
 </div>
 
 <div id="teaching-list-container">

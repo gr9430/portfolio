@@ -11,13 +11,15 @@ I'm a PhD student in <a href="https://cah.ucf.edu/textstech/who-we-are/" class="
 A central question animates all of it: How do we democratize who gets to make meaning? This operates across my creative work (designing open-source generative systems), my research (examining who controls narrative technologies), and my <a href="/teaching/" class="animated-link">teaching</a> (helping first-year composition students navigate what "writing" means inside and outside algorithmic spaces).
 
 <div id="home-graph-container">
-  <div id="home-graph"></div>
-  <div id="home-graph-legend">
+    <div id="home-graph-legend">
     <span class="legend-item"><span class="legend-dot hg-project-dot"></span> Project</span>
     <span class="legend-item"><span class="legend-dot hg-course-dot"></span> Course</span>
     <span class="legend-item"><span class="legend-dot hg-tag-dot"></span> Topic</span>
+    </div>
+    <div id="home-graph-legend">
     <p class="legend-hint">Click a project or course to open · Click a topic to highlight connections · Drag to explore</p>
   </div>
+  <div id="home-graph"></div>
 </div>
 
 <script>

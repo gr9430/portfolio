@@ -5,13 +5,15 @@ project: false
 ---
 
 <div id="project-graph-container">
-  <div id="project-graph"></div>
-  <div id="graph-legend">
+    <div id="graph-legend">
     <span class="legend-item"><span class="legend-dot project-dot"></span> Project</span>
     <span class="legend-item"><span class="legend-dot tag-dot"></span> Topic</span>
     <span class="legend-item"><span class="legend-dot course-tag-dot"></span> Course</span>
+    </div>
+    <div id="graph-legend">
     <p class="legend-hint">Click a tag to filter · Click a project to open · Hover a course tag for description · Drag to explore</p>
   </div>
+  <div id="project-graph"></div>
 </div>
 
 <div id="project-list-container">
