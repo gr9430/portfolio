@@ -354,7 +354,7 @@ project: false
 
   /* Graph Container Styles */
   #project-graph-container {
-    width: 100vw;
+    width: 1800px;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
@@ -443,7 +443,7 @@ const graphData = {
   const container = document.getElementById('project-graph');
 
   function getContainerDimensions() {
-    return { width: window.innerWidth, height: 900 };
+    return { width: 1800, height: 900 };
   }
 
   let { width: W, height: H } = getContainerDimensions();

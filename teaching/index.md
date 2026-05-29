@@ -28,7 +28,7 @@ Please find my teaching statement <a href="{{ site.baseurl }}/teaching/statement
 
 <style>
   #teaching-graph-container {
-    width: 100vw;
+    width: 1800px;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
@@ -174,7 +174,7 @@ const teachingData = {
 <script>
 (function() {
   const container = document.getElementById('teaching-graph');
-  const W = window.innerWidth;
+  const W = 1800;
   const H = 900;
 
   const svg = d3.select('#teaching-graph')
