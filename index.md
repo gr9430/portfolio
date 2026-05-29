@@ -14,8 +14,9 @@ A central question animates all of it: How do we democratize who gets to make me
   <div id="home-graph"></div>
   <div id="home-graph-legend">
     <span class="legend-item"><span class="legend-dot hg-project-dot"></span> Project</span>
+    <span class="legend-item"><span class="legend-dot hg-course-dot"></span> Course</span>
     <span class="legend-item"><span class="legend-dot hg-tag-dot"></span> Topic</span>
-    <p class="legend-hint">Click a project to open · Click a topic to highlight connections · Drag to explore</p>
+    <p class="legend-hint">Click a project or course to open · Click a topic to highlight connections · Drag to explore</p>
   </div>
 </div>
 
@@ -43,10 +44,28 @@ nodes.push({ id: {{ p.title | jsonify }}, label: {{ p.title | jsonify }}, url: "
 nodes.push({ id: {{ tag | jsonify }}, label: {{ tag | jsonify }}, url: null, type: "tag" });
 {% endfor %}
 
+// Courses taught
+nodes.push(
+  { id: "Courses Taught", label: "Courses Taught", url: "{{ site.baseurl }}/teaching/", type: "course" },
+  { id: "ENC 1101",       label: "ENC 1101",       url: "{{ site.baseurl }}/teaching/enc-1101/", type: "course" },
+  { id: "ENC 1102",       label: "ENC 1102",       url: "{{ site.baseurl }}/teaching/enc1102/", type: "course" }
+);
+
 // Project → topic links
 {% for p in project_pages %}{% for tag in p.tags %}
 links.push({ source: {{ p.title | jsonify }}, target: {{ tag | jsonify }} });
 {% endfor %}{% endfor %}
+
+// Course links
+links.push(
+  { source: "Courses Taught", target: "ENC 1101" },
+  { source: "Courses Taught", target: "ENC 1102" },
+  { source: "ENC 1101", target: "composition" },
+  { source: "ENC 1101", target: "pedagogy" },
+  { source: "ENC 1102", target: "composition" },
+  { source: "ENC 1102", target: "pedagogy" },
+  { source: "ENC 1102", target: "teaching" }
+);
 
 const graphData = { nodes, links };
 </script>
@@ -82,11 +101,14 @@ const graphData = { nodes, links };
 
   function nodeRadius(d) {
     if (d.type === 'project') return 12;
+    if (d.type === 'course' && d.id === 'Courses Taught') return 11;
+    if (d.type === 'course') return 9;
     return 8;
   }
 
   function nodeColor(d) {
     if (d.type === 'project') return 'rgb(122, 6, 97)';
+    if (d.type === 'course')  return 'rgb(6, 122, 97)';
     return 'rgb(6, 97, 122)';
   }
 
@@ -103,8 +125,8 @@ const graphData = { nodes, links };
       .on('end',   (e, d) => { if (!e.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; })
     );
 
-  // Project nodes: navigate on click
-  node.filter(d => d.type === 'project')
+  // Project and course nodes: navigate on click
+  node.filter(d => d.type === 'project' || d.type === 'course')
     .on('click', (e, d) => { window.location.href = d.url; });
 
   // Topic nodes: highlight connected projects on click
@@ -125,7 +147,7 @@ const graphData = { nodes, links };
   svg.on('click', () => { node.attr('opacity', 1); link.attr('opacity', 1); });
 
   function isAlwaysLabeled(d) {
-    return d.type === 'project';
+    return d.type === 'project' || d.type === 'course';
   }
 
   const label = g.append('g').selectAll('text').data(graphData.nodes).join('text')
@@ -211,5 +233,6 @@ circle.hg-clickable-node:hover { stroke: rgb(122, 6, 97); stroke-width: 2px; }
 .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 .legend-hint { margin: 0; font-size: 0.8rem; color: #5a5a56; }
 .hg-project-dot { background: rgb(122, 6, 97); }
+.hg-course-dot  { background: rgb(6, 122, 97); }
 .hg-tag-dot     { background: rgb(6, 97, 122); }
 </style>
