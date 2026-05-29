@@ -10,20 +10,7 @@
       <ul>
         <li><a href="{{ site.baseurl }}/blog/" class="animated-link">Blog</a></li>
         <li><a href="{{ site.baseurl }}/projects/" class="animated-link">Projects</a></li>
-        <li class="nav-dropdown-container">
-          <button class="nav-dropdown-btn animated-link" id="teaching-dropdown-btn" data-link="{{ site.baseurl }}/teaching/">
-            Teaching
-            <span class="dropdown-arrow">▼</span>
-          </button>
-          <div class="nav-dropdown" id="teaching-dropdown">
-            <a href="{{ site.baseurl }}/teaching/statement/" class="nav-option">Statement</a>
-            <a href="{{ site.baseurl }}/teaching/syllabi/" class="nav-option">Syllabi</a>
-            <a href="{{ site.baseurl }}/teaching/interdisciplinary-teaching/" class="nav-option">Interdisciplinary Teaching</a>
-            <a href="{{ site.baseurl }}/teaching/lectures" class="nav-option">Twine</a>
-            <a href="{{ site.baseurl }}/teaching/zines/" class="nav-option">Zines</a>
-            <a href="{{ site.baseurl }}/tools/zinemkr/" class="nav-option">Ziner</a>
-          </div>
-        </li>
+        <li><a href="{{ site.baseurl }}/teaching/" class="animated-link">Teaching</a></li>
       </ul>
     </div>
   </div>
@@ -122,49 +109,6 @@
         });
       }
 
-      // Teaching nav dropdown - hover to show, click to navigate
-      const teachingDropdownBtn = document.getElementById('teaching-dropdown-btn');
-      const teachingDropdown = document.getElementById('teaching-dropdown');
-
-      if (teachingDropdownBtn && teachingDropdown) {
-        // Click to navigate to Teaching page
-        teachingDropdownBtn.addEventListener('click', function(e) {
-          const link = teachingDropdownBtn.getAttribute('data-link');
-          if (link) {
-            window.location.href = link;
-          }
-        });
-
-        // Hover to show dropdown
-        teachingDropdownBtn.addEventListener('mouseenter', function() {
-          teachingDropdown.classList.add('show');
-          // Close other dropdowns if open
-          if (emailDropdown) {
-            emailDropdown.classList.remove('show');
-          }
-          if (cvDropdown) {
-            cvDropdown.classList.remove('show');
-          }
-        });
-
-        // Keep dropdown open when hovering over it
-        teachingDropdown.addEventListener('mouseenter', function() {
-          teachingDropdown.classList.add('show');
-        });
-
-        // Hide dropdown when leaving both button and dropdown
-        const hideDropdown = function() {
-          setTimeout(function() {
-            if (!teachingDropdownBtn.matches(':hover') && !teachingDropdown.matches(':hover')) {
-              teachingDropdown.classList.remove('show');
-            }
-          }, 100);
-        };
-
-        teachingDropdownBtn.addEventListener('mouseleave', hideDropdown);
-        teachingDropdown.addEventListener('mouseleave', hideDropdown);
-      }
-
       // Close dropdowns when clicking outside
       document.addEventListener('click', function(e) {
         // Close email dropdown if clicking outside
@@ -179,11 +123,6 @@
           cvDropdown.classList.remove('show');
         }
 
-        // Close teaching nav dropdown if clicking outside
-        if (teachingDropdownBtn && teachingDropdown &&
-            !teachingDropdownBtn.contains(e.target) && !teachingDropdown.contains(e.target)) {
-          teachingDropdown.classList.remove('show');
-        }
       });
     </script>
 
