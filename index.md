@@ -2,16 +2,13 @@
 layout: default
 title: Glenn S. Ritchey III - Home
 ---
+I make work at the intersection of computational methods and humanistic questions—<a href="/creative/" class="animated-link">Markov chains, cut-up algorithms, constrained generation</a>—with process made visible and accessible as both an aesthetic and a political commitment. My practice includes generative text devices with thermal printers, conceptual sculpture engaging right-to-repair advocacy, data visualizations pairing political data with grassroots visual culture, and independent publishing through small press and zines. I program films, make music, and distribute work through whatever channels resist the black box.
 
-## About
+My current projects include <em>Francoism</em>, a narrativized Markov-chain analysis of Jess Franco's filmography forthcoming from Inside the Castle, and <em>Like a Mountain of Sleep</em>, an interactive fiction work accepted to the <a href="https://anastasiasalter.net/ELO2026/cfp.html" class="animated-link">2026 Electronic Literatue Organization conference</a>.
 
-I make poetry, fiction, and physical artifacts with rule-based systems—<a href="/creative/" class="animated-link">Markov chains, cut-up algorithms, constrained generation</a>. These works investigate what happens when we open the black box: treating algorithmic authorship as a transparent, deliberate process rather than corporate "magic." My practice includes generative text devices with thermal printers, conceptual sculpture engaging right-to-repair advocacy, data visualizations pairing political data with grassroots visual culture, and independent publishing through zines and small press.
+I'm a PhD student in <a href="https://cah.ucf.edu/textstech/who-we-are/" class="animated-link">Texts & Technology at UCF</a>, where my research examines electronic literature, procedural authorship, and visual culture in contested spaces—particularly Belfast and Kashmir.
 
-I'm a PhD student in <a href="https://cah.ucf.edu/textstech/who-we-are/" class="animated-link">Texts & Technology at UCF</a>, where my research examines constraint-based literature and procedural authorship. My scholarly work explores how communities maintain narrative control in contested spaces—particularly through visual culture in Belfast and Kashmir—while my creative practice builds generative tools that make process visible and accessible.
-
-A central question animates both trajectories: How do we democratize who gets to make meaning?
-
-This operates across my creative work (designing open-source generative systems), my research (examining who controls narrative technologies), and my <a href="/teaching/" class="animated-link">teaching</a> (helping first-year composition students navigate what "writing" means inside and outside algorithmic spaces).
+A central question animates all of it: How do we democratize who gets to make meaning? This operates across my creative work (designing open-source generative systems), my research (examining who controls narrative technologies), and my <a href="/teaching/" class="animated-link">teaching</a> (helping first-year composition students navigate what "writing" means inside and outside algorithmic spaces).
 
 <div id="home-graph-container">
   <div id="home-graph"></div>
@@ -65,32 +62,9 @@ nodes.push(
   { id: "ENC 1101 at UCF", label: "ENC 1101", url: "{{ site.baseurl }}/teaching/enc-1101/", type: "course" },
   { id: "ENC 1102 at UCF", label: "ENC 1102", url: "{{ site.baseurl }}/teaching/enc1102/", type: "course" },
   { id: "Interdisciplinary Teaching", label: "Interdisciplinary Teaching", url: "{{ site.baseurl }}/teaching/interdisciplinary-teaching/", type: "grad-course" },
-  { id: "ENC 1102 — Summer 26", label: "Summer 26", url: "{{ site.baseurl }}/teaching/enc1102/summer26/", type: "semester" },
-  { id: "AI Policy Summer 26", label: "AI Policy", url: "{{ site.baseurl }}/teaching/enc1102/summer26/aipolicy/", type: "material" },
-  { id: "Syllabus Summer 26", label: "Syllabus", url: "{{ site.baseurl }}/teaching/enc1102/summer26/syllabus/", type: "material" },
   { id: "Course Syllabi", label: "Course Syllabi", url: "{{ site.baseurl }}/teaching/syllabi/", type: "material" },
   { id: "DIY Zine Library", label: "DIY Zine Library", url: "{{ site.baseurl }}/teaching/zines/", type: "material" }
 );
-
-// ENC 1101 SLOs
-{% for slo in site.data.teaching_graph.enc1101_slos %}
-nodes.push({ id: "1101-{{ slo.id }}", label: {{ slo.short | jsonify }}, url: null, type: "slo", fullLabel: {{ slo.label | jsonify }}, course: "ENC 1101" });
-{% endfor %}
-
-// ENC 1102 SLOs
-{% for slo in site.data.teaching_graph.enc1102_slos %}
-nodes.push({ id: "1102-{{ slo.id }}", label: {{ slo.short | jsonify }}, url: null, type: "slo", fullLabel: {{ slo.label | jsonify }}, course: "ENC 1102" });
-{% endfor %}
-
-// ENC 1101 lectures
-{% for lecture in site.data.teaching_graph.enc1101_lectures %}
-nodes.push({ id: {{ lecture.title | jsonify }}, label: {{ lecture.title | jsonify }}, url: "{{ site.baseurl }}{{ lecture.url }}", type: "lecture" });
-{% endfor %}
-
-// ENC 1102 lectures
-{% for lecture in site.data.teaching_graph.enc1102_lectures %}
-nodes.push({ id: {{ lecture.title | jsonify }}, label: {{ lecture.title | jsonify }}, url: "{{ site.baseurl }}{{ lecture.url }}", type: "lecture" });
-{% endfor %}
 
 // Interdisciplinary Teaching components
 {% for component in site.data.teaching_graph.interdisciplinary_teaching_components %}
@@ -106,32 +80,11 @@ links.push({ source: {{ p.title | jsonify }}, target: {{ tag | jsonify }} });
 links.push(
   { source: "Teaching Statement", target: "ENC 1101 at UCF" },
   { source: "Teaching Statement", target: "ENC 1102 at UCF" },
+  { source: "ENC 1101 at UCF",    target: "ENC 1102 at UCF" },
   { source: "Teaching Statement", target: "Course Syllabi" },
   { source: "Teaching Statement", target: "DIY Zine Library" },
-  { source: "Interdisciplinary Teaching", target: "Teaching Statement" },
-  { source: "ENC 1102 at UCF", target: "ENC 1102 — Summer 26" },
-  { source: "ENC 1102 — Summer 26", target: "AI Policy Summer 26" },
-  { source: "ENC 1102 — Summer 26", target: "Syllabus Summer 26" }
+  { source: "Interdisciplinary Teaching", target: "Teaching Statement" }
 );
-
-// ENC 1101: course → SLO → lecture
-{% for slo in site.data.teaching_graph.enc1101_slos %}
-links.push({ source: "ENC 1101 at UCF", target: "1101-{{ slo.id }}" });
-{% endfor %}
-{% for lecture in site.data.teaching_graph.enc1101_lectures %}{% for slo_id in lecture.slos %}
-links.push({ source: "1101-{{ slo_id }}", target: {{ lecture.title | jsonify }} });
-{% endfor %}{% endfor %}
-
-// ENC 1102: course → SLO + semester → lecture
-{% for slo in site.data.teaching_graph.enc1102_slos %}
-links.push({ source: "ENC 1102 at UCF", target: "1102-{{ slo.id }}" });
-{% endfor %}
-{% for lecture in site.data.teaching_graph.enc1102_lectures %}
-links.push({ source: "ENC 1102 — Summer 26", target: {{ lecture.title | jsonify }} });
-{% for slo_id in lecture.slos %}
-links.push({ source: "1102-{{ slo_id }}", target: {{ lecture.title | jsonify }} });
-{% endfor %}
-{% endfor %}
 
 // Interdisciplinary Teaching → components
 {% for component in site.data.teaching_graph.interdisciplinary_teaching_components %}
@@ -158,7 +111,7 @@ const graphData = { nodes, links };
   const container = document.getElementById('home-graph');
 
   function getDimensions() {
-    return { width: 1300, height: 900 };
+    return { width: 1080, height: 900 };
   }
 
   let { width: W, height: H } = getDimensions();
@@ -328,7 +281,7 @@ const graphData = { nodes, links };
 
 <style>
 #home-graph-container {
-  width: 1300px;
+  width: 1080px;
   position: relative;
   left: 50%;
   transform: translateX(-50%);

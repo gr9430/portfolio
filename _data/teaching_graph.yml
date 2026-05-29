@@ -2,6 +2,13 @@ statement:
   title: "Teaching Statement"
   url: "/teaching/statement/"
 
+# Interdisciplinary Teaching Course
+interdisciplinary_teaching:
+  title: "Interdisciplinary Teaching"
+  url: "/teaching/interdisciplinary-teaching/"
+  semester: "Spring 2026"
+  type: "Graduate Course"
+
 # ENC 1101 Student Learning Outcomes
 enc1101_slos:
   - id: "writing-processes"
@@ -73,3 +80,21 @@ enc1101_lectures:
   - title: "The Rhetorics of Fashion & Style"
     url: "/teaching/lectures/s26/rhetorics-fashion.html"
     slos: ["multiple-literacies", "variation-across-contexts", "decision-making"]
+
+# Interdisciplinary Teaching Course Components
+interdisciplinary_teaching_components:
+  - title: "Discussion Posts"
+    url: "/teaching/interdisciplinary-teaching/discussion-posts/"
+    type: "Course Material"
+  - title: "Signature Assignment"
+    url: "/teaching/interdisciplinary-teaching/signature-assignment/"
+    type: "Course Material"
+  - title: "Course Syllabus"
+    url: "/teaching/interdisciplinary-teaching/syllabus/"
+    type: "Course Material"
+  - title: "Interdisciplinary Teaching Statement"
+    url: "/teaching/interdisciplinary-teaching/teaching-statement/"
+    type: "Course Material"
+  - title: "Final Portfolio and Reflection"
+    url: "/teaching/interdisciplinary-teaching/final-portfolio/"
+    type: "Course Material"
