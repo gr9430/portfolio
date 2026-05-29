@@ -19,9 +19,6 @@ A central question animates all of it: How do we democratize who gets to make me
     <span class="legend-item"><span class="legend-dot hg-statement-dot"></span> Statement</span>
     <span class="legend-item"><span class="legend-dot hg-course-dot"></span> Course</span>
     <span class="legend-item"><span class="legend-dot hg-gradcourse-dot"></span> Grad Course</span>
-    <span class="legend-item"><span class="legend-dot hg-slo-dot"></span> Learning Outcome</span>
-    <span class="legend-item"><span class="legend-dot hg-lecture-dot"></span> Lecture</span>
-    <span class="legend-item"><span class="legend-dot hg-semester-dot"></span> Semester</span>
     <span class="legend-item"><span class="legend-dot hg-material-dot"></span> Material</span>
     <p class="legend-hint">Click a node to navigate · Click a tag to filter · Hover a shared concept for description · Drag to explore</p>
   </div>
@@ -322,8 +319,5 @@ circle.hg-clickable-node:hover { stroke: rgb(122, 6, 97); stroke-width: 2px; }
 .hg-statement-dot { background: rgb(122, 6, 97); }
 .hg-course-dot    { background: rgb(6, 122, 97); }
 .hg-gradcourse-dot { background: rgb(97, 6, 122); }
-.hg-slo-dot       { background: rgb(97, 122, 6); }
-.hg-lecture-dot   { background: rgb(6, 97, 122); }
-.hg-semester-dot  { background: rgb(97, 6, 122); }
 .hg-material-dot  { background: rgb(122, 97, 6); }
 </style>
