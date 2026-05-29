@@ -8,7 +8,7 @@ project: false
   <div id="project-graph"></div>
   <div id="graph-legend">
     <span class="legend-item"><span class="legend-dot project-dot"></span> Project</span>
-    <span class="legend-item"><span class="legend-dot tag-dot"></span> Tag</span>
+    <span class="legend-item"><span class="legend-dot tag-dot"></span> Topic</span>
     <span class="legend-item"><span class="legend-dot course-tag-dot"></span> Course</span>
     <p class="legend-hint">Click a tag to filter · Click a project to open · Hover a course tag for description · Drag to explore</p>
   </div>

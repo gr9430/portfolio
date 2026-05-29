@@ -15,7 +15,7 @@ A central question animates all of it: How do we democratize who gets to make me
   <div id="home-graph-legend">
     <span class="legend-item"><span class="legend-dot hg-project-dot"></span> Project</span>
     <span class="legend-item"><span class="legend-dot hg-bridge-dot"></span> Shared Concept</span>
-    <span class="legend-item"><span class="legend-dot hg-tag-dot"></span> Tag</span>
+    <span class="legend-item"><span class="legend-dot hg-tag-dot"></span> Topic</span>
     <span class="legend-item"><span class="legend-dot hg-statement-dot"></span> Statement</span>
     <span class="legend-item"><span class="legend-dot hg-course-dot"></span> Course</span>
     <span class="legend-item"><span class="legend-dot hg-gradcourse-dot"></span> Grad Course</span>
