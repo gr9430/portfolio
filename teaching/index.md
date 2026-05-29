@@ -120,9 +120,8 @@ title: Teaching
   #teaching-graph {
     width: 100%;
     height: 900px;
-    background: rgb(248, 248, 255);
-    border-radius: 4px;
-    overflow: hidden;
+    background: transparent;
+    overflow: visible;
   }
   #teaching-legend {
     margin-top: 0.5rem;
