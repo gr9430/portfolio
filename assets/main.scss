@@ -62,7 +62,10 @@ pre::-webkit-scrollbar-thumb:hover {
 }
 
 /* Global font family */
-body, html {
+html {
+  overflow-x: clip;
+}
+body {
   font-family: 'Liberation Mono', 'Courier New', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace !important;
   overflow-x: hidden;
 }
