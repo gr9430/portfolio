@@ -32,7 +32,7 @@ tags: [phd, critical-making, visual-culture, design-justice, archive]
         <!-- Project Cover Slide -->
         <section data-background-color="rgb(248,248,255)">
             <div class="project-cover">
-                <img src="/presentations/oppression-aesthetic/content/images/crass-cover-for-project.jpg"
+                <img src="/projects/oppression-aesthetic/content/images/crass-cover-for-project.jpg"
                      alt="Crass album cover used as project visual introduction"
                      class="cover-image"
                      style="max-width: 60%; max-height: 60vh; object-fit: contain; margin: 0 auto; display: block; border: 2px solid rgb(122, 6, 97);">
@@ -288,9 +288,9 @@ tags: [phd, critical-making, visual-culture, design-justice, archive]
 </div>
 
 <!-- Load only our custom CSS and scripts -->
-<link rel="stylesheet" href="{{ site.baseurl }}/presentations/oppression-aesthetic/assets/css/oppression-aesthetic.css">
+<link rel="stylesheet" href="{{ site.baseurl }}/projects/oppression-aesthetic/assets/css/oppression-aesthetic.css">
 
-<script src="{{ site.baseurl }}/presentations/oppression-aesthetic/assets/js/image-processor.js"></script>
+<script src="{{ site.baseurl }}/projects/oppression-aesthetic/assets/js/image-processor.js"></script>
 
 <script>
 // Basic slideshow control functions
@@ -325,7 +325,7 @@ function manualContentLoad() {
     console.log('ContentManager available:', typeof ContentManager !== 'undefined');
 
     // Try to load content directly
-    fetch('/presentations/oppression-aesthetic/content/metadata/image-data.json')
+    fetch('/projects/oppression-aesthetic/content/metadata/image-data.json')
         .then(response => {
             console.log('JSON fetch response:', response.status);
             return response.json();
@@ -441,7 +441,7 @@ function manualContentLoad() {
                             return;
                         }
 
-                        const imagePath = `/presentations/oppression-aesthetic/content/images/${imageInfo.filename}`;
+                        const imagePath = `/projects/oppression-aesthetic/content/images/${imageInfo.filename}`;
                         console.log(`Loading image ${index + 1}${subIndex > 0 ? `.${subIndex + 1}` : ''}:`, imagePath);
                         console.log(`  Artist: ${imageInfo.metadata.artist}, Album: ${imageInfo.metadata.album}`);
                         console.log(`  Semantic filename: ${imageInfo.filename}`);
