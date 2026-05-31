@@ -493,6 +493,13 @@ tw-passage a:hover {
   background-color: rgba(100, 149, 237, 0.05) !important;
 }
 
+/* === RLINK: disabled during disruption === */
+body.input-pending .rlink {
+  opacity: 0.35 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+}
+
 /* Override link styles for splash screen */
 [data-tags~="splash"] .passage a,
 [data-tags~="splash"] tw-passage a {
@@ -2024,7 +2031,28 @@ $(document).on(':passagestart', function (ev) {
       console.error('Error stack:', error.stack);
     }
   }
-  
+
+  // === RLINK MACRO: inline random-navigation links ===
+  $(document).one(':storyready', function() {
+    if (typeof Macro === 'undefined') {
+      console.warn('⚠️ Macro API not available for rlink');
+      return;
+    }
+    Macro.add('rlink', {
+      handler() {
+        const phrase = this.args[0];
+        const $el = $('<a>').addClass('rlink').text(phrase).on('click', function(e) {
+          e.preventDefault();
+          if (!window.inputPending) {
+            goToRandomPassage();
+          }
+        });
+        $(this.output).append($el);
+      }
+    });
+    console.log('✓ rlink macro defined');
+  });
+
   $(document).ready(function() {
     // Create input initially
     if ($('#cmd-input').length === 0) {
