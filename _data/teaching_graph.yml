@@ -53,13 +53,21 @@ enc1102_slos:
 
 enc1102_lectures:
   - title: "ENC 1102: Day 1"
-    url: "/teaching/enc1102/summer26/lectures/day-1.html"
+    url: "/teaching/enc1102/summer26/lectures/day1.html"
     semester: "ENC 1102 — Summer 26"
     slos: ["generating-inquiry", "information-literacy", "research-genre-production"]
   - title: "ENC 1102: Day 2"
-    url: "/teaching/enc1102/summer26/lectures/day-2.html"
+    url: "/teaching/enc1102/summer26/lectures/day2.html"
     semester: "ENC 1102 — Summer 26"
     slos: ["information-literacy", "generating-inquiry", "contributing-knowledge"]
+  - title: "ENC 1102: Day 3"
+    url: "/teaching/enc1102/summer26/lectures/day3.html"
+    semester: "ENC 1102 — Summer 26"
+    slos: ["generating-inquiry", "information-literacy", "research-genre-production"]
+  - title: "ENC 1102: Day 4"
+    url: "/teaching/enc1102/summer26/lectures/day4.html"
+    semester: "ENC 1102 — Summer 26"
+    slos: ["research-genre-production", "contributing-knowledge", "revision-1102"]
 
 enc1101_lectures:
   - title: "Discourse Communities"
