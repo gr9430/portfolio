@@ -67,7 +67,19 @@
       "WebFetch(domain:api.anthropic.com)",
       "Read(//tmp/**)",
       "Bash(tar -xf design_extracted)",
-      "Bash(bundle exec *)"
+      "Bash(bundle exec *)",
+      "Bash(grep -n \"goToRandomPassage\\\\|document\\\\.ready\\\\|\\\\$\\(document\\)\\\\.one\\\\|IIFE\\\\|}\\\\s*\\\\\\)\\\\s*;\\\\s*$\\\\|^}\\)\\(\" lamos/index.html)",
+      "Bash(grep -n \"goToRandomPassage\\\\|\\\\$\\(document\\).ready\\\\|\\\\$\\(document\\).one\" lamos/index.html)",
+      "Bash(grep -n \"\\\\$\\(document\\).ready\" lamos/index.html)",
+      "Bash(awk NR>=2000 && NR<=2010 *)",
+      "Bash(awk NR>=2055 && NR<=2065 *)",
+      "Bash(grep -n \"^\\\\s*}\\)\\\\s*;\\\\s*$\\\\|^}\\)\\(\" lamos/index.html)",
+      "Bash(awk -F: '$2 > 1700 && $2 < 2500 {print}')",
+      "Bash(awk 'NR>1700 && NR<2500 && /^\\\\s*\\\\}\\\\\\)\\\\s*;?\\\\s*$/{print NR\": \"$0}' lamos/index.html)",
+      "Bash(awk 'NR>2300 && NR<2400 && /\\\\}\\\\\\)\\\\\\(/' lamos/index.html)",
+      "Bash(awk 'NR>2300 && NR<2500' lamos/index.html)",
+      "Bash(awk NR>=2380 && NR<=2400 *)",
+      "Bash(grep -o '.\\\\{0,30\\\\}window\\\\[.\\\\{0,30\\\\}Macro.\\\\{0,30\\\\}\\\\].\\\\{0,30\\\\}')"
     ]
   }
 }

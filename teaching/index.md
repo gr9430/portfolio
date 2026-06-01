@@ -49,7 +49,7 @@ title: Teaching
       </div>
 
       <div class="project-card" data-tags="phd,pedagogy,teaching,interdisciplinary">
-        <h3><a href="{{ site.baseurl }}/teaching/interdisciplinary-teaching/">Interdisciplinary Teaching</a></h3>
+        <h3><a href="{{ site.baseurl }}/phd/interdisciplinary-teaching/">Interdisciplinary Teaching</a></h3>
         <p>PhD graduate course in the theory and practice of interdisciplinary humanities course design. Covers foundational pedagogy, inclusive course design, assignment development, and AI-aware teaching practices.</p>
         <div class="project-tags">
           <span class="tag" onclick="filterByTag('phd')">phd</span>

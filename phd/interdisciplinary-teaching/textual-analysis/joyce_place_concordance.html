@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joyce — Place Concordance</title>
+<style>
+body{font-family:Georgia,serif;background:#fff;color:#1a1a1a;padding:1.5rem;max-width:860px;margin:0 auto}
+h2{font-size:1rem;font-weight:500;margin:0 0 1rem;font-style:italic;color:#444}
+.ctrl{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+button{font-family:monospace;font-size:11px;padding:3px 9px;border:1px solid #ccc;border-radius:2px;cursor:pointer;background:transparent}
+input{font-family:monospace;font-size:11px;padding:3px 8px;border:1px solid #ccc;border-radius:2px;width:150px}
+.scroll{overflow-x:auto;max-height:500px;overflow-y:auto;border:1px solid #eee}
+table{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
+colgroup col:first-child{width:46%}
+colgroup col{width:18%}
+thead{position:sticky;top:0;background:#fff;z-index:2}
+th{text-align:left;padding:5px 8px;font-size:11px;font-weight:500;border-bottom:1px solid #ddd;cursor:pointer}
+th.r{text-align:right}
+td{padding:4px 8px;font-size:12px;border-bottom:0.5px solid #f0f0f0}
+td.r{text-align:right}
+.foot{font-size:11px;color:#888;margin-top:6px}
+</style>
+</head>
+<body>
+<h2>Dublin, according to Joyce — 131 place concordance</h2>
+<div class="ctrl">
+  <div id="tf" style="display:flex;gap:4px;flex-wrap:wrap"></div>
+  <input id="srch" placeholder="filter places…" oninput="render()">
+  <span id="cnt" style="font-size:11px;color:#888;margin-left:auto"></span>
+</div>
+<div class="scroll">
+<table>
+  <colgroup><col><col><col><col></colgroup>
+  <thead>
+    <tr>
+      <th onclick="srt('n')">place ↕</th>
+      <th class="r" style="color:#185FA5" onclick="srt('U')">Ulysses ↕</th>
+      <th class="r" style="color:#534AB7" onclick="srt('D')">Dubliners ↕</th>
+      <th class="r" style="color:#BA7517" onclick="srt('P')">Portrait ↕</th>
+    </tr>
+  </thead>
+  <tbody id="tb"></tbody>
+</table>
+</div>
+<p class="foot">Cell intensity = frequency relative to column maximum. — = zero.</p>
+<script>
+const DATA=[
+{n:"Clongowes Wood",U:6,D:0,P:23},{n:"Howth",U:19,D:2,P:1},{n:"Davy Byrne's Pub",U:21,D:1,P:0},
+{n:"Sandymount",U:15,D:2,P:0},{n:"Holles Street Hospital",U:14,D:0,P:0},
+{n:"O'Connell Bridge",U:7,D:6,P:0},{n:"Malahide",U:11,D:0,P:2},{n:"Belvedere College",U:5,D:0,P:7},
+{n:"Mullingar",U:12,D:0,P:0},{n:"Wicklow Town",U:6,D:1,P:5},{n:"Kildare Street",U:9,D:1,P:1},
+{n:"Eccles Street",U:11,D:0,P:0},{n:"Kingstown / Dun Laoghaire",U:7,D:4,P:0},
+{n:"Grafton Street",U:5,D:3,P:2},{n:"Dalkey",U:8,D:1,P:1},{n:"Gardiner Street",U:7,D:2,P:0},
+{n:"Trinity College",U:5,D:4,P:0},{n:"Ringsend",U:7,D:2,P:0},{n:"Dame Street",U:5,D:3,P:0},
+{n:"Glasnevin Cemetery",U:6,D:2,P:0},{n:"Stephen's Green",U:2,D:4,P:1},{n:"Henry Street",U:5,D:2,P:0},
+{n:"National Library",U:6,D:0,P:1},{n:"St Patrick's Cathedral",U:7,D:0,P:0},
+{n:"Rotunda Hospital",U:5,D:1,P:1},{n:"Irishtown",U:6,D:1,P:0},{n:"Donnybrook",U:5,D:2,P:0},
+{n:"Blackrock",U:2,D:0,P:5},{n:"Sandycove",U:7,D:0,P:0},{n:"Barney Kiernan's",U:7,D:0,P:0},
+{n:"Merrion Square",U:4,D:1,P:1},{n:"Phoenix Park",U:6,D:0,P:0},{n:"Rathmines",U:6,D:0,P:0},
+{n:"Westmoreland Street",U:1,D:4,P:0},{n:"Dorset Street",U:4,D:1,P:0},
+{n:"Rutland Square",U:3,D:2,P:0},{n:"North Wall Quay",U:3,D:2,P:0},{n:"Bank of Ireland",U:4,D:0,P:1},
+{n:"Drumcondra",U:1,D:2,P:2},{n:"Chapelizod",U:1,D:4,P:0},{n:"Maynooth",U:4,D:1,P:0},
+{n:"Clane",U:0,D:0,P:5},{n:"Bray",U:4,D:0,P:1},{n:"Scotch House",U:3,D:2,P:0},
+{n:"Nassau Street",U:3,D:1,P:0},{n:"Dawson Street",U:2,D:2,P:0},{n:"Duke Street",U:3,D:1,P:0},
+{n:"Baggot Street",U:1,D:3,P:0},{n:"College Green",U:4,D:0,P:0},{n:"O'Connell Street",U:4,D:0,P:0},
+{n:"Ormond Quay",U:3,D:1,P:0},{n:"Butt Bridge",U:4,D:0,P:0},{n:"Loop Line Bridge",U:4,D:0,P:0},
+{n:"Rathgar",U:4,D:0,P:0},{n:"Portobello",U:4,D:0,P:0},{n:"Palmerston Park",U:4,D:0,P:0},
+{n:"Ontario Terrace",U:4,D:0,P:0},{n:"Sandymount Green",U:4,D:0,P:0},
+{n:"Ballsbridge",U:3,D:1,P:0},{n:"Dollymount",U:3,D:0,P:1},{n:"Inchicore",U:3,D:1,P:0},
+{n:"Nighttown / Monto",U:4,D:0,P:0},{n:"North Strand",U:2,D:1,P:1},
+{n:"Molesworth Street",U:2,D:0,P:1},{n:"Hume Street",U:1,D:2,P:0},{n:"Harcourt Street",U:1,D:0,P:2},
+{n:"Fleet Street",U:1,D:2,P:0},{n:"Moore Street",U:2,D:1,P:0},{n:"Amiens Street",U:3,D:0,P:0},
+{n:"Marlborough Street",U:2,D:1,P:0},{n:"Mountjoy Square",U:3,D:0,P:0},{n:"Arran Quay",U:3,D:0,P:0},
+{n:"Grattan Bridge",U:1,D:2,P:0},{n:"Four Courts",U:2,D:1,P:0},{n:"Arbour Hill",U:3,D:0,P:0},
+{n:"Broadstone",U:3,D:0,P:0},{n:"Terenure",U:3,D:0,P:0},{n:"Dodder River",U:2,D:1,P:0},
+{n:"Tolka River",U:2,D:0,P:1},{n:"Royal Canal",U:3,D:0,P:0},{n:"Leeson Street",U:2,D:0,P:0},
+{n:"Merrion Street",U:0,D:2,P:0},{n:"Ely Place",U:1,D:1,P:0},{n:"Pembroke Road",U:2,D:0,P:0},
+{n:"Haddington Road",U:1,D:1,P:0},{n:"Aungier Street",U:1,D:1,P:0},{n:"Wicklow Street",U:1,D:1,P:0},
+{n:"Talbot Street",U:2,D:0,P:0},{n:"North Richmond Street",U:1,D:1,P:0},
+{n:"Hardwicke Street",U:1,D:1,P:0},{n:"Wellington Quay",U:2,D:0,P:0},
+{n:"Sir John Rogerson's Quay",U:2,D:0,P:0},{n:"Usher's Island",U:1,D:1,P:0},
+{n:"Custom House",U:1,D:0,P:1},{n:"Jervis Street Hospital",U:2,D:0,P:0},
+{n:"Booterstown",U:2,D:0,P:0},{n:"Monkstown",U:0,D:2,P:0},{n:"Killiney",U:2,D:0,P:0},
+{n:"Clontarf",U:0,D:0,P:2},{n:"Fairview",U:1,D:0,P:1},{n:"Sutton",U:2,D:0,P:0},
+{n:"Phibsborough",U:2,D:0,P:0},{n:"Cabra",U:2,D:0,P:0},{n:"Kilmainham",U:2,D:0,P:0},
+{n:"Smithfield",U:2,D:0,P:0},{n:"Clonsilla",U:2,D:0,P:0},{n:"Greystones",U:1,D:1,P:0},
+{n:"Arklow",U:0,D:0,P:2},{n:"Earlsfort Terrace",U:1,D:0,P:0},{n:"Eustace Street",U:0,D:1,P:0},
+{n:"Suffolk Street",U:0,D:1,P:0},{n:"Poolbeg Street",U:0,D:1,P:0},{n:"Burgh Quay",U:1,D:0,P:0},
+{n:"Buckingham Street",U:0,D:1,P:0},{n:"Henrietta Street",U:0,D:1,P:0},
+{n:"Cathedral Street",U:0,D:1,P:0},{n:"Earl Street",U:0,D:1,P:0},{n:"Eden Quay",U:1,D:0,P:0},
+{n:"National Museum",U:1,D:0,P:0},{n:"Christ Church",U:1,D:0,P:0},
+{n:"Pro-Cathedral",U:0,D:1,P:0},{n:"Ranelagh",U:1,D:0,P:0},{n:"Sandymount Strand",U:1,D:0,P:0},
+{n:"Martello Tower",U:1,D:0,P:0},{n:"Vico Road",U:1,D:0,P:0},{n:"Naas",U:0,D:1,P:0},
+{n:"Clonliffe Road",U:0,D:0,P:1},{n:"Grand Canal",U:1,D:0,P:0},
+];
+const CM={U:Math.max.apply(null,DATA.map(function(d){return d.U;})),D:Math.max.apply(null,DATA.map(function(d){return d.D;})),P:Math.max.apply(null,DATA.map(function(d){return d.P;}))};
+const AH={U:"24,95,165",D:"83,74,183",P:"186,117,23"};
+let af="all",sc="U",sd=-1;
+function classify(d){var c=[d.U>0,d.D>0,d.P>0].filter(Boolean).length;if(c>=2)return"shared";if(d.U>0)return"U only";if(d.D>0)return"D only";return"P only";}
+function bg(v,k){if(!v)return"transparent";return"rgba("+AH[k]+","+(0.06+(v/CM[k])*0.72).toFixed(2)+")";}
+function render(){
+  var q=document.getElementById("srch").value.toLowerCase();
+  var rows=DATA.filter(function(d){if(q&&!d.n.toLowerCase().includes(q))return false;if(af==="all")return true;return classify(d)===af;});
+  if(sc){var k=sc;rows=rows.slice().sort(function(a,b){return sd*(a[k]>b[k]?1:a[k]<b[k]?-1:0);});}
+  document.getElementById("cnt").textContent=rows.length+" of "+DATA.length+" places";
+  document.getElementById("tb").innerHTML=rows.map(function(d){
+    return"<tr><td style='font-weight:500'>"+d.n+"</td>"+["U","D","P"].map(function(k){return"<td class='r' style='background:"+bg(d[k],k)+";color:"+(d[k]===0?"#bbb":"#111")+"'>"+( d[k]||"—")+"</td>";}).join("")+"</tr>";
+  }).join("");
+}
+function srt(k){if(sc===k)sd*=-1;else{sc=k;sd=-1;}render();}
+var tf=document.getElementById("tf");
+["all","shared","U only","D only","P only"].forEach(function(f){
+  var b=document.createElement("button");b.textContent=f==="all"?"all texts":f;
+  b.onclick=function(){af=f;render();};tf.appendChild(b);
+});
+render();
+</script>
+</body>
+</html>

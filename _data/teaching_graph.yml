@@ -5,7 +5,7 @@ statement:
 # Interdisciplinary Teaching Course
 interdisciplinary_teaching:
   title: "Interdisciplinary Teaching"
-  url: "/teaching/interdisciplinary-teaching/"
+  url: "/phd/interdisciplinary-teaching/"
   semester: "Spring 2026"
   type: "Graduate Course"
 
@@ -84,17 +84,17 @@ enc1101_lectures:
 # Interdisciplinary Teaching Course Components
 interdisciplinary_teaching_components:
   - title: "Discussion Posts"
-    url: "/teaching/interdisciplinary-teaching/discussion-posts/"
+    url: "/phd/interdisciplinary-teaching/discussion-posts/"
     type: "Course Material"
   - title: "Signature Assignment"
-    url: "/teaching/interdisciplinary-teaching/signature-assignment/"
+    url: "/phd/interdisciplinary-teaching/signature-assignment/"
     type: "Course Material"
   - title: "Course Syllabus"
-    url: "/teaching/interdisciplinary-teaching/syllabus/"
+    url: "/phd/interdisciplinary-teaching/syllabus/"
     type: "Course Material"
   - title: "Interdisciplinary Teaching Statement"
-    url: "/teaching/interdisciplinary-teaching/teaching-statement/"
+    url: "/phd/interdisciplinary-teaching/teaching-statement/"
     type: "Course Material"
   - title: "Final Portfolio and Reflection"
-    url: "/teaching/interdisciplinary-teaching/final-portfolio/"
+    url: "/phd/interdisciplinary-teaching/final-portfolio/"
     type: "Course Material"

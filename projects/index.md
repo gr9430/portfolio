@@ -31,7 +31,7 @@ project: false
 
       <!-- Celtic Mythology & Network Analysis -->
       <div class="project-card" data-tags="phd,data-visualization,network,history,collaborative" data-updated="2026-05">
-        <h3><a href="/projects/smt/">Lost in Translation: Celtic Myth and the Persona Series</a></h3>
+        <h3><a href="/phd/history/smt/">Lost in Translation: Celtic Myth and the Persona Series</a></h3>
         <p>Collaborative digital humanities research examining cultural erasures in video game adaptation of Celtic mythology. Combines interactive D3.js network visualization with team-based critical analysis using Padlet presentations.</p>
         <div class="project-tags">
           <span class="tag" onclick="filterByTag('phd')">phd</span>
@@ -43,7 +43,7 @@ project: false
       </div>
 
       <div class="project-card" data-tags="phd,data-visualization,network,irish-literature,medieval,theories" data-updated="2026-05">
-        <h3><a href="/projects/ulster-visualization/">Ulster Cycle Network</a></h3>
+        <h3><a href="/phd/theories/ulster-visualization/">Ulster Cycle Network</a></h3>
         <p>Interactive network visualization of Irish mythology mapping the interconnected narrative structure of the Ulster Cycle stories.</p>
         <div class="project-tags">
           <span class="tag" onclick="filterByTag('phd')">phd</span>
@@ -56,7 +56,7 @@ project: false
 
       <!-- Collaborative Research Tools -->
       <div class="project-card" data-tags="phd,twine,network,archive,constraint,pedagogy,history,collaborative,theories" data-updated="2026-03">
-        <h3><a href="/projects/henryviii/">Words Across Worlds</a></h3>
+        <h3><a href="/phd/history/henryviii/">Words Across Worlds</a></h3>
         <p>Collaborative Twine project mapping Protestant Reformation as global textual network, with interactive GUI demonstrating digital research methodologies across disciplines.</p>
         <div class="project-tags">
           <span class="tag" onclick="filterByTag('phd')">phd</span>
@@ -111,7 +111,7 @@ project: false
       </div>
 
       <div class="project-card" data-tags="phd,teaching,pedagogy,interdisciplinary" data-updated="2026-05">
-        <h3><a href="/teaching/interdisciplinary-teaching/">Interdisciplinary Teaching</a></h3>
+        <h3><a href="/phd/interdisciplinary-teaching/">Interdisciplinary Teaching</a></h3>
         <p>A PhD course in the theory and practice of interdisciplinary course design. Coursework includes a signature assignment, full syllabus development, teaching statement, and final portfolio — all oriented around inclusive and AI-aware humanities pedagogy.</p>
         <div class="project-tags">
           <span class="tag" onclick="filterByTag('phd')">phd</span>
@@ -127,7 +127,7 @@ project: false
     <h2>Experimental & Generative Projects</h2>
     <div class="project-grid">
       <div class="project-card" data-tags="phd,generative,procedural,constraint,surveillance,theories" data-updated="2025-10">
-        <h3><a href="/projects/bot/">auto-Glenn</a></h3>
+        <h3><a href="/phd/theories/bot/">auto-Glenn</a></h3>
         <p>Social media bot using Tracery grammar to generate Foucauldian and OuLiPo-inspired text, exploring automation, agency, and platform studies.</p>
         <div class="project-tags">
           <span class="tag" onclick="filterByTag('phd')">phd</span>
@@ -138,7 +138,7 @@ project: false
       </div>
 
       <div class="project-card" data-tags="phd,eLit,generative,procedural,constraint,critical-making" data-updated="2025-08">
-        <h3><a href="/projects/sasb/">Shooting a Still Bird (Tracery)</a></h3>
+        <h3><a href="/phd/critical-making/sasb/">Shooting a Still Bird (Tracery)</a></h3>
         <p>A Tracery-based generative text project building a combinatorial book from a personal corpus, in the Oulipian tradition.</p>
         <div class="project-tags">
           <span class="tag" onclick="filterByTag('phd')">phd</span>
@@ -150,7 +150,7 @@ project: false
       </div>
 
       <div class="project-card" data-tags="phd,eLit,playable-texts,critical-making" data-updated="2025-05">
-        <h3><a href="/projects/sasb-bitsy/">Shooting a Still Bird (Bitsy)</a></h3>
+        <h3><a href="/phd/critical-making/sasb-bitsy/">Shooting a Still Bird (Bitsy)</a></h3>
         <p>Bitsy game exploring constraint-based design and environmental storytelling with pixel art and minimal interaction mechanics.</p>
         <div class="project-tags">
           <span class="tag" onclick="filterByTag('phd')">phd</span>
@@ -161,7 +161,7 @@ project: false
       </div>
 
       <div class="project-card" data-tags="eLit,twine,constraint,place-based,playable-texts" data-updated="2025-06">
-        <h3><a href="/projects/lamos/">Like a Mountain of Sleep</a></h3>
+        <h3><a href="/phd/playable/lamos/">Like a Mountain of Sleep</a></h3>
         <p>An experimental interactive fiction piece built with SugarCube — a meditation on memory, place, and the weight of dreams.</p>
         <div class="project-tags">
           <span class="tag" onclick="filterByTag('eLit')">eLit</span>
@@ -173,7 +173,7 @@ project: false
       </div>
 
       <div class="project-card" data-tags="phd,critical-making,data-visualization,archive,place-based" data-updated="2025-03">
-        <h3><a href="/projects/map/">Walk to School, ~'07</a></h3>
+        <h3><a href="/phd/critical-making/map/">Walk to School, ~'07</a></h3>
         <p>A place-based critical making project mapping a childhood walk to school circa 2007, excavating gentrification and memory through Google Earth's temporal archive.</p>
         <div class="project-tags">
           <span class="tag" onclick="filterByTag('phd')">phd</span>
@@ -185,7 +185,7 @@ project: false
       </div>
 
       <div class="project-card" data-tags="phd,critical-making,visual-culture,design-justice,archive" data-updated="2025-12">
-        <h3><a href="/projects/oppression-aesthetic/">Your Oppression: Our Aesthetic</a></h3>
+        <h3><a href="/phd/critical-making/oppression-aesthetic/">Your Oppression: Our Aesthetic</a></h3>
         <p>A critical examination of album art that aestheticizes human atrocities, built using design justice principles and comprehensive accessibility controls.</p>
         <div class="project-tags">
           <span class="tag" onclick="filterByTag('phd')">phd</span>
@@ -197,7 +197,7 @@ project: false
       </div>
 
       <div class="project-card" data-tags="phd,critical-making,generative,procedural,visual-culture" data-updated="2025-09">
-        <h3><a href="/projects/rudimentary-magits/">Rudimentary Magits</a></h3>
+        <h3><a href="/phd/critical-making/rudimentary-magits/">Rudimentary Magits</a></h3>
         <p>A BPM-synced typographic drawing tool built in p5.js for Critical Making, generating text from a weighted anarcho-punk and Lovecraftian corpus in the browser.</p>
         <div class="project-tags">
           <span class="tag" onclick="filterByTag('phd')">phd</span>
