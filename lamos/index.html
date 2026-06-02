@@ -985,6 +985,8 @@ $(document).on(':passagestart', function (ev) {
   if (!window.storyStartTime) window.storyStartTime = Date.now();
   if (!window.visitedPassages) window.visitedPassages = [];
   if (!window.storyEnded) window.storyEnded = false;
+  if (typeof window.inputPending === 'undefined') window.inputPending = false;
+  if (typeof window.nextInputAt === 'undefined') window.nextInputAt = null;
   
   // Gibberish detection - reject keyboard mashing (global)
   window.isGibberish = function(text) {
@@ -2053,204 +2055,116 @@ $(document).on(':passagestart', function (ev) {
     console.log('✓ rlink macro defined');
   });
 
-  $(document).ready(function() {
-    // Create input initially
-    if ($('#cmd-input').length === 0) {
-      const randomPrompt = getPromptForPassage();
-      window.currentPrompt = randomPrompt; // Track for rejection messages
-      const inputHTML = `<div id="cmd-input"><input type="text" placeholder="${randomPrompt}" /></div>`;
-      $('body').append(inputHTML);
-      console.log('✓ Involuntary authorship input created');
+  // === DISRUPTION SYSTEM ===
+  function randomBetween(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function showInputDisruption() {
+    if (window.inputPending) return;
+    window.inputPending = true;
+    $('body').addClass('input-pending');
+
+    const prompts = [
+      'WRITE A SENTENCE.',
+      'ADD SOMETHING.',
+      'DESCRIBE WHAT YOU SEE.',
+      'CONTRIBUTE.',
+      'YOUR SENTENCE, NOW.',
+      'CONTINUE THE RECORD.',
+      'WHAT HAPPENED NEXT?'
+    ];
+    let prompt = prompts[Math.floor(Math.random() * prompts.length)];
+
+    // Apply zalgo corruption at high passage counts (same intensity as existing degradation)
+    if (typeof getCorruptionIntensity === 'function' && typeof zalgoText === 'function') {
+      const intensity = getCorruptionIntensity();
+      if (intensity > 0) prompt = zalgoText(prompt, intensity);
     }
-    
+
+    const disruptionHTML = `<div id="disruption-area">` +
+      `<hr id="disruption-divider">` +
+      `<div id="disruption-prompt">${prompt}</div>` +
+      `<input type="text" id="disruption-input" placeholder="A complete sentence." autocomplete="off" spellcheck="false">` +
+      `<div id="disruption-feedback"></div>` +
+      `</div>`;
+
+    $('.passage').first().append(disruptionHTML);
+    setTimeout(function() { $('#disruption-input').focus(); }, 50);
+
+    $(document).off('keypress.disruption').on('keypress.disruption', '#disruption-input', function(e) {
+      if (e.which !== 13) return;
+      e.preventDefault();
+
+      const input = $(this).val().trim();
+      const gibberishResult = input ? window.isGibberish(input) : 'incomplete';
+
+      let rejected = false;
+      let taunt = '';
+
+      if (gibberishResult === true) {
+        taunt = window.getGibberishTaunt ? window.getGibberishTaunt() : 'Incoherent.';
+        rejected = true;
+      } else if (gibberishResult === 'toolong') {
+        taunt = window.getTooLongTaunt ? window.getTooLongTaunt() : 'Too long.';
+        rejected = true;
+      } else if (gibberishResult === 'incomplete') {
+        taunt = window.getIncompleteTaunt ? window.getIncompleteTaunt() : 'Write a complete sentence.';
+        rejected = true;
+      } else if (gibberishResult === 'crude') {
+        taunt = window.getCrudeTaunt ? window.getCrudeTaunt() : 'Try again.';
+        rejected = true;
+      }
+
+      if (rejected) {
+        $('#disruption-feedback').text(taunt);
+        $(this).val('');
+        return;
+      }
+
+      if (input) {
+        window.playerInputs.push({ text: input, passageNum: window.passageCount, timestamp: Date.now() });
+        State.variables.allPlayerText.push(input);
+        console.log('[Disruption captured: "' + input + '"]');
+      }
+
+      $(document).off('keypress.disruption');
+      hideInputDisruption();
+    });
+  }
+
+  function hideInputDisruption() {
+    $('#disruption-area').fadeOut(300, function() { $(this).remove(); });
+    window.inputPending = false;
+    $('body').removeClass('input-pending');
+  }
+
+  $(document).ready(function() {
     // Track passage changes and handle special/end tags
     $(document).on(':passagerender', function(event) {
       window.passageCount++;
-      console.log(`Passage rendered. Count: ${window.passageCount}, Name: ${passage()}`);
-      
-      // Apply visual degradation (starts earlier than text corruption)
+      console.log('Passage rendered. Count: ' + window.passageCount + ', Name: ' + passage());
+
       applyVisualDegradation();
-      
-      // Check if story has ended
+
       if (isEndPassage()) {
         window.storyEnded = true;
-        $('#cmd-input').hide();
-        console.log('⊗ Story ended - input hidden');
+        console.log('⊗ Story ended');
         return;
       }
-      
-      // Check if current passage has "special" tag
-      if (isSpecialPassage()) {
-        $('#cmd-input').hide();
-        console.log('⊗ Input hidden on special passage');
-      } else {
-        $('#cmd-input').show();
-        
-        // Randomize prompt and apply zalgo corruption (only after threshold)
-        const newPrompt = getPromptForPassage();
-        window.currentPrompt = newPrompt; // Track for rejection messages
-        const intensity = getCorruptionIntensity();
-        const corruptedPrompt = intensity > 0 ? zalgoText(newPrompt, intensity) : newPrompt;
-        
-        $('#cmd-input input').attr('placeholder', corruptedPrompt);
-        
-        if (intensity > 0.1) {
-          console.log(`[Prompt corruption: ${Math.floor(intensity * 100)}%]`);
+
+      if (!isSpecialPassage() && !window.storyEnded && !window.inputPending) {
+        if (!window.nextInputAt) {
+          window.nextInputAt = randomBetween(4, 8);
+        }
+        if (window.passageCount >= window.nextInputAt) {
+          setTimeout(showInputDisruption, 400);
+          window.nextInputAt = window.passageCount + randomBetween(4, 8);
+          console.log('⊕ Disruption scheduled. Next at passage: ' + window.nextInputAt);
         }
       }
     });
     
-    // Capture input and navigate
-    $(document).on('keypress', '#cmd-input input', function(e) {
-      if (e.which === 13) { // Enter key
-        console.log('=== ENTER KEY PRESSED ===');
-        e.preventDefault();
-        
-        // Don't navigate if story has ended
-        if (window.storyEnded) {
-          console.log('Story has ended, ignoring input');
-          return;
-        }
-        
-        const input = $(this).val().trim();
-        console.log(`Input value: "${input}"`);
-        
-        // Get current prompt for reintegration after rejection
-        const currentPrompt = window.currentPrompt || getPromptForPassage();
-        
-        // Check for gibberish (returns true, false, 'incomplete', 'crude', or 'toolong')
-        const gibberishResult = input ? window.isGibberish(input) : false;
-        
-        if (gibberishResult === 'toolong') {
-          console.log(`[Too long rejected: ${input.length} chars]`);
-          $(this).val('');
-          
-          const taunt = window.getTooLongTaunt();
-          const fullMessage = taunt + ' ' + currentPrompt;
-          $(this).attr('placeholder', fullMessage);
-          
-          // Show popup with taunt + prompt
-          window.showGibberishPopup(fullMessage);
-          
-          return; // Don't navigate or store
-        }
-        
-        if (gibberishResult === 'incomplete') {
-          console.log(`[Incomplete sentence rejected: "${input}"]`);
-          $(this).val('');
-          
-          const taunt = window.getIncompleteTaunt();
-          const fullMessage = taunt + ' ' + currentPrompt;
-          $(this).attr('placeholder', fullMessage);
-          
-          // Show popup with taunt + prompt
-          window.showGibberishPopup(fullMessage);
-          
-          return; // Don't navigate or store
-        }
-        
-        if (gibberishResult === 'crude') {
-          console.log(`[Crude language rejected: "${input}"]`);
-          $(this).val('');
-          
-          const taunt = window.getCrudeTaunt();
-          const fullMessage = taunt + ' ' + currentPrompt;
-          $(this).attr('placeholder', fullMessage);
-          
-          // Show popup with taunt + prompt
-          window.showGibberishPopup(fullMessage);
-          
-          return; // Don't navigate or store
-        }
-        
-        if (gibberishResult === true) {
-          console.log(`[Gibberish rejected: "${input}"]`);
-          $(this).val('');
-          
-          const taunt = window.getGibberishTaunt();
-          const fullMessage = taunt + ' ' + currentPrompt;
-          $(this).attr('placeholder', fullMessage);
-          
-          // Show popup with taunt + prompt
-          window.showGibberishPopup(fullMessage);
-          
-          return; // Don't navigate or store
-        }
-        
-        // Check for interior/emotional language
-        if (input && window.isInterior(input)) {
-          console.log(`[Interior language rejected: "${input}"]`);
-          $(this).val('');
-          
-          const taunt = window.getInteriorTaunt();
-          const fullMessage = taunt + ' ' + currentPrompt;
-          $(this).attr('placeholder', fullMessage);
-          
-          // Show popup with taunt + prompt
-          window.showGibberishPopup(fullMessage);
-          
-          return; // Don't navigate or store
-        }
-        
-        // Track empty inputs (skipping)
-        if (!input) {
-          window.consecutiveSkips = (window.consecutiveSkips || 0) + 1;
-          window.totalSkips = (window.totalSkips || 0) + 1;
-          console.log(`[Skip detected: consecutive=${window.consecutiveSkips}, total=${window.totalSkips}]`);
-          
-          // Warning popup at certain thresholds
-          if (window.consecutiveSkips === 3) {
-            window.showGibberishPopup("Your silence is noted.");
-          } else if (window.consecutiveSkips === 5) {
-            window.showGibberishPopup("Your silence accelerates the decay.");
-          } else if (window.consecutiveSkips === 8) {
-            window.showGibberishPopup("Feed me or watch everything dissolve.");
-          } else if (window.consecutiveSkips >= 10 && window.consecutiveSkips % 5 === 0) {
-            window.showGibberishPopup("Coward.");
-          }
-        } else {
-          // Reset consecutive skips when user actually types
-          window.consecutiveSkips = 0;
-        }
-        
-        // Store the input if not empty
-        if (input) {
-          window.playerInputs.push({
-            text: input,
-            passageNum: window.passageCount,
-            timestamp: Date.now()
-          });
-          console.log(`[Captured: "${input}"]`);
-        }
-        
-        $(this).val(''); // Clear input
-        
-        // Only randomize acknowledgment after passage 15-20
-        if (window.passageCount > 15 && Math.random() < 0.25) {
-          console.log('Using ellipsis delay...');
-          $(this).attr('placeholder', '...');
-          setTimeout(() => {
-            const newPrompt = getPromptForPassage();
-            window.currentPrompt = newPrompt; // Track for rejection messages
-            const intensity = getCorruptionIntensity();
-            const corruptedPrompt = intensity > 0 ? zalgoText(newPrompt, intensity) : newPrompt;
-            $(this).attr('placeholder', corruptedPrompt);
-            goToRandomPassage();
-          }, 600);
-        } else {
-          console.log('Using immediate navigation...');
-          const newPrompt = getPromptForPassage();
-          window.currentPrompt = newPrompt; // Track for rejection messages
-          const intensity = getCorruptionIntensity();
-          const corruptedPrompt = intensity > 0 ? zalgoText(newPrompt, intensity) : newPrompt;
-          $(this).attr('placeholder', corruptedPrompt);
-          
-          setTimeout(() => {
-            goToRandomPassage();
-          }, 100);
-        }
-      }
-    });
   });
 })();
 
