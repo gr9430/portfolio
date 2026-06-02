@@ -819,7 +819,33 @@ tw-passage[data-tags~="splash"] #splash-screen img {
 #cmd-input {
   display: none !important;
 }
-</style><script role="script" id="twine-user-script" type="text/twine-javascript">// Grain + Flare effect - start fast, load more in background
+</style><script role="script" id="twine-user-script" type="text/twine-javascript">// === RLINK MACRO: Define early for global access ===
+$(document).ready(function() {
+  if (typeof Macro !== 'undefined' && Macro.add) {
+    Macro.add('rlink', {
+      handler() {
+        const phrase = this.args[0];
+        const $el = $('<a>').addClass('rlink').text(phrase).on('click', function(e) {
+          e.preventDefault();
+          if (typeof window.inputPending !== 'undefined' && window.inputPending) {
+            return; // Don't navigate during disruption
+          }
+          if (typeof window.goToRandomPassage === 'function') {
+            window.goToRandomPassage();
+          } else {
+            console.warn('goToRandomPassage not available yet');
+          }
+        });
+        $(this.output).append($el);
+      }
+    });
+    console.log('✓ rlink macro defined globally');
+  } else {
+    console.warn('⚠️ Macro API not available for rlink');
+  }
+});
+
+// Grain + Flare effect - start fast, load more in background
 (function() {
   console.log('Grain + Flare script starting...');
   
@@ -1752,26 +1778,6 @@ tw-passage[data-tags~="splash"] #splash-screen img {
     }
   }
 
-  // === RLINK MACRO: inline random-navigation links ===
-  $(document).one(':storyready', function() {
-    if (typeof Macro === 'undefined') {
-      console.warn('⚠️ Macro API not available for rlink');
-      return;
-    }
-    Macro.add('rlink', {
-      handler() {
-        const phrase = this.args[0];
-        const $el = $('<a>').addClass('rlink').text(phrase).on('click', function(e) {
-          e.preventDefault();
-          if (!window.inputPending) {
-            goToRandomPassage();
-          }
-        });
-        $(this.output).append($el);
-      }
-    });
-    console.log('✓ rlink macro defined');
-  });
 
   // === DISRUPTION SYSTEM ===
   function randomBetween(min, max) {
@@ -3159,7 +3165,7 @@ Cool wind blasts in th' late-night highway flight to Where Linger. That is to sa
 &lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="8" name="15" tags="story" position="1100,675" size="100,100">&lt;div id="unstable"&gt;
-&lt;em&gt;Lowest low, humid Babylon.
+&lt;em&gt;Lowest low, humid Babylon.&lt;/em&gt;
 
 &lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
 &lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
