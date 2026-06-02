@@ -1778,6 +1778,8 @@ $(document).ready(function() {
     }
   }
 
+  // Expose goToRandomPassage globally for rlink macro access
+  window.goToRandomPassage = goToRandomPassage;
 
   // === DISRUPTION SYSTEM ===
   function randomBetween(min, max) {
