@@ -2189,218 +2189,76 @@ $(document).on(':passagestart', function (ev) {
   });
 })();
 
-// Inject player text - narrator co-opts their words
-$(document).on(':passagerender', function(event) {
-  // Initialize injection tracking if needed
+// Inject player text - sentence-boundary only, no mid-sentence fragments
+$(document).on(':passagerender', function() {
   if (!window.injectionLog) window.injectionLog = [];
-  if (typeof window.lastInjectionPassage === 'undefined') window.lastInjectionPassage = 0;
-  
-  // Don't inject on special or end passages
-  if (isSpecialPassage() || isEndPassage() || window.storyEnded) {
-    return;
+
+  if (window.storyEnded) return;
+
+  function isSpecialPassageLocal() {
+    try { return tags().includes('special'); } catch(e) { return false; }
   }
-  
-  // Only inject if we have inputs and we're past passage 3
-  if (!window.playerInputs || window.playerInputs.length === 0 || window.passageCount < 3) {
-    return;
+  function isEndPassageLocal() {
+    try { return tags().includes('end'); } catch(e) { return false; }
   }
-  
-  // Helper functions
-  function isSpecialPassage() {
-    try {
-      const currentTags = tags();
-      return currentTags.includes('special');
-    } catch (e) {
-      return false;
-    }
-  }
-  
-  function isEndPassage() {
-    try {
-      const currentTags = tags();
-      return currentTags.includes('end');
-    } catch (e) {
-      return false;
-    }
-  }
-  
-  // Format text to match sentence context
-  function formatForContext(text, contextBefore) {
-    if (!text || text.length === 0) return text;
-    
-    let formatted = text.trim();
-    
-    // First, apply surface transformation to strip interiority
-    formatted = window.transformToSurface(formatted);
-    
-    // Ensure first letter is capitalized (will be start of sentence)
-    if (formatted.length > 0) {
-      formatted = formatted.charAt(0).toUpperCase() + formatted.slice(1);
-    }
-    
-    // Ensure ends with period if no punctuation
-    if (formatted.length > 0 && !/[.!?]$/.test(formatted)) {
-      formatted = formatted + '.';
-    }
-    
-    return formatted;
-  }
-  
-  // Find sentence boundaries in HTML text
-  function findSentenceBoundaries(html) {
-    // Get text content for analysis, preserving position info
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = html;
-    const text = tempDiv.textContent || tempDiv.innerText;
-    
-    // Find sentence endings (. ! ?) followed by space or end
-    const boundaries = [];
-    const sentenceEndRegex = /[.!?]+(?:\s|$)/g;
-    let match;
-    while ((match = sentenceEndRegex.exec(text)) !== null) {
-      boundaries.push(match.index + match[0].length - 1);
-    }
-    
-    return boundaries;
-  }
-  
-  // Find inputs from 1-6 passages ago that haven't been injected yet
-  const eligibleInputs = window.playerInputs.filter(input => {
-    const delay = window.passageCount - input.passageNum;
-    return delay >= 1 && delay <= 6 && !input.injected;
-  });
-  
-  if (eligibleInputs.length === 0) {
-    return;
-  }
-  
-  // Guarantee injection at least every 2 passages
-  const passagesSinceLastInjection = window.passageCount - window.lastInjectionPassage;
-  const shouldInject = passagesSinceLastInjection >= 2 || Math.random() < 0.7;
-  
-  if (shouldInject) {
-    const randomInput = eligibleInputs[Math.floor(Math.random() * eligibleInputs.length)];
-    
-    // Wait for passage to render
-    setTimeout(() => {
-      const passageEl = $('.passage').first();
-      
-      if (passageEl.length > 0) {
-        const textContent = passageEl.clone().find('#cmd-input').remove().end().text().trim();
-        
-        if (textContent.length > 20) {
-          let targetEl = passageEl.find('p').not('#cmd-input, #cmd-input *').first();
-          
-          if (targetEl.length === 0) {
-            targetEl = passageEl.find('div, span').not('#cmd-input, #cmd-input *').filter(function() {
-              return $(this).text().trim().length > 20;
-            }).first();
-          }
-          
-          if (targetEl.length === 0) {
-            targetEl = passageEl;
-          }
-          
-          if (targetEl.length > 0) {
-            const originalHTML = targetEl.html();
-            const originalText = targetEl.text();
-            
-            // Find sentence boundaries
-            const boundaries = findSentenceBoundaries(originalHTML);
-            
-            if (boundaries.length > 0) {
-              // Pick a random sentence boundary (prefer not the very end)
-              const boundaryIndex = boundaries.length > 1 
-                ? Math.floor(Math.random() * (boundaries.length - 1))
-                : 0;
-              const charPosition = boundaries[boundaryIndex];
-              
-              // Find the position in the HTML (accounting for tags)
-              let htmlPos = 0;
-              let textPos = 0;
-              let inTag = false;
-              
-              for (let i = 0; i < originalHTML.length && textPos <= charPosition; i++) {
-                if (originalHTML[i] === '<') {
-                  inTag = true;
-                } else if (originalHTML[i] === '>') {
-                  inTag = false;
-                } else if (!inTag) {
-                  textPos++;
-                }
-                htmlPos = i + 1;
-              }
-              
-              // Format the player text (transformation applied inside)
-              const formattedText = formatForContext(randomInput.text, '');
-              
-              // Get context for logging
-              const contextBefore = originalText.substring(Math.max(0, charPosition - 40), charPosition).trim();
-              const contextAfter = originalText.substring(charPosition, Math.min(originalText.length, charPosition + 40)).trim();
-              
-              // Insert after the sentence boundary
-              const beforeInsertion = originalHTML.substring(0, htmlPos);
-              const afterInsertion = originalHTML.substring(htmlPos);
-              const injectedHTML = ` <span class="player-text">${formattedText}</span> `;
-              
-              targetEl.html(beforeInsertion + injectedHTML + afterInsertion);
-              
-              // Update last injection passage
-              window.lastInjectionPassage = window.passageCount;
-              
-              // Log the injection with context
-              window.injectionLog.push({
-                playerText: randomInput.text,
-                formattedText: formattedText,
-                passageName: passage(),
-                passageNum: window.passageCount,
-                contextBefore: contextBefore,
-                contextAfter: contextAfter,
-                timestamp: Date.now()
-              });
-              
-              // Mark as injected
-              randomInput.injected = true;
-              
-              console.log(`✓ Narrator absorbed: "${randomInput.text}" → "${formattedText}" into ${passage()}`);
-            } else {
-              // Fallback: no clear sentence boundaries, use old method
-              const words = originalHTML.split(' ');
-              
-              if (words.length > 10) {
-                const injectionPoint = Math.floor(Math.random() * (words.length - 5)) + 3;
-                const wordsBefore = words.slice(Math.max(0, injectionPoint - 8), injectionPoint);
-                const wordsAfter = words.slice(injectionPoint, Math.min(words.length, injectionPoint + 8));
-                const contextBefore = wordsBefore.join(' ').replace(/<[^>]*>/g, '').trim();
-                const contextAfter = wordsAfter.join(' ').replace(/<[^>]*>/g, '').trim();
-                
-                const formattedText = formatForContext(randomInput.text, contextBefore);
-                
-                words.splice(injectionPoint, 0, `<span class="player-text">${formattedText}</span>`);
-                targetEl.html(words.join(' '));
-                
-                window.lastInjectionPassage = window.passageCount;
-                
-                window.injectionLog.push({
-                  playerText: randomInput.text,
-                  formattedText: formattedText,
-                  passageName: passage(),
-                  passageNum: window.passageCount,
-                  contextBefore: contextBefore,
-                  contextAfter: contextAfter,
-                  timestamp: Date.now()
-                });
-                
-                randomInput.injected = true;
-                
-                console.log(`✓ Narrator absorbed (fallback): "${randomInput.text}" → "${formattedText}" into ${passage()}`);
-              }
-            }
-          }
-        }
+
+  if (isSpecialPassageLocal() || isEndPassageLocal()) return;
+
+  const skipPassages = ['TitleScreen', 'Instructions', 'fin', 'readout', 'hellreturns', 'murderscene', 'infinity', 'welcome', '0'];
+  if (skipPassages.includes(passage())) return;
+
+  const allText = State.variables.allPlayerText || [];
+  if (allText.length < 15) return;
+
+  setTimeout(function() {
+    const passageEl = $('.passage')[0];
+    if (!passageEl) return;
+
+    // Collect text nodes, skipping disruption-area and existing player-text spans
+    const textNodes = [];
+    const walker = document.createTreeWalker(passageEl, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node) {
+        const parent = node.parentElement;
+        if (!parent) return NodeFilter.FILTER_REJECT;
+        if (parent.closest('#disruption-area')) return NodeFilter.FILTER_REJECT;
+        if (parent.closest('.player-text')) return NodeFilter.FILTER_REJECT;
+        if (node.textContent.trim().length < 3) return NodeFilter.FILTER_SKIP;
+        return NodeFilter.FILTER_ACCEPT;
       }
-    }, 200);
-  }
+    });
+
+    let node;
+    while ((node = walker.nextNode())) textNodes.push(node);
+    if (textNodes.length === 0) return;
+
+    // Find nodes that end a sentence
+    const sentenceEndNodes = textNodes.filter(function(n) {
+      return /[.!?]\s*$/.test(n.textContent);
+    });
+    const candidates = sentenceEndNodes.length > 0 ? sentenceEndNodes : [textNodes[textNodes.length - 1]];
+
+    const targetNode = candidates[Math.floor(Math.random() * candidates.length)];
+    const sentence = allText[Math.floor(Math.random() * allText.length)];
+
+    const span = document.createElement('span');
+    span.className = 'player-text';
+    span.textContent = ' ' + sentence;
+
+    if (targetNode.nextSibling) {
+      targetNode.parentNode.insertBefore(span, targetNode.nextSibling);
+    } else {
+      targetNode.parentNode.appendChild(span);
+    }
+
+    window.injectionLog.push({
+      playerText: sentence,
+      passageName: passage(),
+      passageNum: window.passageCount,
+      timestamp: Date.now()
+    });
+
+    console.log('[Player text injected: "' + sentence + '" into ' + passage() + ']');
+  }, 350);
 });</script><tw-passagedata pid="1" name="0" tags="special" position="800,300" size="100,100">&lt;div id=&quot;year-zero-scroll&quot;&gt;
 &lt;div id=&quot;scroll-content&quot;&gt;
 &lt;code&gt;
