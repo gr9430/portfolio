@@ -887,9 +887,10 @@ $(document).ready(function() {
   }
 });
 
-// Grain + Flare effect - start fast, load more in background
+// Grain + Flare effect - DISABLED to avoid CORS errors
 (function() {
-  console.log('Grain + Flare script starting...');
+  console.log('Grain + Flare script DISABLED - external images blocked by CORS');
+  return; // Exit early to skip image loading
   
   const totalImages = 87;
   const initialSubset = 5;
