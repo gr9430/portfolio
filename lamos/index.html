@@ -1035,283 +1035,53 @@ tw-passage[data-tags~="splash"] #splash-screen img {
       }
     }
     
-    // Check vowel ratio - English typically ~35-45% vowels
-    if (lettersOnly.length >= 5) {
+    // Check vowel ratio - be much more lenient for creative writing
+    if (lettersOnly.length >= 10) {
       const vowelCount = (lettersOnly.match(/[aeiou]/g) || []).length;
       const vowelRatio = vowelCount / lettersOnly.length;
-      if (vowelRatio < 0.15 || vowelRatio > 0.70) {
-        console.log('[Gibberish: bad vowel ratio ' + vowelRatio.toFixed(2) + ']');
+      if (vowelRatio < 0.10 || vowelRatio > 0.80) {
+        console.log('[Gibberish: extreme vowel ratio ' + vowelRatio.toFixed(2) + ']');
         return true;
       }
     }
     
-    // Check for consonant clusters (4+ consonants in a row)
-    const consonantCluster = lettersOnly.match(/[bcdfghjklmnpqrstvwxyz]{4,}/g);
+    // Check for extreme consonant clusters (6+ consonants in a row) - be much more lenient
+    const consonantCluster = lettersOnly.match(/[bcdfghjklmnpqrstvwxyz]{6,}/g);
     if (consonantCluster) {
-      const commonClusters = ['ngth', 'ght', 'str', 'scr', 'spr', 'thr', 'nds', 'rld', 'rst', 'nts', 'cts', 'mpt'];
+      // Only reject if it's truly unpronounceable
       for (const cluster of consonantCluster) {
-        const isCommon = commonClusters.some(c => cluster.includes(c));
-        if (!isCommon) {
-          console.log('[Gibberish: consonant cluster "' + cluster + '"]');
-          return true;
-        }
-      }
-    }
-    
-    // Check for unlikely bigrams (two-letter combinations)
-    const unlikelyBigrams = [
-      'qz', 'qx', 'qk', 'qv', 'qj', 'qw', 'qy', 'qp', 'qm', 'qn', 'qg', 'qb', 'qc', 'qd', 'qf',
-      'vx', 'vz', 'vq', 'vj', 'vk', 'vp', 'vb', 'vw', 'vm', 'vg',
-      'bx', 'bz', 'bq', 'bv', 'bk', 'bp', 'bg',
-      'xz', 'xq', 'xj', 'xk', 'xv', 'xb', 'xw', 'xm', 'xn', 'xr', 'xl', 'xd', 'xg', 'xf',
-      'zx', 'zq', 'zj', 'zk', 'zv', 'zb', 'zw', 'zm', 'zn', 'zr', 'zp', 'zg', 'zf', 'zd', 'zc',
-      'jx', 'jz', 'jq', 'jk', 'jv', 'jb', 'jw', 'jm', 'jn', 'jp', 'jg', 'jf', 'jd', 'jc', 'jl', 'jr',
-      'kx', 'kz', 'kq', 'kv', 'kb', 'kp', 'kg', 'kd', 'kc', 'km',
-      'wx', 'wz', 'wq', 'wv', 'wb', 'wk', 'wp', 'wg', 'wm', 'wc', 'wf',
-      'fq', 'fz', 'fx', 'fv', 'fb', 'fk', 'fp', 'fg', 'fw', 'fm',
-      'gx', 'gz', 'gq', 'gv', 'gk', 'gp', 'gw', 'gf', 'gc',
-      'hx', 'hz', 'hq', 'hv', 'hk', 'hp', 'hg', 'hf', 'hc', 'hb', 'hm', 'hw', 'hj',
-      'px', 'pz', 'pq', 'pv', 'pb', 'pk', 'pg', 'pw', 'pm', 'pf', 'pc', 'pd',
-      'cz', 'cq', 'cx', 'cv', 'cj', 'cw', 'cf', 'cg', 'cp', 'cb', 'cm',
-      'dz', 'dq', 'dx', 'dv', 'dj', 'dk', 'dp', 'db', 'dc', 'df', 'dm',
-      'mz', 'mq', 'mx', 'mv', 'mj', 'mk', 'mw', 'mg', 'mc', 'mf', 'md',
-      'nz', 'nq', 'nx', 'nv', 'nj', 'nk', 'np', 'nb', 'nm',
-      'lz', 'lq', 'lx', 'lj', 'lr', 'lw', 'lh', 'ln', 'lc',
-      'rz', 'rq', 'rx', 'rj', 'rw', 'rl',
-      'sz', 'sq', 'sx', 'sj',
-      'tz', 'tq', 'tx', 'tj', 'tv', 'tp', 'tb', 'tg', 'tk', 'tf', 'td', 'tm', 'tn'
-    ];
-    for (const bigram of unlikelyBigrams) {
-      if (lettersOnly.includes(bigram)) {
-        console.log('[Gibberish: unlikely bigram "' + bigram + '"]');
+        console.log('[Gibberish: extreme consonant cluster "' + cluster + '"]');
         return true;
       }
     }
     
-    // NEW: Check for unlikely trigrams
-    const unlikelyTrigrams = [
+    // Check for only the most obvious gibberish bigrams (massively reduced list)
+    const obviousGibberish = [
+      'qz', 'qx', 'qk', 'qv', 'qj', 'qy', 'qp', 'qm', 'qn', 'qg', 'qb', 'qc', 'qd', 'qf',
+      'xz', 'xq', 'xj', 'zx', 'zq', 'zj'
+    ];
+    for (const bigram of obviousGibberish) {
+      if (lettersOnly.includes(bigram)) {
+        console.log('[Gibberish: obvious gibberish "' + bigram + '"]');
+        return true;
+      }
+    }
+    
+    // Check for obvious repeated character patterns only
+    const obviousRepeatedPatterns = [
       'aaa', 'bbb', 'ccc', 'ddd', 'eee', 'fff', 'ggg', 'hhh', 'iii', 'jjj',
       'kkk', 'lll', 'mmm', 'nnn', 'ooo', 'ppp', 'qqq', 'rrr', 'sss', 'ttt',
-      'uuu', 'vvv', 'www', 'xxx', 'yyy', 'zzz',
-      'qqu', 'qua', 'qqe', 'qqo', 'xxy', 'xxe', 'zzy', 'zze',
-      'bcd', 'cdf', 'dfg', 'fgh', 'ghj', 'hjk', 'jkl', 'klm', 'lmn', 'mno',
-      'wer', 'ert', 'rty', 'tyu', 'yui', 'uio', 'iop',
-      'sdf', 'dfg', 'fgh', 'ghj', 'hjk', 'jkl',
-      'xcv', 'cvb', 'vbn', 'bnm'
+      'uuu', 'vvv', 'www', 'xxx', 'yyy', 'zzz'
     ];
-    for (const trigram of unlikelyTrigrams) {
-      if (lettersOnly.includes(trigram)) {
-        console.log('[Gibberish: unlikely trigram "' + trigram + '"]');
+    for (const pattern of obviousRepeatedPatterns) {
+      if (lettersOnly.includes(pattern)) {
+        console.log('[Gibberish: repeated pattern "' + pattern + '"]');
         return true;
       }
     }
     
-    // NEW: Check for too many rare letters in short strings
-    if (lettersOnly.length >= 4 && lettersOnly.length <= 10) {
-      const rareLetters = (lettersOnly.match(/[qxzjv]/g) || []).length;
-      if (rareLetters >= 2) {
-        console.log('[Gibberish: too many rare letters]');
-        return true;
-      }
-    }
-    
-    // NEW: Check for unlikely word starts
-    const unlikelyStarts = [
-      'ng', 'nd', 'nt', 'nk', 'nm', 'nr', 'nl', 'rn', 'rl', 'rm', 'rt', 'rd',
-      'lg', 'lk', 'lm', 'ln', 'lr', 'lt', 'ld', 'lb', 'lp', 'lf',
-      'sr', 'sd', 'sf', 'sg', 'sb', 'sz', 'sv',
-      'td', 'tf', 'tg', 'tk', 'tm', 'tn', 'tp', 'tv', 'tz',
-      'kg', 'kd', 'kf', 'km', 'kp', 'kt', 'kv', 'kz',
-      'bd', 'bf', 'bg', 'bk', 'bm', 'bn', 'bp', 'bt', 'bv', 'bz',
-      'fd', 'fg', 'fk', 'fm', 'fn', 'fp', 'ft', 'fv', 'fz',
-      'gd', 'gf', 'gk', 'gm', 'gn', 'gp', 'gt', 'gv', 'gz',
-      'hb', 'hd', 'hf', 'hg', 'hk', 'hl', 'hm', 'hn', 'hp', 'hr', 'hs', 'ht', 'hv', 'hz',
-      'dk', 'dm', 'dn', 'dp', 'dt', 'dv', 'dz',
-      'pf', 'pg', 'pk', 'pm', 'pn', 'pt', 'pv', 'pz',
-      'mf', 'mg', 'mk', 'ml', 'mn', 'mp', 'mt', 'mv', 'mz',
-      'vb', 'vc', 'vd', 'vf', 'vg', 'vk', 'vl', 'vm', 'vn', 'vp', 'vr', 'vs', 'vt', 'vz',
-      'zb', 'zc', 'zd', 'zf', 'zg', 'zk', 'zl', 'zm', 'zn', 'zp', 'zr', 'zs', 'zt', 'zv'
-    ];
-    if (lettersOnly.length >= 3) {
-      const start = lettersOnly.substring(0, 2);
-      if (unlikelyStarts.includes(start)) {
-        console.log('[Gibberish: unlikely start "' + start + '"]');
-        return true;
-      }
-    }
-    
-    // NEW: Check for unlikely word endings
-    const unlikelyEnds = [
-      'qe', 'qi', 'qo', 'qa', 'qu',
-      'bv', 'bq', 'bx', 'bz', 'bj', 'bk', 'bp', 'bf', 'bg',
-      'cv', 'cq', 'cx', 'cz', 'cj', 'cf', 'cg', 'cp', 'cb',
-      'dv', 'dq', 'dx', 'dz', 'dj', 'dk', 'dp', 'df', 'dg', 'db',
-      'fv', 'fq', 'fx', 'fz', 'fj', 'fk', 'fp', 'fb', 'fg',
-      'gv', 'gq', 'gx', 'gz', 'gj', 'gk', 'gp', 'gf', 'gb',
-      'hv', 'hq', 'hx', 'hz', 'hj', 'hk', 'hp', 'hf', 'hg', 'hb',
-      'jv', 'jq', 'jx', 'jz', 'jk', 'jp', 'jf', 'jg', 'jb',
-      'kv', 'kq', 'kx', 'kz', 'kj', 'kp', 'kf', 'kg', 'kb',
-      'lv', 'lq', 'lx', 'lz', 'lj', 'lr', 'lw', 'lh',
-      'mv', 'mq', 'mx', 'mz', 'mj', 'mk', 'mw', 'mg', 'mf',
-      'nv', 'nq', 'nx', 'nz', 'nj', 'nk', 'np', 'nb', 'nr',
-      'pv', 'pq', 'px', 'pz', 'pj', 'pk', 'pf', 'pg', 'pb',
-      'rv', 'rq', 'rx', 'rz', 'rj', 'rw',
-      'sv', 'sq', 'sx', 'sz', 'sj',
-      'tv', 'tq', 'tx', 'tz', 'tj', 'tk', 'tp', 'tf', 'tg', 'tb',
-      'vb', 'vq', 'vx', 'vz', 'vj', 'vk', 'vp', 'vf', 'vg',
-      'wv', 'wq', 'wx', 'wz', 'wj', 'wk', 'wp', 'wf', 'wg', 'wb',
-      'xv', 'xq', 'xz', 'xj', 'xk', 'xp', 'xf', 'xg', 'xb',
-      'yv', 'yq', 'yx', 'yz', 'yj', 'yk', 'yp', 'yf', 'yg', 'yb',
-      'zv', 'zq', 'zx', 'zj', 'zk', 'zp', 'zf', 'zg', 'zb'
-    ];
-    if (lettersOnly.length >= 3) {
-      const end = lettersOnly.substring(lettersOnly.length - 2);
-      if (unlikelyEnds.includes(end)) {
-        console.log('[Gibberish: unlikely end "' + end + '"]');
-        return true;
-      }
-    }
-    
-    // NEW: Entropy-like check - random text has high unique-to-length ratio
-    // "hello" has 4 unique / 5 length = 0.8
-    // "helloworld" has 7 unique / 10 length = 0.7
-    // "asjkdfhlwe" has 10 unique / 10 length = 1.0 (suspicious)
-    if (lettersOnly.length >= 6) {
-      const uniqueRatio = uniqueChars / lettersOnly.length;
-      // Random mashing tends to have very high unique ratio (close to 1.0)
-      if (uniqueRatio > 0.9 && lettersOnly.length <= 12) {
-        console.log('[Gibberish: high entropy ratio ' + uniqueRatio.toFixed(2) + ']');
-        return true;
-      }
-    }
-    
-    // Check for random capital patterns in original text
-    if (text.length >= 4) {
-      const letters = text.replace(/[^a-zA-Z]/g, '');
-      const hasLower = /[a-z]/.test(letters);
-      const hasUpper = /[A-Z]/.test(letters);
-      
-      if (hasLower && hasUpper && letters.length >= 4) {
-        const lowerCount = (letters.match(/[a-z]/g) || []).length;
-        const upperCount = (letters.match(/[A-Z]/g) || []).length;
-        
-        let transitions = 0;
-        for (let i = 1; i < letters.length; i++) {
-          const prevIsUpper = /[A-Z]/.test(letters[i-1]);
-          const currIsUpper = /[A-Z]/.test(letters[i]);
-          if (prevIsUpper !== currIsUpper) {
-            transitions++;
-          }
-        }
-        
-        if (transitions >= 3 && letters.length < 12) {
-          console.log('[Gibberish: case transitions]');
-          return true;
-        }
-        
-        if (transitions / letters.length > 0.4) {
-          console.log('[Gibberish: high case transition ratio]');
-          return true;
-        }
-        
-        if (!text.includes(' ')) {
-          const isFirstUpper = /[A-Z]/.test(letters[0]);
-          const restOfWord = letters.slice(1);
-          
-          const isTitleCase = isFirstUpper && /^[a-z]*$/.test(restOfWord);
-          const isCamelCase = !isFirstUpper && /^[a-z]+([A-Z][a-z]+)*$/.test(letters);
-          const isPascalCase = isFirstUpper && /^([A-Z][a-z]+)+$/.test(letters);
-          const isAllCaps = /^[A-Z]+$/.test(letters);
-          const isAllLower = /^[a-z]+$/.test(letters);
-          
-          if (!isTitleCase && !isCamelCase && !isPascalCase && !isAllCaps && !isAllLower) {
-            const ratio = Math.min(lowerCount, upperCount) / letters.length;
-            if (ratio < 0.3) {
-              console.log('[Gibberish: invalid case pattern]');
-              return true;
-            }
-          }
-        }
-      }
-    }
-    
-    // NEW: Check for unusual vowel patterns (vowel-heavy gibberish like "eraopera")
-    if (lettersOnly.length >= 5) {
-      // Unusual vowel combinations that rarely appear in English
-      const unusualVowelPairs = ['ao', 'eo', 'oa', 'uo', 'oe', 'ii', 'uu', 'aa', 'ae', 'eia', 'aeo', 'oae', 'eao', 'aoe', 'iou', 'uoi'];
-      for (const pair of unusualVowelPairs) {
-        if (lettersOnly.includes(pair)) {
-          // Check if it might be a legitimate word by looking for common patterns around it
-          const isLegitimate = /tion|sion|eous|ious|ious|oea|oeu/.test(lettersOnly);
-          if (!isLegitimate) {
-            console.log('[Gibberish: unusual vowel pattern "' + pair + '"]');
-            return true;
-          }
-        }
-      }
-      
-      // Check for too many vowel-consonant alternations (random syllable stringing)
-      let vcAlternations = 0;
-      const isVowel = c => 'aeiou'.includes(c);
-      for (let i = 1; i < lettersOnly.length; i++) {
-        if (isVowel(lettersOnly[i-1]) !== isVowel(lettersOnly[i])) {
-          vcAlternations++;
-        }
-      }
-      // If almost every letter alternates between vowel and consonant, suspicious
-      const alternationRatio = vcAlternations / (lettersOnly.length - 1);
-      if (alternationRatio > 0.85 && lettersOnly.length >= 6) {
-        console.log('[Gibberish: high v/c alternation ratio ' + alternationRatio.toFixed(2) + ']');
-        return true;
-      }
-      
-      // Check for repeated syllable-like patterns that look random
-      // e.g., "eraopera" has "era" appearing multiple times
-      if (lettersOnly.length >= 6) {
-        for (let len = 2; len <= 3; len++) {
-          const patterns = {};
-          for (let i = 0; i <= lettersOnly.length - len; i++) {
-            const substr = lettersOnly.substring(i, i + len);
-            patterns[substr] = (patterns[substr] || 0) + 1;
-          }
-          // If same 2-3 letter pattern appears 3+ times in a short word, suspicious
-          for (const [pattern, count] of Object.entries(patterns)) {
-            if (count >= 3 && lettersOnly.length <= 12) {
-              // Exclude common legitimate patterns
-              const legitimatePatterns = ['ing', 'ion', 'the', 'and', 'for', 'tion', 'ess', 'ness', 'ment', 'able', 'ible'];
-              if (!legitimatePatterns.includes(pattern)) {
-                console.log('[Gibberish: repeated pattern "' + pattern + '" x' + count + ']');
-                return true;
-              }
-            }
-          }
-        }
-      }
-    }
-    
-    // NEW: Check if word looks like random syllables (no common English word patterns)
-    if (lettersOnly.length >= 5 && lettersOnly.length <= 15 && !text.includes(' ')) {
-      // Common English word endings
-      const commonEndings = ['ing', 'tion', 'sion', 'ed', 'er', 'est', 'ly', 'ness', 'ment', 'able', 'ible', 'ful', 'less', 'ous', 'ive', 'al', 'ary', 'ory', 'ity', 'ty', 'ance', 'ence', 'ant', 'ent', 'ism', 'ist', 'ure', 'ture'];
-      // Common English word beginnings
-      const commonBeginnings = ['pre', 'pro', 'con', 'com', 'dis', 'mis', 'sub', 'sup', 'trans', 'inter', 'under', 'over', 'out', 'un', 're', 'in', 'im', 'ex', 'en', 'em'];
-      
-      const hasCommonEnding = commonEndings.some(e => lettersOnly.endsWith(e));
-      const hasCommonBeginning = commonBeginnings.some(b => lettersOnly.startsWith(b));
-      
-      // If it's a longer word with no common patterns, be suspicious
-      if (lettersOnly.length >= 7 && !hasCommonEnding && !hasCommonBeginning) {
-        // Additional check: does it have any common English letter sequences?
-        const commonSequences = ['th', 'he', 'in', 'er', 'an', 'on', 'en', 'at', 'es', 'ed', 'or', 'te', 'of', 'it', 'is', 'al', 'ar', 'st', 'to', 'nt', 'ng', 'se', 'ha', 'as', 'ou', 're', 'ea', 'le', 'nd', 've', 'ti', 'ne', 'ri', 'li', 'ra'];
-        const hasCommonSequence = commonSequences.some(seq => lettersOnly.includes(seq));
-        
-        if (!hasCommonSequence) {
-          console.log('[Gibberish: no common English patterns]');
-          return true;
-        }
-      }
-    }
-    
+    // Much more lenient detection - focus only on obvious keyboard mashing
+    console.log("[Gibberish check passed - allowing creative writing]");
     return false;
   };
   
