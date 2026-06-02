@@ -465,6 +465,25 @@ body.input-pending .rlink {
   pointer-events: none !important;
 }
 
+/* === DLINK: direct navigation styling === */
+.dlink {
+  font-style: italic !important;
+  opacity: 0.8 !important;
+  font-size: 0.9em !important;
+}
+
+.dlink:hover {
+  opacity: 1.0 !important;
+  text-decoration: underline !important;
+}
+
+/* Disable dlink during disruption too */
+body.input-pending .dlink {
+  opacity: 0.35 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+}
+
 /* Override link styles for splash screen */
 [data-tags~="splash"] .passage a,
 [data-tags~="splash"] tw-passage a {
@@ -819,9 +838,10 @@ tw-passage[data-tags~="splash"] #splash-screen img {
 #cmd-input {
   display: none !important;
 }
-</style><script role="script" id="twine-user-script" type="text/twine-javascript">// === RLINK MACRO: Define early for global access ===
+</style><script role="script" id="twine-user-script" type="text/twine-javascript">// === RLINK & DLINK MACROS: Define early for global access ===
 $(document).ready(function() {
   if (typeof Macro !== 'undefined' && Macro.add) {
+    // Random navigation macro
     Macro.add('rlink', {
       handler() {
         const phrase = this.args[0];
@@ -839,9 +859,31 @@ $(document).ready(function() {
         $(this.output).append($el);
       }
     });
-    console.log('✓ rlink macro defined globally');
+
+    // Direct navigation macro
+    Macro.add('dlink', {
+      handler() {
+        const phrase = this.args[0];
+        const target = this.args[1];
+        const $el = $('<a>').addClass('dlink').text(phrase).on('click', function(e) {
+          e.preventDefault();
+          if (typeof window.inputPending !== 'undefined' && window.inputPending) {
+            return; // Don't navigate during disruption
+          }
+          if (typeof Engine !== 'undefined' && Engine.play) {
+            Engine.play(target);
+            console.log('Direct navigation to: ' + target);
+          } else {
+            console.warn('Engine not available for direct navigation');
+          }
+        });
+        $(this.output).append($el);
+      }
+    });
+
+    console.log('✓ rlink and dlink macros defined globally');
   } else {
-    console.warn('⚠️ Macro API not available for rlink');
+    console.warn('⚠️ Macro API not available for navigation macros');
   }
 });
 
