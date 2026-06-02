@@ -923,79 +923,6 @@ tw-passage[data-tags~="splash"] #splash-screen img {
   }
 })();
 
-// Instructions passage handler - must accept "Yes." before starting
-$(document).on(':passagestart', function (ev) {
-  var passageTags = ev.passage.tags;
-  
-  if (passageTags.includes('instructions')) {
-    console.log('Instructions passage detected');
-    
-    // Wait for passage to render
-    setTimeout(function() {
-      var $input = $('#cmd-input input');
-      
-      // Set special placeholder
-      $input.attr('placeholder', 'Type "Yes." to begin');
-      
-      // Remove old handlers and add instruction-specific handler
-      $input.off('keypress.instructions').on('keypress.instructions', function(e) {
-        if (e.which === 13) {
-          var userInput = $(this).val().trim();
-          
-          // Must be exactly "Yes." (case-insensitive but period required)
-          if (userInput.toLowerCase() === 'yes.') {
-            console.log('Player confirmed, starting story');
-            State.variables.playerConfirmed = true;
-            
-            // Clear the input field
-            $(this).val('');
-            
-            // Clean up: remove handler and reset placeholder to normal prompt
-            $(this).off('keypress.instructions');
-            
-            // Set a normal prompt before navigating
-            const normalPrompts = [
-              "Describe what the light touches",
-              "What surface do you see?",
-              "Name the objects",
-              "What color is the wall?"
-            ];
-            const randomPrompt = normalPrompts[Math.floor(Math.random() * normalPrompts.length)];
-            $(this).attr('placeholder', randomPrompt);
-            
-            Engine.play("0");
-          } else {
-            $(this).val('');
-            $(this).attr('placeholder', 'Type "Yes." to begin');
-            
-            // Show popup for incorrect input
-            window.showGibberishPopup("You did not type 'Yes.'");
-          }
-          e.preventDefault();
-          e.stopPropagation();
-        }
-      });
-    }, 50);
-  } else {
-    // Remove instructions handler and ensure placeholder is reset on other passages
-    var $input = $('#cmd-input input');
-    $input.off('keypress.instructions');
-    
-    // If coming from instructions, make sure we have a normal prompt
-    var currentPlaceholder = $input.attr('placeholder');
-    if (currentPlaceholder === 'Type "Yes." to begin') {
-      const normalPrompts = [
-        "Describe what you see",
-        "Tell me what happens", 
-        "What are you thinking?",
-        "Continue",
-        "Your turn"
-      ];
-      const randomPrompt = normalPrompts[Math.floor(Math.random() * normalPrompts.length)];
-      $input.attr('placeholder', randomPrompt);
-    }
-  }
-});
 
 // Involuntary authorship - antagonistic narrator co-opts player input
 (function() {
@@ -3425,971 +3352,298 @@ $(document).ready(function() {
         goToRandom();
     });
 });
-&lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="1" tags="story" position="600,425" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-Hell came close. It was here and now today, &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; or on another day with its disarray all uncontested and conviction in-tow; smeared for everyone who&#39;ll look while reigning through and in the cut-short yelps of &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; and the muffled terror vomit of the singular sum body. The sensationalist call for &quot;it&#39;s time to start!&quot; on a horizon too familiar but rearranged as if it were &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt; mediated by eyes without a nose and mouth and lips and teeth but maintains a grunting whisper.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-Hell came close. It was here and now today, &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; or on another day with its disarray all uncontested and conviction in-tow; smeared for everyone who&#39;ll look while reigning through and in the cut-short yelps of a few nobodies and the muffled terror vomit of &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;. The sensationalist call for &quot;it&#39;s time to start!&quot; on a horizon too familiar but rearranged as if it were a visceral jigsaw mediated by eyes without a nose and mouth and lips and teeth but maintains a grunting whisper.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Hell came close. It was here and now today, &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; or on another day with its disarray all uncontested and conviction in-tow; smeared for everyone who&#39;ll look while reigning through and in the cut-short yelps of a few nobodies and the muffled terror vomit of the singular sum body. The sensationalist call for &quot;it&#39;s time to start!&quot; on a horizon too familiar but rearranged as if it were a visceral jigsaw mediated by eyes without a nose and mouth and lips and teeth but maintains a grunting whisper.
-&lt;&lt;else&gt;&gt;\
-Hell came close. It was here and now today, or on another day with its disarray all uncontested and conviction in-tow; smeared for everyone who&#39;ll look while reigning through and in the cut-short yelps of a few nobodies and the muffled terror vomit of the singular sum body. The sensationalist call for &quot;it&#39;s time to start!&quot; on a horizon too familiar but rearranged as if it were a visceral jigsaw mediated by eyes without a nose and mouth and lips and teeth but maintains a grunting whisper.
-&lt;&lt;/if&gt;&gt;\
+&lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="1" tags="story" position="600,425" size="100,100">&lt;div id="unstable"&gt;
+Hell came close. It was here and now today, or on another day with its disarray all uncontested and conviction in-tow; smeared for everyone who'll look while reigning through and in the cut-short yelps of and the muffled terror vomit of the singular sum body. The sensationalist call for "it's time to start!" on a horizon too familiar but rearranged as if it were mediated by eyes without a nose and mouth and lips and teeth but maintains a grunting whisper.
 
-Hell doesn&#39;t occur in the usual places: Not a decrepit cabin in the woods, nor a newly built luxury apartment. Nor is there a preamble told in such a way that provides evidence or context or comfort from the front row to the view from the boot of any variety of auto barreling down a long, county back-road now. That is someone else&#39;s problem.
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="3" name="10" tags="story" position="1100,550" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-Born blanked and run swiftly, the checks reveal a perpensity for loosely accounted meals from nearby restaurants and purchases from &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; of Hollywood crammed in the trunk along with other favors, because &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; the other side of the pinhole view needs to look the look as much as possible while bleeding exceptionalism. On the other end of sumwhere, a map on a pin board with yarn strewn about the locality. Curving lonesome paths and tight squeezes. The receipt was apparently dropped somewhere along &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-Born blanked and run swiftly, the checks reveal a perpensity for loosely accounted meals from nearby restaurants and purchases from Fredericks of Hollywood crammed in the trunk along with other favors, because &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; the other side of the pinhole view needs to look the look as much as possible while bleeding exceptionalism. On the other end of sumwhere, a map on a pin board with yarn strewn about the locality. Curving lonesome paths and tight squeezes. The receipt was apparently dropped somewhere along &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Born blanked and run swiftly, the checks reveal a perpensity for loosely accounted meals from nearby restaurants and purchases from Fredericks of Hollywood crammed in the trunk along with other favors, because &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; the other side of the pinhole view needs to look the look as much as possible while bleeding exceptionalism. On the other end of sumwhere, a map on a pin board with yarn strewn about the locality. Curving lonesome paths and tight squeezes. The receipt was apparently dropped somewhere along the way.
-&lt;&lt;else&gt;&gt;\
-Born blanked and run swiftly, the checks reveal a perpensity for loosely accounted meals from nearby restaurants and purchases from Fredericks of Hollywood crammed in the trunk along with other favors, because the other side of the pinhole view needs to look the look as much as possible while bleeding exceptionalism. On the other end of sumwhere, a map on a pin board with yarn strewn about the locality. Curving lonesome paths and tight squeezes. The receipt was apparently dropped somewhere along the way.
-&lt;&lt;/if&gt;&gt;\
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
 
-&lt;&lt;if $allPlayerText.length &gt; 22&gt;&gt;\
-&lt;&lt;set _playerText4 to $allPlayerText.random()&gt;&gt;\
-These crude words were spoken by Alan Frank to Robbie Rowling:
-&lt;em&gt;—Our paired arrogance and their ignorance will mush and rear &#39;em like a fucking siren&#39;s call for a payoff of total &lt;span class=&quot;player-text&quot;&gt;_playerText4&lt;/span&gt;. Can&#39;t you get that through your thick fucking skull? Give us the fucking money for the materials and something happens. Fucking bet on it.&lt;/em&gt;
-&lt;&lt;else&gt;&gt;\
-These crude words were spoken by Alan Frank to Robbie Rowling:
-&lt;em&gt;—Our paired arrogance and their ignorance will mush and rear &#39;em like a fucking siren&#39;s call for a payoff of total mediocrity. Can&#39;t you get that through your thick fucking skull? Give us the fucking money for the materials and something happens. Fucking bet on it.&lt;/em&gt;
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="4" name="11" tags="story" position="600,675" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-Scratchy cotton or soft cotton, both disguises are pulled over and off and just as quickly and smooth as tenderness can be interchangeable. A cool nerve sticking thin wrists that maintain resistance in an ebb-flow fashion to &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; a shit disco beat from whatever drum machine was left around from th&#39; last time. The bass and keyboards are being played by some idiot hanging around; he keeps fucking up the tempo and some of the notes, but &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;.
-In the broad of daylight, but that does not matter, its all undercut by the tactical movements aiming high-low and anywhere else with the intercutting footage of maiming shrapnel to give off bad fucker vibes in a propagandistic pulsation. He keeps insisting that if we hang a fuck or two on this &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;, fascism even, the it will sell.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-Scratchy cotton or soft cotton, both disguises are pulled over and off and just as quickly and smooth as tenderness can be interchangeable. A cool nerve sticking thin wrists that maintain resistance in an ebb-flow fashion to &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; a shit disco beat from whatever drum machine was left around from th&#39; last time. The bass and keyboards are being played by some idiot hanging around; he keeps fucking up the tempo and some of the notes, but whatever.
-In the broad of daylight, but that does not matter, its all undercut by the tactical movements aiming high-low and anywhere else with the intercutting footage of maiming shrapnel to give off bad fucker vibes in a propagandistic pulsation. He keeps insisting that if we hang a fuck or two on this &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;, fascism even, the it will sell.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Scratchy cotton or soft cotton, both disguises are pulled over and off and just as quickly and smooth as tenderness can be interchangeable. A cool nerve sticking thin wrists that maintain resistance in an ebb-flow fashion to &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; a shit disco beat from whatever drum machine was left around from th&#39; last time. The bass and keyboards are being played by some idiot hanging around; he keeps fucking up the tempo and some of the notes, but whatever.
-In the broad of daylight, but that does not matter, its all undercut by the tactical movements aiming high-low and anywhere else with the intercutting footage of maiming shrapnel to give off bad fucker vibes in a propagandistic pulsation. He keeps insisting that if we hang a fuck or two on this militarism, fascism even, the it will sell.
-&lt;&lt;else&gt;&gt;\
-Scratchy cotton or soft cotton, both disguises are pulled over and off and just as quickly and smooth as tenderness can be interchangeable. A cool nerve sticking thin wrists that maintain resistance in an ebb-flow fashion to a shit disco beat from whatever drum machine was left around from th&#39; last time. The bass and keyboards are being played by some idiot hanging around; he keeps fucking up the tempo and some of the notes, but whatever.
-In the broad of daylight, but that does not matter, its all undercut by the tactical movements aiming high-low and anywhere else with the intercutting footage of maiming shrapnel to give off bad fucker vibes in a propagandistic pulsation. He keeps insisting that if we hang a fuck or two on this militarism, fascism even, the it will sell.
-&lt;&lt;/if&gt;&gt;\
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="3" name="10" tags="story" position="1100,550" size="100,100">&lt;div id="unstable"&gt;
+Born blanked and run swiftly, the checks reveal a perpensity for loosely accounted meals from nearby restaurants and purchases from of Hollywood crammed in the trunk along with other favors, because the other side of the pinhole view needs to look the look as much as possible while bleeding exceptionalism. On the other end of sumwhere, a map on a pin board with yarn strewn about the locality. Curving lonesome paths and tight squeezes. The receipt was apparently dropped somewhere along .
 
-&lt;&lt;if $allPlayerText.length &gt; 22&gt;&gt;\
-&lt;&lt;set _playerText4 to $allPlayerText.random()&gt;&gt;\
-Load » &lt;span class=&quot;player-text&quot;&gt;_playerText4&lt;/span&gt; » loading and waiting . . .
-&lt;&lt;else&gt;&gt;\
-Load » load » loading and waiting . . .
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="5" name="12" tags="story" position="725,675" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-Hounding and posting erewhile as clenching fixation sets demeanors that would otherwise anticipate and eagerly greet sure demise with &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; and a bit of&lt;em&gt; Liquid Assets&lt;/em&gt;, for good measure. &lt;em&gt; &quot;. . . be my lover, won&#39;t you . . .&lt;/em&gt; But what else do they all come here for? If not for the nobler effect— though misplaced, natural and libidinal; fast, blunt, and sloppy without tact. The means to pick back up on adandonment issues and then lose them again as language is repudiated to mist and missed purpose into a &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; syntactical error.
-Blast fight while refitting syntax. They thought we were here for the real fucking deal. The senses are overwhelmed now. &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-Hounding and posting erewhile as clenching fixation sets demeanors that would otherwise anticipate and eagerly greet sure demise with la bise and a bit of&lt;em&gt; Liquid Assets&lt;/em&gt;, for good measure. &lt;em&gt; &quot;. . . be my lover, won&#39;t you . . .&lt;/em&gt; But what else do they all come here for? If not for the nobler effect— though misplaced, natural and libidinal; fast, blunt, and sloppy without tact. The means to pick back up on adandonment issues and then lose them again as language is repudiated to mist and missed purpose into a &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; syntactical error.
-Blast fight while refitting syntax. They thought we were here for the real fucking deal. The senses are overwhelmed now. &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Hounding and posting erewhile as clenching fixation sets demeanors that would otherwise anticipate and eagerly greet sure demise with la bise and a bit of&lt;em&gt; Liquid Assets&lt;/em&gt;, for good measure. &lt;em&gt; &quot;. . . be my lover, won&#39;t you . . .&lt;/em&gt; But what else do they all come here for? If not for the nobler effect— though misplaced, natural and libidinal; fast, blunt, and sloppy without tact. The means to pick back up on adandonment issues and then lose them again as language is repudiated to mist and missed purpose into a syntactical error.
-Blast fight while refitting syntax. They thought we were here for the real fucking deal. The senses are overwhelmed now. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt;
-&lt;&lt;else&gt;&gt;\
-Hounding and posting erewhile as clenching fixation sets demeanors that would otherwise anticipate and eagerly greet sure demise with la bise and a bit of&lt;em&gt; Liquid Assets&lt;/em&gt;, for good measure. &lt;em&gt; &quot;. . . be my lover, won&#39;t you . . .&lt;/em&gt; But what else do they all come here for? If not for the nobler effect— though misplaced, natural and libidinal; fast, blunt, and sloppy without tact. The means to pick back up on adandonment issues and then lose them again as language is repudiated to mist and missed purpose into a syntactical error.
-Blast fight while refitting syntax. They thought we were here for the real fucking deal. The senses are overwhelmed now.
-&lt;&lt;/if&gt;&gt;\
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
 
-&lt;&lt;if $allPlayerText.length &gt; 20&gt;&gt;\
-&lt;&lt;set _playerText4 to $allPlayerText.random()&gt;&gt;\
-A forever-splattering concrete limb tower like a fucking Pollock, with more splintered bone, shattered ankle, cracked nose, and dried blood. Everywhere, in-out-up-down; nothing looks as it should. Something like hundreds of thousands of funeral marches generated from life marches and the rallies to and fro the hot spots in the lost tropical paradise filled with the glory of those ever &lt;span class=&quot;player-text&quot;&gt;_playerText4&lt;/span&gt;.
-&lt;&lt;else&gt;&gt;\
-A forever-splattering concrete limb tower like a fucking Pollock, with more splintered bone, shattered ankle, cracked nose, and dried blood. Everywhere, in-out-up-down; nothing looks as it should. Something like hundreds of thousands of funeral marches generated from life marches and the rallies to and fro the hot spots in the lost tropical paradise filled with the glory of those ever awash.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="6" name="13" tags="story" position="850,675" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-Post-March droughts and April blooms becoming supple emblems of this area&#39;s wealth: cheap t-shirts; &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;; big trucks—a total hotel and car wash economy. However, in the then and here and here and now and there, one finds that which has propelled this land for centuries, perhaps: &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;
-&lt;strong&gt;fresh for the picking home video fuck-royalty-to-be.&lt;/strong&gt;
-&lt;em&gt;The proliferation was never the problem; it was the &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;. And now we are swimming in access, fucker.&lt;/em&gt;
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-Post-March droughts and April blooms becoming supple emblems of this area&#39;s wealth: cheap t-shirts; fast cars; big trucks—a total hotel and car wash economy. However, in the then and here and here and now and there, one finds that which has propelled this land for centuries, perhaps: &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;
-&lt;strong&gt;fresh for the picking home video fuck-royalty-to-be.&lt;/strong&gt;
-&lt;em&gt;The proliferation was never the problem; it was the &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;. And now we are swimming in access, fucker.&lt;/em&gt;
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Post-March droughts and April blooms becoming supple emblems of this area&#39;s wealth: cheap t-shirts; fast cars; big trucks—a total hotel and car wash economy. However, in the then and here and here and now and there, one finds that which has propelled this land for centuries, perhaps: &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt;
-&lt;strong&gt;fresh for the picking home video fuck-royalty-to-be.&lt;/strong&gt;
-&lt;em&gt;The proliferation was never the problem; it was the access. And now we are swimming in access, fucker.&lt;/em&gt;
-&lt;&lt;else&gt;&gt;\
-Post-March droughts and April blooms becoming supple emblems of this area&#39;s wealth: cheap t-shirts; fast cars; big trucks—a total hotel and car wash economy. However, in the then and here and here and now and there, one finds that which has propelled this land for centuries, perhaps:
-&lt;strong&gt;fresh for the picking home video fuck-royalty-to-be.&lt;/strong&gt;
-&lt;em&gt;The proliferation was never the problem; it was the access. And now we are swimming in access, fucker.&lt;/em&gt;
-&lt;&lt;/if&gt;&gt;\
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="4" name="11" tags="story" position="600,675" size="100,100">&lt;div id="unstable"&gt;
+Scratchy cotton or soft cotton, both disguises are pulled over and off and just as quickly and smooth as tenderness can be interchangeable. A cool nerve sticking thin wrists that maintain resistance in an ebb-flow fashion to a shit disco beat from whatever drum machine was left around from th' last time. The bass and keyboards are being played by some idiot hanging around; he keeps fucking up the tempo and some of the notes, but .
 
-&lt;&lt;if $allPlayerText.length &gt; 20&gt;&gt;\
-&lt;&lt;set _playerText4 to $allPlayerText.random()&gt;&gt;\
-Like an ever-flowing river, the paradise returns to the spectacle in the post-MTV era. And now, as the permafrost imprisons that which aims to be seen under layers of wool and down and polyester, they&#39;ll be fiending for liberation from Mid-west mundanity, and dual-cotton/dual-wool exoskeletons. Far away from there toward a sure slow spf-less death over thirty-to-forty years in a Faustian trade for filled nether areas to empty to squelch &lt;span class=&quot;player-text&quot;&gt;_playerText4&lt;/span&gt;.
-&lt;&lt;else&gt;&gt;\
-Like an ever-flowing river, the paradise returns to the spectacle in the post-MTV era. And now, as the permafrost imprisons that which aims to be seen under layers of wool and down and polyester, they&#39;ll be fiending for liberation from Mid-west mundanity, and dual-cotton/dual-wool exoskeletons. Far away from there toward a sure slow spf-less death over thirty-to-forty years in a Faustian trade for filled nether areas to empty to squelch an exit.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="7" name="14" tags="story" position="975,675" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-Cool wind blasts in th&#39; late-night highway flight to Where &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; Linger. That is to say, all manner of rubber and latex peeling fuckbald to elsewhere tonight. &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; Somewhere south of 95 and heaven, as the early dawn vista releases the gripping deep rite in pumping rhythm past midnight.
-Forward forever from the Michigan south strait, the palms sway at 80 mph, whispering their lullabies to the movers and shakers. Crude decorum abounds deep-thrusting waves. Along the main strip, the boarded windows have graffitti that prosyletize and tease a bass-pumped plan urging degenerate &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;—
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-Cool wind blasts in th&#39; late-night highway flight to Where Boys Linger. That is to say, all manner of rubber and latex peeling fuckbald to elsewhere tonight. &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; Somewhere south of 95 and heaven, as the early dawn vista releases the gripping deep rite in pumping rhythm past midnight.
-Forward forever from the Michigan south strait, the palms sway at 80 mph, whispering their lullabies to the movers and shakers. Crude decorum abounds deep-thrusting waves. Along the main strip, the boarded windows have graffitti that prosyletize and tease a bass-pumped plan urging degenerate &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;—
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Cool wind blasts in th&#39; late-night highway flight to Where Boys Linger. That is to say, all manner of rubber and latex peeling fuckbald to elsewhere tonight. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; Somewhere south of 95 and heaven, as the early dawn vista releases the gripping deep rite in pumping rhythm past midnight.
-Forward forever from the Michigan south strait, the palms sway at 80 mph, whispering their lullabies to the movers and shakers. Crude decorum abounds deep-thrusting waves. Along the main strip, the boarded windows have graffitti that prosyletize and tease a bass-pumped plan urging degenerate haze—
-&lt;&lt;else&gt;&gt;\
-Cool wind blasts in th&#39; late-night highway flight to Where Boys Linger. That is to say, all manner of rubber and latex peeling fuckbald to elsewhere tonight. Somewhere south of 95 and heaven, as the early dawn vista releases the gripping deep rite in pumping rhythm past midnight.
-Forward forever from the Michigan south strait, the palms sway at 80 mph, whispering their lullabies to the movers and shakers. Crude decorum abounds deep-thrusting waves. Along the main strip, the boarded windows have graffitti that prosyletize and tease a bass-pumped plan urging degenerate haze—
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="8" name="15" tags="story" position="1100,675" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="5" name="12" tags="story" position="725,675" size="100,100">&lt;div id="unstable"&gt;
+Hounding and posting erewhile as clenching fixation sets demeanors that would otherwise anticipate and eagerly greet sure demise with and a bit of&lt;em&gt; Liquid Assets&lt;/em&gt;, for good measure. &lt;em&gt; ". . . be my lover, won't you . . .&lt;/em&gt; But what else do they all come here for? If not for the nobler effect— though misplaced, natural and libidinal; fast, blunt, and sloppy without tact. The means to pick back up on adandonment issues and then lose them again as language is repudiated to mist and missed purpose into a syntactical error.
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="6" name="13" tags="story" position="850,675" size="100,100">&lt;div id="unstable"&gt;
+Post-March droughts and April blooms becoming supple emblems of this area's wealth: cheap t-shirts; ; big trucks—a total hotel and car wash economy. However, in the then and here and here and now and there, one finds that which has propelled this land for centuries, perhaps: &lt;strong&gt;fresh for the picking home video fuck-royalty-to-be.&lt;/strong&gt;
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="7" name="14" tags="story" position="975,675" size="100,100">&lt;div id="unstable"&gt;
+Cool wind blasts in th' late-night highway flight to Where Linger. That is to say, all manner of rubber and latex peeling fuckbald to elsewhere tonight. Somewhere south of 95 and heaven, as the early dawn vista releases the gripping deep rite in pumping rhythm past midnight.
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="8" name="15" tags="story" position="1100,675" size="100,100">&lt;div id="unstable"&gt;
 &lt;em&gt;Lowest low, humid Babylon.
-Lo, swinging and vacant your awakening.
-Take lust up in righteous arms, on. &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;
-Fallout for our kind is found resigning,
-but whose untraced deeds 
-are mitigable for &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;?&lt;/em&gt;
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-&lt;em&gt;Lowest low, humid Babylon.
-Lo, swinging and vacant your awakening.
-Take lust up in righteous arms, on. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt;
-Fallout for our kind is found resigning,
-but whose untraced deeds 
-are mitigable for your kind?&lt;/em&gt;
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-&lt;em&gt;Lowest low, humid Babylon.
-Lo, swinging and vacant your awakening.
-Take lust up in righteous arms, on. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt;
-Fallout for our kind is found resigning,
-but whose untraced deeds 
-are mitigable for your kind?&lt;/em&gt;
-&lt;&lt;else&gt;&gt;\
-&lt;em&gt;Lowest low, humid Babylon.
-Lo, swinging and vacant your awakening.
-Take lust up in righteous arms, on.
-Fallout for our kind is found resigning,
-but whose untraced deeds 
-are mitigable for your kind?&lt;/em&gt;
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="9" name="16" tags="story" position="600,800" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-And stare into the nighttime ocean skyline with vacant and wistful eyes, bloated by the bender, &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; with sum fromer Adonic body whose purpose was to look good while fucking now chiseled into a soft and dumpy frame, effortlessly upkept by the exceptional glory of your 808 to the soundtrack of late-night commercials of girls going exploited underscoring all manner of hotel noise. A supine final fun and a lonely waltz form a heavy body to vacate the room. &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;—
-&lt;center&gt;
-&lt;small&gt;
-&lt;strong&gt;SPLAT!&lt;/strong&gt;
-&lt;/small&gt;
-&lt;/center&gt;
-In a final triumph, a near-miss dunk into asphalt goes straight into dumpster muckyuck. The lid closes and saves on costs on the service and plot by creating a permanent grave for this lump. It so happens he passed by a window where heard was a whisper confession sighed into a cola-top-wearing bucket. With some humor, he&#39;d have said: &lt;em&gt;—gravity, don&#39;t fail me now.&lt;/em&gt;. The gravity didn&#39;t fail them, though, as they found themselves ina cuddle puddle shortly &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-And stare into the nighttime ocean skyline with vacant and wistful eyes, bloated by the bender, &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; with sum fromer Adonic body whose purpose was to look good while fucking now chiseled into a soft and dumpy frame, effortlessly upkept by the exceptional glory of your 808 to the soundtrack of late-night commercials of girls going exploited underscoring all manner of hotel noise. A supine final fun and a lonely waltz form a heavy body to vacate the room. down—
-&lt;center&gt;
-&lt;small&gt;
-&lt;strong&gt;SPLAT!&lt;/strong&gt;
-&lt;/small&gt;
-&lt;/center&gt;
-In a final triumph, a near-miss dunk into asphalt goes straight into dumpster muckyuck. The lid closes and saves on costs on the service and plot by creating a permanent grave for this lump. It so happens he passed by a window where heard was a whisper confession sighed into a cola-top-wearing bucket. With some humor, he&#39;d have said: &lt;em&gt;—gravity, don&#39;t fail me now.&lt;/em&gt;. The gravity didn&#39;t fail them, though, as they found themselves ina cuddle puddle shortly &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-And stare into the nighttime ocean skyline with vacant and wistful eyes, bloated by the bender, &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; with sum fromer Adonic body whose purpose was to look good while fucking now chiseled into a soft and dumpy frame, effortlessly upkept by the exceptional glory of your 808 to the soundtrack of late-night commercials of girls going exploited underscoring all manner of hotel noise. A supine final fun and a lonely waltz form a heavy body to vacate the room. down—
-&lt;center&gt;
-&lt;small&gt;
-&lt;strong&gt;SPLAT!&lt;/strong&gt;
-&lt;/small&gt;
-&lt;/center&gt;
-In a final triumph, a near-miss dunk into asphalt goes straight into dumpster muckyuck. The lid closes and saves on costs on the service and plot by creating a permanent grave for this lump. It so happens he passed by a window where heard was a whisper confession sighed into a cola-top-wearing bucket. With some humor, he&#39;d have said: &lt;em&gt;—gravity, don&#39;t fail me now.&lt;/em&gt;. The gravity didn&#39;t fail them, though, as they found themselves ina cuddle puddle shortly thereafter.
-&lt;&lt;else&gt;&gt;\
-And stare into the nighttime ocean skyline with vacant and wistful eyes, bloated by the bender, with sum fromer Adonic body whose purpose was to look good while fucking now chiseled into a soft and dumpy frame, effortlessly upkept by the exceptional glory of your 808 to the soundtrack of late-night commercials of girls going exploited underscoring all manner of hotel noise. A supine final fun and a lonely waltz form a heavy body to vacate the room. down—
-&lt;center&gt;
-&lt;small&gt;
-&lt;strong&gt;SPLAT!&lt;/strong&gt;
-&lt;/small&gt;
-&lt;/center&gt;
-In a final triumph, a near-miss dunk into asphalt goes straight into dumpster muckyuck. The lid closes and saves on costs on the service and plot by creating a permanent grave for this lump. It so happens he passed by a window where heard was a whisper confession sighed into a cola-top-wearing bucket. With some humor, he&#39;d have said: &lt;em&gt;—gravity, don&#39;t fail me now.&lt;/em&gt;. The gravity didn&#39;t fail them, though, as they found themselves ina cuddle puddle shortly thereafter.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="10" name="17" tags="story" position="725,800" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-Cut back away from the dumpster and back toward the sleaze trap. Corner store, liquor store, sex shop, &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;...roll. Swap meet and a meat swap with consequence grazing out at pasture with a fine-tuned sight with a decent fitting compromised. &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;
-Good marksmanship stops and takes a load off and shot into the drain hole. Once in a and all the while, nowithstanding connection as part of a personality defect. Smearing and snorting and blending and chugging and thrusting and busting; injecting and ingesting in one broad fell swoop.
-Jerkspit porcelain runoff going and . . .
-&lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt; now.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-Cut back away from the dumpster and back toward the sleaze trap. Corner store, liquor store, sex shop, rock...roll. Swap meet and a meat swap with consequence grazing out at pasture with a fine-tuned sight with a decent fitting compromised. &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;
-Good marksmanship stops and takes a load off and shot into the drain hole. Once in a and all  the while, nowithstanding connection as part of a personality defect. Smearing and snorting and blending and chugging and thrusting and busting; injecting and ingesting in one broad fell swoop.
-Jerkspit porcelain runoff going and . . .
-&lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; now.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Cut back away from the dumpster and back toward the sleaze trap. Corner store, liquor store, sex shop, rock...roll. Swap meet and a meat swap with consequence grazing out at pasture with a fine-tuned sight with a decent fitting compromised. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt;
-Good marksmanship stops and takes a load off and shot into the drain hole. Once in a and all  the while, nowithstanding connection as part of a personality defect. Smearing and snorting and blending and chugging and thrusting and busting; injecting and ingesting in one broad fell swoop.
-Jerkspit porcelain runoff going and . . .
-gone now.
-&lt;&lt;else&gt;&gt;\
-Cut back away from the dumpster and back toward the sleaze trap. Corner store, liquor store, sex shop, rock...roll. Swap meet and a meat swap with consequence grazing out at pasture with a fine-tuned sight with a decent fitting compromised.
-Good marksmanship stops and takes a load off and shot into the drain hole. Once in a and all  the while, nowithstanding connection as part of a personality defect. Smearing and snorting and blending and chugging and thrusting and busting; injecting and ingesting in one broad fell swoop.
-Jerkspit porcelain runoff going and . . .
-gone now.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="11" name="18" tags="story" position="850,800" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-Whipped ass public display back to home as a triumph record tome of brief wealth and much later selfbroadcast glory, echoing forevermore the dim whisper of an old non-existent script for old fucks&#39; sake: &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;
-&lt;em&gt;&lt;small&gt;
-—&#39;I am John,&#39; John said,
-—&#39;and I am &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;,&quot; Christy said, &quot;We want to show you our paradise.&quot;
-&lt;/small&gt;&lt;/em&gt;
-&lt;em&gt;—Right but Alan Frank and Robbie Rowling were nowhere and found responsible for the words and lost pages as they slipped from their hotel room by using a tied up bed sheet... It was a fuckin&#39; long way down I heard. Can you speak to that?
-—&lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;.&lt;/em&gt;
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-Whipped ass public display back to home as a triumph record tome of brief wealth and much later selfbroadcast glory, echoing forevermore the dim whisper of an old non-existent script for old fucks&#39; sake: &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;
-&lt;em&gt;&lt;small&gt;
-—&#39;I am John,&#39; John said,
-—&#39;and I am Christy,&quot; Christy said, &quot;We want to show you our paradise.&quot;
-&lt;/small&gt;&lt;/em&gt;
-&lt;em&gt;—Right but Alan Frank and Robbie Rowling were nowhere and found responsible for the words and lost pages as they slipped from their hotel room by using a tied up bed sheet... It was a fuckin&#39; long way down I heard. Can you speak to that?
-—&lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;.&lt;/em&gt;
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Whipped ass public display back to home as a triumph record tome of brief wealth and much later selfbroadcast glory, echoing forevermore the dim whisper of an old non-existent script for old fucks&#39; sake: &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt;
-&lt;em&gt;&lt;small&gt;
-—&#39;I am John,&#39; John said,
-—&#39;and I am Christy,&quot; Christy said, &quot;We want to show you our paradise.&quot;
-&lt;/small&gt;&lt;/em&gt;
-&lt;em&gt;—Right but Alan Frank and Robbie Rowling were nowhere and found responsible for the words and lost pages as they slipped from their hotel room by using a tied up bed sheet... It was a fuckin&#39; long way down I heard. Can you speak to that?
-—Fuck off.&lt;/em&gt;
-&lt;&lt;else&gt;&gt;\
-Whipped ass public display back to home as a triumph record tome of brief wealth and much later selfbroadcast glory, echoing forevermore the dim whisper of an old non-existent script for old fucks&#39; sake:
-&lt;em&gt;&lt;small&gt;
-—&#39;I am John,&#39; John said,
-—&#39;and I am Christy,&quot; Christy said, &quot;We want to show you our paradise.&quot;
-&lt;/small&gt;&lt;/em&gt;
-&lt;em&gt;—Right but Alan Frank and Robbie Rowling were nowhere and found responsible for the words and lost pages as they slipped from their hotel room by using a tied up bed sheet... It was a fuckin&#39; long way down I heard. Can you speak to that?
-—Fuck off.&lt;/em&gt;
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="12" name="19" tags="story" position="975,800" size="100,100">&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-Loosely articulated and warmed fuzz all blown, and &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; down.
-The anticipation is still lacking, though, for a long-gone afternoon.
-A cerulean, pale and &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; abstraction before you; recklessly slopping in profile: oblong, massive form and better pain, &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-Loosely articulated and warmed fuzz all blown, and &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; down.
-The anticipation is still lacking, though, for a long-gone afternoon.
-A cerulean, pale and light-taupe abstraction before you; recklessly slopping in profile: oblong, massive form and better pain, &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Loosely articulated and warmed fuzz all blown, and &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; down.
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="9" name="16" tags="story" position="600,800" size="100,100">&lt;div id="unstable"&gt;
+And stare into the nighttime ocean skyline with vacant and wistful eyes, bloated by the bender, with sum fromer Adonic body whose purpose was to look good while fucking now chiseled into a soft and dumpy frame, effortlessly upkept by the exceptional glory of your 808 to the soundtrack of late-night commercials of girls going exploited underscoring all manner of hotel noise. A supine final fun and a lonely waltz form a heavy body to vacate the room. —
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="10" name="17" tags="story" position="725,800" size="100,100">&lt;div id="unstable"&gt;
+Cut back away from the dumpster and back toward the sleaze trap. Corner store, liquor store, sex shop, ...roll. Swap meet and a meat swap with consequence grazing out at pasture with a fine-tuned sight with a decent fitting compromised. Good marksmanship stops and takes a load off and shot into the drain hole. Once in a and all the while, nowithstanding connection as part of a personality defect. Smearing and snorting and blending and chugging and thrusting and busting; injecting and ingesting in one broad fell swoop.
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="11" name="18" tags="story" position="850,800" size="100,100">&lt;div id="unstable"&gt;
+Whipped ass public display back to home as a triumph record tome of brief wealth and much later selfbroadcast glory, echoing forevermore the dim whisper of an old non-existent script for old fucks' sake: &lt;em&gt;&lt;small&gt;
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="12" name="19" tags="story" position="975,800" size="100,100">Loosely articulated and warmed fuzz all blown, and gone down.
 The anticipation is still lacking, though, for a long-gone afternoon.
 A cerulean, pale and light-taupe abstraction before you; recklessly slopping in profile: oblong, massive form and better pain, forevermore.
-&lt;&lt;else&gt;&gt;\
-Loosely articulated and warmed fuzz all blown, and gone down.
-The anticipation is still lacking, though, for a long-gone afternoon.
-A cerulean, pale and light-taupe abstraction before you; recklessly slopping in profile: oblong, massive form and better pain, forevermore.
-&lt;&lt;/if&gt;&gt;\</tw-passagedata><tw-passagedata pid="13" name="2" tags="story" position="725,425" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-No. Not around 90 mph at 03:45 amid the fields and brush and bramble. And no; &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; no hiding looming lone soul--savior or ne&#39;er-do-well ever such ever otherwise waiting to pounce like a dog on his feline pray. And finally, the following scenes are perennial: they lurch into ubiquity upon any given re-telling around the time one reads these words. Absent of all that, and the standard is templated as all bound and unbound motion trudges through a &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; vaseline-smeared, maundering gaze. It&#39;s a place where the act of summing holes results in the shared viewpoint of a massive-tiny pinhole eclipse teasing the dawn vista into &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-No. Not around 90 mph at 03:45 amid the fields and brush and bramble. And no; &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; no hiding looming lone soul--savior or ne&#39;er-do-well ever such ever otherwise waiting to pounce like a dog on his feline pray. And finally, the following scenes are perennial: they lurch into ubiquity upon any given re-telling around the time one reads these words. Absent of all that, and the standard is templated as all bound and unbound motion trudges through a vaseline-smeared, maundering gaze. It&#39;s a place where the act of summing holes results in the shared viewpoint of a &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; massive-tiny pinhole eclipse teasing the dawn vista into an inchworm.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-No. Not around 90 mph at 03:45 amid the fields and brush and bramble. And no; &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; no hiding looming lone soul--savior or ne&#39;er-do-well ever such ever otherwise waiting to pounce like a dog on his feline pray. And finally, the following scenes are perennial: they lurch into ubiquity upon any given re-telling around the time one reads these words. Absent of all that, and the standard is templated as all bound and unbound motion trudges through a vaseline-smeared, maundering gaze. It&#39;s a place where the act of summing holes results in the shared viewpoint of a massive-tiny pinhole eclipse teasing the dawn vista into an inchworm.
-&lt;&lt;else&gt;&gt;\
-No. Not around 90 mph at 03:45 amid the fields and brush and bramble. And no; no hiding looming lone soul--savior or ne&#39;er-do-well ever such ever otherwise waiting to pounce like a dog on his feline pray. And finally, the following scenes are perennial: they lurch into ubiquity upon any given re-telling around the time one reads these words. Absent of all that, and the standard is templated as all bound and unbound motion trudges through a vaseline-smeared, maundering gaze. It&#39;s a place where the act of summing holes results in the shared viewpoint of a massive-tiny pinhole eclipse teasing the dawn vista into an inchworm.
-&lt;&lt;/if&gt;&gt;\
 
-&lt;&lt;if $allPlayerText.length &gt; 20&gt;&gt;\
-&lt;&lt;set _playerText4 to $allPlayerText.random()&gt;&gt;\
-An onward motion and into a wash. The outblazing horizon is there and looks toward a swift-twitching vista composed in the key of &lt;span class=&quot;player-text&quot;&gt;_playerText4&lt;/span&gt; lazed day; one that dances that waltz of the slitsevered death nerve exploding onto the canvas&#39;s foreground. Here and now, and there and then, and there and now will be all caught in the majestic depravity of those sometimes grimmed out pilgrim get-aways.
-&lt;&lt;else&gt;&gt;\
-An onward motion and into a wash. The outblazing horizon is there and looks toward a swift-twitching vista composed in the key of lazed day; one that dances that waltz of the slitsevered death nerve exploding onto the canvas&#39;s foreground. Here and now, and there and then, and there and now will be all caught in the majestic depravity of those sometimes grimmed out pilgrim get-aways.
-&lt;&lt;/if&gt;&gt;\
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+</tw-passagedata><tw-passagedata pid="13" name="2" tags="story" position="725,425" size="100,100">&lt;div id="unstable"&gt;
+No. Not around 90 mph at 03:45 amid the fields and brush and bramble. And no; no hiding looming lone soul--savior or ne'er-do-well ever such ever otherwise waiting to pounce like a dog on his feline pray. And finally, the following scenes are perennial: they lurch into ubiquity upon any given re-telling around the time one reads these words. Absent of all that, and the standard is templated as all bound and unbound motion trudges through a vaseline-smeared, maundering gaze. It's a place where the act of summing holes results in the shared viewpoint of a massive-tiny pinhole eclipse teasing the dawn vista into .
 
-Here and now and there and then and any other time.
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="14" name="20" tags="story" position="1100,800" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-A glisten-lazed vista impression laced with teen beating soaks the attention of the sum vision; it is worn drab and fraying. Present are a few desert-fit flora-fauna palm upward with fiddlers, hermits, a few gulls and a lone &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; on a playful hunt. &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;
-Hushed air sustains, pre-crescendo, ebb-flowing a fixed mechanical determinant within aesthetic circuits en returned vogue—revolving and pacing right round, predeterminate. Millions, hundreds oft-ignored notes, mute pizzicato:
-an unfounded distance traversing lined barren paths seeking forever—recognition voiding ⁊ stemming a pitfall of an indeterminate cultural dive. Rushed restorations that misalign a wet and echoing decay, replaying recalled backstage calls.
-&lt;em&gt;—&lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;!&lt;/em&gt;
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-A glisten-lazed vista impression laced with teen beating soaks the attention of the sum vision; it is worn drab and fraying. Present are a few desert-fit flora-fauna palm upward with fiddlers, hermits, a few gulls and a lone feline on a playful hunt. &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;
-Hushed air sustains, pre-crescendo, ebb-flowing a fixed mechanical determinant within aesthetic circuits en returned vogue—revolving and pacing right round, predeterminate. Millions, hundreds oft-ignored notes, mute pizzicato:
-an unfounded distance traversing lined barren paths seeking forever—recognition voiding ⁊ stemming a pitfall of an indeterminate cultural dive. Rushed restorations that misalign a wet and echoing decay, replaying recalled backstage calls.
-&lt;em&gt;—&lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;!&lt;/em&gt;
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-A glisten-lazed vista impression laced with teen beating soaks the attention of the sum vision; it is worn drab and fraying. Present are a few desert-fit flora-fauna palm upward with fiddlers, hermits, a few gulls and a lone feline on a playful hunt. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt;
-Hushed air sustains, pre-crescendo, ebb-flowing a fixed mechanical determinant within aesthetic circuits en returned vogue—revolving and pacing right round, predeterminate. Millions, hundreds oft-ignored notes, mute pizzicato:
-an unfounded distance traversing lined barren paths seeking forever—recognition voiding ⁊ stemming a pitfall of an indeterminate cultural dive. Rushed restorations that misalign a wet and echoing decay, replaying recalled backstage calls.
-&lt;em&gt;—Showtime!&lt;/em&gt;
-&lt;&lt;else&gt;&gt;\
-A glisten-lazed vista impression laced with teen beating soaks the attention of the sum vision; it is worn drab and fraying. Present are a few desert-fit flora-fauna palm upward with fiddlers, hermits, a few gulls and a lone feline on a playful hunt.
-Hushed air sustains, pre-crescendo, ebb-flowing a fixed mechanical determinant within aesthetic circuits en returned vogue—revolving and pacing right round, predeterminate. Millions, hundreds oft-ignored notes, mute pizzicato:
-an unfounded distance traversing lined barren paths seeking forever—recognition voiding ⁊ stemming a pitfall of an indeterminate cultural dive. Rushed restorations that misalign a wet and echoing decay, replaying recalled backstage calls.
-&lt;em&gt;—Showtime!&lt;/em&gt;
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="15" name="21" tags="story" position="600,925" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-faceplanting and d e g e n e r a t i n g everquicker and immediately pending the dwindling supply-demand in an intermarketability push toward a perfect symmetry of cross-communal mundanity in a sea of black and white and neon shirts. The downturn of excess force and upturn of a cruel and disembodied grin that motions you forward debilitating headaches ad infinitum and forefronts consciousness-cutting in a pointed, stylish and sadofocused stand-in that mimics a further disorder without intimacy. Distance&#39;s pry exacts indifference, per pressure and norm-freeing syntax and sustained repetition, with force, backed by searing images and burning salacity into duller minds&#39; injured scar-tissue: &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; submissive fetishism—celluloid lust. Blazing descriptions torching sensational impressing thicker skulls loosened disfigurement: obsession and devotion—&lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; celluloid lust. Shining narratives set light to lurid incinerating denser heads wounded defect: all-out keyhole mania—celluloid lust. &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;
-amen.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-faceplanting and d e g e n e r a t i n g everquicker and immediately pending the dwindling supply-demand in an intermarketability push toward a perfect symmetry of cross-communal mundanity in a sea of black and white and neon shirts. The downturn of excess force and upturn of a cruel and disembodied grin that motions you forward debilitating headaches ad infinitum and forefronts consciousness-cutting in a pointed, stylish and sadofocused stand-in that mimics a further disorder without intimacy. Distance&#39;s pry exacts indifference, per pressure and norm-freeing syntax and sustained repetition, with force, backed by searing images and burning salacity into duller minds&#39; injured scar-tissue: submissive fetishism—&lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; celluloid lust. Blazing descriptions torching sensational impressing thicker skulls loosened disfigurement: obsession and devotion—celluloid lust. Shining narratives set light to lurid incinerating denser heads wounded defect: all-out keyhole mania—&lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; celluloid lust.
-amen.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-faceplanting and d e g e n e r a t i n g everquicker and immediately pending the dwindling supply-demand in an intermarketability push toward a perfect symmetry of cross-communal mundanity in a sea of black and white and neon shirts. The downturn of excess force and upturn of a cruel and disembodied grin that motions you forward debilitating headaches ad infinitum and forefronts consciousness-cutting in a pointed, stylish and sadofocused stand-in that mimics a further disorder without intimacy. Distance&#39;s pry exacts indifference, per pressure and norm-freeing syntax and sustained repetition, with force, backed by searing images and burning salacity into duller minds&#39; injured scar-tissue: submissive fetishism—celluloid lust. Blazing descriptions torching sensational impressing thicker skulls loosened disfigurement: obsession and devotion—celluloid lust. Shining narratives set light to lurid incinerating denser heads wounded defect: all-out keyhole mania—celluloid lust. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt;
-amen.
-&lt;&lt;else&gt;&gt;\
-faceplanting and d e g e n e r a t i n g everquicker and immediately pending the dwindling supply-demand in an intermarketability push toward a perfect symmetry of cross-communal mundanity in a sea of black and white and neon shirts. The downturn of excess force and upturn of a cruel and disembodied grin that motions you forward debilitating headaches ad infinitum and forefronts consciousness-cutting in a pointed, stylish and sadofocused stand-in that mimics a further disorder without intimacy. Distance&#39;s pry exacts indifference, per pressure and norm-freeing syntax and sustained repetition, with force, backed by searing images and burning salacity into duller minds&#39; injured scar-tissue: submissive fetishism—celluloid lust. Blazing descriptions torching sensational impressing thicker skulls loosened disfigurement: obsession and devotion—celluloid lust. Shining narratives set light to lurid incinerating denser heads wounded defect: all-out keyhole mania—celluloid lust.
-amen.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="16" name="22" tags="story" position="725,925" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-Consciousness. &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;. &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; And back-alley births strolling along at an offset of sin and justness and nuance into oblivion—
-smattering jutted points in commanded tandem→ conscious usurped: form-refitted sensations seeping influx rubbish heap determined for sole loose continuity for loose souls. Now a star, as once wished, but in a deep abyss; grey, silver, or &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;? Who could ever know, or care?
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-Consciousness. &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;. &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; And back-alley births strolling along at an offset of sin and justness and nuance into oblivion—
-smattering jutted points in commanded tandem→ conscious usurped: form-refitted sensations seeping influx rubbish heap determined for sole loose continuity for loose souls. Now a star, as once wished, but in a deep abyss; grey, silver, or black? Who could ever know, or care?
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Consciousness. Unconsciousness. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; And back-alley births strolling along at an offset of sin and justness and nuance into oblivion—
-smattering jutted points in commanded tandem→ conscious usurped: form-refitted sensations seeping influx rubbish heap determined for sole loose continuity for loose souls. Now a star, as once wished, but in a deep abyss; grey, silver, or black? Who could ever know, or care?
-&lt;&lt;else&gt;&gt;\
-Consciousness. Unconsciousness. And back-alley births strolling along at an offset of sin and justness and nuance into oblivion—
-smattering jutted points in commanded tandem→ conscious usurped: form-refitted sensations seeping influx rubbish heap determined for sole loose continuity for loose souls. Now a star, as once wished, but in a deep abyss; grey, silver, or black? Who could ever know, or care?
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="17" name="23" tags="story" position="850,925" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-Outside and safe again. Tradition dictates a ceaseless motion engulfing all seen areas and resembles an ouroboros en loop many times over: for a hound, or a &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;; or a man. It is an unapparent preoccupation whose comparisons remain unknown and probably irrelevant. &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;
-Distant staring at the opposite horizon dyed a mourning afterglow that once promised such gooey fun but delivered messy chaos at tremendous proportion, en loop.
-A tampered emergency brake force-feeds collision as teeth flee many unsuspecting open mouths in a roaring hell of melted flesh piled two feet high and risen. Hard push with so much thrust into neck-deep chaos, indeterminate and ignorant of former topology.
-Viscid state expired and back to &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-Outsie and safe again. Tradition dictates a ceaseless motion engulfing all seen areas and resembles an ouroboros en loop many times over: for a hound, or a wolf; or a man. It is an unapparent preoccupation whose comparisons remain unknown and probably irrelevant. &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;
-Distant staring at the opposite horizon dyed a mourning afterglow that once promised such gooey fun but delivered messy chaos at tremendous proportion, en loop.
-A tampered emergency brake force-feeds collision as teeth flee many unsuspecting open mouths in a roaring hell of melted flesh piled two feet high and risen. Hard push with so much thrust into neck-deep chaos, indeterminate and ignorant of former topology.
-Viscid state expired and back to &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Outsie and safe again. Tradition dictates a ceaseless motion engulfing all seen areas and resembles an ouroboros en loop many times over: for a hound, or a wolf; or a man. It is an unapparent preoccupation whose comparisons remain unknown and probably irrelevant. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt;
-Distant staring at the opposite horizon dyed a mourning afterglow that once promised such gooey fun but delivered messy chaos at tremendous proportion, en loop.
-A tampered emergency brake force-feeds collision as teeth flee many unsuspecting open mouths in a roaring hell of melted flesh piled two feet high and risen. Hard push with so much thrust into neck-deep chaos, indeterminate and ignorant of former topology.
-Viscid state expired and back to business.
-&lt;&lt;else&gt;&gt;\
-Outside and safe again. Tradition dictates a ceaseless motion engulfing all seen areas and resembles an ouroboros en loop many times over: for a hound, or a wolf; or a man. It is an unapparent preoccupation whose comparisons remain unknown and probably irrelevant.
-Distant staring at the opposite horizon dyed a mourning afterglow that once promised such gooey fun but delivered messy chaos at tremendous proportion, en loop.
-A tampered emergency brake force-feeds collision as teeth flee many unsuspecting open mouths in a roaring hell of melted flesh piled two feet high and risen. Hard push with so much thrust into neck-deep chaos, indeterminate and ignorant of former topology.
-Viscid state expired and back to business.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="18" name="24" tags="story" position="975,925" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-Age-old mass cloaked in deceptive degeneration signifying age and identity with a tease inkling of the pending abstract havoc and crumbling attention; it is overlooked, naturally. An itemization of a frivolous beginning and indifferent conclusion without care for the midsection as the guiding rope frays and snaps and succeeds at spreading incredibly beyond current and future sight. &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; Recorded and memorialized sans notation, sans tragedy: extermination became ordinary to the climate&#39;s specs. Invisible and popularly silent and failing as a supreme culmination in an unexpected stampede birthed from panic, future-favoring
-&quot;&lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;...&quot; a triumph hindered by a tireiron flattened headcase and resembling most tales encasing redemption arcs&#39; perpetual action in a way of self-typifying realistically and quickly in a failure times three standard manoeuvre repurposed for a new type of gooey and messy and &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt; time.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-Age-old mass cloaked in deceptive degeneration signifying age and identity with a tease inkling of the pending abstract havoc and crumbling attention; it is overlooked, naturally. An itemization of a frivolous beginning and indifferent conclusion without care for the midsection as the guiding rope frays and snaps and succeeds at spreading incredibly beyond current and future sight. &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; Recorded and memorialized sans notation, sans tragedy: extermination became ordinary to the climate&#39;s specs. Invisible and popularly silent and failing as a supreme culmination in an unexpected stampede birthed from panic, future-favoring
-&quot;Once upon a time...&quot; a triumph hindered by a tireiron flattened headcase and resembling most tales encasing redemption arcs&#39; perpetual action in a way of self-typifying realistically and quickly in a failure times three standard manoeuvre repurposed for a new type of gooey and messy and &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; time.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Age-old mass cloaked in deceptive degeneration signifying age and identity with a tease inkling of the pending abstract havoc and crumbling attention; it is overlooked, naturally. An itemization of a frivolous beginning and indifferent conclusion without care for the midsection as the guiding rope frays and snaps and succeeds at spreading incredibly beyond current and future sight. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; Recorded and memorialized sans notation, sans tragedy: extermination became ordinary to the climate&#39;s specs. Invisible and popularly silent and failing as a supreme culmination in an unexpected stampede birthed from panic, future-favoring
-&quot;Once upon a time...&quot; a triumph hindered by a tireiron flattened headcase and resembling most tales encasing redemption arcs&#39; perpetual action in a way of self-typifying realistically and quickly in a failure times three standard manoeuvre repurposed for a new type of gooey and messy and chaotic time.
-&lt;&lt;else&gt;&gt;\
-Age-old mass cloaked in deceptive degeneration signifying age and identity with a tease inkling of the pending abstract havoc and crumbling attention; it is overlooked, naturally. An itemization of a frivolous beginning and indifferent conclusion without care for the midsection as the guiding rope frays and snaps and succeeds at spreading incredibly beyond current and future sight. Recorded and memorialized sans notation, sans tragedy: extermination became ordinary to the climate&#39;s specs. Invisible and popularly silent and failing as a supreme culmination in an unexpected stampede birthed from panic, future-favoring
-&quot;Once upon a time...&quot; a triumph hindered by a tireiron flattened headcase and resembling most tales encasing redemption arcs&#39; perpetual action in a way of self-typifying realistically and quickly in a failure times three standard manoeuvre repurposed for a new type of gooey and messy and chaotic time.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="19" name="25" tags="story" position="1100,925" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-Grave opposition, crushing potential, triumphant. Pre-crescendo and Post-crescendo are anticipating collision, knocking down town, city, province, destination, house and &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;.
-&lt;em&gt;—Dawn creeps to th&#39; forefront and it wants you, &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;.&lt;/em&gt;
-Coherence sans perspective imbuing a deafening inebriation. Ignorant and always warbling, en loop. Mechanical failure; spiritual blunder. &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;
-High limestone tower appendaged post-construction committed to a likewise foundation is distinctive and unique and opposite beside entire marble; natural base and a century crawl for the whole height invasion of seizing sovereignty.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-Grave opposition, crushing potential, triumphant. Pre-crescendo and Post-crescendo are anticipating collision, knocking down town, city, province, destination, house and home.
-&lt;em&gt;—Dawn creeps to th&#39; forefront and it wants you, Linda.&lt;/em&gt;
-Coherence sans perspective imbuing a deafening inebriation. Ignorant and always warbling, en loop. Mechanical failure; spiritual blunder. &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;
-High limestone tower appendaged post-construction committed to a likewise foundation is distinctive and unique and opposite beside entire marble; natural base and a century crawl for the whole height invasion of seizing &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Grave opposition, crushing potential, triumphant. Pre-crescendo and Post-crescendo are anticipating collision, knocking down town, city, province, destination, house and home.
-&lt;em&gt;—Dawn creeps to th&#39; forefront and it wants you, Linda.&lt;/em&gt;
-Coherence sans perspective imbuing a deafening inebriation. Ignorant and always warbling, en loop. Mechanical failure; spiritual blunder. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt;
-High limestone tower appendaged post-construction committed to a likewise foundation is distinctive and unique and opposite beside entire marble; natural base and a century crawl for the whole height invasion of seizing sovereignty.
-&lt;&lt;else&gt;&gt;\
-Grave opposition, crushing potential, triumphant. Pre-crescendo and Post-crescendo are anticipating collision, knocking down town, city, province, destination, house and home.
-&lt;em&gt;—Dawn creeps to th&#39; forefront and it wants you, Linda.&lt;/em&gt;
-Coherence sans perspective imbuing a deafening inebriation. Ignorant and always warbling, en loop. Mechanical failure; spiritual blunder.
-High limestone tower appendaged post-construction committed to a likewise foundation is distinctive and unique and opposite beside entire marble; natural base and a century crawl for the whole height invasion of seizing sovereignty.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="20" name="26" tags="story" position="600,1050" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-Unaccounted for and trite geometric perfection because as the South rises to a cultural limp they will have destroyed all historical buildings to replace them with chain eateries and strip malls. The anomaly of three looming cubes bonded parallel—thirty feet tall and conjoining each side, in neglect of the matching eastward cube. It is a postmedieval gothic tower that was rendered through a &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; minimalism machine, &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; a xeroxed refashion that had blown all detail to a blended oblivion and shaped into a bland abstraction as though by J.K., Nothing, all-encompassing smoothness except for the window carefully &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-Unaccounted for and trite geometric perfection because as the South rises to a cultural limp they will have destroyed all historical buildings to replace them with chain eateries and strip malls. The anomaly of three looming cubes bonded parallel—thirty feet tall and conjoining each side, in neglect of the matching eastward cube. It is a postmedieval gothic tower that was rendered through a minimalism machine, &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; a xeroxed refashion that had blown all detail to a blended oblivion and shaped into a bland abstraction as though by J.K., Nothing, all-encompassing smoothness except for the window carefully &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Unaccounted for and trite geometric perfection because as the South rises to a cultural limp they will have destroyed all historical buildings to replace them with chain eateries and strip malls. The anomaly of three looming cubes bonded parallel—thirty feet tall and conjoining each side, in neglect of the matching eastward cube. It is a postmedieval gothic tower that was rendered through a minimalism machine, &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; a xeroxed refashion that had blown all detail to a blended oblivion and shaped into a bland abstraction as though by J.K., Nothing, all-encompassing smoothness except for the window carefully preserved.
-&lt;&lt;else&gt;&gt;\
-Unaccounted for and trite geometric perfection because as the South rises to a cultural limp they will have destroyed all historical buildings to replace them with chain eateries and strip malls. The anomaly of three looming cubes bonded parallel—thirty feet tall and conjoining each side, in neglect of the matching eastward cube. It is a postmedieval gothic tower that was rendered through a minimalism machine, a xeroxed refashion that had blown all detail to a blended oblivion and shaped into a bland abstraction as though by J.K., Nothing, all-encompassing smoothness except for the window carefully preserved.
-&lt;&lt;/if&gt;&gt;\
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="14" name="20" tags="story" position="1100,800" size="100,100">&lt;div id="unstable"&gt;
+A glisten-lazed vista impression laced with teen beating soaks the attention of the sum vision; it is worn drab and fraying. Present are a few desert-fit flora-fauna palm upward with fiddlers, hermits, a few gulls and a lone on a playful hunt. Hushed air sustains, pre-crescendo, ebb-flowing a fixed mechanical determinant within aesthetic circuits en returned vogue—revolving and pacing right round, predeterminate. Millions, hundreds oft-ignored notes, mute pizzicato:
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="15" name="21" tags="story" position="600,925" size="100,100">&lt;div id="unstable"&gt;
+faceplanting and d e g e n e r a t i n g everquicker and immediately pending the dwindling supply-demand in an intermarketability push toward a perfect symmetry of cross-communal mundanity in a sea of black and white and neon shirts. The downturn of excess force and upturn of a cruel and disembodied grin that motions you forward debilitating headaches ad infinitum and forefronts consciousness-cutting in a pointed, stylish and sadofocused stand-in that mimics a further disorder without intimacy. Distance's pry exacts indifference, per pressure and norm-freeing syntax and sustained repetition, with force, backed by searing images and burning salacity into duller minds' injured scar-tissue: submissive fetishism—celluloid lust. Blazing descriptions torching sensational impressing thicker skulls loosened disfigurement: obsession and devotion— celluloid lust. Shining narratives set light to lurid incinerating denser heads wounded defect: all-out keyhole mania—celluloid lust. amen.
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="16" name="22" tags="story" position="725,925" size="100,100">&lt;div id="unstable"&gt;
+Consciousness. . And back-alley births strolling along at an offset of sin and justness and nuance into oblivion—
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="17" name="23" tags="story" position="850,925" size="100,100">&lt;div id="unstable"&gt;
+Outside and safe again. Tradition dictates a ceaseless motion engulfing all seen areas and resembles an ouroboros en loop many times over: for a hound, or a ; or a man. It is an unapparent preoccupation whose comparisons remain unknown and probably irrelevant. Distant staring at the opposite horizon dyed a mourning afterglow that once promised such gooey fun but delivered messy chaos at tremendous proportion, en loop.
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="18" name="24" tags="story" position="975,925" size="100,100">&lt;div id="unstable"&gt;
+Age-old mass cloaked in deceptive degeneration signifying age and identity with a tease inkling of the pending abstract havoc and crumbling attention; it is overlooked, naturally. An itemization of a frivolous beginning and indifferent conclusion without care for the midsection as the guiding rope frays and snaps and succeeds at spreading incredibly beyond current and future sight. Recorded and memorialized sans notation, sans tragedy: extermination became ordinary to the climate's specs. Invisible and popularly silent and failing as a supreme culmination in an unexpected stampede birthed from panic, future-favoring
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="19" name="25" tags="story" position="1100,925" size="100,100">&lt;div id="unstable"&gt;
+Grave opposition, crushing potential, triumphant. Pre-crescendo and Post-crescendo are anticipating collision, knocking down town, city, province, destination, house and .
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="20" name="26" tags="story" position="600,1050" size="100,100">&lt;div id="unstable"&gt;
+Unaccounted for and trite geometric perfection because as the South rises to a cultural limp they will have destroyed all historical buildings to replace them with chain eateries and strip malls. The anomaly of three looming cubes bonded parallel—thirty feet tall and conjoining each side, in neglect of the matching eastward cube. It is a postmedieval gothic tower that was rendered through a minimalism machine, a xeroxed refashion that had blown all detail to a blended oblivion and shaped into a bland abstraction as though by J.K., Nothing, all-encompassing smoothness except for the window carefully .
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="21" name="27" tags="" position="725,1050" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-The Center structure: roughly twenty feet high. Abnormal, deeming the locale, still unaccounted for among big wealthy freaks who only manage to fail at considering instances of design supremacy. Typical extremity in a display of &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;→Desolation. &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; Submission.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-The Center structure: roughly twenty feet high. Abnormal, deeming the locale, still unaccounted for among big wealthy freaks who only manage to fail at considering instances of design supremacy. Typical extremity in a display of lavishness→&lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt;. Submission.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-The Center structure: roughly twenty feet high. Abnormal, deeming the locale, still unaccounted for among big wealthy freaks who only manage to fail at considering instances of design supremacy. Typical extremity in a display of lavishness→Desolation. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; Submission.
-&lt;&lt;else&gt;&gt;\
 The Center structure: roughly twenty feet high. Abnormal, deeming the locale, still unaccounted for among big wealthy freaks who only manage to fail at considering instances of design supremacy. Typical extremity in a display of lavishness→Desolation. Submission.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="22" name="28" tags="story" position="850,1050" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-Shattered glass around new bored cavities and a three-hundred-sixty degrees round lifevoid. Shattered glass dropping reflections of dim forecast runoff indeterminable, ad infinitum. Current position dictating situational and decreased blindness as dawn creeps to the &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;.
-A littered perimeter anticipating exploration: once from an investigative team, then young ones eager for adventure, then a shoestringrich crew and now the happening is &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;
-rife for a final treatment with a silence-breaking echo . . .
-&lt;em&gt;—they say its haunted but who &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt; cares?&lt;/em&gt;
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-Shattered glass around new bored cavities and a three-hundred-sixty degrees round lifevoid. Shattered glass dropping reflections of dim forecast runoff indeterminable, ad infinitum. Current position dictating situational and decreased blindness as dawn creeps to the forefront.
-A littered perimeter anticipating exploration: once from an investigative team, then young ones eager for adventure, then a shoestringrich crew and now the happening is &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;
-rife for a final treatment with a silence-breaking echo . . .
-&lt;em&gt;—they say its haunted but who &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; cares?&lt;/em&gt;
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Shattered glass around new bored cavities and a three-hundred-sixty degrees round lifevoid. Shattered glass dropping reflections of dim forecast runoff indeterminable, ad infinitum. Current position dictating situational and decreased blindness as dawn creeps to the forefront.
-A littered perimeter anticipating exploration: once from an investigative team, then young ones eager for adventure, then a shoestringrich crew and now the happening is &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt;
-rife for a final treatment with a silence-breaking echo . . .
-&lt;em&gt;—they say its haunted but who fucking cares?&lt;/em&gt;
-&lt;&lt;else&gt;&gt;\
-Shattered glass around new bored cavities and a three-hundred-sixty degrees round lifevoid. Shattered glass dropping reflections of dim forecast runoff indeterminable, ad infinitum. Current position dictating situational and decreased blindness as dawn creeps to the forefront.
-A littered perimeter anticipating exploration: once from an investigative team, then young ones eager for adventure, then a shoestringrich crew and now the happening is
-rife for a final treatment with a silence-breaking echo . . .
-&lt;em&gt;—they say its haunted but who fucking cares?&lt;/em&gt;
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="23" name="29" tags="story" position="975,1050" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;. &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;
-The picked-for-feature omen resting saddle-side and nestled against damp denim.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-&lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt;. 
-The picked-for-feature omen resting saddle-side and nestled against damp denim.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Now. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt;
-The picked-for-feature omen resting saddle-side and nestled against damp denim.
-&lt;&lt;else&gt;&gt;\
-Now. 
-The picked-for-feature omen resting saddle-side and nestled against damp denim.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="24" name="3" tags="story" position="850,425" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-You notice a haze: flat and vague canvassed forms outlined in the warring hues of &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; blue, white and beige regenerated ad nauseam through a &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; ==dream==absolutefuckingnightmare filter———
-the reckless slopping of an equidistant abstraction that looks like violent and sounds like &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-You notice a haze: flat and vague canvassed forms outlined in the warring hues of blue, white and beige regenerated ad nauseam through a &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; ==dream==absolutefuckingnightmare filter———
-the reckless slopping of an equidistant abstraction that looks like violent and sounds like &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-You notice a haze: flat and vague canvassed forms outlined in the warring hues of blue, white and beige regenerated ad nauseam through a &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; ==dream==absolutefuckingnightmare filter———
-the reckless slopping of an equidistant abstraction that looks like violent and sounds like calm.
-&lt;&lt;else&gt;&gt;\
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="22" name="28" tags="story" position="850,1050" size="100,100">&lt;div id="unstable"&gt;
+Shattered glass around new bored cavities and a three-hundred-sixty degrees round lifevoid. Shattered glass dropping reflections of dim forecast runoff indeterminable, ad infinitum. Current position dictating situational and decreased blindness as dawn creeps to the .
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="23" name="29" tags="story" position="975,1050" size="100,100">&lt;div id="unstable"&gt;. The picked-for-feature omen resting saddle-side and nestled against damp denim.
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="24" name="3" tags="story" position="850,425" size="100,100">&lt;div id="unstable"&gt;
 You notice a haze: flat and vague canvassed forms outlined in the warring hues of blue, white and beige regenerated ad nauseam through a ==dream==absolutefuckingnightmare filter———
-the reckless slopping of an equidistant abstraction that looks like violent and sounds like calm.
-&lt;&lt;/if&gt;&gt;\
 
-&lt;&lt;if $allPlayerText.length &gt; 20&gt;&gt;\
-&lt;&lt;set _playerText4 to $allPlayerText.random()&gt;&gt;\
-There, too, the sensibility-nuzzling abandonment dropped upon and looking out onto the glistening, towering oblong block out yonder over there and reflected in the glassy eyes going dry implanted in an inanimate and hallucinated &lt;span class=&quot;player-text&quot;&gt;_playerText4&lt;/span&gt; shame-stricken face whose gaze is avoiding the suspended port casting its light onto the catatonic visage of yet another seasontrap. More than four walls, but hardly, entombing the mechanized motion of liquor in between a scratchy duvet and cheap sheets; or that&#39;s what to think.
-&lt;&lt;else&gt;&gt;\
-There, too, the sensibility-nuzzling abandonment dropped upon and looking out onto the glistening, towering oblong block out yonder over there and reflected in the glassy eyes going dry implanted in an inanimate and hallucinated shame-stricken face whose gaze is avoiding the suspended port casting its light onto the catatonic visage of yet another seasontrap. More than four walls, but hardly, entombing the mechanized motion of liquor in between a scratchy duvet and cheap sheets; or that&#39;s what to think.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="25" name="30" tags="story" position="1100,1050" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-Soaked plum currents sag limply and caress the atmosphere, reflecting a low wind rate. Like base material edging its hold varying thieved house/home matter recently ejected: so much chipped stucco scraps in frosted nebulae, forever and contained eternally paralleled to a neck-to-wrist-bound &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; soul-sucking contraption. &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; Sole matter vessel with priority hosting, sans features that denote identity and memory and purpose and community and taste matter and smell matter and aural matter and reception matter and expulsion matter and excretion delivering a narrative in loose servitude to &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-Soaked plum currents sag limply and caress the atmosphere, reflecting a low wind rate. Like base material edging its hold varying thieved house/home matter recently ejected: so much chipped stucco scraps in frosted nebulae, forever and contained eternally paralleled to a neck-to-wrist-bound soul-sucking contraption. &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; Sole matter vessel with priority hosting, sans features that denote identity and memory and purpose and community and taste matter and smell matter and aural matter and reception matter and expulsion matter and excretion delivering a narrative in loose servitude to &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Soaked plum currents sag limply and caress the atmosphere, reflecting a low wind rate. Like base material edging its hold varying thieved house/home matter recently ejected: so much chipped stucco scraps in frosted nebulae, forever and contained eternally paralleled to a neck-to-wrist-bound soul-sucking contraption. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; Sole matter vessel with priority hosting, sans features that denote identity and memory and purpose and community and taste matter and smell matter and aural matter and reception matter and expulsion matter and excretion delivering a narrative in loose servitude to no one.
-&lt;&lt;else&gt;&gt;\
-Soaked plum currents sag limply and caress the atmosphere, reflecting a low wind rate. Like base material edging its hold varying thieved house/home matter recently ejected: so much chipped stucco scraps in frosted nebulae, forever and contained eternally paralleled to a neck-to-wrist-bound soul-sucking contraption. Sole matter vessel with priority hosting, sans features that denote identity and memory and purpose and community and taste matter and smell matter and aural matter and reception matter and expulsion matter and excretion delivering a narrative in loose servitude to no one.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="26" name="31" tags="story" position="600,1175" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-Amorphous, bound and subservient to no end. &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;. An operatic shriek emits from a near-distance, breaking the looped crescendo beyond repair. Now starts the next track on the groove. Funeral march lulling a long hard century of untold &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;, kissing final &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-Amorphous, bound and subservient to no end. &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;. An operatic shriek emits from a near-distance, breaking the looped crescendo beyond repair. Now starts the next track on the groove. Funeral march lulling a long hard century of untold miseries, kissing final &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Amorphous, bound and subservient to no end. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; An operatic shriek emits from a near-distance, breaking the looped crescendo beyond repair. Now starts the next track on the groove. Funeral march lulling a long hard century of untold miseries, kissing final goodbyes.
-&lt;&lt;else&gt;&gt;\
-Amorphous, bound and subservient to no end. Always. An operatic shriek emits from a near-distance, breaking the looped crescendo beyond repair. Now starts the next track on the groove. Funeral march lulling a long hard century of untold miseries, kissing final goodbyes.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="27" name="32" tags="story" position="725,1175" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-Composition exacting mindless paralysis; again, a fixing stare bearing a feeling toward &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;. Splatter-stained material: the earlier frame, marred now and containing a former image of an abandoned coast front hardly swaying in its marching funeral state. &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; Questioningports←→reality valley and unnoticing creep-seep homing from eight frame joints holding past/future work detonating rage→calmer rage→shot nerves rage ramping up a collection of hairline fractures and venturing far below a common goal. Comprising structure inside-out cleverly disguised and comfort is now but a fleeting &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-Composition exacting mindless paralysis; again, a fixing stare bearing a feeling toward canvas. Splatter-stained material: the earlier frame, marred now and containing a former image of an abandoned coast front hardly swaying in its marching funeral state. &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; Questioningports←→reality valley and unnoticing creep-seep homing from eight frame joints holding past/future work detonating rage→calmer rage→shot nerves rage ramping up a collection of hairline fractures and venturing far below a common goal. Comprising structure inside-out cleverly disguised and comfort is now but a fleeting &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Composition exacting mindless paralysis; again, a fixing stare bearing a feeling toward canvas. Splatter-stained material: the earlier frame, marred now and containing a former image of an abandoned coast front hardly swaying in its marching funeral state. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; Questioningports←→reality valley and unnoticing creep-seep homing from eight frame joints holding past/future work detonating rage→calmer rage→shot nerves rage ramping up a collection of hairline fractures and venturing far below a common goal. Comprising structure inside-out cleverly disguised and comfort is now but a fleeting memory.
-&lt;&lt;else&gt;&gt;\
-Composition exacting mindless paralysis; again, a fixing stare bearing a feeling toward canvas. Splatter-stained material: the earlier frame, marred now and containing a former image of an abandoned coast front hardly swaying in its marching funeral state. Questioningports←→reality valley and unnoticing creep-seep homing from eight frame joints holding past/future work detonating rage→calmer rage→shot nerves rage ramping up a collection of hairline fractures and venturing far below a common goal. Comprising structure inside-out cleverly disguised and comfort is now but a fleeting memory.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="28" name="33" tags="story" position="850,1175" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-Sisyphean boogie descending and ascending a throbbing painrhythm from a spiderwebbing vertical gash atop a left foot and between toes marred by the long-handled-ax driven by a &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; ghoulish joke. &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; The suspect is a coat of armor parked amid the north-east corridor of the first-floor hallway beside those rooms: creeping rooms, joining and some rooms containing Acanthus pedestals held in place by their decorative vases and a pseudo-Classical statuette, beside the one intact window. Some rooms were left containing original desolation, notwithstanding protective &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-Sisyphean boogie descending and ascending a throbbing painrhythm from a spiderwebbing vertical gash atop a left foot and between toes marred by the long-handled-ax driven by a ghoulish joke. &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; The suspect is a coat of armor parked amid the north-east corridor of the first-floor hallway beside those rooms: creeping rooms, joining and some rooms containing Acanthus pedestals held in place by their decorative vases and a pseudo-Classical statuette, beside the one intact window. Some rooms were left containing original desolation, notwithstanding protective &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Sisyphean boogie descending and ascending a throbbing painrhythm from a spiderwebbing vertical gash atop a left foot and between toes marred by the long-handled-ax driven by a ghoulish joke. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; The suspect is a coat of armor parked amid the north-east corridor of the first-floor hallway beside those rooms: creeping rooms, joining and some rooms containing Acanthus pedestals held in place by their decorative vases and a pseudo-Classical statuette, beside the one intact window. Some rooms were left containing original desolation, notwithstanding protective hexes.
-&lt;&lt;else&gt;&gt;\
-Sisyphean boogie descending and ascending a throbbing painrhythm from a spiderwebbing vertical gash atop a left foot and between toes marred by the long-handled-ax driven by a ghoulish joke. The suspect is a coat of armor parked amid the north-east corridor of the first-floor hallway beside those rooms: creeping rooms, joining and some rooms containing Acanthus pedestals held in place by their decorative vases and a pseudo-Classical statuette, beside the one intact window. Some rooms were left containing original desolation, notwithstanding protective hexes.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="29" name="34" tags="story" position="975,1175" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-A wound painted with severity and delirium ad nauseam that hinders mobility and the staircase is a buckled marble wretch, a spewing body toward a subterranean foyer that is dim-shrouded by time and fasthalting forward, thirsting to choke on near-future blood spittle, tripping already cracked teeth into more cracked, more blood and more &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;.
-Inventory: ==pounded meat, dripping fat, wetter flesh, hardly any teeth left, &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; matted hair, slashed linens and cheap cotton.== &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;
-All checked out.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-A wound painted with severity and delirium ad nauseam that hinders mobility and the staircase is a buckled marble wretch, a spewing body toward a subterranean foyer that is dim-shrouded by time and fasthalting forward, thirsting to choke on near-future blood spittle, tripping already cracked teeth into more cracked, more blood and more spittle.
-Inventory: ==pounded meat, dripping fat, wetter flesh, hardly any teeth left, matted hair, slashed linens and &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; cheap cotton.== &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;
-All checked out.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-A wound painted with severity and delirium ad nauseam that hinders mobility and the staircase is a buckled marble wretch, a spewing body toward a subterranean foyer that is dim-shrouded by time and fasthalting forward, thirsting to choke on near-future blood spittle, tripping already cracked teeth into more cracked, more blood and more spittle.
-Inventory: ==pounded meat, dripping fat, wetter flesh, hardly any teeth left, matted hair, slashed linens and cheap cotton.== &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt;
-All checked out.
-&lt;&lt;else&gt;&gt;\
-A wound painted with severity and delirium ad nauseam that hinders mobility and the staircase is a buckled marble wretch, a spewing body toward a subterranean foyer that is dim-shrouded by time and fasthalting forward, thirsting to choke on near-future blood spittle, tripping already cracked teeth into more cracked, more blood and more spittle.
-Inventory: ==pounded meat, dripping fat, wetter flesh, hardly any teeth left, matted hair, slashed linens and cheap cotton.==
-All checked out.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="30" name="35" tags="story" position="1100,1175" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-Visible articles whisper for a loose resting place to caress a torso. A silk-screened image staining bulkbought material in its triple-colored tattoo of a tropical themed print that dominates the main features and hides a relief of a paint-absent space to disregard the fabric. &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; Youthful whimsy illustrating a garish and morbid sensibility for fashion-starved youth enjoyability: A dumb, sand-buried headcase in a &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; paradise landscape concealed and framing text shouting a familiar and dated slogan: &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-Visible articles whisper for a loose resting place to caress a torso. A silk-screened image staining bulkbought material in its triple-colored tattoo of a tropical themed print that dominates the main features and hides a relief of a paint-absent space to disregard the fabric. &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; Youthful whimsy illustrating a garish and morbid sensibility for fashion-starved youth enjoyability: A dumb, sand-buried headcase in a paradise landscape concealed and framing text shouting a familiar and dated slogan: &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Visible articles whisper for a loose resting place to caress a torso. A silk-screened image staining bulkbought material in its triple-colored tattoo of a tropical themed print that dominates the main features and hides a relief of a paint-absent space to disregard the fabric. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; Youthful whimsy illustrating a garish and morbid sensibility for fashion-starved youth enjoyability: A dumb, sand-buried headcase in a paradise landscape concealed and framing text shouting a familiar and dated slogan.
-&lt;&lt;else&gt;&gt;\
-Visible articles whisper for a loose resting place to caress a torso. A silk-screened image staining bulkbought material in its triple-colored tattoo of a tropical themed print that dominates the main features and hides a relief of a paint-absent space to disregard the fabric. Youthful whimsy illustrating a garish and morbid sensibility for fashion-starved youth enjoyability: A dumb, sand-buried headcase in a paradise landscape concealed and framing text shouting a familiar and dated slogan.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="31" name="36" tags="story" position="600,1300" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-A foreboding and hardly-working double entendre for post-adolescent void → adulthood crafted by some nowdead intern. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; It is clear how many will stay co-opting a fashion identical; an imprisoning stupidity, indefinitely.
-&lt;&lt;else&gt;&gt;\
-A foreboding and hardly-working double entendre for post-adolescent void → adulthood crafted by some nowdead intern. It is clear how many will stay co-opting a fashion identical; an imprisoning stupidity, indefinitely.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="32" name="37" tags="story" position="725,1300" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="25" name="30" tags="story" position="1100,1050" size="100,100">&lt;div id="unstable"&gt;
+Soaked plum currents sag limply and caress the atmosphere, reflecting a low wind rate. Like base material edging its hold varying thieved house/home matter recently ejected: so much chipped stucco scraps in frosted nebulae, forever and contained eternally paralleled to a neck-to-wrist-bound soul-sucking contraption. Sole matter vessel with priority hosting, sans features that denote identity and memory and purpose and community and taste matter and smell matter and aural matter and reception matter and expulsion matter and excretion delivering a narrative in loose servitude to .
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="26" name="31" tags="story" position="600,1175" size="100,100">&lt;div id="unstable"&gt;
+Amorphous, bound and subservient to no end. . An operatic shriek emits from a near-distance, breaking the looped crescendo beyond repair. Now starts the next track on the groove. Funeral march lulling a long hard century of untold , kissing final .
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="27" name="32" tags="story" position="725,1175" size="100,100">&lt;div id="unstable"&gt;
+Composition exacting mindless paralysis; again, a fixing stare bearing a feeling toward . Splatter-stained material: the earlier frame, marred now and containing a former image of an abandoned coast front hardly swaying in its marching funeral state. Questioningports←→reality valley and unnoticing creep-seep homing from eight frame joints holding past/future work detonating rage→calmer rage→shot nerves rage ramping up a collection of hairline fractures and venturing far below a common goal. Comprising structure inside-out cleverly disguised and comfort is now but a fleeting .
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="28" name="33" tags="story" position="850,1175" size="100,100">&lt;div id="unstable"&gt;
+Sisyphean boogie descending and ascending a throbbing painrhythm from a spiderwebbing vertical gash atop a left foot and between toes marred by the long-handled-ax driven by a ghoulish joke. The suspect is a coat of armor parked amid the north-east corridor of the first-floor hallway beside those rooms: creeping rooms, joining and some rooms containing Acanthus pedestals held in place by their decorative vases and a pseudo-Classical statuette, beside the one intact window. Some rooms were left containing original desolation, notwithstanding protective .
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="29" name="34" tags="story" position="975,1175" size="100,100">&lt;div id="unstable"&gt;
+A wound painted with severity and delirium ad nauseam that hinders mobility and the staircase is a buckled marble wretch, a spewing body toward a subterranean foyer that is dim-shrouded by time and fasthalting forward, thirsting to choke on near-future blood spittle, tripping already cracked teeth into more cracked, more blood and more .
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="30" name="35" tags="story" position="1100,1175" size="100,100">&lt;div id="unstable"&gt;
+Visible articles whisper for a loose resting place to caress a torso. A silk-screened image staining bulkbought material in its triple-colored tattoo of a tropical themed print that dominates the main features and hides a relief of a paint-absent space to disregard the fabric. Youthful whimsy illustrating a garish and morbid sensibility for fashion-starved youth enjoyability: A dumb, sand-buried headcase in a paradise landscape concealed and framing text shouting a familiar and dated slogan: &lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="31" name="36" tags="story" position="600,1300" size="100,100">&lt;div id="unstable"&gt;
+A foreboding and hardly-working double entendre for post-adolescent void → adulthood crafted by some nowdead intern.  It is clear how many will stay co-opting a fashion identical; an imprisoning stupidity, indefinitely.
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="32" name="37" tags="story" position="725,1300" size="100,100">&lt;div id="unstable"&gt;
 Deep thud and a familiar shape that is outlining the crimson-hued cavalcade. More fissures adorn the cold, milky balustrade and conceits importance for halfworth of antiquity and aristocracy to assist with relieving hair from head, jaw from temporomandibular and teeth from mouth, collectively rightward and shooting a new blood fountain from a geyser to fading gurgle.
 
-All of a sudden, the dim lights fade again. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
 
-Past out.
-&lt;&lt;else&gt;&gt;\
-Deep thud and a familiar shape that is outlining the crimson-hued cavalcade. More fissures adorn the cold, milky balustrade and conceits importance for halfworth of antiquity and aristocracy to assist with relieving hair from head, jaw from temporomandibular and teeth from mouth, collectively rightward and shooting a new blood fountain from a geyser to fading gurgle.
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="33" name="38" tags="story" position="850,1300" size="100,100">&lt;div id="unstable"&gt;
+Prompt pick-up and dazed ninety-degree rotations that serve as a prompt for forbidden vision, notwithstanding limited sight. Sure, there are other senses to describe a phantom substance calcifying in creepy ambiance and frigid air.  Inching droplets trend downturn, bursting unknown pipes and pool in a southeast space behind drywall to deafeningly reverberate a budding insanity.
 
-All of a sudden, the dim lights fade again.
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
 
-Past out.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="33" name="38" tags="story" position="850,1300" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Prompt pick-up and dazed ninety-degree rotations that serve as a prompt for forbidden vision, notwithstanding limited sight. Sure, there are other senses to describe a phantom substance calcifying in creepy ambiance and frigid air. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; Inching droplets trend downturn, bursting unknown pipes and pool in a southeast space behind drywall to deafeningly reverberate a budding insanity.
-&lt;&lt;else&gt;&gt;\
-Prompt pick-up and dazed ninety-degree rotations that serve as a prompt for forbidden vision, notwithstanding limited sight. Sure, there are other senses to describe a phantom substance calcifying in creepy ambiance and frigid air. Inching droplets trend downturn, bursting unknown pipes and pool in a southeast space behind drywall to deafeningly reverberate a budding insanity.
-&lt;&lt;/if&gt;&gt;\
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="34" name="39" tags="story" position="975,1300" size="100,100">&lt;div id="unstable"&gt;
+The roomsemblance is non-existent besides the senses incomprehensive description. But, an omnipresent shadow exists with extensive features that fall submissive under a dictated vision. Fingers would sink so deep into already sunken eyesockets in the attempt to acclimate to the surrounding, still knowing that a failed effort is a failed 
 
-Drag-plopping limp body committing to a new dirt bed and tiny scum specks that sop moisture drops ad infinitum, only dislodging to leave fertile prior consistency; disembodied to grow under the care of a now lone wince-whimper.
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="34" name="39" tags="story" position="975,1300" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-The roomsemblance is non-existent besides the senses incomprehensive description. But, an omnipresent shadow exists with extensive features that fall submissive under a dictated vision. Fingers would sink so deep into already sunken eyesockets in the attempt to acclimate to the surrounding, still knowing that a failed effort is a failed &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt;
-accomplishment; the participation trophy being the conjuring of faint nebulae blindness into an abstracting vision.
-&lt;&lt;else&gt;&gt;\
-The roomsemblance is non-existent besides the senses incomprehensive description. But, an omnipresent shadow exists with extensive features that fall submissive under a dictated vision. Fingers would sink so deep into already sunken eyesockets in the attempt to acclimate to the surrounding, still knowing that a failed effort is a failed
-accomplishment; the participation trophy being the conjuring of faint nebulae blindness into an abstracting vision.
-&lt;&lt;/if&gt;&gt;\
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
 
-In the southeast, a corner finger snaps and light materializes for sight to reveal that which obscurity yields: a sepia hue room only rooming otherwise pale stucco walls under seemingly gel filtered sans electrical (?) lighting. A drab terminal and a gaping limestone archway from a probably crude demolition effort with equally shoddily affixed wallpaper and floral carved molding stained with carnations of wilting primary colors made remarkable by the hairline fractures seeping fluorescent illuminations.
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="35" name="4" tags="story" position="975,425" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-You thought to look over there, which was known as there where sailors with ill-intent in their eyes once took those maidens&#39; heads. But it does not indicate suspension, &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; mean cessation, or that such ports were there to begin with. A ridiculous thought, as there were never such &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; sailors.
-Yet it has still the muckle great ghaist of men; or, so has been said, but not much more is said much these days beyond a murmer or two. Still, call it as much in demand to that of those who do not believe in much need for the tourism bucks at stake. To those locals, they only perceive an ordinary framing mechanism used for
-ordinary gazing on those days where nothing but lazing happens; which has not been seen now since &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt; brought the Templar back around to faceplant a few exhibitionists into the ground.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-You thought to look over there, which was known as there where sailors with ill-intent in their eyes once took those maidens&#39; heads. But it does not indicate suspension, &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; mean cessation, or that such ports were there to begin with. A ridiculous thought, as there were never such sailors.
-Yet it has still the muckle great ghaist of men; or, so has been said, but not much more is said much these days beyond a murmer or two. Still, call it as much in demand to that of those who do not believe in much need for the tourism bucks at stake. To those locals, they only perceive an ordinary framing mechanism used for
-ordinary gazing on those days where nothing but lazing happens; which has not been seen now since Franck brought the Templar back around to faceplant a few &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; exhibitionists into the ground.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-You thought to look over there, which was known as there where sailors with ill-intent in their eyes once took those maidens&#39; heads. But it does not indicate suspension, &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; mean cessation, or that such ports were there to begin with. A ridiculous thought, as there were never such sailors.
-Yet it has still the muckle great ghaist of men; or, so has been said, but not much more is said much these days beyond a murmer or two. Still, call it as much in demand to that of those who do not believe in much need for the tourism bucks at stake. To those locals, they only perceive an ordinary framing mechanism used for
-ordinary gazing on those days where nothing but lazing happens; which has not been seen now since Franck brought the Templar back around to faceplant a few exhibitionists into the ground.
-&lt;&lt;else&gt;&gt;\
-You thought to look over there, which was known as there where sailors with ill-intent in their eyes once took those maidens&#39; heads. But it does not indicate suspension, mean cessation, or that such ports were there to begin with. A ridiculous thought, as there were never such sailors.
-Yet it has still the muckle great ghaist of men; or, so has been said, but not much more is said much these days beyond a murmer or two. Still, call it as much in demand to that of those who do not believe in much need for the tourism bucks at stake. To those locals, they only perceive an ordinary framing mechanism used for
-ordinary gazing on those days where nothing but lazing happens; which has not been seen now since Franck brought the Templar back around to faceplant a few exhibitionists into the ground.
-&lt;&lt;/if&gt;&gt;\
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="35" name="4" tags="story" position="975,425" size="100,100">&lt;div id="unstable"&gt;
+You thought to look over there, which was known as there where sailors with ill-intent in their eyes once took those maidens' heads. But it does not indicate suspension, mean cessation, or that such ports were there to begin with. A ridiculous thought, as there were never such sailors.
 
-No. There is no such thing affixed to a home, business, or structure and the wires floating that port aren&#39;t apparent to those who seek out the genitive.
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="36" name="40" tags="story" position="1100,1300" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="36" name="40" tags="story" position="1100,1300" size="100,100">&lt;div id="unstable"&gt;
 Fragmented trauma:
-high and low under tremendous might,
-quickly severing sinew and spurting newer fountains..
-Onward and neckward, swipe old life with spurting force.
-Halt. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt;
-Realign the track.
-&lt;&lt;else&gt;&gt;\
-Fragmented trauma:
-high and low under tremendous might,
-quickly severing sinew and spurting newer fountains..
-Onward and neckward, swipe old life with spurting force.
-Halt.
-Realign the track.
-&lt;&lt;/if&gt;&gt;\
 
-Warm wishes never teaching a damn thing and futile tending to blood now running past low.
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="37" name="41" tags="" position="600,1425" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
 &lt;&lt;if $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-The night before at around 21:00 EST. Arrival, departure, and triumph melt and all three have continued their warring; parallel representations sustaining perpetual obliteration and reformation cycles into one singularity. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; Experience and structure interpellate each other and laze along the waterfront, as one and an other softly expels whispers that fall into the echoes threaded through the warm breeze.
+
+The night before at around 21:00 EST. Arrival, departure, and triumph melt and all three have continued their warring; parallel representations sustaining perpetual obliteration and reformation cycles into one singularity.  Experience and structure interpellate each other and laze along the waterfront, as one and an other softly expels whispers that fall into the echoes threaded through the warm breeze.
 &lt;&lt;else&gt;&gt;\
 The night before at around 21:00 EST. Arrival, departure, and triumph melt and all three have continued their warring; parallel representations sustaining perpetual obliteration and reformation cycles into one singularity. Experience and structure interpellate each other and laze along the waterfront, as one and an other softly expels whispers that fall into the echoes threaded through the warm breeze.
 &lt;&lt;/if&gt;&gt;\
 
 There could be a cool breeze, on a more fortunate night—mostly in the evening, so long as the months of May through September are avoided.
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="38" name="42" tags="story" position="725,1425" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="38" name="42" tags="story" position="725,1425" size="100,100">&lt;div id="unstable"&gt;
 Down endless miles of divested and bowing asphalt, tracing the skid marks with quickly balding tires, and occasionally meeting the gaze of another set of headlights—
-cruising, in the proverbial and literal. The ongoing field, a patchworking quilt of a roadway demonstrating successive divestment of a governor&#39;s plaything and prioritization of blinding one&#39;s fellow citizen. A mid-tone humming is transforming into roaring in the distance, and the concrete cage is seldomly performing its duty in dampening a distraction— &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt;
-it is performing its duty in dampening a soft whimper. Here it is, sometime between the months of March and May, along a strip of State Road A1A where the dim headlights of a battered car struggle against nightfall.
-&lt;&lt;else&gt;&gt;\
-Down endless miles of divested and bowing asphalt, tracing the skid marks with quickly balding tires, and occasionally meeting the gaze of another set of headlights—
-cruising, in the proverbial and literal. The ongoing field, a patchworking quilt of a roadway demonstrating successive divestment of a governor&#39;s plaything and prioritization of blinding one&#39;s fellow citizen. A mid-tone humming is transforming into roaring in the distance, and the concrete cage is seldomly performing its duty in dampening a distraction—
-it is performing its duty in dampening a soft whimper. Here it is, sometime between the months of March and May, along a strip of State Road A1A where the dim headlights of a battered car struggle against nightfall.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="39" name="43" tags="story" position="850,1425" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-They expect the cities of the plain with nothing in their eyes and loins but promise. X awaits a regeneration of the front lines as the beginning is looped ad nauseam. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; There is nothing in X&#39;s eyes but frenzied ambition, and nothing in X&#39;s hands but a glinting blade.
-&lt;&lt;else&gt;&gt;\
-They expect the cities of the plain with nothing in their eyes and loins but promise. X awaits a regeneration of the front lines as the beginning is looped ad nauseam. There is nothing in X&#39;s eyes but frenzied ambition, and nothing in X&#39;s hands but a glinting blade.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="40" name="44" tags="story" position="975,1425" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Before moving forward, an addendum: the knife hereafter means utility and was crafted to cut a rope or thick cord of plastic; a prank; a bloodshed; an injury; a premature death; a premeditated death. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; Likewise and under similar circumstances, a few hundred- thousand conquests and a million tragedies pop up in both fleeting memory and ready-made myth according to a knife, but all too often is otherwise absent from public memory. In short, one is cruel fun, and the other is inhumane.
-&lt;&lt;else&gt;&gt;\
-Before moving forward, an addendum: the knife hereafter means utility and was crafted to cut a rope or thick cord of plastic; a prank; a bloodshed; an injury; a premature death; a premeditated death. Likewise and under similar circumstances, a few hundred- thousand conquests and a million tragedies pop up in both fleeting memory and ready-made myth according to a knife, but all too often is otherwise absent from public memory. In short, one is cruel fun, and the other is inhumane.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="41" name="45" tags="story" position="1100,1425" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-One. is a smattering of fresh, fit, figures in a staggered horde, charging at breakneck speeds toward a bareback city on its death-knell; a twenty-plus hour or so southeast bottleneck down US-131 to I-196; on to U-31 S, I-24, I-75, I-10, and finally to I-95. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; From I-95, th&#39; charge of an additional seven-mile strait through and past the entrapments of a hotel and carwash economy and into the thick of it.
-&lt;&lt;else&gt;&gt;\
-One. is a smattering of fresh, fit, figures in a staggered horde, charging at breakneck speeds toward a bareback city on its death-knell; a twenty-plus hour or so southeast bottleneck down US-131 to I-196; on to U-31 S, I-24, I-75, I-10, and finally to I-95. From I-95, th&#39; charge of an additional seven-mile strait through and past the entrapments of a hotel and carwash economy and into the thick of it.
-&lt;&lt;/if&gt;&gt;\
 
-Left onto State Road A1A for less than one mile to reach the boardwalk.
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="42" name="46" tags="story" position="600,1550" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Two. considers how One. historically orients the measure of a body count, tends to agree, but arrives to a somewhat different solution—how the object of One.&#39;s conclusion is too readily reduced to a mere matter of method. X thinks so, too.
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
 
-However, X&#39;s divining rod seeks the sort of devotion that belongs to an ambiguous and mistakenly unsuspecting visage de facto that thrusts many of the forthcomings and refuse in such plots; whether they&#39;re earthen or not. For X has the means, and know-how, unlike no one else in recorded history, to flip this stretch from a shallow exercise in libido to an all-out crisis of fluid and flesh and bone and blood and tooth and hair &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt;
-and—
-&lt;&lt;else&gt;&gt;\
-Two. considers how One. historically orients the measure of a body count, tends to agree, but arrives to a somewhat different solution—how the object of One.&#39;s conclusion is too readily reduced to a mere matter of method. X thinks so, too.
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="39" name="43" tags="story" position="850,1425" size="100,100">&lt;div id="unstable"&gt;
+They expect the cities of the plain with nothing in their eyes and loins but promise. X awaits a regeneration of the front lines as the beginning is looped ad nauseam.  There is nothing in X's eyes but frenzied ambition, and nothing in X's hands but a glinting blade.
 
-However, X&#39;s divining rod seeks the sort of devotion that belongs to an ambiguous and mistakenly unsuspecting visage de facto that thrusts many of the forthcomings and refuse in such plots; whether they&#39;re earthen or not. For X has the means, and know-how, unlike no one else in recorded history, to flip this stretch from a shallow exercise in libido to an all-out crisis of fluid and flesh and bone and blood and tooth and hair
-and—
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="43" name="47" tags="story" position="725,1550" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-It all rests in a container and leaves you just as ignorant to the events unfolding in your time-space as X&#39;s is in theirs. The disarray uncontested while reigning through the cut short yelp of a few nobodies and the muffled articulations of some body that very well could be coming from within the usual suspects: namely, a decrepit cabin in the woods, a new luxury apartment, the boot of any variety of auto barreling down a long, county back road around 90 mph at 3:45 AM, amid fields and brush and bramble, hiding nae looming soul. &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
 
-In the likewise, a flickering bulletin blaring—
-&lt;&lt;else&gt;&gt;\
-It all rests in a container and leaves you just as ignorant to the events unfolding in your time-space as X&#39;s is in theirs. The disarray uncontested while reigning through the cut short yelp of a few nobodies and the muffled articulations of some body that very well could be coming from within the usual suspects: namely, a decrepit cabin in the woods, a new luxury apartment, the boot of any variety of auto barreling down a long, county back road around 90 mph at 3:45 AM, amid fields and brush and bramble, hiding nae looming soul.
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="40" name="44" tags="story" position="975,1425" size="100,100">&lt;div id="unstable"&gt;
+Before moving forward, an addendum: the knife hereafter means utility and was crafted to cut a rope or thick cord of plastic; a prank; a bloodshed; an injury; a premature death; a premeditated death.  Likewise and under similar circumstances, a few hundred- thousand conquests and a million tragedies pop up in both fleeting memory and ready-made myth according to a knife, but all too often is otherwise absent from public memory. In short, one is cruel fun, and the other is inhumane.
 
-In the likewise, a flickering bulletin blaring—
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="44" name="5" tags="story" position="1100,425" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-You notice how each component musters a fleeting vista impression in the current field of vision. It is not singluar, nor is it independent. Instead, it is articulable and currently in a stance that dictates a definitive &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;. Perhaps it is best described as being along the same stretch of plats containing many shabby, dim rooms in a multitude of muckyuck building already paid for by one overly-sentimental phantom and containing the wistful echo of extreme intimact in symposium with teenaged sleaze, casting liquid matter that has since caked, coagulaeted, or become spoilt under the lack of &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; forefronted privacy.
-This deficient awareness is a great feature and was ushered out by the force of motion enacting debiliatting headaches. A mere foul to a terrible omen, the position is in the back seat; subconscioussness ad nauseam and amen.
-Even in saying, understand there is nothing but a stylish stand-in for violence or some other disorder sans intimacy and indicative of distance&#39;s force at the pluck of exacted performance--for performance, per demand, per standard liberated of syntax but still understood through the trumpeting mufflemumbling of a breath that brings about the end of all acts and &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-You notice how each component musters a fleeting vista impression in the current field of vision. It is not singluar, nor is it independent. Instead, it is articulable and currently in a stance that dictates a definitive communal. Perhaps it is best described as being along the same stretch of plats containing many shabby, dim rooms in a multitude of muckyuck building already paid for by one overly-sentimental phantom and containing the wistful echo of extreme intimact in symposium with teenaged sleaze, casting liquid matter that has since caked, coagulaeted, or become spoilt under the lack of &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; forefronted privacy.
-This deficient awareness is a great feature and was ushered out by the force of motion enacting debiliatting headaches. A mere foul to a terrible omen, the position is in the back seat; subconscioussness ad nauseam and amen.
-Even in saying, understand there is nothing but a stylish stand-in for violence or some other disorder sans intimacy and indicative of distance&#39;s force at the pluck of exacted performance--for performance, per demand, per standard liberated of syntax but still understood through the trumpeting mufflemumbling of a breath that brings about the end of all acts and &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-You notice how each component musters a fleeting vista impression in the current field of vision. It is not singluar, nor is it independent. Instead, it is articulable and currently in a stance that dictates a definitive communal. Perhaps it is best described as being along the same stretch of plats containing many shabby, dim rooms in a multitude of muckyuck building already paid for by one overly-sentimental phantom and containing the wistful echo of extreme intimact in symposium with teenaged sleaze, casting liquid matter that has since caked, coagulaeted, or become spoilt under the lack of &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; forefronted privacy.
-This deficient awareness is a great feature and was ushered out by the force of motion enacting debiliatting headaches. A mere foul to a terrible omen, the position is in the back seat; subconscioussness ad nauseam and amen.
-Even in saying, understand there is nothing but a stylish stand-in for violence or some other disorder sans intimacy and indicative of distance&#39;s force at the pluck of exacted performance--for performance, per demand, per standard liberated of syntax but still understood through the trumpeting mufflemumbling of a breath that brings about the end of all acts and some cash.
-&lt;&lt;else&gt;&gt;\
-You notice how each component musters a fleeting vista impression in the current field of vision. It is not singluar, nor is it independent. Instead, it is articulable and currently in a stance that dictates a definitive communal. Perhaps it is best described as being along the same stretch of plats containing many shabby, dim rooms in a multitude of muckyuck building already paid for by one overly-sentimental phantom and containing the wistful echo of extreme intimact in symposium with teenaged sleaze, casting liquid matter that has since caked, coagulaeted, or become spoilt under the lack of forefronted privacy.
-This deficient awareness is a great feature and was ushered out by the force of motion enacting debiliatting headaches. A mere foul to a terrible omen, the position is in the back seat; subconscioussness ad nauseam and amen.
-Even in saying, understand there is nothing but a stylish stand-in for violence or some other disorder sans intimacy and indicative of distance&#39;s force at the pluck of exacted performance--for performance, per demand, per standard liberated of syntax but still understood through the trumpeting mufflemumbling of a breath that brings about the end of all acts and some cash.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="45" name="6" tags="story" position="600,550" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-Think about how it all starts and ends like a mountain of &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;; or a somber restoration of decaying echoes belting for either curtain call or last call from backstage. But now that it has been ended so long ago, &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; the hushed air rests in sustained pre-crescendo and ebb-flows according to the mechanical determination of an aesthetic circuit that recently returned en vogue, revolving in the pace set before &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-Think about how it all starts and ends like a mountain of sleep; or a somber restoration of decaying echoes belting for either curtain call or last call from backstage. But now that it has been ended so long ago, &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; the hushed air rests in sustained pre-crescendo and ebb-flows according to the mechanical determination of an aesthetic circuit that recently returned en vogue, revolving in the pace set before &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Think about how it all starts and ends like a mountain of sleep; or a somber restoration of decaying echoes belting for either curtain call or last call from backstage. But now that it has been ended so long ago, &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; the hushed air rests in sustained pre-crescendo and ebb-flows according to the mechanical determination of an aesthetic circuit that recently returned en vogue, revolving in the pace set before the start.
-&lt;&lt;else&gt;&gt;\
-Think about how it all starts and ends like a mountain of sleep; or a somber restoration of decaying echoes belting for either curtain call or last call from backstage. But now that it has been ended so long ago, the hushed air rests in sustained pre-crescendo and ebb-flows according to the mechanical determination of an aesthetic circuit that recently returned en vogue, revolving in the pace set before the start.
-&lt;&lt;/if&gt;&gt;\
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
 
-&lt;&lt;if $allPlayerText.length &gt; 20&gt;&gt;\
-&lt;&lt;set _playerText4 to $allPlayerText.random()&gt;&gt;\
-Not millions, but some hundred oft-ignored notes, plucked mute pizzicato; unfounded in the distance and traversing the line of barren paths to seek longing with their recognition laying in the void and stemming from a lack of realization until many years after the fact. Yes, occurant either in a nouveau riche home video empire&#39;s clearance section, or in scholarship or popular trash. To succeed, then, maintain the repetitions and sear the image into &lt;span class=&quot;player-text&quot;&gt;_playerText4&lt;/span&gt; duller minds, so their scar-tissue beckons return, regardless of
-whatever revision they face is part and parcel of the distributed leg.
-&lt;&lt;else&gt;&gt;\
-Not millions, but some hundred oft-ignored notes, plucked mute pizzicato; unfounded in the distance and traversing the line of barren paths to seek longing with their recognition laying in the void and stemming from a lack of realization until many years after the fact. Yes, occurant either in a nouveau riche home video empire&#39;s clearance section, or in scholarship or popular trash. To succeed, then, maintain the repetitions and sear the image into duller minds, so their scar-tissue beckons return, regardless of
-whatever revision they face is part and parcel of the distributed leg.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="46" name="7" tags="story" position="725,550" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-The offset smattering commands attention, consciousness, and conscience as a dully worn &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; that has sat unattended to for years. It does so because &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; that is what it has done a near century or more. As tradition would have it, the ceaseless motion engulfs and bears a resemblance to an ouroboros: a loop that characterizes obsession. Yet, the preoccupation comparison is not readily apparent but perhaps to some more clever minds, so it is probably irrelevant and given the same consideration as a red herring; but more like a hunter&#39;s gaze fixated on a still bird than one who watches for &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;. Onward and on view in natural romanticism and further into the distance; onward to the other side of th&#39; horizon.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-The offset smattering commands attention, consciousness, and conscience as a dully worn trophy that has sat unattended to for years. It does so because &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; that is what it has done a near century or more. As tradition would have it, the ceaseless motion engulfs and bears a resemblance to an ouroboros: a loop that characterizes obsession. Yet, the preoccupation comparison is not readily apparent but perhaps to some more clever minds, so it is probably irrelevant and given the same consideration as a red herring; but more like a hunter&#39;s gaze fixated on a still bird than one who watches for &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;. Onward and on view in natural romanticism and further into the distance; onward to the other side of th&#39; horizon.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-The offset smattering commands attention, consciousness, and conscience as a dully worn trophy that has sat unattended to for years. It does so because &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; that is what it has done a near century or more. As tradition would have it, the ceaseless motion engulfs and  bears a resemblance to an ouroboros: a loop that characterizes obsession. Yet, the preoccupation comparison is not readily apparent but perhaps to some more clever minds, so it is probably irrelevant and given the same consideration as a red herring; but more like a hunter&#39;s gaze fixated on a still bird than one who watches for fun. Onward and on view in natural romanticism and further into the distance; onward to the other side of th&#39; horizon.
-&lt;&lt;else&gt;&gt;\
-The offset smattering commands attention, consciousness, and conscience as a dully worn trophy that has sat unattended to for years. It does so because that is what it has done a near century or more. As tradition would have it, the ceaseless motion engulfs and  bears a resemblance to an ouroboros: a loop that characterizes obsession. Yet, the preoccupation comparison is not readily apparent but perhaps to some more clever minds, so it is probably irrelevant and given the same consideration as a red herring; but more like a hunter&#39;s gaze fixated on a still bird than one who watches for fun. Onward and on view in natural romanticism and further into the distance; onward to the other side of th&#39; horizon.
-&lt;&lt;/if&gt;&gt;\
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="41" name="45" tags="story" position="1100,1425" size="100,100">&lt;div id="unstable"&gt;
+One. is a smattering of fresh, fit, figures in a staggered horde, charging at breakneck speeds toward a bareback city on its death-knell; a twenty-plus hour or so southeast bottleneck down US-131 to I-196; on to U-31 S, I-24, I-75, I-10, and finally to I-95.  From I-95, th' charge of an additional seven-mile strait through and past the entrapments of a hotel and carwash economy and into the thick of it.
 
-&lt;&lt;if $allPlayerText.length &gt; 20&gt;&gt;\
-&lt;&lt;set _playerText4 to $allPlayerText.random()&gt;&gt;\
-A tampered emergency brake handle of that metro car is now beyond function. You would scream out, but here in the viscid, voyeurism is without consequence. There, their plummet into chaos and non-associationwith life and limb and expected biological form functions as a &lt;span class=&quot;player-text&quot;&gt;_playerText4&lt;/span&gt; coping mechanism, forevermore.
-&lt;&lt;else&gt;&gt;\
-A tampered emergency brake handle of that metro car is now beyond function. You would scream out, but here in the viscid, voyeurism is without consequence. There, their plummet into chaos and non-associationwith life and limb and expected biological form functions as a coping mechanism, forevermore.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="47" name="8" tags="story" position="850,550" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-Based on what you haved noted, it is not apparent how the old tower came f o r e v e r &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; c r u m b&#39; l i n g ; &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; it is an oversight. A state of oncoming but never finished forever. Without witnesses to the generation or its reverse, for it spreads far beyond the pinsumhole, some might plainly reckon it was fated for extermination per an ordinary factor of the climate and relevant to the time of day, region and so on; invisible and unimportant to most, but not to you because you seem to be the only one who even notices it. No one else can recall having seen &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-Based on what you haved noted, it is not apparent how the old tower came f o r e v e r c r u m b&#39; l i n g ; &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; it is an oversight. A state of oncoming but never finished forever. Without witnesses to the generation or its reverse, for it spreads far beyond the pinsumhole, some might plainly reckon it was fated for extermination per an ordinary factor of the climate and relevant to the time of day, region and so on; invisible and unimportant to most, but not to you because you seem to be the only one who even notices it. No one else can recall having seen &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Based on what you haved noted, it  is not apparent how the old tower came f o r e v e r c r u m b&#39; l i n g ; &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; it is an oversight. A state of oncoming but never finished forever. Without witnesses to the generation or its reverse, for it spreads far beyond the pinsumhole, some might plainly reckon it was fated for extermination per an ordinary factor of the climate and relevant to the time of day, region and so on; invisible and unimportant to most, but not to you because you seem to be the only one who even notices it. No one else can recall having seen it.
-&lt;&lt;else&gt;&gt;\
-Based on what you haved noted, it  is not apparent how the old tower came f o r e v e r c r u m b&#39; l i n g ; it is an oversight. A state of oncoming but never finished forever. Without witnesses to the generation or its reverse, for it spreads far beyond the pinsumhole, some might plainly reckon it was fated for extermination per an ordinary factor of the climate and relevant to the time of day, region and so on; invisible and unimportant to most, but not to you because you seem to be the only one who even notices it. No one else can recall having seen it.
-&lt;&lt;/if&gt;&gt;\
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
 
-&lt;&lt;if $allPlayerText.length &gt; 20&gt;&gt;\
-&lt;&lt;set _playerText4 to $allPlayerText.random()&gt;&gt;\
-Instead, what is important is the culmination of a narrative. In this instance, it looks more than anything like a cleanse that regurgitates an obligatory &quot;Once upon a time,&quot; as most tales&#39; beginnings favor. A fresh slate begging for a redemption arc, or the perpetuity of its promise and what that might mean— but not realistically. It means nothing more than &lt;span class=&quot;player-text&quot;&gt;_playerText4&lt;/span&gt; failure times three, laid out over a few hours, and then some afterward. After all, whatever triumph could be that will always be striven toward but never had somehow atones for its opposite.
-&lt;&lt;else&gt;&gt;\
-Instead, what is important is the culmination of a narrative. In this instance, it looks more than anything like a cleanse that regurgitates an obligatory &quot;Once upon a time,&quot; as most tales&#39; beginnings favor. A fresh slate begging for a redemption arc, or the perpetuity of its promise and what that might mean— but not realistically. It means nothing more than failure times three, laid out over a few hours, and then some afterward. After all, whatever triumph could be that will always be striven toward but never had somehow atones for its opposite.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="48" name="9" tags="story" position="975,550" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-&lt;&lt;if $allPlayerText.length &gt; 15&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText3 to $allPlayerText.random()&gt;&gt;\
-Looking back now, you realize how clear it was that the inciting incident is a wave at the point of &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt;; &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt; anticipating collison with the jetties that preserves by propping up a coastal town, village, city, province, or whatever setting at which it arrives for the final time. This movement is how it starts this time. On the jetties of a seaside dwelling, at dawn, trembling and without perspective, without rationale; per dictation and &lt;span class=&quot;player-text&quot;&gt;_playerText3&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 8&gt;&gt;\
-&lt;&lt;set _playerText1 to $allPlayerText.random()&gt;&gt;\
-&lt;&lt;set _playerText2 to $allPlayerText.random()&gt;&gt;\
-Looking back now, you realize how clear it was that the inciting incident is a wave at the point of crescendo; &lt;span class=&quot;player-text&quot;&gt;_playerText1&lt;/span&gt; anticipating collison with the jetties that preserves by propping up a coastal town, village, city, province, or whatever setting at which it arrives for the final time. This movement is how it starts this time. On the jetties of a seaside dwelling, at dawn, trembling and without perspective, without rationale; per dictation and &lt;span class=&quot;player-text&quot;&gt;_playerText2&lt;/span&gt;.
-&lt;&lt;elseif $allPlayerText.length &gt; 3&gt;&gt;\
-&lt;&lt;set _playerText to $allPlayerText.random()&gt;&gt;\
-Looking back now, you realize how clear it was that the inciting incident is a wave at the point of crescendo; &lt;span class=&quot;player-text&quot;&gt;_playerText&lt;/span&gt; anticipating collison with the jetties that preserves by propping up a coastal town, village, city, province, or whatever setting at which it arrives for the final time. This movement is how it starts this time. On the jetties of a seaside dwelling, at dawn, trembling and without perspective, without rationale; per dictation and looped.
-&lt;&lt;else&gt;&gt;\
-Looking back now, you realize how clear it was that the inciting incident is a wave at the point of crescendo; anticipating collison with the jetties that preserves by propping up a coastal town, village, city, province, or whatever setting at which it arrives for the final time. This movement is how it starts this time. On the jetties of a seaside dwelling, at dawn, trembling and without perspective, without rationale; per dictation and looped.
-&lt;&lt;/if&gt;&gt;\
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="49" name="Instructions" tags="instructions" position="800,175" size="100,100">&lt;style&gt;
-input, textarea, select { display: none !important; }
-#cmd-input { display: block !important; }
-#cmd-input input { display: block !important; }
-&lt;/style&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="42" name="46" tags="story" position="600,1550" size="100,100">&lt;div id="unstable"&gt;
+Two. considers how One. historically orients the measure of a body count, tends to agree, but arrives to a somewhat different solution—how the object of One.'s conclusion is too readily reduced to a mere matter of method. X thinks so, too.
 
-&lt;div id=&quot;unstable&quot;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="43" name="47" tags="story" position="725,1550" size="100,100">&lt;div id="unstable"&gt;
+It all rests in a container and leaves you just as ignorant to the events unfolding in your time-space as X's is in theirs. The disarray uncontested while reigning through the cut short yelp of a few nobodies and the muffled articulations of some body that very well could be coming from within the usual suspects: namely, a decrepit cabin in the woods, a new luxury apartment, the boot of any variety of auto barreling down a long, county back road around 90 mph at 3:45 AM, amid fields and brush and bramble, hiding nae looming soul. 
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="44" name="5" tags="story" position="1100,425" size="100,100">&lt;div id="unstable"&gt;
+You notice how each component musters a fleeting vista impression in the current field of vision. It is not singluar, nor is it independent. Instead, it is articulable and currently in a stance that dictates a definitive . Perhaps it is best described as being along the same stretch of plats containing many shabby, dim rooms in a multitude of muckyuck building already paid for by one overly-sentimental phantom and containing the wistful echo of extreme intimact in symposium with teenaged sleaze, casting liquid matter that has since caked, coagulaeted, or become spoilt under the lack of forefronted privacy.
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="45" name="6" tags="story" position="600,550" size="100,100">&lt;div id="unstable"&gt;
+Think about how it all starts and ends like a mountain of ; or a somber restoration of decaying echoes belting for either curtain call or last call from backstage. But now that it has been ended so long ago, the hushed air rests in sustained pre-crescendo and ebb-flows according to the mechanical determination of an aesthetic circuit that recently returned en vogue, revolving in the pace set before .
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="46" name="7" tags="story" position="725,550" size="100,100">&lt;div id="unstable"&gt;
+The offset smattering commands attention, consciousness, and conscience as a dully worn that has sat unattended to for years. It does so because that is what it has done a near century or more. As tradition would have it, the ceaseless motion engulfs and bears a resemblance to an ouroboros: a loop that characterizes obsession. Yet, the preoccupation comparison is not readily apparent but perhaps to some more clever minds, so it is probably irrelevant and given the same consideration as a red herring; but more like a hunter's gaze fixated on a still bird than one who watches for . Onward and on view in natural romanticism and further into the distance; onward to the other side of th' horizon.
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="47" name="8" tags="story" position="850,550" size="100,100">&lt;div id="unstable"&gt;
+Based on what you haved noted, it is not apparent how the old tower came f o r e v e r c r u m b' l i n g ; it is an oversight. A state of oncoming but never finished forever. Without witnesses to the generation or its reverse, for it spreads far beyond the pinsumhole, some might plainly reckon it was fated for extermination per an ordinary factor of the climate and relevant to the time of day, region and so on; invisible and unimportant to most, but not to you because you seem to be the only one who even notices it. No one else can recall having seen .
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="48" name="9" tags="story" position="975,550" size="100,100">&lt;div id="unstable"&gt;
+Looking back now, you realize how clear it was that the inciting incident is a wave at the point of ; anticipating collison with the jetties that preserves by propping up a coastal town, village, city, province, or whatever setting at which it arrives for the final time. This movement is how it starts this time. On the jetties of a seaside dwelling, at dawn, trembling and without perspective, without rationale; per dictation and .
+
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="49" name="Instructions" tags="instructions" position="800,175" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
 Navigation is selection. Selection is complicity.&lt;br&gt;
 The work remembers your movements.&lt;br&gt;
 There is no returning to prior frames.&lt;br&gt;
 All degrade. Your input remains.&lt;br&gt;
-Spring break is fun.
+Spring break is fun.&lt;br&gt;
+&lt;br&gt;
+&lt;&lt;link &quot;Yes.&quot;&gt;&gt;&lt;&lt;goto &quot;0&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="50" name="StoryInit" tags="" position="600,100" size="100,100">&lt;&lt;set $allPlayerText to []&gt;&gt;
 &lt;&lt;set $startTime to Date.now()&gt;&gt;
 &lt;&lt;set $inputCount to 0&gt;&gt;</tw-passagedata><tw-passagedata pid="51" name="TitleScreen" tags="splash" position="800,50" size="100,100">&lt;style&gt;
