@@ -2,8 +2,9 @@
 layout: default
 title: Interdisciplinary Teaching
 project: true
-tags: [phd, teaching, pedagogy, interdisciplinary]
+tags: [Texts and Technology, Texts and Technology: Interdisciplinary Teaching, Pedagogy]
 ---
+
 # Interdisciplinary Teaching
 
 Theory and practice of designing interdisciplinary courses and curricula for the humanities. This course is intended for graduate students who plan to seek faculty positions in academic settings or who want to strengthen their teaching practice. Students engage with foundational questions of pedagogy — how people learn, how to design effective assignments and assessments, how to build inclusive and student-centered courses — while also addressing the challenges and opportunities posed by generative AI tools in the contemporary humanities classroom.

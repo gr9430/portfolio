@@ -79,7 +79,9 @@
       "Bash(awk 'NR>2300 && NR<2400 && /\\\\}\\\\\\)\\\\\\(/' lamos/index.html)",
       "Bash(awk 'NR>2300 && NR<2500' lamos/index.html)",
       "Bash(awk NR>=2380 && NR<=2400 *)",
-      "Bash(grep -o '.\\\\{0,30\\\\}window\\\\[.\\\\{0,30\\\\}Macro.\\\\{0,30\\\\}\\\\].\\\\{0,30\\\\}')"
+      "Bash(grep -o '.\\\\{0,30\\\\}window\\\\[.\\\\{0,30\\\\}Macro.\\\\{0,30\\\\}\\\\].\\\\{0,30\\\\}')",
+      "Bash(under the forces of its waves\" were incorrectly rejected.\n\nCo-Authored-By: Claude Sonnet 4 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(du -sh:*)"
     ]
   }
 }

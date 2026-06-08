@@ -3,7 +3,7 @@ layout: default
 title: "Lost in Translation: Celtic Myth and the Persona Series"
 description: "Collaborative digital humanities research examining cultural erasures in video game adaptation of Celtic mythology"
 project: true
-tags: [phd, data-visualization, network, history, collaborative]
+tags: [Texts and Technology in History, Data Visualization, Network, History, Collaborative, Texts and Technology, Playable Texts, Irish Literature, Medieval, Adaptation]
 ---
 
 # Lost in Translation: Celtic Myth and the Persona Series

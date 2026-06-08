@@ -3,7 +3,7 @@ layout: default
 title: "Shooting a Still Bird"
 description: "A Tracery-based generative text project building a combinatorial book from a personal corpus, in the Oulipian tradition"
 project: true
-tags: [phd, eLit, generative, procedural, constraint, critical-making]
+tags: [Texts and Technology, E-Lit, Generative, Procedural, Constraint, Critical Making, Critical Making in Texts and Technology, Creative Works, Tracery]
 ---
 
 # Shooting a Still Bird

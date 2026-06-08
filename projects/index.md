@@ -9,6 +9,7 @@ project: false
     <span class="legend-item"><span class="legend-dot project-dot"></span> Project</span>
     <span class="legend-item"><span class="legend-dot tag-dot"></span> Topic</span>
     <span class="legend-item"><span class="legend-dot course-tag-dot"></span> Course</span>
+    <span class="legend-item"><span class="legend-dot uct-dot"></span> UCF Affiliated</span>
     </div>
     <div id="graph-legend">
     <p class="legend-hint">Click a tag to filter · Click a project to open · Hover a course tag for description · Drag to explore</p>
@@ -398,6 +399,7 @@ project: false
   .project-dot { background: rgb(122, 6, 97); }
   .tag-dot { background: rgb(6, 97, 122); }
   .course-tag-dot { background: rgb(170, 110, 0); }
+  .uct-dot { background: #ffc904; }
   .legend-hint { margin: 0; font-size: 0.8rem; color: #5a5a56; }
   .node-label {
     font-family: 'Courier Prime', monospace;
@@ -429,11 +431,11 @@ const graphData = {
   nodes: [
     {% for p in project_pages %}{ id: {{ p.title | jsonify }}, label: {{ p.title | jsonify }}, url: {{ p.url | jsonify }}, type: "project" }{% unless forloop.last %},{% endunless %}
     {% endfor %}{% if project_pages.size > 0 and all_tag_names.size > 0 %},{% endif %}
-    {% for tag in all_tag_names %}{ id: {{ tag | jsonify }}, label: {{ tag | jsonify }}, url: null, type: "tag" }{% unless forloop.last %},{% endunless %}
+    {% for tag in all_tag_names %}{ id: {{ tag | prepend: "tag:" | jsonify }}, label: {{ tag | jsonify }}, url: null, type: "tag" }{% unless forloop.last %},{% endunless %}
     {% endfor %}
   ],
   links: [
-    {% for p in project_pages %}{% for tag in p.tags %}{ source: {{ p.title | jsonify }}, target: {{ tag | jsonify }} }{% unless forloop.last and forloop.parentloop.last %},{% endunless %}
+    {% for p in project_pages %}{% for tag in p.tags %}{ source: {{ p.title | jsonify }}, target: {{ tag | prepend: "tag:" | jsonify }} }{% unless forloop.last and forloop.parentloop.last %},{% endunless %}
     {% endfor %}{% endfor %}
   ]
 };
@@ -473,7 +475,14 @@ const graphData = {
     .force('x', d3.forceX(W / 2).strength(0.02))
     .force('y', d3.forceY(H / 2).strength(0.05));
 
-  const courseTagIds = new Set(['playable-texts', 'history', 'critical-making', 'theories']);
+  const courseTagIds = new Set(['tag:Playable Texts', 'tag:History', 'tag:Critical Making', 'tag:Texts and Technology', 'tag:Theories of Texts and Technology', 'tag:Playable Texts and Technology', 'tag:Critical Making: Texts and Technology', 'tag:Texts and Technology: Interdisciplinary Teaching']);
+  const degreeMap = {};
+  graphData.links.forEach(l => {
+    const s = l.source.id || l.source;
+    const t = l.target.id || l.target;
+    degreeMap[s] = (degreeMap[s] || 0) + 1;
+    degreeMap[t] = (degreeMap[t] || 0) + 1;
+  });
 
   const link = g.append('g')
     .selectAll('line')
@@ -486,8 +495,16 @@ const graphData = {
     .selectAll('circle')
     .data(graphData.nodes)
     .join('circle')
-    .attr('r', d => d.type === 'project' ? 12 : 8)
-    .attr('fill', d => d.type === 'project' ? 'rgb(122, 6, 97)' : courseTagIds.has(d.id) ? 'rgb(170, 110, 0)' : 'rgb(6, 97, 122)')
+    .attr('r', d => {
+      if (d.type === 'project') return 12;
+      return Math.max(6, Math.min(18, 5 + (degreeMap[d.id] || 1) * 2));
+    })
+    .attr('fill', d => {
+      if (d.type === 'project') return 'rgb(122, 6, 97)';
+      if (d.id.includes('Texts and Technology')) return '#ffc904';
+      if (courseTagIds.has(d.id)) return 'rgb(170, 110, 0)';
+      return 'rgb(6, 97, 122)';
+    })
     .attr('class', d => d.type === 'project' ? 'project-node' : courseTagIds.has(d.id) ? 'course-tag-node' : 'tag-node')
     .call(d3.drag()
       .on('start', (event, d) => {
@@ -505,10 +522,14 @@ const graphData = {
     .on('click', (event, d) => { window.location.href = d.url; });
 
   const tagDescriptions = {
-    'playable-texts': 'Playable Texts and Technology — examines digital games and playable media as sites of cultural meaning-making, experimental design, and critical inquiry.',
-    'history': 'Texts and Technology in History — explores how technologies have shaped the nature and production of texts from orality through digital media.',
-    'theories': 'Theories of Texts and Technology — core PhD course introducing the theoretical concepts, methods, and questions foundational to the T&T program.',
-    'critical-making': 'Critical Making — making as scholarship; humanities research-creation interweaving design, function, and theory across code, software, and hardware.',
+    'tag:Playable Texts': 'Playable Texts and Technology — examines digital games and playable media as sites of cultural meaning-making, experimental design, and critical inquiry.',
+    'tag:History': 'Texts and Technology in History — explores how technologies have shaped the nature and production of texts from orality through digital media.',
+    'tag:Texts and Technology': 'Texts and Technology — UCF PhD program in Texts & Technology.',
+    'tag:Critical Making': 'Critical Making — making as scholarship; humanities research-creation interweaving design, function, and theory across code, software, and hardware.',
+    'tag:Theories of Texts and Technology': 'Theories of Texts and Technology — core PhD course introducing the theoretical concepts, methods, and questions foundational to the T&T program.',
+    'tag:Playable Texts and Technology': 'Playable Texts and Technology — PhD course examining digital games and playable media as sites of cultural meaning-making, experimental design, and critical inquiry.',
+    'tag:Critical Making: Texts and Technology': 'Critical Making: Texts and Technology — PhD course in making as scholarship; humanities research-creation interweaving design, function, and theory across code, software, and hardware.',
+    'tag:Texts and Technology: Interdisciplinary Teaching': 'Texts and Technology: Interdisciplinary Teaching — PhD course in the theory and practice of designing interdisciplinary humanities courses.',
   };
 
   const tooltip = d3.select('#project-graph-container')

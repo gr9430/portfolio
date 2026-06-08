@@ -3,7 +3,7 @@ layout: default
 title: "What we know about you"
 description: "A surveillance poetry widget that transforms browser tracking data into live, accumulating verse — entirely client-side, no data transmitted"
 project: true
-tags: [eLit, generative, procedural, surveillance]
+tags: [eLit, Generative, Procedural, Creative Works, Personal Works, Surveillance]
 ---
 
 <div class="contents-dropdown">

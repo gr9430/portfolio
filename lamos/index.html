@@ -152,9 +152,9 @@ tw-story,
 tw-passage,
 [data-passage] {
   /* Fixed 4:3 ratio */
-  width: 80vh !important;
-  height: 60vh !important;
-  max-width: 80vw !important;
+  width: 110vh !important;
+  height: 82.5vh !important;
+  max-width: 95vw !important;
   
   position: relative !important;
   margin: 0 !important;
@@ -167,7 +167,7 @@ tw-passage,
     inset 0 0 80px rgba(0, 0, 0, 0.1) !important;
   
   overflow: hidden !important;
-  padding: 40px 60px !important;
+  padding: 34px 51px 40px 51px !important;
 }
 
 /* === SPECIAL: YEAR ZERO SCROLL PASSAGE === */
@@ -203,12 +203,12 @@ tw-passage:has(#year-zero-scroll),
   background-color: #000000 !important;
 }
 
-/* === GRAIN === */
+/* === VHS VIDEO NOISE === */
 .passage::before,
 tw-passage::before,
 [data-passage]::before {
   content: '' !important;
-  
+
   position: absolute !important;
   top: 0 !important;
   left: 0 !important;
@@ -216,25 +216,31 @@ tw-passage::before,
   bottom: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  
-  background-image: var(--grain-url, url("https://gr9430.github.io/lamos-assets/grain/2.png")) !important;
+
+  background-image: var(--grain-url, url("assets/- PNG Grain Dust and scratch textures/a (2).png")) !important;
   background-size: cover !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
-  
-  opacity: var(--grain-opacity, 0.4) !important;
-  
-  z-index: 100 !important;  /* Grain on top */
+
+  opacity: var(--grain-opacity, 0.3) !important;
+
+  z-index: 100 !important;  /* Video noise on top */
   pointer-events: none !important;
-  mix-blend-mode: multiply !important;
+  mix-blend-mode: overlay !important;  /* VHS electronic noise effect */
+
+  /* VHS tracking jitter */
+  transform: translateX(var(--tracking-jitter, 0)) !important;
+
+  /* VHS color bleeding simulation */
+  filter: var(--vhs-chromatic, none) !important;
 }
 
-/* === FLARES (under grain) === */
+/* === VHS LIGHT BLEEDING / TRACKING ARTIFACTS === */
 .passage::after,
 tw-passage::after,
 [data-passage]::after {
   content: '' !important;
-  
+
   position: absolute !important;
   top: 0 !important;
   left: 0 !important;
@@ -242,19 +248,22 @@ tw-passage::after,
   bottom: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  
+
   background-image: var(--flare-url, none) !important;
   background-size: cover !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
-  
+
   opacity: var(--flare-opacity, 0) !important;
-  
-  z-index: 50 !important;  /* Flares below grain */
+
+  z-index: 50 !important;  /* Light bleeding below video noise */
   pointer-events: none !important;
-  mix-blend-mode: lighten !important;
-  
-  transition: opacity 0.1s ease !important;
+  mix-blend-mode: screen !important;  /* VHS light bleeding effect */
+
+  /* VHS horizontal tracking distortion */
+  transform: var(--tracking-distort, none) !important;
+
+  transition: opacity 0.1s ease, transform 0.1s ease !important;
 }
 
 /* NO GRAIN or FLARES on Year Zero scroll passage */
@@ -697,7 +706,7 @@ tw-passage[data-tags~="splash"] #splash-screen img {
   [data-passage] {
     width: 90vw !important;
     height: calc(90vw * 0.75) !important;
-    padding: 30px 40px !important;
+    padding: 26px 34px 30px 34px !important;
   }
   
   body {
@@ -735,7 +744,7 @@ tw-passage[data-tags~="splash"] #splash-screen img {
   [data-passage] {
     width: 95vw !important;
     height: calc(95vw * 0.75) !important;
-    padding: 20px 25px !important;
+    padding: 17px 21px 20px 21px !important;
     border-style: solid !important;
   }
   
@@ -838,6 +847,74 @@ tw-passage[data-tags~="splash"] #splash-screen img {
 #cmd-input {
   display: none !important;
 }
+
+/* === PASSAGE IMAGES: VHS-style playback display === */
+.passage img,
+tw-passage img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto 1em auto;
+  border-radius: 2px; /* Slightly less rounded for VHS aesthetic */
+
+  /* VHS image characteristics */
+  filter:
+    saturate(1.2) /* VHS oversaturation */
+    contrast(1.1) /* Slightly boosted contrast */
+    brightness(0.95) /* Subtle darkening */
+    hue-rotate(2deg); /* Slight color shift */
+
+  /* VHS edge softening */
+  image-rendering: auto;
+
+  /* Subtle VHS tracking distortion */
+  transform: perspective(1000px) rotateY(0deg);
+  transition: filter 0.3s ease, transform 0.1s ease;
+}
+
+/* Enhanced VHS effects on hover/focus (simulating tape head adjustment) */
+.passage img:hover,
+tw-passage img:hover {
+  filter:
+    saturate(1.3)
+    contrast(1.15)
+    brightness(0.98)
+    hue-rotate(1deg);
+  transform: perspective(1000px) rotateY(0.2deg) translateX(0.5px);
+}
+
+/* VHS image degradation increases with story progression */
+.passage img.vhs-degraded,
+tw-passage img.vhs-degraded {
+  filter:
+    saturate(1.4) /* More oversaturation */
+    contrast(1.2)
+    brightness(0.9)
+    hue-rotate(5deg)
+    blur(0.3px); /* Slight tracking blur */
+
+  /* More pronounced tracking issues */
+  animation: vhs-tracking-drift 3s ease-in-out infinite;
+}
+
+@keyframes vhs-tracking-drift {
+  0% { transform: perspective(1000px) rotateY(0deg) translateX(0px); }
+  33% { transform: perspective(1000px) rotateY(0.3deg) translateX(0.8px); }
+  66% { transform: perspective(1000px) rotateY(-0.2deg) translateX(-0.4px); }
+  100% { transform: perspective(1000px) rotateY(0deg) translateX(0px); }
+}
+
+/* === TEXT WRAPPING: Prevent horizontal overflow === */
+.passage,
+tw-passage,
+[data-passage] {
+  word-wrap: break-word !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  hyphens: auto !important;
+  overflow-x: hidden !important;
+}
+
 </style><script role="script" id="twine-user-script" type="text/twine-javascript">// === RLINK & DLINK MACROS: Define early for global access ===
 $(document).ready(function() {
   if (typeof Macro !== 'undefined' && Macro.add) {
@@ -887,10 +964,10 @@ $(document).ready(function() {
   }
 });
 
-// Grain + Flare effect - DISABLED to avoid CORS errors
+// Grain + Flare effect - VHS aesthetic
 (function() {
-  console.log('Grain + Flare script DISABLED - external images blocked by CORS');
-  return; // Exit early to skip image loading
+  console.log('VHS grain + flare effects initializing...');
+  // Re-enabled with local assets - no CORS issues
   
   const totalImages = 87;
   const initialSubset = 5;
@@ -933,7 +1010,7 @@ $(document).ready(function() {
       grainLoaded++;
       checkEarlyStart();
     };
-    grainImg.src = `https://gr9430.github.io/lamos-assets/grain/${i}.png`;
+    grainImg.src = `assets/- PNG Grain Dust and scratch textures/a (${i}).png`;
   });
   
   // Load flare images
@@ -948,7 +1025,7 @@ $(document).ready(function() {
       flareLoaded++;
       checkEarlyStart();
     };
-    flareImg.src = `https://gr9430.github.io/lamos-assets/flares/${i}.png`;
+    flareImg.src = `assets/- PNG Film Lense Flare & Burn Kit/c (${i}).png`;
   });
   
   function checkEarlyStart() {
@@ -960,37 +1037,139 @@ $(document).ready(function() {
   }
   
   function startAnimation() {
-    console.log('✓ Animation active at 24fps');
-    
-    let flareActive = false;
-    let flareCounter = 0;
-    
+    console.log('✓ VHS effects active at 30fps');
+
+    let trackingActive = false;
+    let trackingCounter = 0;
+    let chromaticShift = 0;
+
     function updateEffects() {
       const passage = document.querySelector('.passage, tw-passage, [data-passage]');
-      
+
       if (passage && grainImages.length > 0) {
+        // VHS video noise (using grain textures as electronic noise)
         const grainIndex = Math.floor(Math.random() * grainImages.length);
         passage.style.setProperty('--grain-url', `url("${grainImages[grainIndex]}")`);
-        
-        flareCounter++;
-        if (flareCounter % 3 === 0 && flareImages.length > 0) {
-          if (Math.random() < 0.15) {
+
+        // VHS tracking jitter (horizontal)
+        const jitter = (Math.random() - 0.5) * 3; // Random horizontal jitter
+        passage.style.setProperty('--tracking-jitter', `${jitter}px`);
+
+        // VHS chromatic aberration simulation
+        chromaticShift = (chromaticShift + 0.1) % (Math.PI * 2);
+        const chromaticOffset = Math.sin(chromaticShift) * 0.5;
+        if (Math.random() < 0.1) { // Occasional chromatic bleeding
+          passage.style.setProperty('--vhs-chromatic',
+            `drop-shadow(${chromaticOffset}px 0 red) drop-shadow(${-chromaticOffset}px 0 cyan)`);
+        } else {
+          passage.style.setProperty('--vhs-chromatic', 'none');
+        }
+
+        // VHS tracking artifacts (using flare images as light bleeding)
+        trackingCounter++;
+        if (trackingCounter % 5 === 0 && flareImages.length > 0) { // Less frequent than film flares
+          if (Math.random() < 0.08) { // VHS tracking errors are less frequent but more dramatic
             const flareIndex = Math.floor(Math.random() * flareImages.length);
             passage.style.setProperty('--flare-url', `url("${flareImages[flareIndex]}")`);
-            passage.style.setProperty('--flare-opacity', '0.7');
-            flareActive = true;
-          } else if (flareActive && Math.random() < 0.3) {
+            passage.style.setProperty('--flare-opacity', '0.4'); // Subtler than film flares
+
+            // VHS tracking distortion (horizontal stretching/compression)
+            const distortScale = 1 + (Math.random() - 0.5) * 0.02;
+            passage.style.setProperty('--tracking-distort', `scaleX(${distortScale})`);
+            trackingActive = true;
+          } else if (trackingActive && Math.random() < 0.4) {
             passage.style.setProperty('--flare-opacity', '0');
-            flareActive = false;
+            passage.style.setProperty('--tracking-distort', 'none');
+            trackingActive = false;
           }
         }
       }
     }
     
-    setInterval(updateEffects, 42);
+    setInterval(updateEffects, 33); // 30fps for VHS timing
     updateEffects();
   }
 })();
+
+// VHS-styled GIF replacement utility
+window.replaceWithStylizedGifs = function(options = {}) {
+  console.log('🎬 Replacing GIFs with stylized VHS versions...');
+
+  // Default options
+  const config = {
+    // Map of original filename to new filename (without extension)
+    replacements: {
+      'p13': 'p13-vhs', // p13.gif -> p13-vhs.gif
+      'p16': 'p16-vhs', // p16.gif -> p16-vhs.gif
+      'p32': 'p32-vhs', // p32.gif -> p32-vhs.gif
+      'p46': 'p46-vhs'  // p46.gif -> p46-vhs.gif
+    },
+    // File extension for new files (defaults to gif)
+    extension: 'gif',
+    // Path to stylized images
+    path: 'assets/images/',
+    // Whether to add VHS styling class immediately
+    addVhsClass: true,
+    ...options
+  };
+
+  // Find all img elements that use the target GIFs
+  const allImages = document.querySelectorAll('img');
+  let replacedCount = 0;
+
+  allImages.forEach(img => {
+    const src = img.getAttribute('src');
+    if (!src) return;
+
+    // Extract filename without extension
+    const filename = src.split('/').pop().replace(/\.[^/.]+$/, '');
+
+    // Check if this image should be replaced
+    if (config.replacements[filename]) {
+      const newFilename = config.replacements[filename];
+      const newSrc = `${config.path}${newFilename}.${config.extension}`;
+
+      console.log(`  📼 Replacing: ${filename} -> ${newFilename}`);
+
+      // Create a new image to preload and test
+      const testImg = new Image();
+      testImg.onload = function() {
+        // Replace the source
+        img.setAttribute('src', newSrc);
+
+        // Add VHS styling class if requested
+        if (config.addVhsClass) {
+          img.classList.add('vhs-styled');
+        }
+
+        // Add a subtle fade-in effect for the replacement
+        img.style.opacity = '0';
+        img.style.transition = 'opacity 0.5s ease';
+        setTimeout(() => {
+          img.style.opacity = '1';
+        }, 50);
+
+        replacedCount++;
+        console.log(`  ✅ Successfully replaced: ${filename}`);
+      };
+
+      testImg.onerror = function() {
+        console.warn(`  ⚠️ Could not load stylized version: ${newSrc}`);
+      };
+
+      testImg.src = newSrc;
+    }
+  });
+
+  console.log(`🎭 VHS styling complete. Replaced ${replacedCount} images.`);
+  return replacedCount;
+};
+
+// Quick replacement function for when stylized GIFs are ready
+// Usage: window.replaceVhsGifs() or replaceVhsGifs() from browser console
+window.replaceVhsGifs = () => window.replaceWithStylizedGifs();
+
+console.log('📹 VHS GIF replacement utilities loaded. Use replaceVhsGifs() when stylized versions are ready.');
 
 
 // Involuntary authorship - antagonistic narrator co-opts player input
@@ -1601,7 +1780,7 @@ $(document).ready(function() {
     
     console.log(`[Degradation: base=${baseDecayRate.toFixed(2)}, skipPenalty=${skipPenalty.toFixed(2)}, final=${decayRate.toFixed(2)}]`);
     
-    // Create scanline overlay if it doesn't exist
+    // Create VHS interlacing overlay if it doesn't exist
     if (!document.querySelector('#scanline-overlay')) {
       const scanlines = document.createElement('div');
       scanlines.id = 'scanline-overlay';
@@ -1613,62 +1792,114 @@ $(document).ready(function() {
         height: 100vh;
         pointer-events: none;
         z-index: 9999;
-        background: repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 2px,
-          rgba(0, 0, 0, 0.03) 2px,
-          rgba(0, 0, 0, 0.03) 4px
-        );
+        background:
+          repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            rgba(0, 0, 0, 0.015) 1px,
+            transparent 2px,
+            rgba(255, 0, 100, 0.008) 3px,
+            transparent 4px,
+            rgba(0, 255, 255, 0.005) 5px,
+            transparent 6px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            rgba(0, 0, 0, 0.01) 0.5px,
+            transparent 1px
+          );
         opacity: 0;
         transition: opacity 0.5s ease;
+        animation: vhs-interlace 0.1s linear infinite;
       `;
       document.body.appendChild(scanlines);
+
+      // Add VHS interlacing animation
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes vhs-interlace {
+          0% { transform: translateY(0px); }
+          50% { transform: translateY(0.5px); }
+          100% { transform: translateY(0px); }
+        }
+      `;
+      document.head.appendChild(style);
     }
     
-    // Phase 1 (passages 8+): Faded film print - pink/magenta shift
-    // Mimics cyan dye deterioration in aging Eastmancolor prints
+    // Phase 1 (passages 8+): VHS color oversaturation and bleeding
+    // Mimics VHS tape's tendency to oversaturate colors, especially reds
     if (count >= 8) {
-      const baseFade = Math.min((count - 8) * 2.5, 35);
-      const fade = baseFade * decayRate;
-      
+      const baseShift = Math.min((count - 8) * 1.8, 25);
+      const shift = baseShift * decayRate;
+
+      // VHS color temperature shift toward warm/red oversaturation
       // Start: #FFFFE3 (255, 255, 227) - cream
-      // Shift: pink/magenta as green drops and blue rises slightly
+      // Shift: oversaturated warm tones, slight red bleeding
       const baseColor = { r: 255, g: 255, b: 227 };
-      const newR = 255;
-      const newG = Math.max(215, baseColor.g - fade);
-      const newB = Math.min(240, baseColor.b + (fade * 0.3));
-      
+      const newR = Math.min(255, baseColor.r + (shift * 0.4));
+      const newG = Math.max(220, baseColor.g - (shift * 0.2));
+      const newB = Math.max(200, baseColor.b - (shift * 0.5));
+
       passage.style.backgroundColor = `rgb(${newR}, ${newG}, ${newB})`;
+
+      // Add VHS color bleeding filter
+      if (count >= 10) {
+        const bleedIntensity = Math.min((count - 10) * 0.02, 0.1) * decayRate;
+        passage.style.filter = `saturate(${1 + bleedIntensity * 2}) hue-rotate(${bleedIntensity * 10}deg)`;
+      }
     }
     
-    // Phase 2 (passages 12-25): Input box degradation
-    if (count >= 12 && cmdInput && cmdInputField) {
+    // Phase 2 (passages 12-25): VHS tracking issues and input degradation
+    if (count >= 12) {
       const baseDegradation = Math.min((count - 12) * 0.05, 0.6);
       const degradation = baseDegradation * decayRate;
-      
-      // Border darkens toward a bruised pink/brown
-      if (count >= 15) {
-        const borderOpacity = 0.3 + (degradation * 0.5);
-        cmdInputField.style.borderColor = `rgba(100, 50, 60, ${borderOpacity})`;
-      }
-      
-      // Jitter suppressed when engaged
-      if (count >= 20 && recencyBonus < 0.1 && Math.random() < (0.3 * decayRate)) {
-        const jitterX = (Math.random() - 0.5) * 2 * decayRate;
-        const jitterY = (Math.random() - 0.5) * 1 * decayRate;
-        cmdInput.style.transform = `translate(${jitterX}px, ${jitterY}px)`;
+
+      // VHS tracking errors affecting whole display
+      if (count >= 14 && recencyBonus < 0.1 && Math.random() < (0.15 * decayRate)) {
+        // Horizontal tracking distortion across entire passage
+        const trackingShift = (Math.random() - 0.5) * 4 * decayRate;
+        passage.style.transform = `translateX(${trackingShift}px) scaleX(${1 + trackingShift * 0.01})`;
         setTimeout(() => {
-          cmdInput.style.transform = 'none';
-        }, 100);
+          passage.style.transform = 'none';
+        }, 150);
+      }
+
+      // Input box degradation (VHS head switching artifacts)
+      if (cmdInput && cmdInputField) {
+        // Border shows VHS head switching noise pattern
+        if (count >= 15) {
+          const borderOpacity = 0.3 + (degradation * 0.5);
+          // VHS typically shows more cyan/blue artifacts than pink
+          cmdInputField.style.borderColor = `rgba(50, 80, 120, ${borderOpacity})`;
+          cmdInputField.style.boxShadow = `0 0 ${degradation * 3}px rgba(255, 0, 100, ${degradation * 0.3})`;
+        }
+
+        // Input jitter from VHS head alignment issues
+        if (count >= 20 && recencyBonus < 0.1 && Math.random() < (0.3 * decayRate)) {
+          const jitterX = (Math.random() - 0.5) * 3 * decayRate;
+          const jitterY = (Math.random() - 0.5) * 1.5 * decayRate;
+          cmdInput.style.transform = `translate(${jitterX}px, ${jitterY}px)`;
+          setTimeout(() => {
+            cmdInput.style.transform = 'none';
+          }, 100);
+        }
       }
     }
     
-    // Phase 3 (passages 18+): Film grain intensification
+    // Phase 3 (passages 18+): VHS video noise intensification
     if (count >= 18) {
       const baseGrain = 0.4 + ((count - 18) * 0.015);
       const grainIntensity = Math.min(0.4 + ((baseGrain - 0.4) * decayRate), 0.7);
       passage.style.setProperty('--grain-opacity', grainIntensity);
+
+      // Apply VHS image degradation to all passage images
+      const images = passage.querySelectorAll('img');
+      images.forEach(img => {
+        if (count >= 22) { // More aggressive degradation later in story
+          img.classList.add('vhs-degraded');
+        }
+      });
     }
     
     // Phase 4 (passages 25+): Scanline intensification  
@@ -1681,12 +1912,47 @@ $(document).ready(function() {
       }
     }
     
-    // Phase 5 (passages 30+): Faded print - desaturation, contrast loss, lifted blacks
+    // Phase 5 (passages 30+): VHS magnetic tape degradation - dropouts and signal loss
     if (count >= 30) {
-      const baseDecay = (count - 30) * 0.012;
-      const decay = Math.min(baseDecay * decayRate, 0.35);
-      
-      passage.style.filter = `saturate(${1 - decay * 0.3}) contrast(${1 - decay * 0.15}) brightness(${1 + decay * 0.05})`;
+      const baseDecay = (count - 30) * 0.015;
+      const decay = Math.min(baseDecay * decayRate, 0.4);
+
+      // VHS tape degradation: signal dropouts, color bleeding, contrast shifts
+      const saturation = 1 + (decay * 0.5); // VHS oversaturates before dying
+      const contrast = Math.max(0.7, 1 - (decay * 0.3)); // Dramatic contrast loss
+      const brightness = Math.max(0.8, 1 - (decay * 0.1)); // Slight darkening
+
+      // Add VHS-specific artifacts
+      const filterString = `saturate(${saturation}) contrast(${contrast}) brightness(${brightness})`;
+
+      // Occasional signal dropouts (brief black flashes)
+      if (count >= 35 && Math.random() < (0.02 * decayRate)) {
+        passage.style.filter = `${filterString} brightness(0.1)`;
+        setTimeout(() => {
+          passage.style.filter = filterString;
+        }, 50 + Math.random() * 100);
+      } else {
+        passage.style.filter = filterString;
+      }
+
+      // VHS head switching noise bars
+      if (count >= 32 && Math.random() < (0.05 * decayRate)) {
+        const noiseBar = document.createElement('div');
+        noiseBar.style.cssText = `
+          position: fixed;
+          top: ${Math.random() * 100}%;
+          left: 0;
+          width: 100vw;
+          height: ${2 + Math.random() * 3}px;
+          background: rgba(${Math.random() * 255}, ${Math.random() * 100}, ${Math.random() * 255}, 0.8);
+          z-index: 200;
+          pointer-events: none;
+        `;
+        document.body.appendChild(noiseBar);
+        setTimeout(() => {
+          document.body.removeChild(noiseBar);
+        }, 100 + Math.random() * 200);
+      }
     }
     
     // === ENGAGEMENT FEEDBACK ===
@@ -1745,11 +2011,18 @@ $(document).ready(function() {
       const roll = Math.random();
       console.log(`Navigation roll: ${roll.toFixed(3)}`);
       
+      // Check if we should offer passage 48 (when unlocked and high passage count)
+      if (window.passageCount >= 25 && hasCompletedMainStory() && Math.random() < 0.15) {
+        console.log('🔓 Offering access to unlocked Passage 48...');
+        Engine.play('9');
+        return;
+      }
+
       // Check if we should go to an end passage
       if (roll < endChance) {
         console.log('Rolling for END passage...');
         const endPassages = Story.lookup('tags', 'end');
-        
+
         if (endPassages.length > 0) {
           const endTitles = endPassages.map(p => p.title);
           const randomEnd = endTitles[Math.floor(Math.random() * endTitles.length)];
@@ -1793,7 +2066,17 @@ $(document).ready(function() {
       // Filter out special and end passages
       const validPassages = storyPassages.filter(p => {
         const pTags = p.tags || [];
-        return !pTags.includes('special') && !pTags.includes('end');
+        const isSpecialOrEnd = pTags.includes('special') || pTags.includes('end');
+
+        // Gate passage 48 (named "9") behind completion requirements
+        const isPassage48 = p.title === '9';
+        const passage48Locked = isPassage48 && !hasCompletedMainStory();
+
+        if (passage48Locked) {
+          console.log('🔒 Passage 48 ("9") is locked - completion requirements not met');
+        }
+
+        return !isSpecialOrEnd && !passage48Locked;
       });
       
       console.log(`Found ${validPassages.length} valid regular story passages`);
@@ -1820,6 +2103,110 @@ $(document).ready(function() {
       console.error('Error stack:', error.stack);
     }
   }
+
+  // Passage 48 completion check - only accessible after truly experiencing the work
+  function hasCompletedMainStory() {
+    const elapsedMinutes = (Date.now() - (window.storyStartTime || Date.now())) / 60000;
+    const passageCount = window.passageCount || 0;
+
+    const timeRequirement = elapsedMinutes >= 15; // 15+ minutes
+    const passageRequirement = passageCount >= 20; // 20+ passages
+
+    const completed = timeRequirement && passageRequirement;
+
+    if (completed && !window.passage48UnlockedLogged) {
+      console.log(`🔓 Passage 48 unlocked! Time: ${elapsedMinutes.toFixed(1)}min, Passages: ${passageCount}`);
+      window.passage48UnlockedLogged = true;
+
+      // Optional: Show a subtle notification that the final passage is now accessible
+      if (typeof showPassage48Available === 'function') {
+        showPassage48Available();
+      }
+    }
+
+    return completed;
+  }
+
+  // Check if passage 48 should be accessible to this reader
+  window.hasCompletedMainStory = hasCompletedMainStory;
+
+  // Direct access to passage 48 (for testing or special access)
+  window.accessPassage48 = function() {
+    if (hasCompletedMainStory()) {
+      console.log('🔓 Accessing Passage 48 - completion requirements met');
+      Engine.play('9');
+      return true;
+    } else {
+      const elapsedMinutes = (Date.now() - (window.storyStartTime || Date.now())) / 60000;
+      const passageCount = window.passageCount || 0;
+      console.log(`🔒 Passage 48 locked. Need: 15min + 20 passages. Current: ${elapsedMinutes.toFixed(1)}min, ${passageCount} passages`);
+      return false;
+    }
+  };
+
+  // Optional visual notification when passage 48 becomes available
+  window.showPassage48Available = function() {
+    // Create a subtle notification
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 4px;
+      font-size: 12px;
+      z-index: 10000;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+      font-family: monospace;
+    `;
+    notification.textContent = 'Final passage unlocked';
+
+    document.body.appendChild(notification);
+
+    // Fade in
+    setTimeout(() => {
+      notification.style.opacity = '0.7';
+    }, 100);
+
+    // Fade out and remove
+    setTimeout(() => {
+      notification.style.opacity = '0';
+      setTimeout(() => {
+        if (notification.parentNode) {
+          document.body.removeChild(notification);
+        }
+      }, 500);
+    }, 3000);
+  };
+
+  // Debug function to check completion status
+  window.checkPassage48Status = function() {
+    const elapsedMinutes = (Date.now() - (window.storyStartTime || Date.now())) / 60000;
+    const passageCount = window.passageCount || 0;
+    const completed = hasCompletedMainStory();
+
+    console.log('--- Passage 48 Status ---');
+    console.log(`Time elapsed: ${elapsedMinutes.toFixed(1)} minutes (need: 15+)`);
+    console.log(`Passages visited: ${passageCount} (need: 20+)`);
+    console.log(`Requirements met: ${completed ? '✅ YES' : '❌ NO'}`);
+    console.log(`Passage 48 accessible: ${completed ? '🔓 UNLOCKED' : '🔒 LOCKED'}`);
+
+    return completed;
+  };
+
+  // Console logging for passage 48 system
+  console.log('🔐 Passage 48 gating system initialized');
+  console.log('📝 Use checkPassage48Status() to see progress');
+  console.log('🔑 Use accessPassage48() to attempt direct access');
+
+  // Show initial status after a short delay (to ensure storyStartTime is set)
+  setTimeout(() => {
+    checkPassage48Status();
+  }, 1000);
 
   // Expose goToRandomPassage globally for rlink macro access
   window.goToRandomPassage = goToRandomPassage;
@@ -1913,6 +2300,19 @@ $(document).ready(function() {
     $(document).on(':passagerender', function(event) {
       window.passageCount++;
       console.log('Passage rendered. Count: ' + window.passageCount + ', Name: ' + passage());
+
+      // Check if this is passage 48 and if access should be allowed
+      const currentPassage = passage();
+      if (currentPassage === '9' && !hasCompletedMainStory()) {
+        console.log('🚫 Blocking direct access to Passage 48 - requirements not met');
+        // Redirect to a random story passage instead
+        setTimeout(() => {
+          if (typeof window.goToRandomPassage === 'function') {
+            window.goToRandomPassage();
+          }
+        }, 100);
+        return;
+      }
 
       applyVisualDegradation();
 
@@ -3198,10 +3598,8 @@ Hounding and posting erewhile as clenching fixation sets demeanors that would ot
 &lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="6" name="13" tags="story" position="850,675" size="100,100">&lt;div id="unstable"&gt;
-Post-March droughts and April blooms becoming supple emblems of this area's wealth: cheap t-shirts; ; big trucks—a total hotel and car wash economy. However, in the then and here and here and now and there, one finds that which has propelled this land for centuries, perhaps: &lt;strong&gt;fresh for the picking home video fuck-royalty-to-be.&lt;/strong&gt;
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+  &lt;img src=&quot;assets/images/p13.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+Post-March droughts and April blooms becoming supple emblems of this area's wealth: cheap t-shirts; ; big trucks—&lt;&lt;rlink "a total hotel and car wash economy"&gt;&gt;. However, in the &lt;&lt;rlink "then and here and here and now and there"&gt;&gt;, one finds that which has propelled this land for centuries, perhaps: &lt;strong&gt;fresh for the picking home video fuck-royalty-to-be.&lt;/strong&gt;
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="7" name="14" tags="story" position="975,675" size="100,100">&lt;div id="unstable"&gt;
 Cool wind blasts in th' late-night highway flight to Where Linger. That is to say, all manner of rubber and latex peeling fuckbald to elsewhere tonight. Somewhere south of 95 and heaven, as the early dawn vista releases the gripping deep rite in pumping rhythm past midnight.
@@ -3216,10 +3614,8 @@ Cool wind blasts in th' late-night highway flight to Where Linger. That is to sa
 &lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="9" name="16" tags="story" position="600,800" size="100,100">&lt;div id="unstable"&gt;
-And stare into the nighttime ocean skyline with vacant and wistful eyes, bloated by the bender, with sum fromer Adonic body whose purpose was to look good while fucking now chiseled into a soft and dumpy frame, effortlessly upkept by the exceptional glory of your 808 to the soundtrack of late-night commercials of girls going exploited underscoring all manner of hotel noise. A supine final fun and a lonely waltz form a heavy body to vacate the room. —
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;img src=&quot;assets/images/p16.gif&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+And stare into the &lt;&lt;rlink "nighttime ocean"&gt;&gt; skyline with vacant and wistful eyes, bloated by the bender, with sum fromer Adonic body whose purpose was to look good while fucking now chiseled into a soft and dumpy frame, effortlessly upkept by the exceptional glory of your 808 to &lt;&lt;rlink "the soundtrack of late-night commercials of girls gone exploited"&gt;&gt; underscoring all manner of hotel noise. A supine final fun and a lonely waltz form a heavy body to vacate the room. —
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="10" name="17" tags="story" position="725,800" size="100,100">&lt;div id="unstable"&gt;
 Cut back away from the dumpster and back toward the sleaze trap. Corner store, liquor store, sex shop, ...roll. Swap meet and a meat swap with consequence grazing out at pasture with a fine-tuned sight with a decent fitting compromised. Good marksmanship stops and takes a load off and shot into the drain hole. Once in a and all the while, nowithstanding connection as part of a personality defect. Smearing and snorting and blending and chugging and thrusting and busting; injecting and ingesting in one broad fell swoop.
@@ -3305,10 +3701,8 @@ Shattered glass around new bored cavities and a three-hundred-sixty degrees roun
 &lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="24" name="3" tags="story" position="850,425" size="100,100">&lt;div id="unstable"&gt;
-You notice a haze: flat and vague canvassed forms outlined in the warring hues of blue, white and beige regenerated ad nauseam through a ==dream==absolutefuckingnightmare filter———
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;img src=&quot;assets/images/p24.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+You notice a haze: flat and vague &lt;&lt;rlink "canvassed forms"&gt;&gt; outlined in the warring hues of blue, white and beige regenerated ad nauseam through a ==dream==absolutefuckingnightmare &lt;&lt;rlink "filter"&gt;&gt;———
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="25" name="30" tags="story" position="1100,1050" size="100,100">&lt;div id="unstable"&gt;
 Soaked plum currents sag limply and caress the atmosphere, reflecting a low wind rate. Like base material edging its hold varying thieved house/home matter recently ejected: so much chipped stucco scraps in frosted nebulae, forever and contained eternally paralleled to a neck-to-wrist-bound soul-sucking contraption. Sole matter vessel with priority hosting, sans features that denote identity and memory and purpose and community and taste matter and smell matter and aural matter and reception matter and expulsion matter and excretion delivering a narrative in loose servitude to .
@@ -3317,16 +3711,12 @@ Soaked plum currents sag limply and caress the atmosphere, reflecting a low wind
 &lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="26" name="31" tags="story" position="600,1175" size="100,100">&lt;div id="unstable"&gt;
-Amorphous, bound and subservient to no end. . An operatic shriek emits from a near-distance, breaking the looped crescendo beyond repair. Now starts the next track on the groove. Funeral march lulling a long hard century of untold , kissing final .
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+  &lt;img src=&quot;assets/images/p26.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+Amorphous, bound and subservient to no end. An operatic shriek emits from &lt;&lt;rlink "a near-distance"&gt;&gt;, breaking the looped crescendo beyond repair. Now starts &lt;&lt;rlink "the next track on the groove"&gt;&gt;. Funeral march lulling toward a long hard century of untold miseries, kissing a final goodby
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="27" name="32" tags="story" position="725,1175" size="100,100">&lt;div id="unstable"&gt;
-Composition exacting mindless paralysis; again, a fixing stare bearing a feeling toward . Splatter-stained material: the earlier frame, marred now and containing a former image of an abandoned coast front hardly swaying in its marching funeral state. Questioningports←→reality valley and unnoticing creep-seep homing from eight frame joints holding past/future work detonating rage→calmer rage→shot nerves rage ramping up a collection of hairline fractures and venturing far below a common goal. Comprising structure inside-out cleverly disguised and comfort is now but a fleeting .
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;img src=&quot;assets/images/p32.gif&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+  Composition exacting mindless paralysis; again, a fixing stare bearing a feeling toward . &lt;&lt;rlink "Splatter-stained material"&gt;&gt;: the earlier frame, marred now and containing a former image of an abandoned coast front hardly swaying in its marching funeral state. Questioningports←→reality valley and unnoticing creep-seep homing from eight frame joints holding past/future work detonating rage→calmer rage→shot nerves rage ramping up a collection of hairline fractures and venturing far below a common goal. Comprising structure inside-out cleverly disguised and &lt;&lt;rlink "comfort is but a fleeting memory"&gt;&gt;.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="28" name="33" tags="story" position="850,1175" size="100,100">&lt;div id="unstable"&gt;
 Sisyphean boogie descending and ascending a throbbing painrhythm from a spiderwebbing vertical gash atop a left foot and between toes marred by the long-handled-ax driven by a ghoulish joke. The suspect is a coat of armor parked amid the north-east corridor of the first-floor hallway beside those rooms: creeping rooms, joining and some rooms containing Acanthus pedestals held in place by their decorative vases and a pseudo-Classical statuette, beside the one intact window. Some rooms were left containing original desolation, notwithstanding protective .
@@ -3371,16 +3761,12 @@ The roomsemblance is non-existent besides the senses incomprehensive description
 &lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="35" name="4" tags="story" position="975,425" size="100,100">&lt;div id="unstable"&gt;
-You thought to look over there, which was known as there where sailors with ill-intent in their eyes once took those maidens' heads. But it does not indicate suspension, mean cessation, or that such ports were there to begin with. A ridiculous thought, as there were never such sailors.
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+  &lt;img src=&quot;assets/images/p35.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+  You thought to look over &lt;&lt;rlink "there"&gt;&gt;, which was known as there where sailors with ill-intent in their eyes once took those maidens' heads. But it does not indicate suspension, mean cessation, or that such &lt;&lt;rlink "ports"&gt;&gt; were there to begin with. A ridiculous thought, as there were never such sailors.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="36" name="40" tags="story" position="1100,1300" size="100,100">&lt;div id="unstable"&gt;
-Fragmented trauma:
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+  &lt;img src=&quot;assets/images/p36.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+&lt;&lt;rlink "Fragmented"&gt;&gt; &lt;&lt;rlink "trauma"&gt;&gt;:
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="37" name="41" tags="" position="600,1425" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
 The night before at around 21:00 EST. Arrival, departure, and triumph melt and all three have continued their warring; parallel representations sustaining perpetual obliteration and reformation cycles into one singularity. Experience and structure interpellate each other and laze along the waterfront, as one and an other softly expels whispers that fall into the echoes threaded through the warm breeze.
@@ -3414,11 +3800,9 @@ One. is a smattering of fresh, fit, figures in a staggered horde, charging at br
 &lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="42" name="46" tags="story" position="600,1550" size="100,100">&lt;div id="unstable"&gt;
-<img src="lamos/assets/images/p46.gif"/>
-  Two. considers how One. historically orients the measure of a body count, tends to agree, but arrives to a somewhat different solution—how the object of One.'s conclusion is too readily reduced to a mere matter of method. X thinks so, too.
+&lt;img src=&quot;assets/images/p46.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+Two. considers how One. &lt;&lt;rlink "historically orients"&gt;&gt; the &lt;&lt;rlink "measure of a body"&gt;&gt; count, tends to agree, but arrives to a somewhat different solution—how the object of One.'s conclusion is too readily reduced to a mere matter of method. X thinks so, too.
 
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="43" name="47" tags="story" position="725,1550" size="100,100">&lt;div id="unstable"&gt;
 It all rests in a container and leaves you just as ignorant to the events unfolding in your time-space as X's is in theirs. The disarray uncontested while reigning through the cut short yelp of a few nobodies and the muffled articulations of some body that very well could be coming from within the usual suspects: namely, a decrepit cabin in the woods, a new luxury apartment, the boot of any variety of auto barreling down a long, county back road around 90 mph at 3:45 AM, amid fields and brush and bramble, hiding nae looming soul. 
@@ -3451,10 +3835,8 @@ Based on what you haved noted, it is not apparent how the old tower came f o r e
 &lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="48" name="9" tags="story" position="975,550" size="100,100">&lt;div id="unstable"&gt;
-Looking back now, you realize how clear it was that the inciting incident is a wave at the point of ; anticipating collison with the jetties that preserves by propping up a coastal town, village, city, province, or whatever setting at which it arrives for the final time. This movement is how it starts this time. On the jetties of a seaside dwelling, at dawn, trembling and without perspective, without rationale; per dictation and .
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;img src=&quot;assets/images/p48.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+Looking back now, you realize how clear it was that the &lt;&lt;rlink "inciting incident"&gt;&gt; is a wave at the point of anticipating collison with the jetties that preserves by propping up a &lt;&lt;rlink "coastal town"&gt;&gt;, village, city, province, or whatever setting at which it arrives for the final time. This movement is how it starts this time. On the jetties of a seaside dwelling, at dawn, trembling and without perspective, without rationale; per dictation and .
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="49" name="Instructions" tags="instructions" position="800,175" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
 Navigation is selection. Selection is complicity.&lt;br&gt;
@@ -3474,7 +3856,7 @@ input, textarea, select { display: none !important; }
 
 &lt;div id=&quot;splash-screen&quot; style=&quot;display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: space-between !important; min-height: 100vh !important; gap: 0 !important; padding: 0 !important; width: 100vw !important;&quot;&gt;
 
-&lt;img src=&quot;https://raw.githubusercontent.com/gr9430/portfolio/refs/heads/main/lamos/assets/lamos.png&quot; alt=&quot;Lebor Digital Title Screen&quot; style=&quot;max-height: 80vh !important; max-width: 110vw !important; width: auto !important; height: auto !important; display: block !important; object-fit: contain !important; margin: auto !important; flex-shrink: 0 !important;&quot;&gt;
+&lt;img src=&quot;assets/lamos.png&quot; alt=&quot;Lebor Digital Title Screen&quot; style=&quot;max-height: 80vh !important; max-width: 110vw !important; width: auto !important; height: auto !important; display: block !important; object-fit: contain !important; margin: auto !important; flex-shrink: 0 !important;&quot;&gt;
 
 &lt;div id=&quot;play-button&quot; style=&quot;display: flex !important; align-items: center !important; justify-content: center !important; width: 100vw !important; min-height: 33vh !important; border: none !important; background-color: #000000 !important; margin: 0 !important; padding: 0 !important; flex-shrink: 0 !important; text-align: center !important;&quot;&gt;[[INSERT|Instructions]]&lt;/div&gt;
 

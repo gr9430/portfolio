@@ -1,6 +1,8 @@
 ---
 layout: default
-title: Textual Analysis — Interdisciplinary Teaching
+title: Textual Analysis
+project: true
+tags: [Interdisciplinary Teaching, Texts and Technology, Pedagogy, Textual Analysis, Interdisciplinary Teaching in Texts and Technology]
 ---
 # Textual Analysis: Joyce's Dublin
 

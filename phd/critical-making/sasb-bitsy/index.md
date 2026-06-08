@@ -3,7 +3,7 @@ layout: default
 title: "Shooting a Still Bird (Bitsy)"
 description: "A Bitsy game adapting The Wet Nights at Beat Beach — an inebriated spring breaker navigating the final twenty minutes of a slasher film that never existed. Movement is the only verb."
 project: true
-tags: [phd, eLit, playable-texts, critical-making]
+tags: [Creative Works, E-Lit, Playable Texts, Playable Texts and Technology, Critical Making, Critical Making: Texts and Technology, Bitsy, Texts and Technology]
 ---
 
 # Shooting a Still Bird (Bitsy)

@@ -3,7 +3,7 @@ layout: default
 title: "auto-Glenn"
 description: "A constraint-based generative text bot on Bluesky, running Foucauldian and Oulipian procedures through Tracery grammars"
 project: true
-tags: [phd, generative, procedural, constraint, surveillance, theories]
+tags: [Generative, Procedural, Constraint, Surveillance, Texts and Technology, Theories of Texts and Technology]
 ---
 
 # auto-Glenn / fOUcauLdIanoPticOn
