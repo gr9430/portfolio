@@ -41,7 +41,7 @@ __What AI cannot do__: The theoretical argument in the paratext must be the stud
 
 __Why this policy__: The course's central claim is that form is not neutral as the medium carries meaning. This claim applies to AI-assisted authorship as much as to any other formal choice. Students who use AI and document it honestly are doing more interesting work than students who either avoid it entirely or pretend they haven't used it.
 
-## Assessment Strategy
+## Assessment
 
 The assignment is assessed across four dimensions:
 
