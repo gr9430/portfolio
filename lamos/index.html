@@ -159,7 +159,7 @@ tw-passage,
   position: relative !important;
   margin: 0 !important;
   
-  background-color: #FFFFE3 !important;
+  background-color: #f9f9f9 !important;
   border: 0px dashed rgba(0, 0, 0, 0) !important;
   
   box-shadow: 
@@ -201,6 +201,21 @@ tw-passage:has(#year-zero-scroll),
 
 [data-tags~="special"] body {
   background-color: #000000 !important;
+}
+
+/* === READOUT: pure white transcript page === */
+.passage:has(#readout-container) {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  overflow: hidden !important;
+  font-size: 1.3vh !important;
+}
+.passage:has(#readout-container) div,
+.passage:has(#readout-container) p,
+.passage:has(#readout-container) span,
+.passage:has(#readout-container) strong {
+  background-color: transparent !important;
+  color: inherit !important;
 }
 
 /* === VHS VIDEO NOISE === */
@@ -446,25 +461,20 @@ p {
 /* === PLAYER TEXT === */
 .player-text {
   color: #6495ed !important;
-  font-style: italic !important;
 }
 
 /* === LINKS === */
 .passage a,
 tw-passage a {
+  all: unset !important;
   color: #6495ed !important;
-  text-decoration: none !important;
-  border-bottom: 1px solid rgba(100, 149, 237, 0.3) !important;
-  padding: 2px 5px !important;
-  transition: all 0.2s ease !important;
-  position: relative !important;
-  z-index: 10 !important;
+  text-decoration: underline !important;
+  cursor: pointer !important;
 }
 
 .passage a:hover,
 tw-passage a:hover {
-  border-bottom-color: rgba(100, 149, 237, 0.8) !important;
-  background-color: rgba(100, 149, 237, 0.05) !important;
+  color: #8ab4f8 !important;
 }
 
 /* === RLINK: disabled during disruption === */
@@ -519,7 +529,7 @@ body.input-pending .dlink {
 }
 
 .choice-box:hover {
-  background-color: rgba(255, 255, 227, 0.8) !important;
+  background-color: rgba(249, 249, 249, 1) !important;
   border-color: rgba(0, 0, 0, 0.7) !important;
   transform: translateX(5px) !important;
 }
@@ -924,6 +934,7 @@ $(document).ready(function() {
         const phrase = this.args[0];
         const $el = $('<a>').addClass('rlink').text(phrase).on('click', function(e) {
           e.preventDefault();
+          e.stopPropagation();
           if (typeof window.inputPending !== 'undefined' && window.inputPending) {
             return; // Don't navigate during disruption
           }
@@ -1183,6 +1194,7 @@ console.log('📹 VHS GIF replacement utilities loaded. Use replaceVhsGifs() whe
   if (!window.storyEnded) window.storyEnded = false;
   if (typeof window.inputPending === 'undefined') window.inputPending = false;
   if (typeof window.nextInputAt === 'undefined') window.nextInputAt = null;
+  if (typeof window.hellreturnsPlayed === 'undefined') window.hellreturnsPlayed = false;
   
   // Gibberish detection - reject keyboard mashing (global)
   window.isGibberish = function(text) {
@@ -2010,7 +2022,22 @@ console.log('📹 VHS GIF replacement utilities loaded. Use replaceVhsGifs() whe
       
       const roll = Math.random();
       console.log(`Navigation roll: ${roll.toFixed(3)}`);
-      
+
+      // hellreturns is always the 5th narrative passage — forced before any random roll
+      const _storyTitles = Story.lookup('tags', 'story')
+        .filter(p => !p.tags.includes('special') && !p.tags.includes('end'))
+        .map(p => p.title);
+      const _visitedStoryCount = (window.visitedPassages || []).filter(t => _storyTitles.indexOf(t) !== -1).length;
+      const _hrPlayed = window.hellreturnsPlayed || (State && State.variables && !!State.variables.hellreturnsPlayed);
+      if (_visitedStoryCount >= 4 && !_hrPlayed) {
+        console.log('↳ Forcing hellreturns title card after 4 story passages');
+        window.hellreturnsPlayed = true;
+        if (State && State.variables) State.variables.hellreturnsPlayed = true;
+        if (!window.visitedPassages.includes('hellreturns')) window.visitedPassages.push('hellreturns');
+        Engine.play('hellreturns');
+        return;
+      }
+
       // Check if we should offer passage 48 (when unlocked and high passage count)
       if (window.passageCount >= 25 && hasCompletedMainStory() && Math.random() < 0.15) {
         console.log('🔓 Offering access to unlocked Passage 48...');
@@ -2019,20 +2046,26 @@ console.log('📹 VHS GIF replacement utilities loaded. Use replaceVhsGifs() whe
       }
 
       // Check if we should go to an end passage
-      if (roll < endChance) {
+      const _submissionsForEnd = (State.variables.allPlayerText || []).length;
+      if (roll < endChance && _submissionsForEnd >= 15) {
         console.log('Rolling for END passage...');
         const endPassages = Story.lookup('tags', 'end');
 
         if (endPassages.length > 0) {
-          const endTitles = endPassages.map(p => p.title);
-          const randomEnd = endTitles[Math.floor(Math.random() * endTitles.length)];
-          console.log(`✓ Navigating to END passage: ${randomEnd}`);
-          window.storyEnded = true;
-          Engine.play(randomEnd);
-          return;
+          // Exclude 'fin' — only reachable after all story passages are exhausted
+          const endTitles = endPassages.map(p => p.title).filter(t => t !== 'fin' && t !== 'readout');
+          if (endTitles.length > 0) {
+            const randomEnd = endTitles[Math.floor(Math.random() * endTitles.length)];
+            console.log(`✓ Navigating to END passage: ${randomEnd}`);
+            window.storyEnded = true;
+            Engine.play(randomEnd);
+            return;
+          }
         } else {
           console.log('⚠️ No END passages found, continuing to regular passages');
         }
+      } else if (roll < endChance) {
+        console.log(`End chance rolled but only ${_submissionsForEnd}/15 submissions — continuing story`);
       }
       
       // Check if we should go to a special passage
@@ -2040,7 +2073,12 @@ console.log('📹 VHS GIF replacement utilities loaded. Use replaceVhsGifs() whe
         console.log('Rolling for SPECIAL passage...');
         const specialPassages = Story.lookup('tags', 'special').filter(p => {
           const pTags = p.tags || [];
-          return !pTags.includes('end'); // Don't include end passages here
+          if (pTags.includes('end')) return false;
+          if (p.title === '0') return false; // restart-only, never mid-narrative
+          if (p.title === 'hellreturns') return false; // forced separately, not random
+          if (p.title === passage()) return false; // no back-to-back repeat of same special
+          if (p.title === 'welcome') return (window.visitedPassages || []).includes('Instructions') && !(window.visitedPassages || []).includes('welcome');
+          return true;
         });
         
         if (specialPassages.length > 0) {
@@ -2083,18 +2121,20 @@ console.log('📹 VHS GIF replacement utilities loaded. Use replaceVhsGifs() whe
       
       if (validPassages.length > 0) {
         const validTitles = validPassages.map(p => p.title);
-        
-        // Track visited passages
-        window.visitedPassages.push(currentPassageName);
-        
-        // Prefer unvisited passages if available
+
+        // Only navigate to unvisited passages — strict no-return
         const unvisited = validTitles.filter(title => !window.visitedPassages.includes(title));
-        const targetPool = unvisited.length > 0 ? unvisited : validTitles;
-        
-        const randomPassage = targetPool[Math.floor(Math.random() * targetPool.length)];
-        console.log(`✓ Navigating to STORY passage: ${randomPassage}`);
-        
-        Engine.play(randomPassage);
+
+        if (unvisited.length > 0) {
+          const randomPassage = unvisited[Math.floor(Math.random() * unvisited.length)];
+          console.log(`✓ Navigating to STORY passage: ${randomPassage}`);
+          Engine.play(randomPassage);
+        } else {
+          // All story passages exhausted — navigate to the finale
+          console.log('All story passages visited — navigating to fin');
+          window.storyEnded = true;
+          Engine.play('fin');
+        }
       } else {
         console.log('⚠️ No valid regular passages found');
       }
@@ -2211,6 +2251,57 @@ console.log('📹 VHS GIF replacement utilities loaded. Use replaceVhsGifs() whe
   // Expose goToRandomPassage globally for rlink macro access
   window.goToRandomPassage = goToRandomPassage;
 
+  window.fullReset = function() {
+    window.passageCount = 0;
+    window.visitedPassages = [];
+    window.storyEnded = false;
+    window.inputPending = false;
+    window.injectionLog = [];
+    window.injectionIndex = 0;
+    window.nextInjectionAt = null;
+    window.nextInputAt = null;
+    window.passageRepeatCounts = {};
+    window.storyStartTime = Date.now();
+    window.passage48UnlockedLogged = false;
+    window.hellreturnsPlayed = false;
+    console.trace('fullReset called');
+    // allPlayerText, playerInputs preserved across resets
+    if (State && State.variables) {
+      State.variables.inputCount = 0;
+      State.variables.hellreturnsPlayed = false;
+    }
+    Engine.play('0');
+  };
+
+  // Repeatable passage navigation — replays a passage N times before moving on,
+  // where N decreases proportionally as the reader moves through the story.
+  window.repeatablePassageNavigation = function(passageName) {
+    if (!window.passageRepeatCounts) window.passageRepeatCounts = {};
+
+    if (window.passageRepeatCounts[passageName] === undefined) {
+      // Calculate repeats on first call for this visit
+      const totalStory = 45; // total story passages (not special/end)
+      const storyTitles = Story.lookup('tags', 'story')
+        .filter(p => !p.tags.includes('special') && !p.tags.includes('end'))
+        .map(p => p.title);
+      const visitedStory = (window.visitedPassages || [])
+        .filter(t => storyTitles.includes(t)).length;
+      const progress = Math.min(visitedStory / totalStory, 1);
+      const maxRepeats = 5;
+      window.passageRepeatCounts[passageName] = Math.round(maxRepeats * (1 - progress));
+    }
+
+    if (window.passageRepeatCounts[passageName] > 0) {
+      window.passageRepeatCounts[passageName]--;
+      Engine.play(passageName);
+    } else {
+      delete window.passageRepeatCounts[passageName];
+      if (typeof window.goToRandomPassage === 'function') {
+        window.goToRandomPassage();
+      }
+    }
+  };
+
   // === DISRUPTION SYSTEM ===
   function randomBetween(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -2238,15 +2329,65 @@ console.log('📹 VHS GIF replacement utilities loaded. Use replaceVhsGifs() whe
       if (intensity > 0) prompt = zalgoText(prompt, intensity);
     }
 
+    const devSentences = [
+      'The light through the window was the color of old film.',
+      'She had been waiting so long she forgot what she was waiting for.',
+      'Something moved in the corner of the room when no one was looking.',
+      'The sound came from below the floorboards and then stopped.',
+      'He wrote the same word eleven times before crossing it out.',
+      'There were three doors and two of them led to the same place.',
+      'The radio was off but it was still making noise.',
+      'Nobody remembered who had brought the photograph.',
+      'The room smelled like rain and something else she could not name.',
+      'Every version of the story ended the same way.',
+      'The clock had been wrong for so long that no one bothered to check it anymore.',
+      'She kept finding the same coin in her pocket no matter how many times she spent it.',
+      'The name on the door was one she recognized but could not place.',
+      'He had the feeling of arriving somewhere he had left a long time ago.',
+      'The window was painted shut and had been for years.',
+      'There was a word for what she was feeling but she could not remember it.',
+      'The letters in the envelope were not the ones she had written.',
+      'He stood in the hallway long enough for it to mean something.',
+      'The song on the radio ended before she could remember where she had heard it.',
+      'Whatever had been in the jar was gone and nobody mentioned it.',
+      'The door opened into a room that should not have been there.',
+      'She read the last line first and it did not help.',
+      'The address was real but the street was not.',
+      'He had been to this intersection before, in a different city, in a different year.',
+      'The mirror showed the room behind her, slightly wrong.',
+      'There was a sound like someone setting down a glass in another part of the house.',
+      'She wrote her name and it looked like someone else had written it.',
+      'The map showed a road that ended without explanation.',
+      'He recognized the handwriting but not the message.',
+      'The light changed and everything looked like it had already happened.'
+    ];
+
     const disruptionHTML = `<div id="disruption-area">` +
       `<hr id="disruption-divider">` +
       `<div id="disruption-prompt">${prompt}</div>` +
       `<input type="text" id="disruption-input" placeholder="A complete sentence." autocomplete="off" spellcheck="false">` +
       `<div id="disruption-feedback"></div>` +
+      `<div id="dev-skip" style="margin-top:0.6em;font-size:0.7em;opacity:0.01;cursor:pointer;text-align:right;letter-spacing:0.05em;">[dev]</div>` +
       `</div>`;
 
     $('.passage').first().append(disruptionHTML);
     setTimeout(function() { $('#disruption-input').focus(); }, 50);
+
+    $(document).off('click.devskip').on('click.devskip', '#dev-skip', function() {
+      if (!window.devDeck) {
+        window.devDeck = devSentences.slice().sort(function() { return Math.random() - 0.5; });
+      }
+      if (window.devDeck.length === 0) return;
+      const devText = window.devDeck.pop();
+      window.playerInputs.push({ text: devText, passageNum: window.passageCount, timestamp: Date.now() });
+      State.variables.allPlayerText.push(devText);
+      if (!window.nextInjectionAt) {
+        window.nextInjectionAt = window.passageCount + randomBetween(3, 5);
+      }
+      console.log('[DEV skip: "' + devText + '"] Next injection at passage: ' + window.nextInjectionAt);
+      $(document).off('keypress.disruption').off('click.devskip');
+      hideInputDisruption();
+    });
 
     $(document).off('keypress.disruption').on('keypress.disruption', '#disruption-input', function(e) {
       if (e.which !== 13) return;
@@ -2281,10 +2422,13 @@ console.log('📹 VHS GIF replacement utilities loaded. Use replaceVhsGifs() whe
       if (input) {
         window.playerInputs.push({ text: input, passageNum: window.passageCount, timestamp: Date.now() });
         State.variables.allPlayerText.push(input);
-        console.log('[Disruption captured: "' + input + '"]');
+        if (!window.nextInjectionAt) {
+          window.nextInjectionAt = window.passageCount + randomBetween(3, 5);
+        }
+        console.log('[Disruption captured: "' + input + '"] Next injection at passage: ' + window.nextInjectionAt);
       }
 
-      $(document).off('keypress.disruption');
+      $(document).off('keypress.disruption').off('click.devskip');
       hideInputDisruption();
     });
   }
@@ -2295,14 +2439,25 @@ console.log('📹 VHS GIF replacement utilities loaded. Use replaceVhsGifs() whe
     $('body').removeClass('input-pending');
   }
 
-  $(document).ready(function() {
-    // Track passage changes and handle special/end tags
-    $(document).on(':passagerender', function(event) {
+  // Track passage changes and handle special/end tags
+  $(document).on(':passagerender', function(event) {
       window.passageCount++;
       console.log('Passage rendered. Count: ' + window.passageCount + ', Name: ' + passage());
 
       // Check if this is passage 48 and if access should be allowed
       const currentPassage = passage();
+
+      // Track visited passages on arrival (before any early returns)
+      if (!window.visitedPassages.includes(currentPassage)) {
+        window.visitedPassages.push(currentPassage);
+      }
+
+      // Confirmatory guard: ensure hellreturnsPlayed is locked the moment hellreturns renders
+      if (currentPassage === 'hellreturns') {
+        window.hellreturnsPlayed = true;
+        if (State && State.variables) State.variables.hellreturnsPlayed = true;
+      }
+
       if (currentPassage === '9' && !hasCompletedMainStory()) {
         console.log('🚫 Blocking direct access to Passage 48 - requirements not met');
         // Redirect to a random story passage instead
@@ -2322,47 +2477,49 @@ console.log('📹 VHS GIF replacement utilities loaded. Use replaceVhsGifs() whe
         return;
       }
 
-      if (!isSpecialPassage() && !window.storyEnded && !window.inputPending) {
+      const noDisruptPassages = ['TitleScreen', 'Instructions', 'fin', 'readout', '0'];
+      const submissionCount = (State.variables.allPlayerText || []).length;
+      if (!isSpecialPassage() && !noDisruptPassages.includes(passage()) && !window.storyEnded && !window.inputPending && submissionCount < 15) {
         if (!window.nextInputAt) {
-          window.nextInputAt = randomBetween(4, 8);
+          window.nextInputAt = randomBetween(1, 2);
         }
         if (window.passageCount >= window.nextInputAt) {
           setTimeout(showInputDisruption, 400);
-          window.nextInputAt = window.passageCount + randomBetween(4, 8);
+          window.nextInputAt = window.passageCount + randomBetween(1, 2);
           console.log('⊕ Disruption scheduled. Next at passage: ' + window.nextInputAt);
         }
       }
-    });
-    
   });
 })();
 
-// Inject player text - sentence-boundary only, no mid-sentence fragments
+// Inject player text — queue-based, one sentence per eligible passage visit
+if (typeof window.injectionIndex === 'undefined') window.injectionIndex = 0;
+
 $(document).on(':passagerender', function() {
   if (!window.injectionLog) window.injectionLog = [];
-
   if (window.storyEnded) return;
 
-  function isSpecialPassageLocal() {
-    try { return tags().includes('special'); } catch(e) { return false; }
-  }
-  function isEndPassageLocal() {
-    try { return tags().includes('end'); } catch(e) { return false; }
-  }
-
+  function isSpecialPassageLocal() { try { return tags().includes('special'); } catch(e) { return false; } }
+  function isEndPassageLocal() { try { return tags().includes('end'); } catch(e) { return false; } }
   if (isSpecialPassageLocal() || isEndPassageLocal()) return;
 
   const skipPassages = ['TitleScreen', 'Instructions', 'fin', 'readout', 'hellreturns', 'murderscene', 'infinity', 'welcome', '0'];
-  if (skipPassages.includes(passage())) return;
+  const currentPassage = passage();
+  if (skipPassages.includes(currentPassage)) return;
 
   const allText = State.variables.allPlayerText || [];
-  if (allText.length < 15) return;
+  if (allText.length === 0) return;
+  if (window.nextInjectionAt && window.passageCount < window.nextInjectionAt) return;
+  if (window.injectionIndex >= allText.length) return;
+
+  const sentence = allText[window.injectionIndex];
+  window.injectionIndex++;
 
   setTimeout(function() {
+    if (passage() !== currentPassage) return; // passage changed before timeout fired
     const passageEl = $('.passage')[0];
     if (!passageEl) return;
 
-    // Collect text nodes, skipping disruption-area and existing player-text spans
     const textNodes = [];
     const walker = document.createTreeWalker(passageEl, NodeFilter.SHOW_TEXT, {
       acceptNode: function(node) {
@@ -2379,33 +2536,52 @@ $(document).on(':passagerender', function() {
     while ((node = walker.nextNode())) textNodes.push(node);
     if (textNodes.length === 0) return;
 
-    // Find nodes that end a sentence
-    const sentenceEndNodes = textNodes.filter(function(n) {
-      return /[.!?]\s*$/.test(n.textContent);
+    // Collect all sentence-boundary positions within text nodes for mid-passage insertion
+    var boundaryPositions = [];
+    textNodes.forEach(function(n) {
+      var text = n.textContent;
+      var regex = /[.!?](?=\s)/g;
+      var match;
+      while ((match = regex.exec(text)) !== null) {
+        boundaryPositions.push({ node: n, offset: match.index + 1 });
+      }
     });
-    const candidates = sentenceEndNodes.length > 0 ? sentenceEndNodes : [textNodes[textNodes.length - 1]];
 
-    const targetNode = candidates[Math.floor(Math.random() * candidates.length)];
-    const sentence = allText[Math.floor(Math.random() * allText.length)];
-
-    const span = document.createElement('span');
-    span.className = 'player-text';
-    span.textContent = ' ' + sentence;
-
-    if (targetNode.nextSibling) {
-      targetNode.parentNode.insertBefore(span, targetNode.nextSibling);
+    var targetNode, splitOffset, contextBefore, contextAfter;
+    if (boundaryPositions.length > 0) {
+      var chosen = boundaryPositions[Math.floor(Math.random() * boundaryPositions.length)];
+      targetNode = chosen.node;
+      splitOffset = chosen.offset;
+      var nodeText = targetNode.textContent;
+      contextBefore = nodeText.slice(Math.max(0, splitOffset - 50), splitOffset).trim();
+      contextAfter = nodeText.slice(splitOffset, splitOffset + 50).trim();
     } else {
-      targetNode.parentNode.appendChild(span);
+      targetNode = textNodes[textNodes.length - 1];
+      splitOffset = targetNode.textContent.length;
+      contextBefore = targetNode.textContent.slice(-50).trim();
+      contextAfter = '';
     }
 
-    window.injectionLog.push({
-      playerText: sentence,
-      passageName: passage(),
-      passageNum: window.passageCount,
-      timestamp: Date.now()
+    const span = document.createElement('a');
+    span.className = 'rlink player-text';
+    span.textContent = ' ' + sentence;
+    span.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (window.inputPending) return;
+      if (typeof window.goToRandomPassage === 'function') window.goToRandomPassage();
     });
 
-    console.log('[Player text injected: "' + sentence + '" into ' + passage() + ']');
+    // Split the text node at the chosen boundary and insert span between the halves
+    var beforeNode = document.createTextNode(targetNode.textContent.slice(0, splitOffset));
+    var afterNode = document.createTextNode(targetNode.textContent.slice(splitOffset));
+    var parent = targetNode.parentNode;
+    parent.replaceChild(afterNode, targetNode);
+    parent.insertBefore(span, afterNode);
+    parent.insertBefore(beforeNode, span);
+
+    window.injectionLog.push({ playerText: sentence, passageName: currentPassage, passageNum: window.passageCount, timestamp: Date.now(), contextBefore: contextBefore, contextAfter: contextAfter });
+    console.log('[Player text injected: "' + sentence + '" into ' + currentPassage + ']');
   }, 350);
 });</script><tw-passagedata pid="1" name="0" tags="special" position="800,300" size="100,100">&lt;div id=&quot;year-zero-scroll&quot;&gt;
 &lt;div id=&quot;scroll-content&quot;&gt;
@@ -3553,29 +3729,20 @@ $(document).ready(function() {
         scrollContent.css(&#39;transform&#39;, &#39;translateY(-&#39; + scrollTop + &#39;px)&#39;);
     }, 30);
     
-    // Array of destinations
-    var destinations = [&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;, &quot;6&quot;, &quot;7&quot;, &quot;8&quot;, &quot;9&quot;, &quot;10&quot;, &quot;11&quot;, &quot;12&quot;, &quot;13&quot;, &quot;14&quot;, &quot;15&quot;, &quot;16&quot;, &quot;17&quot;, &quot;18&quot;, &quot;19&quot;, &quot;20&quot;, &quot;21&quot;, &quot;22&quot;, &quot;23&quot;, &quot;24&quot;, &quot;25&quot;, &quot;26&quot;, &quot;27&quot;, &quot;28&quot;, &quot;29&quot;, &quot;30&quot;, &quot;31&quot;, &quot;32&quot;, &quot;33&quot;, &quot;34&quot;, &quot;35&quot;, &quot;37&quot;, &quot;38&quot;, &quot;39&quot;, &quot;40&quot;, &quot;41&quot;, &quot;42&quot;, &quot;43&quot;, &quot;44&quot;, &quot;45&quot;, &quot;46&quot;, &quot;47&quot;, &quot;fin&quot;, &quot;murderscene&quot;, &quot;hellreturns&quot;];
-    
-    // Function to go to random passage
-    function goToRandom() {
-        var randomDest = destinations[Math.floor(Math.random() * destinations.length)];
-        Engine.play(randomDest);
-    }
-    
-    // Auto-transport after 5 seconds
+    // Auto-transport after 15 seconds
     var autoTransport = setTimeout(function() {
-        goToRandom();
+        if (typeof window.goToRandomPassage === 'function') window.goToRandomPassage();
     }, 15000);
-    
+
     // Click handler for immediate random navigation
     $(&#39;#year-zero-scroll&#39;).css(&#39;cursor&#39;, &#39;pointer&#39;).one(&#39;click&#39;, function() {
-        clearTimeout(autoTransport); // Cancel the auto-timer
-        goToRandom();
+        clearTimeout(autoTransport);
+        if (typeof window.goToRandomPassage === 'function') window.goToRandomPassage();
     });
 });
 &lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="1" tags="story" position="600,425" size="100,100">&lt;div id="unstable"&gt;
   &lt;img src=&quot;assets/images/p2.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
-Hell came close. It was here and now today, or on another day with its disarray all uncontested and &lt;&lt;rlink "conviction in-tow"&gt;&gt;; smeared for everyone who'll look while reigning through and in the cut-short yelps of and the muffled terror vomit of the singular sum body. The sensationalist call for &lt;&lt;rlink ""it's time to start!""&gt;&gt; on a horizon too familiar but rearranged as if it were mediated by eyes without a nose and mouth and lips and teeth but maintains a grunting whisper.
+Hell came close. It was here and now today, or on another day with its disarray all uncontested and &lt;&lt;rlink "conviction in-tow"&gt;&gt;; smeared for everyone who'll look while reigning through and in the cut-short yelps of and the muffled terror vomit of the singular sum body. The sensationalist bark: &lt;&lt;rlink "it's time to start!"&gt;&gt;. On a horizon too familiar but rearranged as if it were mediated by eyes without a nose and mouth and lips and teeth but maintains a grunting whisper.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="3" name="10" tags="story" position="1100,550" size="100,100">&lt;div id="unstable"&gt;
 &lt;img src=&quot;assets/images/p3.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
@@ -3583,29 +3750,23 @@ Born blanked and &lt;&lt;rlink "run swiftly"&gt;&gt;, the checks reveal a perpen
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="4" name="11" tags="story" position="600,675" size="100,100">&lt;div id="unstable"&gt;
 &lt;img src=&quot;assets/images/p4.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
-  Scratchy cotton or soft cotton, both disguises are pulled over and off and just as quickly and smooth as tenderness can be interchangeable. A cool nerve sticking thin wrists that maintain resistance in an ebb-flow fashion to &lt;&lt;rlink "a shit disco beat"&gt;&gt; from whatever drum machine was left around from th' last time. The bass and keyboards are being played by some idiot &lt;&lt;rlink "hanging around"&gt;&gt;; he keeps fucking up the tempo and some of the notes, but they already paid him for the night.
+Scratchy cotton or soft cotton, both disguises are pulled over and off and just as quickly and smooth as tenderness can be interchangeable. A cool nerve sticking thin wrists that maintain resistance in an ebb-flow fashion to &lt;&lt;rlink "a shit disco beat"&gt;&gt; from whatever drum machine was left around from th' last time. The bass and keyboards are being played by some idiot &lt;&lt;rlink "hanging around"&gt;&gt;; he keeps fucking up the tempo and some of the notes, but they already paid him for the night.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="5" name="12" tags="story" position="725,675" size="100,100">&lt;div id="unstable"&gt;
-Hounding and posting erewhile as clenching fixation sets demeanors that would otherwise anticipate and eagerly greet sure demise with and a bit of&lt;em&gt; Liquid Assets&lt;/em&gt;, for good measure. &lt;em&gt; ". . . be my lover, won't you . . .&lt;/em&gt; But what else do they all come here for? If not for the nobler effect— though misplaced, natural and libidinal; fast, blunt, and sloppy without tact. The means to pick back up on adandonment issues and then lose them again as language is repudiated to mist and missed purpose into a syntactical error.
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;img src=&quot;assets/images/p5.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+Hounding and posting erstwhile as &lt;&lt;rlink "clenching fixation"&gt;&gt; sets demeanors that would otherwise anticipate and eagerly greet sure demise with and a bit of &lt;em&gt;Liquid Assets&lt;/em&gt;, for good measure. &lt;em&gt; ". . . be my lover, won't you . . .&lt;/em&gt; But what else do they all come &lt;&lt;rlink "here"&gt;&gt; for? If not for the nobler effect—though misplaced and natural. The means to pick back up and lose again as language is repudiated to mist and missed purpose into a syntactical error. "&lt;em&gt;I am John&lt;/em&gt;," said John. "&lt;em&gt;I am Christy&lt;/em&gt;," said Christy. This was not true.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="6" name="13" tags="story" position="850,675" size="100,100">&lt;div id="unstable"&gt;
-  &lt;img src=&quot;assets/images/p6.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+&lt;img src=&quot;assets/images/p6.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
 Post-March droughts and April blooms becoming supple emblems of this area's wealth: cheap t-shirts; ; big trucks—&lt;&lt;rlink "a total hotel and car wash economy"&gt;&gt;. However, in the &lt;&lt;rlink "then and here and here and now and there"&gt;&gt;, one finds that which has propelled this land for centuries, perhaps: &lt;strong&gt;fresh for the picking home video royalty-to-be.&lt;/strong&gt;
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="7" name="14" tags="story" position="975,675" size="100,100">&lt;div id="unstable"&gt;
-Cool wind blasts in th' late-night highway flight to Where Linger. That is to say, all manner of rubber and latex peeling fuckbald to elsewhere tonight. Somewhere south of 95 and heaven, as the early dawn vista releases the gripping deep rite in pumping rhythm past midnight.
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;img src=&quot;assets/images/p7.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+Cool wind blasts in the late-night highway flight to &lt;&lt;rlink "Where Boys Linger"&gt;&gt;. Somewhere south of 95 and heaven, as &lt;&lt;rlink "the early dawn vista"&gt;&gt; releases the gripping deep rite in pumping rhythm past midnight.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="8" name="15" tags="story" position="1100,675" size="100,100">&lt;div id="unstable"&gt;
-&lt;em&gt;Lowest low, humid Babylon.&lt;/em&gt;
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;img src=&quot;assets/images/p8.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+Lowest low, humid &lt;&lt;rlink "Babylon"&gt;&gt;.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="9" name="16" tags="story" position="600,800" size="100,100">&lt;div id="unstable"&gt;
 &lt;img src=&quot;assets/images/p9.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
@@ -3616,10 +3777,8 @@ And stare into the &lt;&lt;rlink "nighttime ocean"&gt;&gt; skyline with vacant a
 Cut back &lt;&lt;rlink "away from the dumpster"&gt;&gt; and back toward the sleaze trap. Corner store, liquor store, sex shop, ...roll. Swap meet and a meat swap with consequence grazing out at pasture with a fine-tuned sight with a decent fitting compromised. Good marksmanship stops and takes a load off and shot &lt;&lt;rlink "into the drain"&gt;&gt;. Once in a and all the while, nowithstanding connection as part of a personality defect. Smearing and snorting and blending and chugging and thrusting and busting; injecting and ingesting in one broad fell swoop.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="11" name="18" tags="story" position="850,800" size="100,100">&lt;div id="unstable"&gt;
-Whipped ass public display back to home as a triumph record tome of brief wealth and much later selfbroadcast glory, echoing forevermore the dim whisper of an old non-existent script for old fucks' sake: &lt;em&gt;&lt;small&gt;
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;img src=&quot;assets/images/p11.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+A violent public display back toward &lt;&lt;rlink "home"&gt;&gt; as a triumph record tome of brief wealth and much later selfbroadcast glory, echoing forevermore &lt;&lt;rlink "the dim whisper"&gt;&gt; of an old non-existent script for old fucks' sake:
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="12" name="19" tags="story" position="975,800" size="100,100">
 &lt;img src=&quot;assets/images/p12.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
@@ -3632,20 +3791,16 @@ A cerulean, pale and light-taupe abstraction before you; recklessly slopping in 
 No. Not around 90 mph at 03:45 &lt;&lt;rlink "amid the fields and brush and bramble"&gt;&gt;. And no; no hiding looming lone soul--savior or ne'er-do-well ever such ever otherwise waiting to pounce like a dog on his feline pray. And finally, the following scenes are perennial: they lurch into ubiquity upon any given re-telling around the time one reads these words. Absent of all that, and the standard is templated as all bound and unbound motion trudges through a vaseline-smeared, maundering gaze. It's a place where the act of summing holes results in the shared viewpoint of &lt;&lt;rlink "a massive-tiny pinhole eclipse"&gt;&gt; teasing the dawn vista into .
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="14" name="20" tags="story" position="1100,800" size="100,100">&lt;div id="unstable"&gt;
-A glisten-lazed vista impression laced with teen beating soaks the attention of the sum vision; it is worn drab and fraying. Present are a few desert-fit flora-fauna palm upward with fiddlers, hermits, a few gulls and a lone on a playful hunt. Hushed air sustains, pre-crescendo, ebb-flowing a fixed mechanical determinant within aesthetic circuits en returned vogue—revolving and pacing right round, predeterminate. Millions, hundreds oft-ignored notes, mute pizzicato:
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;img src=&quot;assets/images/p14.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+&lt;&lt;rlink "A glisten-lazed vista impression"&gt;&gt; laced with teen beating soaks the attention of &lt;&lt;rlink "the sum vision"&gt;&gt;; it is worn drab and fraying. Present are a few desert-fit flora-fauna palm upward with fiddlers, hermits, a few gulls and a lone feline on a playful hunt. Hushed air sustains, pre-crescendo, ebb-flowing a fixed mechanical determinant within &lt;&lt;rlink "aesthetic circuits"&gt;&gt; en returned vogue—revolving and pacing right round, predeterminate. Millions, hundreds oft-ignored notes, mute pizzicato:
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="15" name="21" tags="story" position="600,925" size="100,100">&lt;div id="unstable"&gt;
 &lt;img src=&quot;assets/images/p15.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
 faceplanting and d e g e n e r a t i n g everquicker and immediately pending the dwindling supply-demand in an intermarketability push toward &lt;&lt;rlink "a perfect symmetry of cross-communal mundanity"&gt;&gt; in a sea of black and white and neon shirts. The downturn of excess force and upturn of a cruel and disembodied grin that motions you forward debilitating headaches ad infinitum and forefronts consciousness-cutting in a pointed, stylish stand-in that mimics a further disorder without intimacy. Distance's pry exacts indifference, per pressure and norm-freeing syntax and &lt;&lt;rlink "sustained repetition"&gt;&gt;, with force, backed by searing images and burning salacity into duller minds' injured scar-tissue: submissive fetishism—celluloid lust. Blazing descriptions torching sensational impressing thicker skulls loosened disfigurement: obsession and devotion— celluloid lust. Shining narratives set light to lurid incinerating denser heads wounded defect: all-out keyhole mania—celluloid lust. amen.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="16" name="22" tags="story" position="725,925" size="100,100">&lt;div id="unstable"&gt;
-Consciousness. . And back-alley births strolling along at an offset of sin and justness and nuance into oblivion—
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;img src=&quot;assets/images/p16.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+Consciousness. And back-alley births strolling along at an offset of &lt;&lt;rlink "sin"&gt;&gt; and &lt;&lt;rlink "justness"&gt;&gt; and &lt;&lt;rlink "nuance"&gt;&gt; into &lt;&lt;rlink "oblivion."&gt;&gt;
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="17" name="23" tags="story" position="850,925" size="100,100">&lt;div id="unstable"&gt;
 &lt;img src=&quot;assets/images/p17.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
@@ -3660,25 +3815,20 @@ Consciousness. . And back-alley births strolling along at an offset of sin and j
 Grave opposition, crushing potential, triumphant. Pre-crescendo and Post-crescendo are anticipating collision, knocking &lt;&lt;rlink "down town"&gt;&gt;, &lt;&lt;rlink "city"&gt;&gt;, &lt;&lt;rlink "province"&gt;&gt;, &lt;&lt;rlink "destination"&gt;&gt;, &lt;&lt;rlink "house"&gt;&gt; and &lt;&lt;rlink "home"&gt;&gt;.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="20" name="26" tags="story" position="600,1050" size="100,100">&lt;div id="unstable"&gt;
-Unaccounted for and trite geometric perfection because as the South rises to a cultural limp they will have destroyed all historical buildings to replace them with chain eateries and strip malls. The anomaly of three looming cubes bonded parallel—thirty feet tall and conjoining each side, in neglect of the matching eastward cube. It is a postmedieval gothic tower that was rendered through a minimalism machine, a xeroxed refashion that had blown all detail to a blended oblivion and shaped into a bland abstraction as though by J.K., Nothing, all-encompassing smoothness except for the window carefully .
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;img src=&quot;assets/images/p20.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+Unaccounted for and trite &lt;&lt;rlink "geometric perfection"&gt;&gt; because as the South rises to a cultural limp they will have destroyed all historical buildings to replace them with chain eateries and strip malls. The anomaly of three looming cubes bonded parallel—thirty feet tall and conjoining each side, in neglect of the matching eastward cube. It is a postmedieval gothic tower that was rendered through a minimalism machine, a xeroxed refashion that had blown all detail to a blended oblivion and shaped into a bland abstraction as though by J.K., Nothing, all-encompassing smoothness except for &lt;&lt;rlink "the window"&gt;&gt; carefully painted to resemble stained glass.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="21" name="27" tags="" position="725,1050" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-The Center structure: roughly twenty feet high. Abnormal, deeming the locale, still unaccounted for among big wealthy freaks who only manage to fail at considering instances of design supremacy. Typical extremity in a display of lavishness→Desolation. Submission.
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;img src=&quot;assets/images/p21.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+&lt;&lt;rlink "The Center structure"&gt;&gt;: roughly twenty feet high. Abnormal, deeming the locale, still unaccounted for among big wealthy freaks who only manage to fail at considering instances of design supremacy. Typical extremity in a display of lavishness→&lt;&lt;rlink "Desolation"&gt;&gt;. Submission. It seems the building follows you.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="22" name="28" tags="story" position="850,1050" size="100,100">&lt;div id="unstable"&gt;
- &lt;img src=&quot;assets/images/p22.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
-Shattered glass around new bored cavities and &lt;&lt;rlink "a three-hundred-sixty degrees round lifevoid"&gt;&gt;. Shattered glass dropping reflections of dim forecast runoff indeterminable, ad infinitum. &lt;&lt;rlink "Current position"&gt;&gt; dictating situational and decreased blindness as dawn creeps to the .
+&lt;img src=&quot;assets/images/p22.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+Shattered glass around new bored cavities and &lt;&lt;rlink "a three-hundred-sixty degrees round lifevoid"&gt;&gt;. Shattered glass dropping reflections of dim forecast runoff indeterminable, ad infinitum. &lt;&lt;rlink "Current position"&gt;&gt; dictating situational and decreased blindness as dawn creeps from the ocean.
 
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="23" name="29" tags="story" position="975,1050" size="100,100">&lt;div id="unstable"&gt;. The picked-for-feature omen resting saddle-side and nestled against damp denim.
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="23" name="29" tags="story" position="975,1050" size="100,100">&lt;div id="unstable"&gt;.
+&lt;img src=&quot;assets/images/p23.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+The picked-for-feature omen resting &lt;&lt;rlink "saddle-side"&gt;&gt; in &lt;&lt;rlink "damp denim."&gt;&gt;
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="24" name="3" tags="story" position="850,425" size="100,100">&lt;div id="unstable"&gt;
 &lt;img src=&quot;assets/images/p24.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
@@ -3689,18 +3839,16 @@ You notice a haze: flat and vague &lt;&lt;rlink "canvassed forms"&gt;&gt; outlin
 Soaked plum curtain sag limply and caress &lt;&lt;rlink "the atmosphere"&gt;&gt;, reflecting a low wind rate. Like base material edging its hold varying thieved house/home matter recently ejected: so much chipped stucco scraps in &lt;&lt;rlink "frosted nebulae"&gt;&gt;, forever and contained eternally paralleled to a neck-to-wrist-bound soul-sucking contraption. Sole matter vessel with priority hosting, sans features that denote identity and memory and purpose and community and taste matter and smell matter and aural matter and reception matter and expulsion matter and excretion delivering a narrative in loose servitude to .
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="26" name="31" tags="story" position="600,1175" size="100,100">&lt;div id="unstable"&gt;
-  &lt;img src=&quot;assets/images/p26.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
-Amorphous, bound and subservient to no end. An operatic shriek emits from &lt;&lt;rlink "a near-distance"&gt;&gt;, breaking the looped crescendo beyond repair. Now starts &lt;&lt;rlink "the next track on the groove"&gt;&gt;. Funeral march lulling toward a long hard century of untold miseries, kissing a final goodby
+&lt;img src=&quot;assets/images/p26.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+Amorphous, bound and subservient to no end. An operatic shriek emits from &lt;&lt;rlink "a near-distance"&gt;&gt;, breaking the looped crescendo beyond repair. Now starts &lt;&lt;rlink "the next track on the groove"&gt;&gt;. Funeral march lulling toward a long hard century of untold miseries, kissing a final goodbye.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="27" name="32" tags="story" position="725,1175" size="100,100">&lt;div id="unstable"&gt;
 &lt;img src=&quot;assets/images/p27.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
 Composition exacting mindless paralysis; again, a fixing stare bearing a feeling toward . &lt;&lt;rlink "Splatter-stained material"&gt;&gt;: the earlier frame, marred now and containing a former image of an abandoned coast front hardly swaying in its marching funeral state. Questioningports←→reality valley and unnoticing creep-seep homing from eight frame joints holding past/future work detonating rage→calmer rage→shot nerves rage ramping up a collection of hairline fractures and venturing far below a common goal. Comprising structure inside-out cleverly disguised and &lt;&lt;rlink "comfort is but a fleeting memory"&gt;&gt;.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="28" name="33" tags="story" position="850,1175" size="100,100">&lt;div id="unstable"&gt;
-Sisyphean boogie descending and ascending a throbbing painrhythm from a spiderwebbing vertical gash atop a left foot and between toes marred by the long-handled-ax driven by a ghoulish joke. The suspect is a coat of armor parked amid the north-east corridor of the first-floor hallway beside those rooms: creeping rooms, joining and some rooms containing Acanthus pedestals held in place by their decorative vases and a pseudo-Classical statuette, beside the one intact window. Some rooms were left containing original desolation, notwithstanding protective .
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;img src=&quot;assets/images/p28.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+Sisyphean boogie descending and ascending a throbbing painrhythm from a spiderwebbing vertical gash atop a left foot and between toes marred by the long-handled-ax driven by a ghoulish joke. The suspect is a coat of armor parked amid &lt;&lt;rlink "the north-east corridor"&gt;&gt; of the first-floor hallway beside those rooms: &lt;&lt;rlink "creeping rooms"&gt;&gt;, joining and some rooms containing Acanthus pedestals held in place by their decorative vases and a pseudo-Classical statuette, beside the one intact window. Some rooms were left containing original desolation that would be no easier to traverse with protective footwear.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="29" name="34" tags="story" position="975,1175" size="100,100">&lt;div id="unstable"&gt;
 &lt;img src=&quot;assets/images/p29.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
@@ -3711,93 +3859,74 @@ A wound painted with severe delirium ad nauseam that hinders mobility &lt;&lt;rl
 Visible articles whisper for a loose resting place to caress a torso. A silk-screened image staining bulkbought material in its triple-colored tattoo of a tropical themed print that dominates &lt;&lt;rlink "the main features"&gt;&gt; and hides a relief of a paint-absent space to disregard the fabric. Youthful whimsy illustrating a garish and morbid sensibility for fashion-starved youth enjoyability: A dumb, sand-buried headcase in &lt;&lt;rlink "a paradise landscape"&gt;&gt; concealed and framing text shouting a familiar and dated slogan.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="31" name="36" tags="story" position="600,1300" size="100,100">&lt;div id="unstable"&gt;
-  
-A foreboding and hardly-working double entendre for post-adolescent void → adulthood crafted by some nowdead intern. It is clear how many will stay co-opting a fashion identical; an imprisoning stupidity, indefinitely.
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;img src=&quot;assets/images/p31.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+A foreboding and hardly-working double entendre for &lt;&lt;rlink "post-adolescent void"&gt;&gt; → adulthood crafted by some nowdead intern. It is clear how many will stay co-opting a fashion identical; &lt;&lt;rlink "an imprisoning stupidity"&gt;&gt;, indefinitely.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="32" name="37" tags="story" position="725,1300" size="100,100">&lt;div id="unstable"&gt;
 &lt;img src=&quot;assets/images/p32.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
 Deep thud and &lt;&lt;rlink "a familiar shape"&gt;&gt; outlining the crimson-hued cavalcade. More fissures adorn the cold, milky balustrade and conceits importance for halfworth of antiquity and aristocracy to assist with relieving hair from head, jaw from temporomandibular and teeth from mouth, collectively rightward and shooting &lt;&lt;rlink "a new fountain"&gt;&gt; from a geyser to fading gurgle.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="33" name="38" tags="story" position="850,1300" size="100,100">&lt;div id="unstable"&gt;
-Prompt pick-up and dazed ninety-degree rotations that serve as a prompt for forbidden vision, notwithstanding limited sight. Sure, there are other senses to describe a phantom substance calcifying in creepy ambiance and frigid air.  Inching droplets trend downturn, bursting unknown pipes and pool in a southeast space behind drywall to deafeningly reverberate a budding insanity.
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;img src=&quot;assets/images/p33.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+Prompt pick-up and dazed ninety-degree rotations that serve as a prompt for forbidden vision, notwithstanding limited sight. Sure, there are other senses to describe &lt;&lt;rlink "a phantom substance"&gt;&gt; calcifying in creepy ambiance and frigid air. Inching droplets &lt;&lt;rlink "trend downturn"&gt;&gt;, bursting unknown pipes and pool in a southeast space &lt;&lt;rlink "behind drywall"&gt;&gt; to deafeningly reverberate a budding insanity.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="34" name="39" tags="story" position="975,1300" size="100,100">&lt;div id="unstable"&gt;
-The roomsemblance is non-existent besides the senses incomprehensive description. But, an omnipresent shadow exists with extensive features that fall submissive under a dictated vision. Fingers would sink so deep into already sunken eyesockets in the attempt to acclimate to the surrounding, still knowing that a failed effort is a failed 
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;img src=&quot;assets/images/p34.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+The &lt;&lt;rlink "roomsemblance"&gt;&gt; is non-existent besides the senses' incomprehensive description. But &lt;&lt;rlink "an omnipresent shadow"&gt;&gt; stands nearby with extensive features that fall submissive under a dictated vision. Fingers would sink so deep into already sunken eyesockets in the attempt to acclimate to the surrounding, still knowing that a failed effort is a justified &lt;&lt;rlink "exit."&gt;&gt; 
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="35" name="4" tags="story" position="975,425" size="100,100">&lt;div id="unstable"&gt;
-  &lt;img src=&quot;assets/images/p35.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
-  You thought to look over &lt;&lt;rlink "there"&gt;&gt;, which was known as there where sailors with ill-intent in their eyes once took those maidens' heads. But it does not indicate suspension, mean cessation, or that such &lt;&lt;rlink "ports"&gt;&gt; were there to begin with. A ridiculous thought, as there were never such sailors.
+&lt;img src=&quot;assets/images/p35.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+You thought to look over &lt;&lt;rlink "there"&gt;&gt;, which was known as there where sailors with ill-intent in their eyes once took those maidens' heads. But it does not indicate suspension, mean cessation, or that such &lt;&lt;rlink "ports"&gt;&gt; were there to begin with. A ridiculous thought, as there were never such sailors.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="36" name="40" tags="story" position="1100,1300" size="100,100">&lt;div id="unstable"&gt;
 &lt;img src=&quot;assets/images/p36.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
-&lt;&lt;rlink "Fragmented"&gt;&gt; &lt;&lt;rlink "trauma"&gt;&gt;:
+&lt;&lt;rlink "Fragmented"&gt;&gt; &lt;&lt;rlink "trauma"&gt;&gt;.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="37" name="41" tags="" position="600,1425" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
-The night before at around 21:00 EST. Arrival, departure, and triumph melt and all three have continued their warring; parallel representations sustaining perpetual obliteration and reformation cycles into one singularity. Experience and structure interpellate each other and laze along the waterfront, as one and an other softly expels whispers that fall into the echoes threaded through the warm breeze.
+&lt;img src=&quot;assets/images/p37.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+The night before at around 21:00 EST. Arrival, departure, and triumph melt and all three have continued their warring; &lt;&lt;rlink "parallel representations"&gt;&gt; sustaining perpetual obliteration and reformation cycles into one singularity. Experience and structure interpellate each other and laze &lt;&lt;rlink "along the waterfront"&gt;&gt;, as one and an other softly expels whispers that fall into the echoes threaded through the warm breeze.
 
 There could be a cool breeze, on a more fortunate night—mostly in the evening, so long as the months of May through September are avoided.
 
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="38" name="42" tags="story" position="725,1425" size="100,100">&lt;div id="unstable"&gt;
-Down endless miles of divested and bowing asphalt, tracing the skid marks with quickly balding tires, and occasionally meeting the gaze of another set of headlights—
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;img src=&quot;assets/images/p38.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+Down endless miles of divested and &lt;&lt;rlink "bowing asphalt"&gt;&gt;, tracing the skid marks with quickly balding tires, and occasionally meeting the gaze of &lt;&lt;rlink "another set of headlights."&gt;&gt;
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="39" name="43" tags="story" position="850,1425" size="100,100">&lt;div id="unstable"&gt;
 &lt;img src=&quot;assets/images/p39.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
 They expect the &lt;&lt;rlink "cities of the plain"&gt;&gt; with nothing in their eyes and loins but promise. X awaits a regeneration of the &lt;&lt;rlink "front lines"&gt;&gt; as the beginning is looped ad nauseam.  There is nothing in X's eyes but frenzied ambition, and nothing in X's hands but a glinting blade.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="40" name="44" tags="story" position="975,1425" size="100,100">&lt;div id="unstable"&gt;
-  &lt;img src=&quot;assets/images/p39.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+&lt;img src=&quot;assets/images/p40.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
 Before moving forward, an addendum: &lt;&lt;rlink "the knife"&gt;&gt; hereafter means utility and was crafted to cut a rope or thick cord of plastic; a prank; a bloodshed; an injury; a premature death; a premeditated death. Likewise and under similar circumstances, a few hundred- thousand conquests and a million tragedies pop up in both fleeting memory and ready-made myth according to a knife, but all too often is otherwise absent from &lt;&lt;rlink "public memory"&gt;&gt;. In short, one is cruel fun, and the other is inhumane.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="41" name="45" tags="story" position="1100,1425" size="100,100">&lt;div id="unstable"&gt;
 &lt;img src=&quot;assets/images/p41.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
-One. is a smattering of fresh, fit, figures in a staggered horde, charging at breakneck speeds toward &lt;&lt;rlink "a bareback city"&gt;&gt; on its death-knell; a twenty-plus hour or so southeast bottleneck down US-131 to I-196; on to U-31 S, I-24, I-75, I-10, and finally to &lt;&lt;rlink "I-95"&gt;&gt;.  From I-95, th' charge of an additional seven-mile strait through and past the entrapments of a hotel and carwash economy and into the thick of it.
+One is a smattering of fresh, fit, figures in a staggered horde, charging at breakneck speeds toward &lt;&lt;rlink "a bareback city"&gt;&gt; on its death-knell; a twenty-plus hour or so southeast bottleneck down US-131 to I-196; on to U-31 S, I-24, I-75, I-10, and finally to &lt;&lt;rlink "I-95"&gt;&gt;.  From I-95, th' charge of an additional seven-mile strait through and past the entrapments of a hotel and carwash economy and into the thick of it.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="42" name="46" tags="story" position="600,1550" size="100,100">&lt;div id="unstable"&gt;
 &lt;img src=&quot;assets/images/p42.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
-Two. considers how One. &lt;&lt;rlink "historically orients"&gt;&gt; the &lt;&lt;rlink "measure of a body"&gt;&gt; count, tends to agree, but arrives to a somewhat different solution—how the object of One.'s conclusion is too readily reduced to a mere matter of method. X thinks so, too.
-
+Two considers how One &lt;&lt;rlink "historically orients"&gt;&gt; the &lt;&lt;rlink "measure of a body"&gt;&gt; count, tends to agree, but arrives to a somewhat different solution—how the object of One's conclusion is too readily reduced to a mere matter of method. X thinks so, too.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="43" name="47" tags="story" position="725,1550" size="100,100">&lt;div id="unstable"&gt;
-It all rests in a container and leaves you just as ignorant to the events unfolding in your time-space as X's is in theirs. The disarray uncontested while reigning through the cut short yelp of a few nobodies and the muffled articulations of some body that very well could be coming from within the usual suspects: namely, a decrepit cabin in the woods, a new luxury apartment, the boot of any variety of auto barreling down a long, county back road around 90 mph at 3:45 AM, amid fields and brush and bramble, hiding nae looming soul. 
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;img src=&quot;assets/images/p43.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+It all rests &lt;&lt;rlink "in a container"&gt;&gt; and leaves you just as ignorant to the events unfolding in your time-space as X's is in theirs. The disarray uncontested while reigning through the cut short yelp of a few nobodies and the muffled articulations of some body that very well could be coming from within the usual suspects: namely, &lt;&lt;rlink"a decrepit cabin in the woods"&gt;&gt;, &lt;&lt;rlink "a new luxury apartment"&gt;&gt;, &lt;&lt;rlink "the boot of any variety of auto"&gt;&gt; barreling down &lt;&lt;rlink "a long, county back road"&gt;&gt; now around 90 mph at 3:45 AM, amid &lt;&lt;rlink "fields and brush and bramble"&gt;&gt;, hiding no looming soul. 
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="44" name="5" tags="story" position="1100,425" size="100,100">&lt;div id="unstable"&gt;
-You notice how each component musters a fleeting vista impression in the current field of vision. It is not singluar, nor is it independent. Instead, it is articulable and currently in a stance that dictates a definitive . Perhaps it is best described as being along the same stretch of plats containing many shabby, dim rooms in a multitude of muckyuck building already paid for by one overly-sentimental phantom and containing the wistful echo of extreme intimact in symposium with teenaged sleaze, casting liquid matter that has since caked, coagulaeted, or become spoilt under the lack of forefronted privacy.
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;img src=&quot;assets/images/p44.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+You notice how each component musters a fleeting vista &lt;&lt;rlink "impression"&gt;&gt; in the current field of vision. It is not singluar, nor is it independent. Instead, it is articulable and currently in a stance that dictates a definitive form. Perhaps it is best described as being along the same stretch of &lt;&lt;rlink "plats"&gt;&gt; containing many shabby, dim rooms in a multitude of &lt;&lt;rlink "muckyuck building"&gt;&gt; already paid for by one overly-sentimental phantom and containing the wistful echo of extreme intimacts in symposium with the usual sleaze, casting liquid matters that have since caked, coagulated, or become spoilt under the lack of forefronted privacy.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="45" name="6" tags="story" position="600,550" size="100,100">&lt;div id="unstable"&gt;
 &lt;img src=&quot;assets/images/p45.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
-Think about how it all starts and ends like a mountain of sleep; or a somber restoration of decaying echoes belting for either curtain call or last call from &lt;&lt;rlink "backstage"&gt;&gt;. But now that it has been ended so long ago, the hushed air rests in sustained pre-crescendo and ebb-flows according to the mechanical determination of an aesthetic circuit that recently returned en vogue, revolving in the pace set before One. finds themselves &lt;&lt;rlink "here"&gt;&gt;.
+Think about how it all starts and ends like a mountain of sleep; or a somber restoration of decaying echoes belting for either curtain call or last call from &lt;&lt;rlink "backstage"&gt;&gt;. But now that it has been ended so long ago, the hushed air rests in sustained pre-crescendo and ebb-flows according to the mechanical determination of an aesthetic circuit that recently returned en vogue, revolving in the pace set before One finds themselves &lt;&lt;rlink "here"&gt;&gt;.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="46" name="7" tags="story" position="725,550" size="100,100">&lt;div id="unstable"&gt;
-The offset smattering commands attention, consciousness, and conscience as a dully worn that has sat unattended to for years. It does so because that is what it has done a near century or more. As tradition would have it, the ceaseless motion engulfs and bears a resemblance to an ouroboros: a loop that characterizes obsession. Yet, the preoccupation comparison is not readily apparent but perhaps to some more clever minds, so it is probably irrelevant and given the same consideration as a red herring; but more like a hunter's gaze fixated on a still bird than one who watches for . Onward and on view in natural romanticism and further into the distance; onward to the other side of th' horizon.
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;img src=&quot;assets/images/p46.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+The offset smattering commands attention, consciousness, and conscience as a dully worn that has sat unattended to for years. It does so because that is what it has done a near century or more. As tradition would have it, &lt;&lt;rlink "the ceaseless motion"&gt;&gt; engulfs and bears a resemblance to an ouroboros: a loop that characterizes obsession. Yet, the preoccupation comparison is not readily apparent but perhaps to some more clever minds, so it is probably irrelevant and given the same consideration as &lt;&lt;rlink "a red herring"&gt;&gt;; but more like a hunter's gaze fixated on a still bird than one who merely watches. Onward and on view in natural romanticism and further into the distance; onward to the other side of the horizon.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="47" name="8" tags="story" position="850,550" size="100,100">&lt;div id="unstable"&gt;
-Based on what you haved noted, it is not apparent how the old tower came f o r e v e r c r u m b' l i n g ; it is an oversight. A state of oncoming but never finished forever. Without witnesses to the generation or its reverse, for it spreads far beyond the pinsumhole, some might plainly reckon it was fated for extermination per an ordinary factor of the climate and relevant to the time of day, region and so on; invisible and unimportant to most, but not to you because you seem to be the only one who even notices it. No one else can recall having seen .
-
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
-&lt;&lt;rlink "PHRASE_NEEDED"&gt;&gt;
+&lt;img src=&quot;assets/images/p47.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
+Based on what you haved &lt;&lt;rlink "noted"&gt;&gt;, it is not apparent how &lt;&lt;rlink "the old tower"&gt;&gt; came f o r e v e r c r u m b' l i n g ; it is an oversight. A state of oncoming but never finished forever. Without witnesses to the generation or its reverse, for it spreads far beyond the &lt;&lt;rlink "pinsumhole"&gt;&gt;, some might plainly reckon it was fated for extermination per an ordinary factor of the climate and relevant to the time of day, region and so on; invisible and unimportant to most, but not to you because you seem to be the only one who even notices &lt;&lt;rlink "it"&gt;&gt;. No one else can recall having seen &lt;&lt;rlink "it"&gt;&gt; if they, in fact, could see.
 
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="48" name="9" tags="story" position="975,550" size="100,100">&lt;div id="unstable"&gt;
 &lt;img src=&quot;assets/images/p48.jpeg&quot; width=&quot;90%&quot; height=&quot;90%&quot; /&gt;
@@ -3808,12 +3937,14 @@ Navigation is selection. Selection is complicity.&lt;br&gt;
 The work remembers your movements.&lt;br&gt;
 There is no returning to prior frames.&lt;br&gt;
 All degrade. Your input remains.&lt;br&gt;
+There is a "reward" for those who finish.&lt;br&gt;
 Spring break is fun.&lt;br&gt;
 &lt;br&gt;
-&lt;&lt;link &quot;Yes.&quot;&gt;&gt;&lt;&lt;goto &quot;0&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
+&lt;&lt;link &quot;Yes.&quot;&gt;&gt;&lt;&lt;goto &quot;welcome&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="50" name="StoryInit" tags="" position="600,100" size="100,100">&lt;&lt;set $allPlayerText to []&gt;&gt;
 &lt;&lt;set $startTime to Date.now()&gt;&gt;
-&lt;&lt;set $inputCount to 0&gt;&gt;</tw-passagedata><tw-passagedata pid="51" name="TitleScreen" tags="splash" position="800,50" size="100,100">&lt;style&gt;
+&lt;&lt;set $inputCount to 0&gt;&gt;
+&lt;&lt;set $hellreturnsPlayed to false&gt;&gt;</tw-passagedata><tw-passagedata pid="51" name="TitleScreen" tags="splash" position="800,50" size="100,100">&lt;style&gt;
 /* Hide inputs on this page only */
 #cmd-input { display: none !important; }
 input, textarea, select { display: none !important; }
@@ -3825,49 +3956,26 @@ input, textarea, select { display: none !important; }
 
 &lt;div id=&quot;play-button&quot; style=&quot;display: flex !important; align-items: center !important; justify-content: center !important; width: 100vw !important; min-height: 33vh !important; border: none !important; background-color: #000000 !important; margin: 0 !important; padding: 0 !important; flex-shrink: 0 !important; text-align: center !important;&quot;&gt;[[INSERT|Instructions]]&lt;/div&gt;
 
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="52" name="fin" tags="special end" position="1050,175" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="52" name="fin" tags="end" position="1050,175" size="100,100">&lt;div id=&quot;unstable&quot;&gt;
 I am tired now.
 Good night.
+&lt;br&gt;
+&lt;&lt;link &quot;But I could never imagine leaving here.&quot;&gt;&gt;&lt;&lt;script&gt;&gt;if (typeof window.fullReset === 'function') window.fullReset();&lt;&lt;/script&gt;&gt;&lt;&lt;/link&gt;&gt;
+&lt;&lt;link &quot;good night.&quot; &quot;readout&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
 &lt;/div&gt;
 &lt;&lt;script&gt;&gt;
 $(document).ready(function() {
-    // Reset the degradation counter
     State.variables.inputCount = 0;
-    
-    // CRITICAL: Reset the storyEnded flag so input works again after restart
     window.storyEnded = false;
-    
-    // Show option to claim readout or continue
-    var $passage = $(&#39;.passage, tw-passage, [data-passage]&#39;).first();
-    $passage.append(&#39;&lt;div id=&quot;fin-choices&quot; style=&quot;margin-top: 3em; text-align: center; font-size: 0.85em;&quot;&gt;&lt;span id=&quot;claim-readout&quot; style=&quot;cursor: pointer; border-bottom: 1px solid rgba(0,0,0,0.4); margin-right: 2em;&quot;&gt;CLAIM YOUR TRANSCRIPT&lt;/span&gt;&lt;span id=&quot;continue-loop&quot; style=&quot;cursor: pointer; border-bottom: 1px solid rgba(0,0,0,0.4);&quot;&gt;CONTINUE&lt;/span&gt;&lt;/div&gt;&#39;);
-    
-    // Claim readout - go to readout passage
-    $(&#39;#claim-readout&#39;).on(&#39;click&#39;, function() {
-        Engine.play(&quot;readout&quot;);
-    });
-    
-    // Continue - restart the loop
-    $(&#39;#continue-loop&#39;).on(&#39;click&#39;, function() {
-        Engine.play(&quot;0&quot;);
-    });
-    
-    // Auto-restart after 10 seconds if no choice made
-    var autoReturn = setTimeout(function() {
-        Engine.play(&quot;0&quot;);
-    }, 10000);
-    
-    // Clean up timeout if user clicks a choice
-    $(&#39;#fin-choices span&#39;).on(&#39;click&#39;, function() {
-        clearTimeout(autoReturn);
-    });
 });
-&lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="53" name="readout" tags="special end" position="1050,300" size="100,100">&lt;div id=&quot;readout-container&quot;&gt;
-&lt;div style=&quot;font-variant: small-caps; letter-spacing: 0.15em; margin-bottom: 1.5em; border-bottom: 1px solid rgba(0,0,0,0.3); padding-bottom: 0.5em;&quot;&gt;YOUR TRANSCRIPT&lt;/div&gt;
-&lt;div id=&quot;readout-text&quot; style=&quot;font-size: 0.9em; line-height: 1.8; max-height: 50vh; overflow-y: auto; padding-right: 1em;&quot;&gt;&lt;/div&gt;
-&lt;div id=&quot;readout-actions&quot; style=&quot;margin-top: 2em; text-align: center; font-size: 0.85em;&quot;&gt;
-&lt;span id=&quot;download-transcript&quot; style=&quot;cursor: pointer; border-bottom: 1px solid rgba(0,0,0,0.4); margin-right: 1.5em;&quot;&gt;DOWNLOAD (.TXT)&lt;/span&gt;
-&lt;span id=&quot;resume-story&quot; style=&quot;cursor: pointer; border-bottom: 1px solid rgba(0,0,0,0.4); margin-right: 1.5em;&quot;&gt;RESUME&lt;/span&gt;
-&lt;span id=&quot;return-home&quot; style=&quot;cursor: pointer; border-bottom: 1px solid rgba(0,0,0,0.4);&quot;&gt;TITLE SCREEN&lt;/span&gt;
+&lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="53" name="readout" tags="end" position="1050,300" size="100,100">&lt;div id=&quot;readout-container&quot;&gt;
+&lt;div style=&quot;font-variant: small-caps; letter-spacing: 0.2em; font-size: 0.8em; margin-bottom: 0.2em; color: #000;&quot;&gt;Like a Mountain of Sleep&lt;/div&gt;
+&lt;div style=&quot;font-style: italic; font-size: 0.8em; color: #000; margin-bottom: 0.7em;&quot;&gt;a poem composed in passage&lt;/div&gt;
+&lt;div id=&quot;readout-text&quot; style=&quot;font-size: 0.9em; line-height: 1.05; color: #000;&quot;&gt;&lt;/div&gt;
+&lt;div id=&quot;readout-actions&quot; style=&quot;margin-top: 0.7em; font-size: 0.75em;&quot;&gt;
+&lt;div style=&quot;margin-bottom: 0.4em;&quot;&gt;&lt;a id=&quot;download-transcript&quot; href=&quot;javascript:void(0)&quot;&gt;DOWNLOAD (.TXT)&lt;/a&gt;&lt;/div&gt;
+&lt;div style=&quot;margin-bottom: 0.4em;&quot;&gt;&lt;a id=&quot;resume-story&quot; href=&quot;javascript:void(0)&quot;&gt;RESUME&lt;/a&gt;&lt;/div&gt;
+&lt;div&gt;&lt;a id=&quot;return-home&quot; href=&quot;javascript:void(0)&quot;&gt;TITLE SCREEN&lt;/a&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;&lt;script&gt;&gt;
@@ -3877,98 +3985,48 @@ $(document).ready(function() {
     var injections = window.injectionLog || [];
     var allText = State.variables.allPlayerText || [];
     
-    // Build the readout display
+    // Build poem display — bare lines, no numbers, no context
     var $readoutText = $(&#39;#readout-text&#39;);
     var outputHTML = &#39;&#39;;
-    
-    // Section 1: What you wrote
-    outputHTML += &#39;&lt;div style=&quot;margin-bottom: 1.5em;&quot;&gt;&lt;strong style=&quot;font-variant: small-caps; letter-spacing: 0.1em;&quot;&gt;What You Wrote&lt;/strong&gt;&lt;/div&gt;&#39;;
-    
-    if (inputs.length &gt; 0) {
-        inputs.forEach(function(item, i) {
-            if (item.text) {
-                var injectedNote = item.injected ? &#39; &lt;span style=&quot;opacity: 0.5; font-size: 0.8em;&quot;&gt;✓ used&lt;/span&gt;&#39; : &#39;&#39;;
-                outputHTML += &#39;&lt;p style=&quot;margin-bottom: 0.6em;&quot;&gt;&lt;span style=&quot;opacity: 0.5; font-size: 0.8em;&quot;&gt;[&#39; + (i + 1) + &#39;]&lt;/span&gt; &#39; + item.text + injectedNote + &#39;&lt;/p&gt;&#39;;
-            }
+
+    if (allText.length &gt; 0) {
+        allText.forEach(function(text) {
+            outputHTML += &#39;&lt;p style=&quot;margin: 0;&quot;&gt;&#39; + text + &#39;&lt;/p&gt;&#39;;
         });
     } else {
-        outputHTML += &#39;&lt;p style=&quot;opacity: 0.6; font-style: italic;&quot;&gt;You gave nothing.&lt;/p&gt;&#39;;
+        outputHTML += &#39;&lt;p style=&quot;opacity: 0.5; font-style: italic;&quot;&gt;You gave nothing.&lt;/p&gt;&#39;;
     }
-    
-    // Section 2: How it was used
-    if (injections.length &gt; 0) {
-        outputHTML += &#39;&lt;div style=&quot;margin: 2em 0 1em 0; padding-top: 1em; border-top: 1px solid rgba(0,0,0,0.2);&quot;&gt;&lt;strong style=&quot;font-variant: small-caps; letter-spacing: 0.1em;&quot;&gt;How It Was Used&lt;/strong&gt;&lt;/div&gt;&#39;;
-        
-        injections.forEach(function(inj, i) {
-            var displayText = inj.formattedText || inj.playerText;
-            var wasModified = inj.formattedText &amp;&amp; inj.formattedText !== inj.playerText;
-            
-            outputHTML += &#39;&lt;div style=&quot;margin-bottom: 1.2em; padding-left: 1em; border-left: 2px solid rgba(0,0,0,0.2);&quot;&gt;&#39;;
-            outputHTML += &#39;&lt;p style=&quot;margin-bottom: 0.3em; font-size: 0.85em; opacity: 0.6;&quot;&gt;Passage &#39; + inj.passageNum + &#39;&lt;/p&gt;&#39;;
-            outputHTML += &#39;&lt;p style=&quot;margin-bottom: 0;&quot;&gt;&#39;;
-            outputHTML += &#39;&lt;span style=&quot;opacity: 0.7;&quot;&gt;...&quot;&#39; + inj.contextBefore + &#39;&lt;/span&gt; &#39;;
-            outputHTML += &#39;&lt;strong style=&quot;color: #8B0000;&quot;&gt;&#39; + displayText + &#39;&lt;/strong&gt;&#39;;
-            outputHTML += &#39; &lt;span style=&quot;opacity: 0.7;&quot;&gt;&#39; + inj.contextAfter + &#39;...&quot;&lt;/span&gt;&#39;;
-            if (wasModified) {
-                outputHTML += &#39;&lt;br&gt;&lt;span style=&quot;font-size: 0.8em; opacity: 0.5; font-style: italic;&quot;&gt;original: &quot;&#39; + inj.playerText + &#39;&quot;&lt;/span&gt;&#39;;
-            }
-            outputHTML += &#39;&lt;/p&gt;&lt;/div&gt;&#39;;
-        });
-    }
-    
+
     $readoutText.html(outputHTML);
     
-    // Download handler - includes injection context
+    // Download handler
     $(&#39;#download-transcript&#39;).on(&#39;click&#39;, function() {
         var timestamp = new Date().toISOString().slice(0, 10);
-        var filename = &#39;lebor-transcript-&#39; + timestamp + &#39;.txt&#39;;
-        
-        var header = &#39;LIKE A MOUNTAIN OF SLEEP\n&#39;;
-        header += &#39;Involuntary Transcript\n&#39;;
-        header += &#39;Generated: &#39; + new Date().toLocaleString() + &#39;\n&#39;;
-        header += &#39;Passages traversed: &#39; + (window.passageCount || 0) + &#39;\n&#39;;
-        header += &#39;================================\n\n&#39;;
-        
-        // What you wrote
-        header += &#39;WHAT YOU WROTE\n&#39;;
-        header += &#39;---------------\n\n&#39;;
-        
-        var inputsBody = &#39;&#39;;
-        if (inputs.length &gt; 0) {
-            inputs.forEach(function(item, i) {
-                if (item.text) {
-                    var usedNote = item.injected ? &#39; [used]&#39; : &#39;&#39;;
-                    inputsBody += &#39;[&#39; + (i + 1) + &#39;] &#39; + item.text + usedNote + &#39;\n\n&#39;;
-                }
-            });
+        var filename = &#39;lamos-poem-&#39; + timestamp + &#39;.txt&#39;;
+
+        var poemTitle = &#39;LIKE A MOUNTAIN OF SLEEP\n&#39;;
+        poemTitle += &#39;a poem composed in passage\n\n\n&#39;;
+
+        var poemBody = &#39;&#39;;
+        if (allText.length &gt; 0) {
+            allText.forEach(function(text) { poemBody += text + &#39;\n&#39;; });
         } else {
-            inputsBody += &#39;You gave nothing.\n\n&#39;;
+            poemBody += &#39;You gave nothing.\n&#39;;
         }
-        
-        // How it was used
-        var injectionsBody = &#39;&#39;;
+
+        var poemFooter = &#39;\n\nThese words were yours.\nNow they belong to the walls.\n&#39;;
+
+        var appendix = &#39;&#39;;
         if (injections.length &gt; 0) {
-            injectionsBody += &#39;\nHOW IT WAS USED\n&#39;;
-            injectionsBody += &#39;---------------\n\n&#39;;
-            
-            injections.forEach(function(inj, i) {
+            appendix += &#39;\n\n---\n\n&#39;;
+            injections.forEach(function(inj) {
                 var displayText = inj.formattedText || inj.playerText;
-                var wasModified = inj.formattedText &amp;&amp; inj.formattedText !== inj.playerText;
-                
-                injectionsBody += &#39;Passage &#39; + inj.passageNum + &#39;:\n&#39;;
-                injectionsBody += &#39;...&quot;&#39; + inj.contextBefore + &#39; [&#39; + displayText + &#39;] &#39; + inj.contextAfter + &#39;...&quot;\n&#39;;
-                if (wasModified) {
-                    injectionsBody += &#39;(original: &quot;&#39; + inj.playerText + &#39;&quot;)\n&#39;;
-                }
-                injectionsBody += &#39;\n&#39;;
+                appendix += &#39;[passage &#39; + inj.passageNum + &#39;]\n&#39;;
+                appendix += &#39;...&#39; + (inj.contextBefore || &#39;&#39;) + &#39; &#39; + displayText + &#39; &#39; + (inj.contextAfter || &#39;&#39;) + &#39;...\n\n&#39;;
             });
         }
-        
-        var footer = &#39;\n================================\n&#39;;
-        footer += &#39;These words were yours.\n&#39;;
-        footer += &#39;Now they belong to the walls.\n&#39;;
-        
-        var fullText = header + inputsBody + injectionsBody + footer;
+
+        var fullText = poemTitle + poemBody + poemFooter + appendix;
         
         var blob = new Blob([fullText], { type: &#39;text/plain&#39; });
         var url = URL.createObjectURL(blob);
@@ -3984,18 +4042,7 @@ $(document).ready(function() {
     // Resume - continue from where you left off
     $(&#39;#resume-story&#39;).on(&#39;click&#39;, function() {
         window.storyEnded = false;
-        // Go to a random story passage to continue
-        var storyPassages = Story.lookup(&#39;tags&#39;, &#39;story&#39;);
-        var validPassages = storyPassages.filter(function(p) {
-            var pTags = p.tags || [];
-            return !pTags.includes(&#39;special&#39;) &amp;&amp; !pTags.includes(&#39;end&#39;);
-        });
-        if (validPassages.length &gt; 0) {
-            var randomPassage = validPassages[Math.floor(Math.random() * validPassages.length)];
-            Engine.play(randomPassage.title);
-        } else {
-            Engine.play(&quot;0&quot;);
-        }
+        if (typeof window.goToRandomPassage === 'function') window.goToRandomPassage();
     });
     
     // Return to title screen - full reset
@@ -5063,15 +5110,15 @@ $(document).ready(function() {
     // Optional: Clear all collected text if you want a complete reset
     // State.variables.allPlayerText = [];
     
-    var autoReturn = setTimeout(function() {
-        Engine.play(&quot;0&quot;);
-    }, 10000);
-    
-    // Or click anywhere to return immediately
-    $(document).one(&#39;click&#39;, function() {
+    var clickHandler = function() {
         clearTimeout(autoReturn);
-        Engine.play(&quot;0&quot;);
-    });
+        if (typeof window.goToRandomPassage === 'function') window.goToRandomPassage();
+    };
+    var autoReturn = setTimeout(function() {
+        $(document).off('click', clickHandler);
+        if (typeof window.goToRandomPassage === 'function') window.goToRandomPassage();
+    }, 10000);
+    $(document).one(&#39;click&#39;, clickHandler);
 });
 &lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="55" name="infinity" tags="special" position="1050,300" size="100,100">&lt;div id=&quot;year-zero-scroll&quot;&gt;
 &lt;div id=&quot;scroll-content&quot;&gt;
@@ -6543,15 +6590,15 @@ $(document).ready(function() {
     // Optional: Clear all collected text if you want a complete reset
     // State.variables.allPlayerText = [];
     
-    var autoReturn = setTimeout(function() {
-        Engine.play(&quot;0&quot;);
-    }, 10000);
-    
-    // Or click anywhere to return immediately
-    $(document).one(&#39;click&#39;, function() {
+    var clickHandler = function() {
         clearTimeout(autoReturn);
-        Engine.play(&quot;0&quot;);
-    });
+        if (typeof window.goToRandomPassage === 'function') window.goToRandomPassage();
+    };
+    var autoReturn = setTimeout(function() {
+        $(document).off('click', clickHandler);
+        if (typeof window.goToRandomPassage === 'function') window.goToRandomPassage();
+    }, 10000);
+    $(document).one(&#39;click&#39;, clickHandler);
 });
 &lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="56" name="murderscene" tags="special" position="1175,175" size="100,100">&lt;div id=&quot;year-zero-scroll&quot;&gt;
 &lt;div id=&quot;scroll-content&quot;&gt;
@@ -8193,15 +8240,15 @@ $(document).ready(function() {
     // Optional: Clear all collected text if you want a complete reset
     // State.variables.allPlayerText = [];
     
-    var autoReturn = setTimeout(function() {
-        Engine.play(&quot;0&quot;);
-    }, 10000);
-    
-    // Or click anywhere to return immediately
-    $(document).one(&#39;click&#39;, function() {
+    var clickHandler = function() {
         clearTimeout(autoReturn);
-        Engine.play(&quot;0&quot;);
-    });
+        if (typeof window.goToRandomPassage === 'function') window.goToRandomPassage();
+    };
+    var autoReturn = setTimeout(function() {
+        $(document).off('click', clickHandler);
+        if (typeof window.goToRandomPassage === 'function') window.goToRandomPassage();
+    }, 10000);
+    $(document).one(&#39;click&#39;, clickHandler);
 });
 &lt;&lt;/script&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="welcome" tags="special" position="925,175" size="100,100">&lt;div id=&quot;year-zero-scroll&quot;&gt;
 &lt;div id=&quot;scroll-content&quot;&gt;
@@ -10514,15 +10561,15 @@ $(document).ready(function() {
     // Optional: Clear all collected text if you want a complete reset
     // State.variables.allPlayerText = [];
     
-    var autoReturn = setTimeout(function() {
-        Engine.play(&quot;0&quot;);
-    }, 10000);
-    
-    // Or click anywhere to return immediately
-    $(document).one(&#39;click&#39;, function() {
+    var clickHandler = function() {
         clearTimeout(autoReturn);
-        Engine.play(&quot;0&quot;);
-    });
+        if (typeof window.goToRandomPassage === 'function') window.goToRandomPassage();
+    };
+    var autoReturn = setTimeout(function() {
+        $(document).off('click', clickHandler);
+        if (typeof window.goToRandomPassage === 'function') window.goToRandomPassage();
+    }, 10000);
+    $(document).one(&#39;click&#39;, clickHandler);
 });
 &lt;&lt;/script&gt;&gt;</tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
