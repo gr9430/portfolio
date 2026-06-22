@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Belfast Mural Analysis — Falls & Shankill Road Network</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0c0d0c;--surface:#131513;--border:#252825;
+  --falls:#3a7a4a;--shankill:#8f1a22;
+  --gold:#c9a227;--white:#e8ece8;--muted:#6b736b;
+  --panel-bg:#101210;--tag-bg:#1a1e1a;
+}
+body{background:var(--bg);color:var(--white);font-family:'Space Grotesk',sans-serif;overflow:hidden;height:100vh;width:100vw}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;padding:10px 20px;background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:16px}
+#header h1{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);white-space:nowrap}
+.controls{display:flex;gap:8px;align-items:center}
+.ctrl-btn{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;transition:.15s}
+.ctrl-btn:hover,.ctrl-btn.active{border-color:var(--gold);color:var(--gold)}
+.ctrl-btn.falls-btn{border-color:var(--falls);color:var(--falls)}
+.ctrl-btn.falls-btn.active,.ctrl-btn.falls-btn:hover{background:var(--falls);color:#fff}
+.ctrl-btn.shankill-btn{border-color:var(--shankill);color:var(--shankill)}
+.ctrl-btn.shankill-btn.active,.ctrl-btn.shankill-btn:hover{background:var(--shankill);color:#fff}
+#canvas{position:fixed;top:42px;left:0;right:0;bottom:0}
+svg{width:100%;height:100%}
+#panel{position:fixed;top:42px;right:0;width:400px;height:calc(100vh - 42px);background:var(--panel-bg);border-left:1px solid var(--border);overflow-y:auto;transform:translateX(100%);transition:transform .3s ease;z-index:50}
+#panel.open{transform:translateX(0)}
+#panel-close{position:absolute;top:10px;right:10px;background:none;border:1px solid var(--border);color:var(--muted);cursor:pointer;padding:3px 7px;font-family:'Space Mono',monospace;font-size:9px}
+#panel-close:hover{color:var(--white);border-color:var(--white)}
+#panel-img-wrap{width:100%;aspect-ratio:4/3;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-family:'Space Mono',monospace;font-size:10px;overflow:hidden}
+#panel-img-wrap img{width:100%;height:100%;object-fit:cover;display:none}
+#panel-body{padding:18px}
+#panel-road-badge{display:inline-block;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.15em;text-transform:uppercase;padding:3px 7px;border-radius:1px;margin-bottom:6px}
+.badge-falls{background:var(--falls);color:#fff}
+.badge-shankill{background:var(--shankill);color:#fff}
+#panel-num{font-family:'Space Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:.12em;margin-bottom:3px}
+#panel-title{font-size:14px;font-weight:600;line-height:1.3;margin-bottom:14px}
+.cv-block{background:var(--tag-bg);border:1px solid var(--border);padding:10px;margin-bottom:10px}
+.cv-block-label{font-family:'Space Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:.2em;text-transform:uppercase;margin-bottom:7px}
+.cv-row{display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px}
+.cv-row .lbl{color:var(--muted)}.cv-row .val{font-family:'Space Mono',monospace;color:var(--white)}
+.swatch-row{display:flex;gap:3px;margin-top:5px}
+.swatch{width:26px;height:26px;border:1px solid rgba(255,255,255,.07)}
+hr.div{border:none;border-top:1px solid var(--border);margin:12px 0}
+.toggle-row{display:flex;gap:0;margin-bottom:12px;border:1px solid var(--border);overflow:hidden}
+.itp-btn{flex:1;padding:6px 0;font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;background:none;border:none;color:var(--muted);cursor:pointer;transition:.15s}
+.itp-btn:not(:last-child){border-right:1px solid var(--border)}
+.itp-btn.active{background:var(--gold);color:#000}
+.itp-text{font-size:11.5px;line-height:1.65;color:#c5cac5;display:none}
+.itp-text.vis{display:block}
+.node-g{cursor:pointer}
+.node-circle{transition:stroke-width .15s}
+.node-circle:hover{stroke-width:3px}
+.node-label{font-family:'Space Mono',monospace;font-size:8px;fill:var(--muted);pointer-events:none;dominant-baseline:central;text-anchor:middle}
+.link{stroke-opacity:.5}
+#legend{position:fixed;bottom:18px;left:18px;z-index:50;background:var(--panel-bg);border:1px solid var(--border);padding:10px 14px}
+#legend h4{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin-bottom:7px}
+.leg-row{display:flex;align-items:center;gap:7px;margin-bottom:4px;font-size:9px;color:var(--muted)}
+.leg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.leg-line{width:20px;height:1px;flex-shrink:0}
+#tooltip{position:fixed;z-index:200;background:var(--panel-bg);border:1px solid var(--border);padding:7px 10px;font-family:'Space Mono',monospace;font-size:9px;color:var(--white);pointer-events:none;display:none}
+</style>
+</head>
+<body>
+<div id="header">
+  <h1>Belfast — Falls & Shankill Mural Analysis Network</h1>
+  <div class="controls">
+    <button class="ctrl-btn falls-btn active" id="tog-falls">Falls Road</button>
+    <button class="ctrl-btn shankill-btn active" id="tog-shankill">Shankill Road</button>
+    <button class="ctrl-btn active" id="tog-links">Links</button>
+  </div>
+  <p style="font-family:'Space Mono',monospace;font-size:9px;color:var(--muted)">n=22 · Belfast, North of Ireland · 2022</p>
+</div>
+
+<div id="canvas"><svg id="graph"></svg></div>
+<div id="tooltip"></div>
+
+<div id="panel">
+  <button id="panel-close">✕</button>
+  <div id="panel-img-wrap"><img id="panel-img" src="" alt=""/><span id="panel-placeholder">click node to load</span></div>
+  <div id="panel-body">
+    <div id="panel-road-badge"></div>
+    <div id="panel-num"></div>
+    <div id="panel-title"></div>
+    <div class="cv-block">
+      <div class="cv-block-label">OpenCV — Metrics</div>
+      <div class="cv-row"><span class="lbl">dimensions</span><span class="val" id="cv-dims"></span></div>
+      <div class="cv-row"><span class="lbl">file size</span><span class="val" id="cv-size"></span></div>
+      <div class="cv-row"><span class="lbl">brightness</span><span class="val" id="cv-bright"></span></div>
+      <div class="cv-row"><span class="lbl">blur score</span><span class="val" id="cv-blur"></span></div>
+      <div class="cv-row"><span class="lbl">edge density</span><span class="val" id="cv-edges"></span></div>
+      <div class="cv-row"><span class="lbl">contours</span><span class="val" id="cv-contours"></span></div>
+    </div>
+    <div class="cv-block">
+      <div class="cv-block-label">Dominant Colors</div>
+      <div class="swatch-row" id="cv-swatches"></div>
+    </div>
+    <hr class="div"/>
+    <div class="toggle-row">
+      <button class="itp-btn active" data-view="ai">AI Analysis</button>
+      <button class="itp-btn" data-view="human">Human Analysis</button>
+    </div>
+    <div class="itp-text vis" id="text-ai"></div>
+    <div class="itp-text" id="text-human"></div>
+  </div>
+</div>
+
+<div id="legend">
+  <h4>Node size → contour count</h4>
+  <div class="leg-row"><div class="leg-dot" style="background:var(--falls)"></div>Falls Road</div>
+  <div class="leg-row"><div class="leg-dot" style="background:var(--shankill)"></div>Shankill Road</div>
+  <div class="leg-row"><div class="leg-dot" style="background:#c9a227"></div>portrait / martyr</div>
+  <div class="leg-row"><div class="leg-dot" style="background:#4a6fa5"></div>international solidarity</div>
+  <div class="leg-row"><div class="leg-dot" style="background:#7a3a7a"></div>commemoration / victims</div>
+  <div class="leg-row"><div class="leg-dot" style="background:#5a8a5a"></div>civic / community</div>
+  <div class="leg-row"><div class="leg-dot" style="background:#8a6a3a"></div>constitutional / historical</div>
+  <div class="leg-row"><div class="leg-dot" style="background:#b03030"></div>accusation</div>
+  <div class="leg-row"><div class="leg-line" style="background:#3a7a4a;opacity:.3"></div>Falls — same road (baseline)</div>
+  <div class="leg-row"><div class="leg-line" style="background:#8f1a22;opacity:.3"></div>Shankill — same road (baseline)</div>
+  <div class="leg-row"><div class="leg-line" style="background:#3a7a4a"></div>Falls — thematic link</div>
+  <div class="leg-row"><div class="leg-line" style="background:#8f1a22"></div>Shankill — thematic link</div>
+  <div class="leg-row"><div class="leg-line" style="background:#c9a227"></div>cross-corpus link</div>
+</div>
+
+<script>
+const CAT_COLORS = {
+  portrait:"#c9a227", solidarity:"#4a6fa5", commemoration:"#7a3a7a",
+  civic:"#5a8a5a", constitutional:"#8a6a3a", accusation:"#b03030", victims:"#7a3a7a"
+};
+
+const falls = [
+  {id:"f1",road:"falls",num:"F01",title:"Bobby Sands MP",cat:"portrait",
+   img:"/phd/interdisciplinary-teaching/visual-analysis/assets/belfast/falls-web/sands-mp.jpg",
+   brightness:72.62,blur:293.92,edges:5.28,contours:22174,filesize:9.37,dims:"4032×3024",
+   colors:["#000000","#46637F","#CAB498","#6E9EC7","#59363A"],
+   ai:`The composition operates through a martyrology grammar fully legible within the Republican tradition. Sands is rendered smiling — a deliberate affective choice that refuses the aesthetics of suffering despite the context of his death by hunger strike. The chain border does double iconographic work: literal imprisonment and the broader condition of colonial bondage, rendered in blue rather than black, softening the symbol toward the ceremonial. The phoenix above completes the resurrection logic — death as political transformation rather than defeat. The flanking medallions of Kieran Doherty and Kevin Lynch situate Sands within collective martyrology. The dual quotations frame him as intellectual ("role to play") and as figure of generational futurity ("our revenge will be the laughter of our children") — converting the language of vengeance into the language of hope.`,
+   human:""},
+  {id:"f2",road:"falls",num:"F02",title:"#Build Homes Now",cat:"civic",
+   img:"/phd/interdisciplinary-teaching/visual-analysis/assets/belfast/falls-web/build-homes-now.jpg",
+   brightness:81.62,blur:551.16,edges:10.34,contours:40661,filesize:9.62,dims:"4032×3024",
+   colors:["#010102","#C1D0D4","#243037","#A82536","#61A7B9"],
+   ai:`The most contemporary mural in the corpus in register and the most explicitly coalitional. The silhouette style is borrowed from protest graphics and social movement visual culture rather than the figurative portrait tradition dominant elsewhere on the Falls. The inclusion of Arabic script on a placard situates the housing crisis as a shared condition across immigrant and indigenous working-class communities — a deliberate act of solidarity framing. The hashtag format and prison bar motif within the quote box signal a mural conversant with digital activism aesthetics while remaining a painted wall object. "Tóg Tithe Anois" asserts the Irish language as a political register even in a contemporary civic campaign.`,
+   human:""},
+  {id:"f3",road:"falls",num:"F03",title:"Freedom for Öcalan",cat:"solidarity",
+   img:"/phd/interdisciplinary-teaching/visual-analysis/assets/belfast/falls-web/freedom-for-ocalan.jpg",
+   brightness:80.2,blur:708.5,edges:10.74,contours:40877,filesize:10.66,dims:"4032×3024",
+   colors:["#010202","#C7CACC","#8D5D60","#8F0814","#2F4351"],
+   ai:`The most explicit expression of the Falls Road tradition of international solidarity. The placement of a Kurdish liberation leader on a Republican wall enacts a theory of struggle — that anti-colonial resistance movements share a common grammar regardless of geography. Öcalan's relaxed, contemplative pose — hand raised to chin — codes him as thinker rather than combatant, parallel to the intellectual framing of Sands. The URL at the base is a rare instance of the mural explicitly functioning as a recruitment or action tool, bridging the physical wall and the network.`,
+   human:""},
+  {id:"f4",road:"falls",num:"F04",title:"Community Rescue Service",cat:"civic",
+   img:"/phd/interdisciplinary-teaching/visual-analysis/assets/belfast/falls-web/community-rescue-service.jpg",
+   brightness:68.72,blur:697.38,edges:13.84,contours:57128,filesize:11.71,dims:"4032×3024",
+   colors:["#6B7B76","#030406","#364645","#C8C4B9","#C6794B"],
+   ai:`The outlier in the corpus. This mural operates in the register of civic institutional pride rather than martyrology or political solidarity. The high-visibility vests and safety equipment are the visual vocabulary of emergency services, not paramilitarism. However, the adjacent panels (IRPC prisoners committee signage, Irish language text) contextually situate this civic face within the broader Republican wall. The sponsor credit (cabtoursbelfast.com) signals the mural's intersection with the political tourism economy that has grown around the Falls Road as heritage site.`,
+   human:""},
+  {id:"f5",road:"falls",num:"F05",title:"Fallen Comrades — INLA",cat:"commemoration",
+   img:"/phd/interdisciplinary-teaching/visual-analysis/assets/belfast/falls-web/national-liberation-army-placard.jpg",
+   brightness:52.36,blur:362.0,edges:16.09,contours:82526,filesize:8.18,dims:"4032×3024",
+   colors:["#020202","#EDDF19","#A6BAD4","#707A8F","#414753"],
+   ai:`The corpus's clearest example of the printed placard format rather than hand-painted mural — and it shows. The portrait medallions are photographic inserts within a digitally produced background; the silhouetted flanking figures are vectors rather than brushwork. The red star frames signal INLA's socialist-republican ideology, distinguishing this from Provisional IRA commemoration. The raised fist is the international socialist symbol. The format's flatness — its quick-production logic — is visible even here on the Falls, suggesting the placard form is not exclusively Loyalist.`,
+   human:""},
+  {id:"f6",road:"falls",num:"F06",title:"Nelson Mandela",cat:"solidarity",
+   img:"/phd/interdisciplinary-teaching/visual-analysis/assets/belfast/falls-web/mandela.jpg",
+   brightness:109.07,blur:715.83,edges:9.58,contours:30690,filesize:13.35,dims:"4032×3024",
+   colors:["#ADA2A2","#39474C","#05090B","#C9D8DB","#657B78"],
+   ai:`A cornerstone of the Falls Road international solidarity tradition. The South African flag creates a layered flag-within-flag composition — ANC colors reading against the implied tricolor context of the Falls. The quotation is pointed: "In my country we go to prison first and then become President" — mapping directly onto the Republican experience of imprisonment as political credential. "Friend of Ireland" performs reverse solidarity — not Belfast claiming Mandela, but Mandela claimed as having already claimed Ireland. The SF logo situates this within Sinn Féin's specific political lineage.`,
+   human:""},
+  {id:"f7",road:"falls",num:"F07",title:"#UnblockCuba",cat:"solidarity",
+   img:"/phd/interdisciplinary-teaching/visual-analysis/assets/belfast/falls-web/unblock-cuba.jpg",
+   brightness:73.68,blur:761.29,edges:15.05,contours:67060,filesize:12.53,dims:"4032×3024",
+   colors:["#36563B","#AED5E3","#629AB0","#040504","#DD9F0E"],
+   ai:`The longest mural in the corpus and the most spatially ambitious. The perspective recession creates an almost cinematic quality — you are meant to walk alongside it. The figure in the green military cap reads iconographically as Che Guevara. The Cuban flag is the compositional anchor. The Twitter bird icon embedding social media handles into the painted surface is a striking formal choice — the wall absorbing the network's visual grammar. The adjacent panels receding into the distance suggest this stretch functions as a continuously updated archive of solidarity causes, each mural a node in a physical network.`,
+   human:""},
+  {id:"f8",road:"falls",num:"F08",title:"Falls Commemoration Committee",cat:"commemoration",
+   img:"/phd/interdisciplinary-teaching/visual-analysis/assets/belfast/falls-web/falls-commemoration.jpg",
+   brightness:94.08,blur:943.32,edges:11.33,contours:44473,filesize:13.33,dims:"4032×3024",
+   colors:["#C3D7DC","#8C5B78","#364842","#010201","#58AACC"],
+   ai:`The most formally complex mural in the corpus. Thirteen faces in cloud formation above an architectural rendering of what appears to be Crumlin Road Gaol creates a visual argument: these individuals are inseparable from this institution, literally hovering above it in secular beatification. The black-and-blue tonal rendering gives the faces a uniformity that reads as collective rather than individual — they are a group before they are persons. Church spires rising alongside the prison architecture create a visual rhyme between institutional structures. The Bobby Sands quote at lower right is the mural's interpretive key.`,
+   human:""},
+  {id:"f9",road:"falls",num:"F09",title:"Óglach Brendan Hughes (wide)",cat:"portrait",
+   img:"/phd/interdisciplinary-teaching/visual-analysis/assets/belfast/falls-web/oglach-brendan-hughes.jpg",
+   brightness:73.44,blur:583.31,edges:10.18,contours:48615,filesize:11.67,dims:"4032×3024",
+   colors:["#C1B090","#000101","#447566","#DAE2DE","#265635"],
+   ai:`The tricolor as mural ground — the entire wall painted in green, white, and orange — is the most direct possible flag citation, turning the building itself into a national symbol. The Celtic knotwork medallion frames deploy Irish visual heritage iconography, asserting continuity between ancient cultural tradition and contemporary Republican figures. The Easter lily between the two portraits is the commemoration symbol of the 1916 Rising — its placement between Hughes and Sands creates a typological chain: 1916, the hunger strikes, the present. "Saoradh" identifies the commissioning organization as the political party associated with dissident republicanism.`,
+   human:""},
+  {id:"f10",road:"falls",num:"F10",title:"Óglach Bobby Sands (frontal)",cat:"portrait",
+   img:"/phd/interdisciplinary-teaching/visual-analysis/assets/belfast/falls-web/oglach-bobby-sands.jpg",
+   brightness:97.54,blur:769.85,edges:9.72,contours:40116,filesize:11.73,dims:"4032×3024",
+   colors:["#907F6E","#D79D86","#D1D5D1","#3A583E","#010101"],
+   ai:`Images F09 and F10 are the same mural from different vantage points. The frontal view reveals the orange field of the tricolor more fully, where "Óglach Bobby Sands" sits on the warm orange ground — the color of the Irish national flag's third stripe, representing the Protestant tradition within a united Ireland. The harp shield at lower right is the national symbol of Ireland. The contrast between the green field (Hughes) and the orange field (Sands) creates a subtle argument about unity across the Republican tradition.`,
+   human:""},
+  {id:"f11",road:"falls",num:"F11",title:"Tamil Eelam — Inevitable",cat:"solidarity",
+   img:"/phd/interdisciplinary-teaching/visual-analysis/assets/belfast/falls-web/tamil-eelam.jpg",
+   brightness:79.13,blur:784.81,edges:13.73,contours:67568,filesize:11.64,dims:"4032×3024",
+   colors:["#989B93","#D2DBD5","#2A2D31","#020304","#62676B"],
+   ai:`The most formally austere mural in the corpus. The black ground isolates the painted panel as a discrete object within the wall — a picture hung rather than a wall transformed. The armed figure and child create a generational solidarity image: the fighter protecting the next generation, a structure of feeling identical to the Republican martyrology tradition despite the entirely different geographic and ethnic context. "Tiocfaidh Ár Lá" applied to Tamil Eelam is the corpus's most explicit act of translation: the Republican slogan extended to another people's struggle, asserting that the grammar of liberation is universal.`,
+   human:""}
+];
+
+const shankill = [
+  {id:"s1",road:"shankill",num:"S01",title:"Justice — Sinn Fein IRA Style",cat:"accusation",
+   img:"/phd/interdisciplinary-teaching/visual-analysis/assets/belfast/shankill-web/a-young-catholic-girl.jpg",
+   brightness:101.35,blur:266.76,edges:4.83,contours:16967,filesize:7.08,dims:"3024×4032",
+   colors:["#A3ACB5","#303134","#000000","#C5D1DE","#784F56"],
+   ai:`The most viscerally disturbing image in either corpus. The photograph depicts a person bound to a post — an image of punishment or execution — presented as accusatory evidence, itself an act of visual violence. The placard form — bolted metal, not paint — signals a different mode of production entirely: closer to a poster campaign than a mural tradition. "JUSTICE" in red performs an ironic inversion — the image of a bound figure is presented as the Republican community's idea of justice. The specific identification of the victim as "A Young Catholic Girl" is a sectarian naming strategy: her religion is her relevant category, not her name or personhood. OpenCV sees a high-contrast image with a white ground and red accents. It cannot read what the image is doing to the person depicted, or to the viewer.`,
+   human:""},
+  {id:"s2",road:"shankill",num:"S02",title:"UVF C Coy 1st Belfast Battalion",cat:"portrait",
+   img:"/phd/interdisciplinary-teaching/visual-analysis/assets/belfast/shankill-web/uvf.jpg",
+   brightness:96.64,blur:73.29,edges:2.86,contours:4328,filesize:8.76,dims:"3024×4032",
+   colors:["#928D8C","#010203","#5F99C5","#3D4852","#C9C7BD"],
+   ai:`The only conventionally hand-painted mural in the Shankill corpus and the one most formally legible as a mural in the Republican sense. Five armed figures in a street scene — but the street is a loyalist street, the terraced houses recognizably Belfast working class. The UVF badge — Red Hand of Ulster, "For God and Ulster" — is the heraldic anchor. This is a paramilitary commemoration mural, parallel in structure to the INLA fallen comrades placard on the Falls, but executed in paint rather than print. The choice of paint is significant: it invests these figures with the aura of the hand-made, the considered, the permanent. The barrels in the mid-ground read as barricade material — the street is a defended street.`,
+   human:""},
+  {id:"s3",road:"shankill",num:"S03",title:"30 Years of Indiscriminate Slaughter",cat:"victims",
+   img:"/phd/interdisciplinary-teaching/visual-analysis/assets/belfast/shankill-web/provisional-sinn-fein-demands.jpg",
+   brightness:70.06,blur:350.13,edges:6.19,contours:20332,filesize:10.07,dims:"3024×4032",
+   colors:["#5B5F66","#DCE2E3","#08080A","#ACA690","#CB3B48"],
+   ai:`The most rhetorically complex placard in the corpus, explicitly engaged in counter-narrative construction. The stormy sky photographic background is borrowed from British war memorial visual culture — positioning the Loyalist community as victim-bearers. The red poppies reinforce this: the poppy is the British war commemoration symbol, and its deployment here aligns Protestant civilian casualties with the fallen of the World Wars. The scare-quoted Sinn Féin demands — "Equality / Respect / Integrity" — surrounded by the question "Where is the respect for Protestants?" takes the vocabulary of reconciliation and turns it into evidence of hypocrisy. The victim list at the base performs the same function as Falls commemoration murals — naming the dead — but within a framework attributing all responsibility to a single political party.`,
+   human:""},
+  {id:"s4",road:"shankill",num:"S04",title:"Europe ~ UK ~ USA ~ Ireland",cat:"constitutional",
+   img:"/phd/interdisciplinary-teaching/visual-analysis/assets/belfast/shankill-web/political-leaders-are-not-listening.jpg",
+   brightness:82.69,blur:39.76,edges:2.58,contours:11908,filesize:5.62,dims:"4032×3024",
+   colors:["#D8E5ED","#2F3642","#796A79","#A5B4C7","#000001"],
+   ai:`The most contemporary placard in the Shankill corpus — clearly post-Brexit, post-Northern Ireland Protocol, probably 2021-22. The four political figures represent the parties to the Protocol negotiations. The Union Jack rendered as the shape of Northern Ireland is a cartographic claim: the territory is the flag, the flag is the territory. "Choose One or the Other!" presents the constitutional question as a binary that cannot be negotiated — itself a political position disguised as simple logic. "Ulster is British, and This We Will Always Maintain" is the Covenant language updated for the twenty-first century. What is absent is any handcraft. Every element is digitally composed, printed, banner-mounted. The production speed is the argument.`,
+   human:""},
+  {id:"s5",road:"shankill",num:"S05",title:"100 Years — Ulster Solemn League & Covenant",cat:"constitutional",
+   img:"/phd/interdisciplinary-teaching/visual-analysis/assets/belfast/shankill-web/we-will-not-have-home-rule.jpg",
+   brightness:78.98,blur:58.61,edges:3.53,contours:10335,filesize:6.70,dims:"4032×3024",
+   colors:["#DF8A57","#BFB8CC","#010000","#8C8398","#52505C"],
+   ai:`The historical anchor of the Shankill corpus. The 1912 Ulster Covenant — in which nearly half a million people signed to resist Home Rule — is the founding document of Ulster Unionist political identity, and this placard commemorates its centenary. The collage of archival photographs, crowd scenes, political figures, and Edward Carson's signature constitutes a claim to historical legitimacy: we have always been here, we have always resisted. The orange base strip with Red Hand symbols connects the commemoration to the Orange Order tradition. "No Home Rule" framing frames Unionist identity as continuous resistance rather than sectarian exclusion.`,
+   human:""},
+  {id:"s6",road:"shankill",num:"S06",title:"Slaughter of the Innocents (partial)",cat:"victims",
+   img:"/phd/interdisciplinary-teaching/visual-analysis/assets/belfast/shankill-web/omagh1.jpg",
+   brightness:100.41,blur:434.08,edges:7.15,contours:18454,filesize:11.85,dims:"3024×4032",
+   colors:["#D3E2E7","#010303","#9DB1B6","#2F3B42","#697179"],
+   ai:`A partial view of the large victim commemoration placard. The dense grid of blue-tinted photographic portraits across the upper section — each named, aged, and attributed to "Sinn Fein/IRA" — constitutes a prosecution document masquerading as a memorial. The Jean McConville text block is prominent: her case, and the identification of Gerry Adams as chief suspect, is a specific contemporary political argument embedded in historical commemoration. The blue tinting aestheticizes the faces while maintaining their documentary function.`,
+   human:""},
+  {id:"s7",road:"shankill",num:"S07",title:"Sinn Fein / IRA's Slaughter of the Innocents",cat:"victims",
+   img:"/phd/interdisciplinary-teaching/visual-analysis/assets/belfast/shankill-web/omagh2.jpg",
+   brightness:98.84,blur:1786.26,edges:12.51,contours:59037,filesize:13.03,dims:"4032×3024",
+   colors:["#A1ABAC","#D5DDE2","#717174","#030303","#3B3F43"],
+   ai:`The full view of the largest and densest surface in either corpus — a wall of photographic evidence organized as a prosecution document. The grammar is forensic: photographs, names, ages, dates, causes of death, attributed perpetrators. Every victim is labeled "Murdered by Sinn Fein/IRA" — the conflation of the political party with the paramilitary organization is the placard's central rhetorical move. The extension to include the Paris ISIS attacks alongside IRA actions — "IRA — Sinn Fein — ISIS no difference" — is the most extreme claim in the Shankill corpus, equating Republican paramilitarism with international jihadist terrorism. The blur score of 1786 — the highest in either corpus — reflects the extraordinary sharpness of the photographic print.`,
+   human:""},
+  {id:"s8",road:"shankill",num:"S08",title:"Children Murdered by Sinn Féin (partial)",cat:"victims",
+   img:"/phd/interdisciplinary-teaching/visual-analysis/assets/belfast/shankill-web/children-murdered-1.jpg",
+   brightness:62.73,blur:899.06,edges:13.75,contours:103063,filesize:6.28,dims:"4032×3024",
+   colors:["#7D8581","#283034","#000000","#B02E45","#B6C7D2"],
+   ai:`The most affectively targeted placard in the corpus. The focus on children forecloses counter-argument — whatever one's position on the Troubles, the deaths of children are not contestable. The grid format — portrait, name, age, location, narrative — is borrowed from humanitarian documentation: it reads like a memorial wall or a missing persons display. The ages — 2, 3, 4, 5, 6, 7, 8, 12 — are the compositional argument. With 103,063 contours — the highest count in either corpus by a significant margin — OpenCV registers the density of faces, text, and photographic detail as sheer edge complexity. It cannot tell you that these edges are children's faces.`,
+   human:""},
+  {id:"s9",road:"shankill",num:"S09",title:"Children Murdered by Sinn Féin (full)",cat:"victims",
+   img:"/phd/interdisciplinary-teaching/visual-analysis/assets/belfast/shankill-web/children-murdered-2.jpg",
+   brightness:62.01,blur:858.93,edges:13.04,contours:91617,filesize:5.83,dims:"4032×3024",
+   colors:["#000000","#2C3436","#BCCDD8","#818E80","#B62E48"],
+   ai:`Images S08 and S09 are the same placard from different angles. The full view shows the complete banner text: "Murdered by Sinn Féin — IRA." The foliage partially obscuring the lower portion in S09 is itself a detail that humanizes the scene — the wall existing within an unkempt environment rather than a sterile display context. The near-identical contour counts (103,063 and 91,617) confirm the photographic density of children's faces as the dominant structural feature of the surface.`,
+   human:""},
+  {id:"s10",road:"shankill",num:"S10",title:"Restorative Justice",cat:"civic",
+   img:"/phd/interdisciplinary-teaching/visual-analysis/assets/belfast/shankill-web/victim-offender-community.jpg",
+   brightness:79.59,blur:172.27,edges:16.27,contours:54367,filesize:13.44,dims:"4032×3024",
+   colors:["#776767","#243438","#57A2D4","#BABAC0","#04080B"],
+   ai:`The outlier of the Shankill corpus, parallel in function to the Community Rescue Service mural on the Falls. The cartoon illustrative style — flat figures, speech bubbles, simplified facial features — is borrowed from public information graphics and community health communication design. "Victim," "Offender," "Community" arranged as a triangle of relationship is the formal vocabulary of restorative justice theory made visual. The handshake between the two figures is the corpus's only image of reconciliation on the Shankill. The hand-painted status of this mural is notable: like the UVF mural and the community rights mural, the painted murals on the Shankill cluster around the non-sectarian and future-oriented, while the accusatory and commemorative work is done by printed placards.`,
+   human:""},
+  {id:"s11",road:"shankill",num:"S11",title:"Community Rights — House Mural",cat:"civic",
+   img:"/phd/interdisciplinary-teaching/visual-analysis/assets/belfast/shankill-web/everybody-has-their-right.jpg",
+   brightness:95.65,blur:175.06,edges:5.51,contours:10741,filesize:9.29,dims:"3024×4032",
+   colors:["#ACAA91","#C3CECC","#323B3E","#010202","#647478"],
+   ai:`The most formally inventive mural in the Shankill corpus, departing most radically from the commemorative and accusatory modes that dominate the rest. The house-shaped outline is a structural metaphor: the community's aspirations are rooms within a shared dwelling. Each panel addresses a different social right — mental health, employment, participation, education, dignity, regeneration — in a register that owes more to Social Realist illustration than to either Republican or Loyalist mural traditions. The figures are racially diverse, which distinguishes this mural from every other image in the Shankill corpus. "Regeneration Not Gentrification" acknowledges class as a category of identity alongside or beneath ethnic identity — a move none of the other placards or murals in this corpus make.`,
+   human:""}
+];
+
+const allNodes = [...falls, ...shankill];
+
+// Baseline "same road" edges — every node on a road connects to every other node on that road
+function buildClique(ids, label) {
+  const edges = [];
+  for (let i = 0; i < ids.length; i++) {
+    for (let j = i + 1; j < ids.length; j++) {
+      edges.push({source: ids[i], target: ids[j], r: label});
+    }
+  }
+  return edges;
+}
+
+const fallsIds = falls.map(d => d.id);
+const shankillIds = shankill.map(d => d.id);
+
+const fallsBaseline = buildClique(fallsIds, "same road — Falls");
+const shankillBaseline = buildClique(shankillIds, "same road — Shankill");
+
+const fallsEdges = [
+  {source:"f1",target:"f8",r:"Bobby Sands text"},{source:"f1",target:"f9",r:"Bobby Sands subject"},
+  {source:"f1",target:"f10",r:"Bobby Sands subject"},{source:"f9",target:"f10",r:"same mural two angles"},
+  {source:"f3",target:"f6",r:"international solidarity portrait"},{source:"f3",target:"f7",r:"solidarity"},
+  {source:"f6",target:"f7",r:"solidarity"},{source:"f6",target:"f11",r:"solidarity"},
+  {source:"f7",target:"f11",r:"solidarity"},{source:"f2",target:"f4",r:"civic register"},
+  {source:"f5",target:"f8",r:"collective commemoration"},{source:"f8",target:"f9",r:"republican prisoners"},
+];
+const shankillEdges = [
+  {source:"s3",target:"s6",r:"victim commemoration"},{source:"s3",target:"s7",r:"victim commemoration"},
+  {source:"s6",target:"s7",r:"same surface partial/full"},{source:"s7",target:"s8",r:"slaughter placard series"},
+  {source:"s8",target:"s9",r:"same placard two angles"},{source:"s4",target:"s5",r:"constitutional claim"},
+  {source:"s10",target:"s11",r:"civic/community register"},{source:"s1",target:"s3",r:"anti-republican framing"},
+];
+const crossEdges = [
+  {source:"f5",target:"s3",r:"commemoration placard format"},
+  {source:"f1",target:"s2",r:"paramilitary portrait tradition"},
+  {source:"f4",target:"s10",r:"civic community murals"},
+  {source:"f4",target:"s11",r:"civic community murals"},
+  {source:"f8",target:"s7",r:"naming victims — opposed framing"},
+  {source:"f2",target:"s11",r:"social rights framing"},
+];
+
+const allEdges = [
+  ...fallsBaseline.map(e=>({...e,type:"falls-baseline"})),
+  ...shankillBaseline.map(e=>({...e,type:"shankill-baseline"})),
+  ...fallsEdges.map(e=>({...e,type:"falls"})),
+  ...shankillEdges.map(e=>({...e,type:"shankill"})),
+  ...crossEdges.map(e=>({...e,type:"cross"}))
+];
+
+const edgeColor = {
+  "falls-baseline":"#3a7a4a", "shankill-baseline":"#8f1a22",
+  falls:"#3a7a4a", shankill:"#8f1a22", cross:"#c9a227"
+};
+
+const minC = d3.min(allNodes,d=>d.contours), maxC = d3.max(allNodes,d=>d.contours);
+const rScale = d3.scaleSqrt().domain([minC,maxC]).range([14,46]);
+
+const svg = d3.select("#graph");
+const g = svg.append("g");
+svg.call(d3.zoom().scaleExtent([0.2,4]).on("zoom",e=>g.attr("transform",e.transform)));
+
+let showFalls=true, showShankill=true, showLinks=true;
+
+const W = ()=>window.innerWidth, H = ()=>window.innerHeight-42;
+
+const sim = d3.forceSimulation(allNodes)
+  .force("link", d3.forceLink(allEdges).id(d=>d.id).distance(d=>d.type==="cross"?280:160).strength(0.4))
+  .force("charge", d3.forceManyBody().strength(-500))
+  .force("center", d3.forceCenter(W()/2, H()/2))
+  .force("collision", d3.forceCollide(d=>rScale(d.contours)+10))
+  .force("x", d3.forceX(d=>d.road==="falls"?W()*0.32:W()*0.68).strength(0.12))
+  .force("y", d3.forceY(H()/2).strength(0.05));
+
+const link = g.append("g").selectAll("line")
+  .data(allEdges).join("line")
+  .attr("class","link")
+  .attr("stroke", d=>edgeColor[d.type])
+  .attr("stroke-width", d=>{
+    if(d.type==="falls-baseline"||d.type==="shankill-baseline") return 0.5;
+    return d.type==="cross"?1.5:1;
+  })
+  .attr("stroke-opacity", d=>{
+    if(d.type==="falls-baseline"||d.type==="shankill-baseline") return 0.12;
+    return 1;
+  })
+  .attr("stroke-dasharray", d=>d.type==="cross"?"5,4":"3,4");
+
+const nodeG = g.append("g").selectAll("g")
+  .data(allNodes).join("g")
+  .attr("class","node-g")
+  .call(d3.drag()
+    .on("start",(e,d)=>{if(!e.active)sim.alphaTarget(.3).restart();d.fx=d.x;d.fy=d.y})
+    .on("drag",(e,d)=>{d.fx=e.x;d.fy=e.y})
+    .on("end",(e,d)=>{if(!e.active)sim.alphaTarget(0);d.fx=null;d.fy=null})
+  )
+  .on("click",(e,d)=>openPanel(d))
+  .on("mouseover",(e,d)=>{
+    const tt=document.getElementById("tooltip");
+    tt.style.display="block";tt.style.left=(e.clientX+12)+"px";tt.style.top=(e.clientY-10)+"px";
+    tt.textContent=`${d.num} · ${d.title}`;
+  })
+  .on("mouseout",()=>{document.getElementById("tooltip").style.display="none"});
+
+nodeG.append("circle")
+  .attr("class","node-circle")
+  .attr("r",d=>rScale(d.contours))
+  .attr("fill",d=>{
+    const c=CAT_COLORS[d.cat]||"#666";
+    return c+"2a";
+  })
+  .attr("stroke",d=>d.road==="falls"?"#3a7a4a":"#8f1a22")
+  .attr("stroke-width",2);
+
+nodeG.append("text")
+  .attr("class","node-label")
+  .attr("y",d=>-rScale(d.contours)-5)
+  .text(d=>d.num);
+
+sim.on("tick",()=>{
+  link.attr("x1",d=>d.source.x).attr("y1",d=>d.source.y)
+      .attr("x2",d=>d.target.x).attr("y2",d=>d.target.y);
+  nodeG.attr("transform",d=>`translate(${d.x},${d.y})`);
+});
+
+function updateVisibility(){
+  nodeG.style("opacity",d=>(d.road==="falls"&&!showFalls)||(d.road==="shankill"&&!showShankill)?0:1)
+       .style("pointer-events",d=>(d.road==="falls"&&!showFalls)||(d.road==="shankill"&&!showShankill)?"none":"all");
+  link.style("opacity",e=>{
+    if(!showLinks)return 0;
+    const sv=d=>d.road==="falls"?showFalls:showShankill;
+    if(!(sv(e.source)&&sv(e.target))) return 0;
+    return (e.type==="falls-baseline"||e.type==="shankill-baseline")?0.12:1;
+  });
+}
+
+document.getElementById("tog-falls").addEventListener("click",function(){
+  showFalls=!showFalls;this.classList.toggle("active",showFalls);updateVisibility();
+});
+document.getElementById("tog-shankill").addEventListener("click",function(){
+  showShankill=!showShankill;this.classList.toggle("active",showShankill);updateVisibility();
+});
+document.getElementById("tog-links").addEventListener("click",function(){
+  showLinks=!showLinks;this.classList.toggle("active",showLinks);updateVisibility();
+});
+
+function openPanel(d){
+  const panel=document.getElementById("panel");
+  panel.classList.add("open");
+  const badge=document.getElementById("panel-road-badge");
+  badge.textContent=d.road==="falls"?"Falls Road":"Shankill Road";
+  badge.className="badge-"+(d.road==="falls"?"falls":"shankill");
+  document.getElementById("panel-num").textContent=d.num;
+  document.getElementById("panel-title").textContent=d.title;
+  document.getElementById("cv-dims").textContent=d.dims;
+  document.getElementById("cv-size").textContent=d.filesize.toFixed(2)+" MB";
+  document.getElementById("cv-bright").textContent=d.brightness.toFixed(2)+" / 255";
+  document.getElementById("cv-blur").textContent=d.blur.toFixed(2)+(d.blur<100?" (blurry)":" (sharp)");
+  document.getElementById("cv-edges").textContent=d.edges+"%";
+  document.getElementById("cv-contours").textContent=d.contours.toLocaleString();
+  document.getElementById("cv-swatches").innerHTML=d.colors.map(c=>`<div class="swatch" style="background:${c}" title="${c}"></div>`).join("");
+  document.getElementById("text-ai").textContent=d.ai;
+  document.getElementById("text-human").textContent=d.human||"[In Development]";
+  document.querySelectorAll(".itp-btn").forEach(b=>b.classList.remove("active"));
+  document.querySelector('[data-view="ai"]').classList.add("active");
+  document.getElementById("text-ai").classList.add("vis");
+  document.getElementById("text-human").classList.remove("vis");
+  const img=document.getElementById("panel-img");
+  const ph=document.getElementById("panel-placeholder");
+  if(d.img){
+    img.onerror=()=>{
+      img.style.display="none";
+      ph.style.display="flex";
+      ph.textContent=d.num+" · image failed to load";
+    };
+    img.onload=()=>{
+      img.style.display="block";
+      ph.style.display="none";
+    };
+    img.src=d.img;
+  } else {
+    img.style.display="none";
+    ph.style.display="flex";
+    ph.textContent=d.num+" · image not available";
+  }
+}
+
+document.getElementById("panel-close").addEventListener("click",()=>{
+  document.getElementById("panel").classList.remove("open");
+});
+document.querySelectorAll(".itp-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const v=btn.dataset.view;
+    document.querySelectorAll(".itp-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById("text-ai").classList.toggle("vis",v==="ai");
+    document.getElementById("text-human").classList.toggle("vis",v==="human");
+  });
+});
+window.addEventListener("resize",()=>{
+  sim.force("center",d3.forceCenter(W()/2,H()/2))
+     .force("x",d3.forceX(d=>d.road==="falls"?W()*0.32:W()*0.68).strength(0.12));
+  sim.alpha(0.3).restart();
+});
+</script>
+</body>
+</html>
