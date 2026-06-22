@@ -2,7 +2,7 @@
 layout: default
 title: Interdisciplinary Teaching
 project: true
-tags: [Texts and Technology, Texts and Technology: Interdisciplinary Teaching, Pedagogy]
+tags: [Texts and Technology, Interdisciplinary Teaching in Texts and Technology, Pedagogy]
 ---
 
 # Interdisciplinary Teaching
