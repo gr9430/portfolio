@@ -9,7 +9,7 @@ tags: [Interdisciplinary Teaching, Texts and Technology, Pedagogy, Visual Analys
 ## _Toward Reading and Making New Media_
 
 <iframe 
-  src="https://glennritchey.net/phd/interdisciplinary-teaching/visual-analysis/" 
+  src="https:glennritchey.net/phd/interdisciplinary-teaching/visual-analysis/assets/belfast-network.html" 
   width="100%" 
   height="900" 
   style="border: 1px solid #252825; border-radius: 4px;"
