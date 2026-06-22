@@ -7,21 +7,31 @@ tags: [Interdisciplinary Teaching, Texts and Technology, Pedagogy, Visual Analys
 
 # Visual Analysis with AI
 ## _Toward Reading and Making New Media_
-<p><a href="/phd/interdisciplinary-teaching/visual-analysis/assets/belfast-network.html" target="_blank">View this visualization</a></p>
+
+<iframe 
+  src="https://glennritchey.net/phd/interdisciplinary-teaching/visual-analysis/" 
+  width="100%" 
+  height="900" 
+  style="border: 1px solid #252825; border-radius: 4px;"
+  loading="lazy"
+  title="Visual Analysis with AI — Glenn Ritchey">
+</iframe>
+
+<p><a href="/phd/interdisciplinary-teaching/visual-analysis/assets/belfast-network.html" target="_blank">View this visualization in a new tab.</a></p>
 
 # Reflection
 My interest in this image analysis project stems from work I have done for years that is both personal and influenced my late-undergraduate work: murals in Belfast, No. Ireland, and how they communicate the attitudes between Irish Republican (anti-British Occupation/U.K. "membership") and British Loyalist/Unionist communities (anti-British Occupation/U.K. "membership"). The work I did on my undergraduate thesis was more concerned with "What do these images communicate not only about these dynamics, but when comparing specific depictions of Cú Chulainn (the hero ofthe Ulster cycle), what might we glean of values concerning masculine identity?".
 
 When I took Dr. Sonia Stephen's Data Info Visualization course, my final project focused on taking images I captured from my iPhone in 2022 as accompanying illustrations to national survey data on attitudes concerning the divide and what paths forward are most desirable.
 
-As many well know, we are experiencing a rampant uptick in far right wing sentences in not just the United States but globally. Likewise, I was taken aback by some of the recent mural images that have been popping up in Loyalist communities as late:
+As many well know, we are experiencing a rampant uptick in far right wing sentiments in not just the United States but globally. Likewise, I was taken aback by some of the recent mural images that have been popping up in Loyalist communities as late:
 
 ![AI-generated loyalist mural example](/phd/interdisciplinary-teaching/visual-analysis/assets/ai-loyalist.png)
 ![AI-generated loyalist mural example](/phd/interdisciplinary-teaching/visual-analysis/assets/ai-loyalist-3.png)
 ![AI-generated loyalist mural example](/phd/interdisciplinary-teaching/visual-analysis/assets/ai-loyalist-4.png)
 ![AI-generated loyalist mural example](/phd/interdisciplinary-teaching/visual-analysis/assets/ai-loyalist-6.png)
 
-The first reason is that they are vehemently racist in a way I have yet to see; this sentiment has always been implied based on my understanding of specific subtexts that inform the composition of murals. Regardless, they always have mostly focused on bolstering a sense of Loyalist/Unionist identity as a distinctive ethnic identity that is separate from the Irish, and therefore the partition of the northern six counties is justified. 
+The first reason is that they are vehemently racist in a way I have yet to see; this sentiment has always been implied based on my understanding of specific subtexts that inform the composition of murals. Regardless, they always have mostly focused on bolstering a sense of Loyalist/Unionist identity as a distinctive ethnic identity that is separate from the Irish, and therefore the partition of the northern six counties is justified. However, this round of AI-generated imagery specifically focuses on imagery evocative of the Crusades, as well as the idea that segregation or, more specifically, the denial of non-White immigrants to the North of Ireland is the only way to ensure a peaceful future.
 
 The second is that these images are generated using AI. For this distinction to pop up amid the owner of a distinctively problematic, weaponized social media site working in tandem with Tommy Robinson, a far-right English agitator who focuses much of his efforts on the North, stoking a tremendous anti-immigration protest in Belfast, which has brought forth levels of property destruction that recalls the Troubles, or the period throughout the mid-to-late twentieth century where localized paramilitary warfar was at a height.
 
