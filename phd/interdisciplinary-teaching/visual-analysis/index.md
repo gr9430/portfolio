@@ -7,13 +7,7 @@ tags: [Interdisciplinary Teaching, Texts and Technology, Pedagogy, Visual Analys
 
 # Visual Analysis with AI
 ## _Toward Reading and Making New Media_
-<iframe src="/phd/interdisciplinary-teaching/visual-analysis/assets/belfast-network.html" 
-  width="100%" 
-  height="700" 
-  style="border: 1px solid #252825; border-radius: 4px;"
-  loading="lazy">
-</iframe>
-<p><a href="/phd/interdisciplinary-teaching/visual-analysis/assets/belfast-network.html" target="_blank">View full-screen →</a></p>
+<p><a href="/phd/interdisciplinary-teaching/visual-analysis/assets/belfast-network.html" target="_blank">View this visualization</a></p>
 
 # Reflection
 My interest in this image analysis project stems from work I have done for years that is both personal and influenced my late-undergraduate work: murals in Belfast, No. Ireland, and how they communicate the attitudes between Irish Republican (anti-British Occupation/U.K. "membership") and British Loyalist/Unionist communities (anti-British Occupation/U.K. "membership"). The work I did on my undergraduate thesis was more concerned with "What do these images communicate not only about these dynamics, but when comparing specific depictions of Cú Chulainn (the hero ofthe Ulster cycle), what might we glean of values concerning masculine identity?".
