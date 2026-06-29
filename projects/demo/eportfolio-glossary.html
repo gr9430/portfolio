@@ -257,7 +257,7 @@ const NODES = [
     def: `The image you create about yourself across digital platforms to <em>support your educational or career goals</em>.` },
   { id: 'privacy',       label: 'Privacy & Data Protection',    cat: 'core', stub: false,
     def: `Policies, practices, and tools that manage who can access ePortfolio content and how data is collected, stored, shared, and retained. This includes <em>informed and intentional decisions about visibility</em>, consent for sharing work, safeguarding personal information, and using secure platforms and settings to prevent unintended exposure or misuse.` },
-  { id: 'rubric',        label: 'Rubric(s)',                    cat: 'core', stub: false,
+  { id: 'rubric',        label: 'Rubric',                       cat: 'core', stub: false,
     def: `A clearly defined grading guideline that outlines the criteria and performance standards used to evaluate the content, organization, design, and reflection within an ePortfolio. Rubrics help students <em>understand expectations</em> while supporting consistent and transparent assessment and providing constructive feedback on their learning and growth.` },
   { id: 'slo',           label: 'Student Learning Outcomes (SLOs)', cat: 'core', stub: false,
     def: `SLOs guide the work students produce in UCF's first‑year composition courses, helping them develop into <em>flexible, reflective, and informed writers</em>. These goals include generating meaningful inquiry, integrating multimodal forms of writing, practicing effective research strategies, and revising with intention.` },
@@ -271,8 +271,6 @@ const NODES = [
     def: `The ability to use digital tools purposefully and critically to compose, revise, and share writing in an ePortfolio. It includes the ability to locate and evaluate information, create multimodal texts, <em>design for audience and accessibility</em>, and make informed ethical choices about citation, privacy, and data.` },
   { id: 'evidence',      label: 'Evidence',                     cat: 'knowledge', stub: false,
     def: `Artifacts and supporting materials in an ePortfolio that demonstrate a writer's learning and growth. This can include both finished and in-progress works such as <em>drafts, reflections, feedback, and contextual documentation</em> that illustrate how outcomes were met and how development occurred over time.` },
-  { id: 'learning_outcomes', label: 'Learning Outcomes',        cat: 'knowledge', stub: false,
-    def: `Clearly defined expectations for what students should know, do, demonstrate by the end of a course, unit, or program. In ePortfolios, learning outcomes serve as <em>criteria for selecting artifacts</em>, shaping reflection, and guiding assessment. They help writers connect specific pieces of work to specific skills, habits, or competencies.` },
   { id: 'metacognition', label: 'Metacognition',               cat: 'knowledge', stub: false,
     def: `Thinking about your own thinking as you write and learn. In writing studies, it means noticing how you plan, draft, revise, solve problems, respond to feedback, and make choices. It also means <em>understanding what strategies help you improve</em> so you can use them again in future writing situations.` },
   { id: 'process_pedagogy', label: 'Process-oriented pedagogy',  cat: 'knowledge', stub: false,
@@ -294,7 +292,7 @@ const NODES = [
   { id: 'iterative',     label: 'Iterative',                    cat: 'writing', stub: false,
     def: `Repeating a process multiple times to improve or refine the result with each repetition. In an ePortfolio project, this can include <em>cycles of drafting, feedback, revision, and reflection</em>. In other words, rather than aiming for perfection right away, you make purposeful changes, often in a non-linear manner, using peer review, instructor feedback, and your own evaluation to refine your writing and strengthen the story your portfolio tells about your learning.` },
   { id: 'reflection',    label: 'Reflection',                   cat: 'writing', stub: false,
-    def: `A short piece of writing that explains why an artifact is important, what you learned, and how it meets an outcome. As an <em>intentional, metacognitive practice</em>, it makes visible connections among goals, choices, feedback, revision, and growth. It can be helpful to use three stages of reflection: 1) looking back at previous understandings or earlier work, 2) looking presently at what you are doing now and how the artifact shows your current learning, and 3) looking forward to how what you learned can transfer to future writing situations.` },
+    def: `Writing (or an act of recollection) that focuses on why an artifact is important, what you learned, and how it meets an outcome. As an <em>intentional, metacognitive practice</em>, it makes visible connections among goals, choices, feedback, revision, and growth. It can be helpful to use three stages of reflection: 1) looking back at previous understandings or earlier work, 2) looking presently at what you are doing now and how the artifact shows your current learning, and 3) looking forward to how what you learned can transfer to future writing situations.` },
   { id: 'revision',      label: 'Revision',                     cat: 'writing', stub: false,
     def: `The deliberate reworking of a draft's ideas and rhetorical design guided by feedback and reflection to align with purpose, audience, and learning outcomes. In ePortfolios, revision is made visible through <em>drafts and reflective commentary</em> that explain what changed and why.` },
   { id: 'process',       label: 'Writing process(es)',          cat: 'writing', stub: false,
@@ -344,7 +342,6 @@ const EDGES = [
   /* Knowledge cluster */
   { s: 'metacognition', t: 'transfer' },
   { s: 'digital_lit',   t: 'visual_lit' },
-  { s: 'learning_outcomes', t: 'slo' },
   { s: 'evidence',      t: 'artifact' },
   { s: 'process_pedagogy', t: 'process' },
 
@@ -374,10 +371,57 @@ const EDGES = [
   { s: 'creation_space', t: 'multimodal' },
   { s: 'creation_space', t: 'feedback' },
   { s: 'credentialing', t: 'slo' },
-  { s: 'credentialing', t: 'learning_outcomes' },
   { s: 'visual_lit',    t: 'accessibility' },
   { s: 'visual_lit',    t: 'multimodal' },
   { s: 'research_trail', t: 'evidence' },
+
+  /* Rubric connections */
+  { s: 'rubric',        t: 'assessment' },
+  { s: 'rubric',        t: 'feedback' },
+  { s: 'rubric',        t: 'slo' },
+
+  /* Alt text connections */
+  { s: 'alt_text',      t: 'visual_lit' },
+  { s: 'alt_text',      t: 'digital_lit' },
+
+  /* Transfer connections */
+  { s: 'transfer',      t: 'reflection' },
+  { s: 'transfer',      t: 'slo' },
+
+  /* Digital literacy hub */
+  { s: 'digital_lit',   t: 'accessibility' },
+  { s: 'digital_lit',   t: 'privacy' },
+  { s: 'digital_lit',   t: 'presence' },
+  { s: 'cc',            t: 'digital_lit' },
+  { s: 'ip',            t: 'digital_lit' },
+
+  /* Process pedagogy connections */
+  { s: 'process_pedagogy', t: 'reflection' },
+  { s: 'process_pedagogy', t: 'iterative' },
+  { s: 'metacognition', t: 'process' },
+
+  /* Rhetorical concepts into the broader graph */
+  { s: 'exigency',      t: 'artifact' },
+  { s: 'voice',         t: 'genre' },
+  { s: 'voice',         t: 'reflection' },
+  { s: 'flexible_voices', t: 'genre' },
+  { s: 'flexible_voices', t: 'presence' },
+
+  /* IP / privacy cluster */
+  { s: 'privacy',       t: 'ip' },
+
+  /* Credentialing */
+  { s: 'credentialing', t: 'assessment' },
+  { s: 'credentialing', t: 'artifact' },
+
+  /* Creation space */
+  { s: 'creation_space', t: 'drafting' },
+
+  /* Inquiry */
+  { s: 'inquiry',       t: 'artifact' },
+
+  /* Intentional design */
+  { s: 'intentional_design', t: 'accessibility' },
 ];
 
 /* ── Build adjacency for panel ── */
@@ -422,8 +466,8 @@ const NM = {};
 nodes.forEach(n => NM[n.id] = n);
 
 const sim = d3.forceSimulation(nodes)
-  .force('link', d3.forceLink(links).id(d => d.id).distance(90).strength(0.5))
-  .force('charge', d3.forceManyBody().strength(-220))
+  .force('link', d3.forceLink(links).id(d => d.id).distance(95).strength(0.45))
+  .force('charge', d3.forceManyBody().strength(-380))
   .force('center', d3.forceCenter(W / 2, H / 2))
   .force('collide', d3.forceCollide(d => nodeR(d) + 12))
   .force('x', d3.forceX(W / 2).strength(0.04))

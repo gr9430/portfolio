@@ -109,7 +109,26 @@
       "Bash(awk -F: '$1>=4052 && $1<=5100')",
       "Bash(awk -F: '$1>=5100 && $1<=6580')",
       "Bash(awk -F: '$1>=8230 && $1<=10600')",
-      "Bash(awk -F: '$1>=6580 && $1<=8230')"
+      "Bash(awk -F: '$1>=6580 && $1<=8230')",
+      "Bash(cat \"$\\(git -C /home/user/portfolio rev-parse --show-toplevel\\)/.superpowers/sdd/progress.md\")",
+      "Bash(/home/user/.claude/plugins/cache/claude-plugins-official/superpowers/6.0.3/skills/subagent-driven-development/scripts/task-brief *)",
+      "Bash(pip install *)",
+      "Bash(/home/user/.claude/plugins/cache/claude-plugins-official/superpowers/6.0.3/skills/subagent-driven-development/scripts/review-package 38f3d1282ed3253ea1133445d966923750811d70 *)",
+      "Bash(/home/user/.claude/plugins/cache/claude-plugins-official/superpowers/6.0.3/skills/subagent-driven-development/scripts/review-package eddab46adf6defdf58b2fc2046ee1c574b1ec5dd *)",
+      "Bash(/home/user/.claude/plugins/cache/claude-plugins-official/superpowers/6.0.3/skills/subagent-driven-development/scripts/review-package 7b68b8d04b3216fdc05fa27f0af96a8cc2fc9490 *)",
+      "Bash(pytest *)",
+      "Bash(/home/user/.claude/plugins/cache/claude-plugins-official/superpowers/6.0.3/skills/subagent-driven-development/scripts/review-package 9963676932453f63193851c291e180c3110f446a *)",
+      "Bash(python *)",
+      "Skill(run)",
+      "Bash(echo \"PID: $!\")",
+      "Bash(echo \"status: $?\")",
+      "Bash(pip3 install *)",
+      "Bash(bash /home/user/.claude/plugins/cache/claude-plugins-official/superpowers/6.0.3/skills/subagent-driven-development/scripts/review-package 3d6d228 HEAD)",
+      "Bash(bash /home/user/.claude/plugins/cache/claude-plugins-official/superpowers/6.0.3/skills/subagent-driven-development/scripts/task-brief docs/superpowers/plans/2026-06-28-ai-exercise-datafication.md 2)",
+      "Bash(bash /home/user/.claude/plugins/cache/claude-plugins-official/superpowers/6.0.3/skills/subagent-driven-development/scripts/review-package bf4777e HEAD)",
+      "Bash(sed -i 's/- \\\\[ \\\\] Task 2: ImageProcessor, Renderer, and UI JS/- [x] Task 2: ImageProcessor, Renderer, and UI JS \\(commit 508958b, review clean; minors: DFS vs BFS in connectedComponents \\(functionally identical\\), raw vs absolute Laplacian values \\(inconsequential\\)\\)/' /home/user/portfolio/.superpowers/sdd/progress.md)",
+      "Bash(bash /home/user/.claude/plugins/cache/claude-plugins-official/superpowers/6.0.3/skills/subagent-driven-development/scripts/task-brief docs/superpowers/plans/2026-06-28-ai-exercise-datafication.md 3)",
+      "Bash(bash /home/user/.claude/plugins/cache/claude-plugins-official/superpowers/6.0.3/skills/subagent-driven-development/scripts/review-package 508958b HEAD)"
     ]
   }
 }

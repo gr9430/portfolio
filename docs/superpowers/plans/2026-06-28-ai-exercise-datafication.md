@@ -1,0 +1,819 @@
+# "What the Data Can't Rebuild" — Datafication App Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Build a single self-contained `index.html` that uploads a photo, computes five image-analysis metrics client-side, renders three reduction canvases, and outputs a copyable data-only description for use with an external image generator.
+
+**Architecture:** All logic is inline in one HTML file — no build step, no dependencies. Three logical JS sections: ImageProcessor (pure pixel-math functions), Renderer (three canvas drawing functions), and UI (event wiring, DOM updates, pipeline orchestration). Everything runs on `<canvas>` elements via the Canvas API.
+
+**Tech Stack:** Vanilla HTML/CSS/JS, Canvas API only.
+
+## Global Constraints
+
+- Single file: `phd/interdisciplinary-teaching/ai-exercise/index.html` — no Jekyll front matter
+- No external requests, no npm, no build step, no localStorage/sessionStorage
+- Works from `file://` and inside a sandboxed `<iframe>`
+- Canvas API only — no image-processing libraries
+- Downsample to 256px max edge before Laplacian/Sobel passes; 64px max edge before k-means
+- Palette: magenta `rgb(122,6,97)`, teal `rgb(6,97,122)`, background `#f8f8ff`, text `#111`
+- Font: `'Liberation Mono', 'Courier New', monospace` throughout
+- Focus states: `outline: 2px solid rgb(122,6,97)` on all interactive elements, never suppressed
+- Color is never the sole signal — every swatch shows hex + percentage as text
+- `SAMPLE_IMAGE` constant must be clearly commented with swap instructions
+
+---
+
+### Task 1: HTML scaffold and CSS
+
+**Files:**
+- Create: `phd/interdisciplinary-teaching/ai-exercise/index.html`
+
+**Interfaces:**
+- Produces: Static HTML shell with all IDs and classes the JS will reference in Tasks 2–3
+- Section IDs that JS will show/hide: `section-original`, `section-data`, `section-reductions`, `section-handoff`
+- Canvas IDs: `canvas-original`, `canvas-edges`, `canvas-posterized`, `canvas-bars`
+- Data cell IDs: `val-brightness`, `val-blur`, `val-colors`, `val-edge`, `val-contours`
+- Button IDs: `btn-sample`, `btn-copy`
+- Other IDs: `upload-zone`, `file-input`, `description-output`
+
+- [ ] **Step 1: Create the file**
+
+Create `phd/interdisciplinary-teaching/ai-exercise/index.html` with this exact content (the `<script>` tag is intentionally empty — JS is added in Task 2):
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What the Data Can't Rebuild</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --magenta: rgb(122, 6, 97);
+      --teal: rgb(6, 97, 122);
+      --bg: #f8f8ff;
+      --text: #111;
+      --border: #ccc;
+      --font: 'Liberation Mono', 'Courier New', monospace;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 1.5rem 1rem;
+    }
+
+    .container { max-width: 800px; margin: 0 auto; }
+
+    h1 {
+      color: var(--magenta);
+      font-size: 1.3rem;
+      margin: 0 0 0.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--magenta);
+    }
+
+    .subtitle {
+      font-size: 0.875rem;
+      color: #444;
+      margin: 0.4rem 0 0;
+    }
+
+    section {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 0;
+    }
+
+    h2 {
+      color: var(--magenta);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 0 0 1rem;
+    }
+
+    /* Upload zone */
+    .upload-zone {
+      border: 2px dashed var(--border);
+      padding: 2rem 1rem;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .upload-zone:hover, .upload-zone.drag-over {
+      border-color: var(--magenta);
+    }
+
+    .upload-zone:focus {
+      outline: 2px solid var(--magenta);
+      outline-offset: 2px;
+    }
+
+    .upload-zone p { margin: 0.25rem 0; font-size: 0.9rem; }
+
+    .upload-controls {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    button {
+      font-family: var(--font);
+      font-size: 0.85rem;
+      padding: 0.45rem 0.9rem;
+      border: 1px solid var(--magenta);
+      background: transparent;
+      color: var(--magenta);
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    button:hover { background: var(--magenta); color: white; }
+
+    button:focus {
+      outline: 2px solid var(--magenta);
+      outline-offset: 2px;
+    }
+
+    .btn-teal { border-color: var(--teal); color: var(--teal); }
+    .btn-teal:hover { background: var(--teal); color: white; }
+    .btn-teal:focus { outline-color: var(--teal); }
+
+    .hidden { display: none; }
+
+    #canvas-original { max-width: 100%; display: block; margin: 0 auto; }
+
+    /* Data table */
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    .data-table td {
+      padding: 0.4rem 0.5rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .data-table td:first-child {
+      color: var(--magenta);
+      width: 38%;
+      white-space: nowrap;
+    }
+
+    .color-row { display: flex; align-items: center; gap: 0.5rem; margin: 0.2rem 0; }
+    .swatch {
+      display: inline-block;
+      width: 1rem;
+      height: 1rem;
+      border: 1px solid #999;
+      flex-shrink: 0;
+    }
+
+    /* Reduction canvases */
+    .canvas-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) { .canvas-grid { grid-template-columns: 1fr; } }
+
+    .canvas-item { display: flex; flex-direction: column; }
+    .canvas-item canvas { width: 100%; height: auto; display: block; border: 1px solid var(--border); }
+    .canvas-caption { font-size: 0.8rem; color: var(--teal); margin-top: 0.4rem; font-style: italic; }
+
+    /* Handoff */
+    #description-output {
+      font-family: var(--font);
+      font-size: 0.875rem;
+      width: 100%;
+      border: 1px solid var(--border);
+      padding: 0.75rem;
+      background: #fff;
+      color: var(--text);
+      resize: vertical;
+      min-height: 5rem;
+    }
+    #description-output:focus { outline: 2px solid var(--magenta); }
+
+    .handoff-instruction { font-size: 0.85rem; color: #444; margin-top: 0.75rem; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <header style="padding: 1rem 0 0;">
+    <h1>What the Data Can't Rebuild</h1>
+    <p class="subtitle">Upload an image of a non-human subject. Watch what survives reduction to data — and what doesn't.</p>
+  </header>
+
+  <section id="section-upload">
+    <div class="upload-zone" id="upload-zone" role="button" tabindex="0"
+         aria-label="Upload image — drag and drop or click to browse">
+      <p>Drag and drop an image here, or click to browse.</p>
+      <p style="color:#666; font-size:0.8rem;">Subjects: plant, fungus, water, stone, bark, light.</p>
+      <input type="file" id="file-input" accept="image/*"
+             style="display:none" aria-label="Choose image file">
+    </div>
+    <div class="upload-controls">
+      <button id="btn-sample">Load sample image</button>
+    </div>
+  </section>
+
+  <section id="section-original" class="hidden">
+    <h2>Original</h2>
+    <canvas id="canvas-original" role="img" aria-label="Uploaded image"></canvas>
+  </section>
+
+  <section id="section-data" class="hidden">
+    <h2>Data Points</h2>
+    <table class="data-table" aria-label="Computed image metrics">
+      <tbody>
+        <tr><td>Brightness</td><td id="val-brightness">—</td></tr>
+        <tr><td>Blur score</td><td id="val-blur">—</td></tr>
+        <tr><td>Dominant colors</td><td id="val-colors">—</td></tr>
+        <tr><td>Edge density</td><td id="val-edge">—</td></tr>
+        <tr><td>Contour count</td><td id="val-contours">—</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="section-reductions" class="hidden">
+    <h2>The Reduction, Rendered</h2>
+    <div class="canvas-grid">
+      <div class="canvas-item">
+        <canvas id="canvas-edges" role="img"
+          aria-label="Sobel edge map of uploaded image — detected boundaries shown as white lines on black"></canvas>
+        <p class="canvas-caption">the image as its boundaries.</p>
+      </div>
+      <div class="canvas-item">
+        <canvas id="canvas-posterized" role="img"
+          aria-label="Original image remapped to its 5 dominant colors"></canvas>
+        <p class="canvas-caption">the image as its 5 measured colors.</p>
+      </div>
+      <div class="canvas-item">
+        <canvas id="canvas-bars" role="img"
+          aria-label="Color bars showing the 5 measured dominant colors by percentage — no spatial information"></canvas>
+        <p class="canvas-caption">the image rebuilt from the numbers alone — every measured color, none of the picture.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="section-handoff" class="hidden">
+    <h2>Hand Off</h2>
+    <textarea id="description-output" readonly
+              aria-label="Data-only description of the image for pasting into an image generator"></textarea>
+    <div style="margin-top: 0.75rem;">
+      <button id="btn-copy" class="btn-teal">Copy</button>
+    </div>
+    <p class="handoff-instruction">Paste this into Duck.ai's image generator and try to get your photo back. Bring the result to discussion.</p>
+  </section>
+
+</div>
+<script>
+// JS added in Task 2
+</script>
+</body>
+</html>
+```
+
+- [ ] **Step 2: Open in browser and verify static layout**
+
+Open `phd/interdisciplinary-teaching/ai-exercise/index.html` directly in a browser (file://) and check:
+
+- [ ] Header with title and subtitle visible
+- [ ] Dashed upload zone with "Load sample image" button below it
+- [ ] Sections below the upload zone are not visible (hidden class works)
+- [ ] Resize browser to 400px wide — upload zone and button still readable, no overflow
+- [ ] Tab through page — upload zone and button get visible magenta focus outline
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add phd/interdisciplinary-teaching/ai-exercise/index.html
+git commit -m "feat: add datafication app HTML scaffold and CSS"
+```
+
+---
+
+### Task 2: JavaScript — ImageProcessor, Renderer, and UI
+
+**Files:**
+- Modify: `phd/interdisciplinary-teaching/ai-exercise/index.html` — replace the empty `<script>` tag content
+
+**Interfaces:**
+- Consumes: All DOM IDs established in Task 1
+- `downsample(img, maxEdge)` → `ImageData`
+- `brightness(imageData)` → `number` (0–1)
+- `toGrayscale(imageData)` → `Uint8Array`
+- `laplacianBlur(imageData)` → `number` (variance, higher = sharper)
+- `sobel(imageData)` → `{ magnitudeMap: Float32Array, width: number, height: number, density: number }`
+- `connectedComponents(sobelResult, minSize?)` → `number`
+- `kMeans(imageData, k?, iterations?)` → `Array<{ hex: string, pct: number }>` (hex uppercase, sorted descending by pct)
+- `drawEdges(canvas, sobelResult)` → `void`
+- `drawPosterized(canvas, img, palette)` → `void`
+- `drawColorBars(canvas, palette)` → `void`
+
+- [ ] **Step 1: Write console verification tests BEFORE implementing**
+
+Open the browser console on the file and paste this — each line should throw `ReferenceError` or return garbage, confirming the functions don't exist yet:
+
+```js
+// These should all fail with ReferenceError or unexpected output:
+typeof downsample    // expected: "undefined"
+typeof brightness    // expected: "undefined"
+typeof kMeans        // expected: "undefined"
+```
+
+- [ ] **Step 2: Replace the empty `<script>` block with the full implementation**
+
+Replace `// JS added in Task 2` with the following. Paste the entire block verbatim:
+
+```js
+// ============================================================
+// SAMPLE IMAGE
+// ============================================================
+// To use a real photo: encode it in your browser console:
+//   fetch('photo.jpg').then(r=>r.blob()).then(b=>{
+//     const fr=new FileReader();
+//     fr.onload=e=>console.log(e.target.result);
+//     fr.readAsDataURL(b);
+//   });
+// Then replace `generatePlaceholder()` below with the resulting string:
+//   const SAMPLE_IMAGE = 'data:image/jpeg;base64,...';
+
+function generatePlaceholder() {
+  const c = document.createElement('canvas');
+  c.width = 400; c.height = 400;
+  const ctx = c.getContext('2d');
+  const g = ctx.createRadialGradient(200, 160, 20, 200, 200, 280);
+  g.addColorStop(0,    '#4a6741');
+  g.addColorStop(0.3,  '#6b8a45');
+  g.addColorStop(0.6,  '#8a7a52');
+  g.addColorStop(0.85, '#5c4a2a');
+  g.addColorStop(1,    '#3a2e1a');
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, 400, 400);
+  // Organic texture overlay
+  for (let i = 0; i < 600; i++) {
+    ctx.beginPath();
+    ctx.arc(Math.random()*400, Math.random()*400, Math.random()*7+2, 0, Math.PI*2);
+    ctx.fillStyle = Math.random() > 0.5
+      ? `rgba(80,60,20,${Math.random()*0.12})`
+      : `rgba(30,50,20,${Math.random()*0.12})`;
+    ctx.fill();
+  }
+  return c.toDataURL('image/png');
+}
+
+const SAMPLE_IMAGE = generatePlaceholder();
+
+// ============================================================
+// IMAGE PROCESSOR
+// ============================================================
+
+function downsample(img, maxEdge) {
+  const sw = img.naturalWidth  || img.width;
+  const sh = img.naturalHeight || img.height;
+  const scale = Math.min(1, maxEdge / Math.max(sw, sh));
+  const w = Math.max(1, Math.round(sw * scale));
+  const h = Math.max(1, Math.round(sh * scale));
+  const c = document.createElement('canvas');
+  c.width = w; c.height = h;
+  c.getContext('2d').drawImage(img, 0, 0, w, h);
+  return c.getContext('2d').getImageData(0, 0, w, h);
+}
+
+function brightness(imageData) {
+  const d = imageData.data;
+  let sum = 0;
+  for (let i = 0; i < d.length; i += 4) {
+    sum += (0.2126 * d[i] + 0.7152 * d[i+1] + 0.0722 * d[i+2]) / 255;
+  }
+  return sum / (d.length / 4);
+}
+
+function toGrayscale(imageData) {
+  const d = imageData.data;
+  const gray = new Uint8Array(d.length / 4);
+  for (let i = 0; i < d.length; i += 4) {
+    gray[i >> 2] = Math.round(0.2126 * d[i] + 0.7152 * d[i+1] + 0.0722 * d[i+2]);
+  }
+  return gray;
+}
+
+function laplacianBlur(imageData) {
+  const gray = toGrayscale(imageData);
+  const w = imageData.width, h = imageData.height;
+  // kernel: [[0,1,0],[1,-4,1],[0,1,0]]
+  let sum = 0, sumSq = 0, n = 0;
+  for (let y = 1; y < h - 1; y++) {
+    for (let x = 1; x < w - 1; x++) {
+      const v = (
+        gray[(y-1)*w + x] +
+        gray[(y+1)*w + x] +
+        gray[y*w + (x-1)] +
+        gray[y*w + (x+1)] -
+        4 * gray[y*w + x]
+      );
+      sum   += v;
+      sumSq += v * v;
+      n++;
+    }
+  }
+  const mean = sum / n;
+  return (sumSq / n) - (mean * mean); // variance
+}
+
+function sobel(imageData) {
+  const gray = toGrayscale(imageData);
+  const w = imageData.width, h = imageData.height;
+  const magnitudeMap = new Float32Array(w * h);
+  const THRESHOLD = 30;
+  let edgeCount = 0;
+  let total = 0;
+
+  for (let y = 1; y < h - 1; y++) {
+    for (let x = 1; x < w - 1; x++) {
+      const tl = gray[(y-1)*w+(x-1)], tm = gray[(y-1)*w+x], tr = gray[(y-1)*w+(x+1)];
+      const ml = gray[y*w+(x-1)],                            mr = gray[y*w+(x+1)];
+      const bl = gray[(y+1)*w+(x-1)], bm = gray[(y+1)*w+x], br = gray[(y+1)*w+(x+1)];
+
+      const gx = -tl + tr - 2*ml + 2*mr - bl + br;
+      const gy =  tl + 2*tm + tr - bl - 2*bm - br;
+      const mag = Math.sqrt(gx*gx + gy*gy);
+      magnitudeMap[y*w + x] = mag;
+      if (mag > THRESHOLD) edgeCount++;
+      total++;
+    }
+  }
+  return { magnitudeMap, width: w, height: h, density: edgeCount / total };
+}
+
+function connectedComponents(sobelResult, minSize) {
+  if (minSize === undefined) minSize = 10;
+  const { magnitudeMap, width: w, height: h } = sobelResult;
+  const THRESHOLD = 30;
+  const visited = new Uint8Array(w * h);
+  let count = 0;
+
+  for (let start = 0; start < w * h; start++) {
+    if (magnitudeMap[start] <= THRESHOLD || visited[start]) continue;
+    const queue = [start];
+    visited[start] = 1;
+    let size = 0;
+    while (queue.length) {
+      const idx = queue.pop();
+      size++;
+      const x = idx % w, y = (idx / w) | 0;
+      if (x > 0   && !visited[idx-1] && magnitudeMap[idx-1] > THRESHOLD) { visited[idx-1]=1; queue.push(idx-1); }
+      if (x < w-1 && !visited[idx+1] && magnitudeMap[idx+1] > THRESHOLD) { visited[idx+1]=1; queue.push(idx+1); }
+      if (y > 0   && !visited[idx-w] && magnitudeMap[idx-w] > THRESHOLD) { visited[idx-w]=1; queue.push(idx-w); }
+      if (y < h-1 && !visited[idx+w] && magnitudeMap[idx+w] > THRESHOLD) { visited[idx+w]=1; queue.push(idx+w); }
+    }
+    if (size >= minSize) count++;
+  }
+  return count;
+}
+
+function kMeans(imageData, k, iterations) {
+  if (k === undefined) k = 5;
+  if (iterations === undefined) iterations = 20;
+  const d = imageData.data;
+  const n = d.length / 4;
+  const r = new Uint8Array(n), g = new Uint8Array(n), b = new Uint8Array(n);
+  for (let i = 0; i < n; i++) { r[i]=d[i*4]; g[i]=d[i*4+1]; b[i]=d[i*4+2]; }
+
+  // Random init
+  const centroids = [];
+  const used = new Set();
+  while (centroids.length < k) {
+    const idx = Math.floor(Math.random() * n);
+    if (!used.has(idx)) { used.add(idx); centroids.push([r[idx], g[idx], b[idx]]); }
+  }
+
+  const assignments = new Int32Array(n);
+
+  for (let iter = 0; iter < iterations; iter++) {
+    // Assign each pixel to nearest centroid
+    for (let i = 0; i < n; i++) {
+      let best = 0, bestD = Infinity;
+      for (let c = 0; c < k; c++) {
+        const dr = r[i]-centroids[c][0], dg = g[i]-centroids[c][1], db = b[i]-centroids[c][2];
+        const dist = dr*dr + dg*dg + db*db;
+        if (dist < bestD) { bestD = dist; best = c; }
+      }
+      assignments[i] = best;
+    }
+    // Recompute centroids
+    const sums = Array.from({length: k}, () => [0, 0, 0, 0]);
+    for (let i = 0; i < n; i++) {
+      const c = assignments[i];
+      sums[c][0] += r[i]; sums[c][1] += g[i]; sums[c][2] += b[i]; sums[c][3]++;
+    }
+    for (let c = 0; c < k; c++) {
+      if (sums[c][3] > 0) {
+        centroids[c] = [sums[c][0]/sums[c][3], sums[c][1]/sums[c][3], sums[c][2]/sums[c][3]];
+      }
+    }
+  }
+
+  // Count assignments and build result
+  const counts = new Array(k).fill(0);
+  for (let i = 0; i < n; i++) counts[assignments[i]]++;
+
+  return centroids.map((c, i) => ({
+    hex: '#' + [c[0], c[1], c[2]]
+      .map(v => Math.round(v).toString(16).padStart(2, '0').toUpperCase())
+      .join(''),
+    pct: counts[i] / n
+  })).sort((a, b) => b.pct - a.pct);
+}
+
+// ============================================================
+// RENDERER
+// ============================================================
+
+function drawEdges(canvas, sobelResult) {
+  const { magnitudeMap, width: w, height: h } = sobelResult;
+  canvas.width = w; canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  const imgData = ctx.createImageData(w, h);
+  const d = imgData.data;
+  let maxMag = 0;
+  for (let i = 0; i < magnitudeMap.length; i++) if (magnitudeMap[i] > maxMag) maxMag = magnitudeMap[i];
+  for (let i = 0; i < magnitudeMap.length; i++) {
+    const v = maxMag > 0 ? Math.round((magnitudeMap[i] / maxMag) * 255) : 0;
+    d[i*4]=v; d[i*4+1]=v; d[i*4+2]=v; d[i*4+3]=255;
+  }
+  ctx.putImageData(imgData, 0, 0);
+}
+
+function drawPosterized(canvas, img, palette) {
+  const maxEdge = 400;
+  const sw = img.naturalWidth, sh = img.naturalHeight;
+  const scale = Math.min(1, maxEdge / Math.max(sw, sh));
+  const w = Math.round(sw * scale), h = Math.round(sh * scale);
+  canvas.width = w; canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(img, 0, 0, w, h);
+  const imgData = ctx.getImageData(0, 0, w, h);
+  const d = imgData.data;
+
+  // Precompute palette as RGB arrays
+  const pal = palette.map(p => [
+    parseInt(p.hex.slice(1, 3), 16),
+    parseInt(p.hex.slice(3, 5), 16),
+    parseInt(p.hex.slice(5, 7), 16)
+  ]);
+
+  for (let i = 0; i < d.length; i += 4) {
+    let best = 0, bestDist = Infinity;
+    for (let c = 0; c < pal.length; c++) {
+      const dr = d[i]-pal[c][0], dg = d[i+1]-pal[c][1], db = d[i+2]-pal[c][2];
+      const dist = dr*dr + dg*dg + db*db;
+      if (dist < bestDist) { bestDist = dist; best = c; }
+    }
+    d[i]=pal[best][0]; d[i+1]=pal[best][1]; d[i+2]=pal[best][2];
+  }
+  ctx.putImageData(imgData, 0, 0);
+}
+
+function drawColorBars(canvas, palette) {
+  const W = 200, H = 200;
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext('2d');
+  let x = 0;
+  for (const color of palette) {
+    const bw = Math.round(color.pct * W);
+    ctx.fillStyle = color.hex;
+    ctx.fillRect(x, 0, bw, H);
+    x += bw;
+  }
+  if (x < W) { ctx.fillStyle = palette[palette.length - 1].hex; ctx.fillRect(x, 0, W - x, H); }
+}
+
+// ============================================================
+// UI
+// ============================================================
+
+let currentImg    = null;
+let currentDesc   = '';
+
+function fmt2(n)   { return Number(n).toFixed(2); }
+function fmtPct(n) { return Math.round(n * 100); }
+
+function assembleDescription(b, palette, edgeDensity, contourCount) {
+  const colors = palette.map(p => `${p.hex} (${fmtPct(p.pct)}%)`).join(', ');
+  return `An image. Mean brightness ${fmt2(b)}. Dominant colors: ${colors}. Edge density ${fmt2(edgeDensity)}. Approximately ${contourCount} contour regions.`;
+}
+
+function updateDataPanel(b, blurScore, palette, edgeDensity, contourCount) {
+  document.getElementById('val-brightness').textContent = fmt2(b);
+  document.getElementById('val-blur').textContent =
+    fmt2(blurScore) + ' (relative — higher = sharper)';
+
+  const colorsEl = document.getElementById('val-colors');
+  colorsEl.innerHTML = '';
+  for (const color of palette) {
+    const row = document.createElement('div');
+    row.className = 'color-row';
+    const swatch = document.createElement('span');
+    swatch.className = 'swatch';
+    swatch.style.backgroundColor = color.hex;
+    swatch.setAttribute('aria-label', 'Color swatch ' + color.hex);
+    const label = document.createElement('span');
+    label.textContent = color.hex + ' — ' + fmtPct(color.pct) + '%';
+    row.appendChild(swatch);
+    row.appendChild(label);
+    colorsEl.appendChild(row);
+  }
+
+  document.getElementById('val-edge').textContent = fmt2(edgeDensity);
+  document.getElementById('val-contours').textContent = '≈ ' + contourCount + ' regions (proxy)';
+}
+
+function runPipeline(img) {
+  currentImg = img;
+
+  // Draw original
+  const origCanvas = document.getElementById('canvas-original');
+  const maxW = 600;
+  const scale = Math.min(1, maxW / img.naturalWidth);
+  origCanvas.width  = Math.round(img.naturalWidth  * scale);
+  origCanvas.height = Math.round(img.naturalHeight * scale);
+  origCanvas.getContext('2d').drawImage(img, 0, 0, origCanvas.width, origCanvas.height);
+
+  // Downsample
+  const data256 = downsample(img, 256);
+  const data64  = downsample(img, 64);
+
+  // Compute
+  const b            = brightness(data256);
+  const blurScore    = laplacianBlur(data256);
+  const sobelResult  = sobel(data256);
+  const contourCount = connectedComponents(sobelResult);
+  const palette      = kMeans(data64, 5, 20);
+
+  // Render reductions
+  drawEdges(document.getElementById('canvas-edges'), sobelResult);
+  drawPosterized(document.getElementById('canvas-posterized'), img, palette);
+  drawColorBars(document.getElementById('canvas-bars'), palette);
+
+  // Update DOM
+  updateDataPanel(b, blurScore, palette, sobelResult.density, contourCount);
+
+  currentDesc = assembleDescription(b, palette, sobelResult.density, contourCount);
+  document.getElementById('description-output').value = currentDesc;
+
+  // Reveal sections
+  ['section-original','section-data','section-reductions','section-handoff'].forEach(function(id) {
+    document.getElementById(id).classList.remove('hidden');
+  });
+}
+
+function loadFromSrc(src) {
+  const img = new Image();
+  img.onload = function() { runPipeline(img); };
+  img.src = src;
+}
+
+// Upload zone
+const uploadZone = document.getElementById('upload-zone');
+const fileInput  = document.getElementById('file-input');
+
+uploadZone.addEventListener('click', function() { fileInput.click(); });
+uploadZone.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }
+});
+uploadZone.addEventListener('dragover', function(e) {
+  e.preventDefault(); uploadZone.classList.add('drag-over');
+});
+uploadZone.addEventListener('dragleave', function() {
+  uploadZone.classList.remove('drag-over');
+});
+uploadZone.addEventListener('drop', function(e) {
+  e.preventDefault(); uploadZone.classList.remove('drag-over');
+  var file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) {
+    var fr = new FileReader();
+    fr.onload = function(ev) { loadFromSrc(ev.target.result); };
+    fr.readAsDataURL(file);
+  }
+});
+fileInput.addEventListener('change', function() {
+  var file = fileInput.files[0];
+  if (file) {
+    var fr = new FileReader();
+    fr.onload = function(ev) { loadFromSrc(ev.target.result); };
+    fr.readAsDataURL(file);
+  }
+});
+
+document.getElementById('btn-sample').addEventListener('click', function() {
+  loadFromSrc(SAMPLE_IMAGE);
+});
+
+// Copy button
+document.getElementById('btn-copy').addEventListener('click', function() {
+  var btn = document.getElementById('btn-copy');
+  var textarea = document.getElementById('description-output');
+  function onCopied() {
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(currentDesc).then(onCopied).catch(function() {
+      textarea.select(); document.execCommand('copy'); onCopied();
+    });
+  } else {
+    textarea.select(); document.execCommand('copy'); onCopied();
+  }
+});
+```
+
+- [ ] **Step 3: Verify in browser console that functions are defined**
+
+Open the file in browser and run in console:
+
+```js
+typeof downsample      // expected: "function"
+typeof brightness      // expected: "function"
+typeof kMeans          // expected: "function"
+typeof drawEdges       // expected: "function"
+typeof runPipeline     // expected: "function"
+```
+
+All must return `"function"`.
+
+- [ ] **Step 4: Load the sample image and verify all outputs**
+
+Click "Load sample image" and verify:
+
+- [ ] Original canvas renders the green/brown gradient at max 600px wide
+- [ ] Data points panel appears with five populated rows (no "—" remaining)
+- [ ] Brightness shows a decimal between 0 and 1
+- [ ] Blur score shows a positive number with "(relative — higher = sharper)"
+- [ ] Dominant colors shows 5 rows, each with a colored square + hex + percentage
+- [ ] Edge density shows a decimal between 0 and 1
+- [ ] Contour count shows "≈ N regions (proxy)" for some N > 0
+- [ ] Three reduction canvases appear side-by-side
+- [ ] Edges canvas is black with white lines (not blank, not all white)
+- [ ] Posterized canvas resembles the original but in blocky flat color
+- [ ] Color bars canvas shows 5 solid vertical bars of different widths
+- [ ] Description textarea is populated with a string beginning "An image."
+- [ ] Copy button changes to "Copied!" for ~1.5s when clicked
+
+- [ ] **Step 5: Upload a real photo and verify no console errors**
+
+Upload a large phone JPEG (if available) and verify the pipeline completes without errors and produces visible output. Open browser DevTools console — no red errors should appear.
+
+- [ ] **Step 6: Verify `file://` and iframe compatibility**
+
+```bash
+# Open as file:// in browser — pipeline should work
+# No requests to localhost or external domains should appear in Network tab
+```
+
+- [ ] **Step 7: Commit**
+
+```bash
+git add phd/interdisciplinary-teaching/ai-exercise/index.html
+git commit -m "feat: add datafication app ImageProcessor, Renderer, and UI"
+```
+
+---
+
+### Task 3: Update course index
+
+**Files:**
+- Modify: `phd/interdisciplinary-teaching/index.md`
+
+**Interfaces:**
+- Consumes: The tool URL `/phd/interdisciplinary-teaching/ai-exercise/` (served by Jekyll)
+
+- [ ] **Step 1: Add the link to the course index**
+
+Open `phd/interdisciplinary-teaching/index.md`. Find the `## Course Components` list and add one entry:
+
+```markdown
+- [AI Exercise: What the Data Can't Rebuild](/phd/interdisciplinary-teaching/ai-exercise/) — In-class datafication activity
+```
+
+Add it at the end of the list (before the blank line before `## About This Course`).
+
+- [ ] **Step 2: Verify with Jekyll**
+
+```bash
+bundle exec jekyll serve
+```
+
+Open `http://localhost:4000/phd/interdisciplinary-teaching/` and confirm the link appears. Click it — the tool should load at `/phd/interdisciplinary-teaching/ai-exercise/` with no Jekyll header/footer (raw HTML file).
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add phd/interdisciplinary-teaching/index.md
+git commit -m "feat: link datafication activity from interdisciplinary teaching index"
+```
