@@ -22,7 +22,7 @@ QUALITY = 85
 
 def slugify(name: str) -> str:
     name = name.lower()
-    name = re.sub(r"[^a-z0-9\s-]", "", name)
+    name = re.sub(r"[^a-z0-9\s\.-]", "", name)
     name = re.sub(r"\s+", "-", name)
     name = re.sub(r"-{2,}", "-", name)
     return name.strip("-")

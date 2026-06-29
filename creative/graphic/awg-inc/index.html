@@ -201,8 +201,9 @@ tags: [Graphic Art, DIY, Music, Visual Culture, Creative Works]
   function applyFilters() {
     document.querySelectorAll('.awg-item').forEach(item => {
       const eraOk = filterState.era.size === 0 || filterState.era.has(item.dataset.era);
-      const itemBands = JSON.parse(item.dataset.bands) || [];
-      const itemVenues = JSON.parse(item.dataset.venues) || [];
+      let itemBands, itemVenues;
+      try { itemBands = JSON.parse(item.dataset.bands) || []; } catch(e) { itemBands = []; }
+      try { itemVenues = JSON.parse(item.dataset.venues) || []; } catch(e) { itemVenues = []; }
       const bandsOk = filterState.bands.size === 0 || itemBands.some(b => filterState.bands.has(b));
       const venuesOk = filterState.venues.size === 0 || itemVenues.some(v => filterState.venues.has(v));
       item.style.display = (eraOk && bandsOk && venuesOk) ? '' : 'none';

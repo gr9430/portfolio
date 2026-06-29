@@ -25,6 +25,9 @@ class TestSlugify:
     def test_strips_special_chars(self):
         assert normalize_awg.slugify("Untitled-4 copy") == "untitled-4-copy"
 
+    def test_preserves_dots(self):
+        assert normalize_awg.slugify("v1.5 release") == "v1.5-release"
+
     def test_preserves_existing_hyphens(self):
         assert normalize_awg.slugify("FR-MRR-12-20") == "fr-mrr-12-20"
 
