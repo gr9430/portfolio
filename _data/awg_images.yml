@@ -1,12 +1,12 @@
 - bands: [Vacancy]
   era: early
   file: early-0e51cea4-50d1-439c-a84c-e6d19f541781rw1920.jpg
-  tags: [noise rock, punk, hardcore, Tampa, born-digital]
+  tags: [noise-rock, punk, hardcore, Tampa, born-digital]
   venues: []
 - bands: [N/A]
   era: early
   file: early-automation.jpg
-  tags: [personal, born-digital]
+  tags: [born-digital]
   venues: []
 - bands: [Flying Limbs]
   era: early
@@ -16,7 +16,7 @@
 - bands: [Career, Witchbender, Acid Baptism]
   era: early
   file: early-career.jpg
-  tags: [Endoxa Booking, born-digital, collage, flyer]
+  tags: [endoxa-booking, born-digital, collage, flyer]
   venues: [Uncle Lou's]
 - bands: []
   era: early
@@ -51,7 +51,7 @@
 - bands: []
   era: early
   file: early-hahaha.jpg
-  tags: [parody, mixed-media, unproductive]
+  tags: [mixed-media, unproductive]
   venues: []
 - bands: [Narvee, Gutter Girl, Uh-comma, Deformed, Acid Baptism, Burn to Learn]
   era: early
@@ -66,7 +66,7 @@
 - bands: []
   era: early
   file: early-imesc.jpg
-  tags: [born-digital, drawing, parody, unproductive]
+  tags: [born-digital, drawing, unproductive]
   venues: []
 - bands: [Hexxus, Junior Bruce, Acid Baptism, Cardinal]
   era: early
@@ -163,20 +163,20 @@
   file: early-zack-flyer.jpg
   tags: [commission, death metal, grindcore, metal, free-jazz, born-digital, collage, Saint Petersburg]
   venues: [N/A]
-- bands: [Anvileater Records]
+- bands: [Anvileater]
   era: early
   file: early-aegraph.jpg
   tags: [commission, born-digital, collage]
   venues: []
-- bands: [Anvileater Records]
+- bands: [Anvileater]
   era: early
   file: early-aer.jpg
-  tags: [commmission, born-digital, logo, type]
+  tags: [commission, born-digital, logo, type]
   venues: []
-- bands: [Anvileater Video]
+- bands: [Anvileater]
   era: early
   file: early-aev.jpg
-  tags: [commmission, born-digital, logo, type]
+  tags: [commission, born-digital, logo, type]
   venues: []
 - bands: [Burn to Learn]
   era: early
