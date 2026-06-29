@@ -19,6 +19,7 @@ Theory and practice of designing interdisciplinary courses and curricula for the
 - [Teaching Statement](/phd/interdisciplinary-teaching/teaching-statement/) — Specialized statement for interdisciplinary teaching approach
 - [Final Portfolio and Reflection](/phd/interdisciplinary-teaching/final-portfolio/) — Comprehensive portfolio showcasing pedagogical development
 - [Textual Analysis: Joyce's Dublin](/phd/interdisciplinary-teaching/textual-analysis/) — Interactive computational visualizations of Joyce's spatial language
+- [AI Exercise: What the Data Can't Rebuild](/phd/interdisciplinary-teaching/ai-exercise/) — In-class datafication activity
 
 ## About This Course
 
