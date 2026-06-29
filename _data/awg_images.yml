@@ -11,12 +11,12 @@
 - bands: [Flying Limbs]
   era: early
   file: early-bcban.jpg
-  tags: [logo, stamps, analog, grindcore, noise]
+  tags: [logo, stamps, grindcore, noise]
   venues: []
-- bands: [Career, Witchbender, Acid Baptism]
+- bands: [Career, Witchbender, Acid Baptism, Endoxa Booking]
   era: early
   file: early-career.jpg
-  tags: [endoxa-booking, born-digital, collage, flyer]
+  tags: [born-digital, collage, flyer]
   venues: [Uncle Lou's]
 - bands: []
   era: early
@@ -26,17 +26,17 @@
 - bands: [Flying Limbs]
   era: early
   file: early-fl.jpg
-  tags: [logo, stamps, analog, grindcore, noise]
+  tags: [logo, stamps, grindcore, noise]
   venues: []
-- bands: [Mob Terror, Meatwound, Financial Ruin (Records)]
+- bands: [Mob Terror, Meatwound, Financial Ruin (Records), Maximumrocknroll]
   era: early
   file: early-fr-mrr-12-20.jpg
-  tags: [ad, mrr, mixed-media, collage]
+  tags: [ad, mixed-media, collage]
   venues: []
-- bands: [Mob Terror, Meatwound, Financial Ruin (Records)]
+- bands: [Mob Terror, Meatwound, Financial Ruin (Records), Maximumrocknroll]
   era: early
   file: early-frmrr1022.jpg
-  tags: [ad, mrr, mixed-media, collage]
+  tags: [ad, mixed-media, collage]
   venues: []
 - bands: [Gaul, Ad Nauseum, Von Nacht]
   era: early
@@ -113,15 +113,15 @@
   file: early-skeletonbabe.jpg
   tags: [born-digital, collage, repurposed]
   venues: []
-- bands: [Spit]
+- bands: [Spit, Disgender]
   era: early
   file: early-spit.jpg
-  tags: [collage, mixed-media, tour, poster, powerviolence, hardcore, punk, commission, Tampa]
-  venues: []
+  tags: [collage, born-digital, powerviolence, hardcore, punk]
+  venues: [Uncle Lou's]
 - bands: [Kevin Greenspoon, Quartz Prowl, Ootheca, NoFace, Temperament]
   era: early
   file: early-stardustmatt.jpg
-  tags: [commission, analog, collage, stamps, electronic, experimental, Orlando]
+  tags: [commission, collage, stamps, electronic, experimental, ambient, Orlando]
   venues: [Stardust Coffee]
 - bands: [Thunderclap]
   era: early
@@ -161,7 +161,7 @@
 - bands: [Grave Ascension, Vacuous Depths, Burn to Learn, Zachary Hickerson, Thomas Milovac, Leo Suarez, Funeral System]
   era: early
   file: early-zack-flyer.jpg
-  tags: [commission, death metal, grindcore, metal, free-jazz, born-digital, collage, Saint Petersburg]
+  tags: [commission, death metal, grindcore, metal, free-jazz, born-digital, collage, repurposed, Saint Petersburg]
   venues: [N/A]
 - bands: [Anvileater]
   era: early
@@ -181,243 +181,231 @@
 - bands: [Burn to Learn]
   era: early
   file: early-btl-album-2-4.jpg
-  tags: [commission, mixed-media, drawing, collage, rejected]
+  tags: [commission, draft, mixed-media, drawing, collage, rejected]
   venues: []
-- bands: [Cinematique Theater]
+- bands: []
   era: early
   file: early-cinematiquebutton.jpg
   tags: [logo, type, born-digital]
-  venues: []
+  venues: [Cinematique Theater]
 - bands: []
   era: early
   file: early-cold-dead-stare.jpg
   tags: [collage, born-digital, unproductive]
   venues: []
+- bands: [Dipt]
+  file: [early-dipt.jpg]
+  tags: [born-digital, commission, collage, powerviolence]
 - bands: [Flying Limbs]
   era: early
   file: early-fl1.jpg
-  tags: [logo, type, analog, stamps]
+  tags: [logo, type, stamps]
   venues: []
 - bands: [Flying Limbs]
   era: early
   file: early-fl2.jpg
-  tags: [logo, type, analog, stamps]
+  tags: [logo, type, stamps]
   venues: []
 - bands: []
   era: early
   file: early-from-inside-the-grandfather-clock.jpg
-  tags: []
+  tags: [born-digital, collage, repurposed]
   venues: []
-- bands: []
+- bands: [Burn to Learn]
   era: early
   file: early-hand-skull.jpg
-  tags: []
+  tags: [born-digital, commission, collage, draft, drawing, unproductive]
   venues: []
 - bands: []
   era: early
   file: early-icecreamman.jpg
-  tags: []
+  tags: [commission, collage, draft, drawing, zine]
   venues: []
 - bands: []
   era: early
   file: early-image1-2.jpg
-  tags: []
+  tags: [collage, born-digital, repurposed]
   venues: []
-- bands: []
+- bands: [Financial Ruin (Records), Meatwound, Maximumrocknroll]
   era: early
   file: early-meatwound-mrr.jpg
-  tags: []
+  tags: [ad, collage, mixed-media type]
   venues: []
-- bands: []
+- bands: [Pink Mass]
   era: early
   file: early-pink-mass.jpg
-  tags: []
+  tags: [born-digital, collage, flyer]
   venues: []
-- bands: []
+- bands: [Pocket Sand (Records & Booking)]
   era: early
   file: early-ps1.jpg
-  tags: []
+  tags: [commission, collage, mixed-media, stamps, type]
   venues: []
-- bands: []
+- bands: [Pocket Sand (Records & Booking)]
   era: early
   file: early-ps2.jpg
-  tags: []
+  tags: [commission, collage, mixed-media, stamps, type]
   venues: []
-- bands: []
+- bands: [Pocket Sand (Records & Booking)]
   era: early
   file: early-ps3.jpg
-  tags: []
+  tags: [commission, collage, mixed-media, stamps, type]
   venues: []
 - bands: []
   era: early
   file: early-skullegg.jpg
-  tags: []
+  tags: [born-digital, collage, unproductive]
   venues: []
-- bands: []
+- bands: [Spit]
   era: early
   file: early-spit-poster.jpg
-  tags: []
+  tags: [tour, poster, powerviolence, hardcore, punk, commission, Tampa]
   venues: []
-- bands: []
+- bands: [Temperament]
   era: early
   file: early-temperament.jpg
-  tags: []
+  tags: [born-digital, collage, album, ambient, electronic]
   venues: []
 - bands: []
   era: early
   file: early-the-woods-behind-my-house.jpg
-  tags: []
+  tags: [mixed-media, collage, unproductive]
   venues: []
 - bands: []
   era: early
   file: early-travel-fantasy.jpg
-  tags: []
+  tags: [born-digital, collage, unproductive]
   venues: []
-- bands: []
-  era: early
-  file: early-tumblroqy9gtpjtl1wr84vlo1540.jpg
-  tags: []
-  venues: []
-- bands: []
+- bands: [Ether, Yashira, Crystal Balls, Arms, Moat Cobra]
   era: early
   file: early-tumblroqy9gtpjtl1wr84vlo2540.jpg
-  tags: []
-  venues: []
-- bands: []
-  era: early
-  file: early-tumblroqy9gtpjtl1wr84vlo3540.jpg
-  tags: []
-  venues: []
-- bands: []
-  era: early
-  file: early-tumblrow6p2gg6er1wr84vlo11280.jpg
-  tags: []
-  venues: []
-- bands: []
+  tags: [collage, flyer, sludge, doom, metal, hardcore]
+  venues: [Uncle Lou's]
+- bands: [Meatwound, Maximumrocknroll]
   era: early
   file: early-tumblrow6p2gg6er1wr84vlo3540.jpg
-  tags: []
+  tags: [ad, born-digital, commission, collage, filmic. sludge, noise rock]
+  venues: []
+- bands: [Meatwound]
+  era: early
+  file: early-tumblrow6p2gg6er1wr84vlo11280.jpg
+  tags: [born-digital, collage, commission, tour, poster, Largo]
   venues: []
 - bands: []
   era: early
   file: early-tumblrowj5pkmaww1wr84vlo11280.jpg
-  tags: []
+  tags: [born-digital, collage, unproductive]
   venues: []
 - bands: []
   era: early
   file: early-tumblrowmvc4p0yt1wr84vlo11280.jpg
-  tags: []
+  tags: [drawing, draft, unproductive]
   venues: []
 - bands: []
   era: early
   file: early-uhhhhh.jpg
-  tags: []
+  tags: [born-digital, unproductive]
   venues: []
-- bands: []
+- bands: [Witchbender]
   era: early
   file: early-wb-scoop.jpg
-  tags: []
+  tags: [born-digital, collage, hardcore, noise rock, punk, zine]
   venues: []
-- bands: []
+- bands: [Witchbender]
   era: early
   file: early-wbstick.jpg
-  tags: []
+  tags: [born-digital, logo]
   venues: []
-- bands: []
+- bands: [Gillian Carter]
   era: mid
   file: mid-1.jpg
-  tags: []
+  tags: [commission, born-digital, collage]
   venues: []
-- bands: []
-  era: mid
-  file: mid-12-16-18mm.jpg
-  tags: []
-  venues: []
-- bands: []
+- bands: [Meatwound, Witchbender, Thunderclap, Moat Cobra]
   era: mid
   file: mid-1228.jpg
-  tags: []
-  venues: []
-- bands: []
+  tags: [born-digital, drawing, type, flyer]
+  venues: [Uncle Lou's]
+- bands: [Thorn, Found Dead, Burn to Learn, Flying Limbs]
   era: mid
   file: mid-18-12-6.jpg
-  tags: []
-  venues: []
-- bands: []
+  tags: [born-digital, collage, flyer, hardcore, metalcore, mixed-media, grindcore]
+  venues: [Uncle Lou's]
+- bands: [Horsewhip, Thunderclap, Flying Limbs, Burn to Learn]
   era: mid
   file: mid-2219.jpg
-  tags: []
-  venues: []
-- bands: []
+  tags: [flyer, hardcore, punk, metal, sludge, born-digital, drawing]
+  venues: [Will's Pub]
+- bands: [C.H.E.W., Iron Lung Records, Chicago]
   era: mid
   file: mid-7.jpg
-  tags: []
+  tags: [born-digital, collage, commission, hardcore, punk]
   venues: []
-- bands: []
+- bands: [To Be Gentle]
   era: mid
   file: mid-awg-shirt.jpg
-  tags: []
+  tags: [born-digital, commission, hardcore, metal, punk, tshirt, California]
   venues: []
-- bands: []
+- bands: [Bears]
   era: mid
   file: mid-bears.jpg
-  tags: []
+  tags: [commission, New York, pop, sludge, punk, tshirt, collage]
   venues: []
-- bands: []
+- bands: [C.H.E.W.]
   era: mid
   file: mid-eurochew.jpg
-  tags: []
+  tags: [commission, tour, poster, collage, born-digital, filmic, Europe, punk, hardcore]
   venues: []
-- bands: []
+- bands: [Full of Hell, Outer Heaven, Ad Nauseum, Gillian Carter]
   era: mid
   file: mid-foh-show.jpg
-  tags: []
-  venues: []
+  tags: [born-digital, flyer, hardcore, metal, punk, sludge, death metal]
+  venues: [Will's Pub]
 - bands: []
   era: mid
   file: mid-ghostofthehunch.jpg
-  tags: []
-  venues: []
-- bands: []
+  tags: [born-digital, collage, flyer, filmic]
+  venues: [Spectacle Theater]
+- bands: [Gillian Carter]
   era: mid
   file: mid-gilly-tour.jpg
-  tags: []
+  tags: [commission, tour, poster, born-digital, drawing, collage, hardcore, metal, punk]
   venues: []
-- bands: []
+- bands: [Backslider, C.H.E.W., Penetrode, Karborätor, Witchbender]
   era: mid
   file: mid-halloween.jpg
-  tags: []
-  venues: []
-- bands: []
+  tags: [commission, born-digital, collage, drawing, hardcore, punk, metal, noise-rock]
+  venues: [Uncle Lou's]
+- bands: [Backslider, C.H.E.W., Penetrode, Karborätor, Witchbender]
   era: mid
   file: mid-halloween2.jpg
-  tags: []
-  venues: []
-- bands: []
+  tags: [commission, born-digital, collage, hardcore, punk, metal, noise-rock]
+  venues: [Uncle Lou's]
+- bands: [Haves&Thirds, Temperament, Unfade, Kaspar Weiss]
   era: mid
   file: mid-igportrait.jpg
-  tags: []
-  venues: []
-- bands: []
+  tags: [commission, collage, born-digital, experimetal, electronic, noise, ambient]
+  venues: [Manes Emporium of Doubt]
+- bands: [Dolce, Rotten Milk, Crustgirls, Unfade, Aaron's House]
   era: mid
   file: mid-mm121618-print.jpg
-  tags: []
+  tags: [commission, collage, born-digital, drawing, experimetal, electronic, noise, ambient]
   venues: []
-- bands: []
+- bands: [Pictureplane, J.A.S.O.N., Ootheca, Mother Juno, Endoxa Booking]
   era: mid
   file: mid-print.jpg
-  tags: []
-  venues: []
-- bands: []
+  tags: [commission, collage, born-digital, experimetal, electronic, noise, ambient]
+  venues: [Will's Pub]
+- bands: [Meatwound, Thunderclap, Flying Limbs]
   era: mid
   file: mid-tcmeatkick.jpg
-  tags: []
-  venues: []
+  tags: [commission, born-digital, collage, grindcore, metal, sludge, flyer]
+  venues: [The Atlantic]
 - bands: []
   era: mid
   file: mid-thurs.jpg
-  tags: []
-  venues: []
+  tags: [born-digital, collage, drawing, filmic, poster]
+  venues: [Cinematique Theater]
 - bands: []
   era: mid
   file: mid-untitled-5.jpg
