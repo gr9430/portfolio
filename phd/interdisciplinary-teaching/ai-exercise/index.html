@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What the Data Can't Rebuild</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --magenta: rgb(122, 6, 97);
+      --teal: rgb(6, 97, 122);
+      --bg: #f8f8ff;
+      --text: #111;
+      --border: #ccc;
+      --font: 'Liberation Mono', 'Courier New', monospace;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 1.5rem 1rem;
+    }
+
+    .container { max-width: 800px; margin: 0 auto; }
+
+    h1 {
+      color: var(--magenta);
+      font-size: 1.3rem;
+      margin: 0 0 0.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--magenta);
+    }
+
+    .subtitle {
+      font-size: 0.875rem;
+      color: #444;
+      margin: 0.4rem 0 0;
+    }
+
+    section {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 0;
+    }
+
+    h2 {
+      color: var(--magenta);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 0 0 1rem;
+    }
+
+    /* Upload zone */
+    .upload-zone {
+      border: 2px dashed var(--border);
+      padding: 2rem 1rem;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .upload-zone:hover, .upload-zone.drag-over {
+      border-color: var(--magenta);
+    }
+
+    .upload-zone:focus {
+      outline: 2px solid var(--magenta);
+      outline-offset: 2px;
+    }
+
+    .upload-zone p { margin: 0.25rem 0; font-size: 0.9rem; }
+
+    .upload-controls {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    button {
+      font-family: var(--font);
+      font-size: 0.85rem;
+      padding: 0.45rem 0.9rem;
+      border: 1px solid var(--magenta);
+      background: transparent;
+      color: var(--magenta);
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    button:hover { background: var(--magenta); color: white; }
+
+    button:focus {
+      outline: 2px solid var(--magenta);
+      outline-offset: 2px;
+    }
+
+    .btn-teal { border-color: var(--teal); color: var(--teal); }
+    .btn-teal:hover { background: var(--teal); color: white; }
+    .btn-teal:focus { outline-color: var(--teal); }
+
+    .hidden { display: none; }
+
+    #canvas-original { max-width: 100%; display: block; margin: 0 auto; }
+
+    /* Data table */
+    .data-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    .data-table td {
+      padding: 0.4rem 0.5rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .data-table td:first-child {
+      color: var(--magenta);
+      width: 38%;
+      white-space: nowrap;
+    }
+
+    .color-row { display: flex; align-items: center; gap: 0.5rem; margin: 0.2rem 0; }
+    .swatch {
+      display: inline-block;
+      width: 1rem;
+      height: 1rem;
+      border: 1px solid #999;
+      flex-shrink: 0;
+    }
+
+    /* Reduction canvases */
+    .canvas-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) { .canvas-grid { grid-template-columns: 1fr; } }
+
+    .canvas-item { display: flex; flex-direction: column; }
+    .canvas-item canvas { width: 100%; height: auto; display: block; border: 1px solid var(--border); }
+    .canvas-caption { font-size: 0.8rem; color: var(--teal); margin-top: 0.4rem; font-style: italic; }
+
+    /* Handoff */
+    #description-output {
+      font-family: var(--font);
+      font-size: 0.875rem;
+      width: 100%;
+      border: 1px solid var(--border);
+      padding: 0.75rem;
+      background: #fff;
+      color: var(--text);
+      resize: vertical;
+      min-height: 5rem;
+    }
+    #description-output:focus { outline: 2px solid var(--magenta); }
+
+    .handoff-instruction { font-size: 0.85rem; color: #444; margin-top: 0.75rem; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <header style="padding: 1rem 0 0;">
+    <h1>What the Data Can't Rebuild</h1>
+    <p class="subtitle">Upload an image of a non-human subject. Watch what survives reduction to data — and what doesn't.</p>
+  </header>
+
+  <section id="section-upload">
+    <div class="upload-zone" id="upload-zone" role="button" tabindex="0"
+         aria-label="Upload image — drag and drop or click to browse">
+      <p>Drag and drop an image here, or click to browse.</p>
+      <p style="color:#666; font-size:0.8rem;">Subjects: plant, fungus, water, stone, bark, light.</p>
+      <input type="file" id="file-input" accept="image/*"
+             style="display:none" aria-label="Choose image file">
+    </div>
+    <div class="upload-controls">
+      <button id="btn-sample">Load sample image</button>
+    </div>
+  </section>
+
+  <section id="section-original" class="hidden">
+    <h2>Original</h2>
+    <canvas id="canvas-original" role="img" aria-label="Uploaded image"></canvas>
+  </section>
+
+  <section id="section-data" class="hidden">
+    <h2>Data Points</h2>
+    <table class="data-table" aria-label="Computed image metrics">
+      <tbody>
+        <tr><td>Brightness</td><td id="val-brightness">—</td></tr>
+        <tr><td>Blur score</td><td id="val-blur">—</td></tr>
+        <tr><td>Dominant colors</td><td id="val-colors">—</td></tr>
+        <tr><td>Edge density</td><td id="val-edge">—</td></tr>
+        <tr><td>Contour count</td><td id="val-contours">—</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="section-reductions" class="hidden">
+    <h2>The Reduction, Rendered</h2>
+    <div class="canvas-grid">
+      <div class="canvas-item">
+        <canvas id="canvas-edges" role="img"
+          aria-label="Sobel edge map of uploaded image — detected boundaries shown as white lines on black"></canvas>
+        <p class="canvas-caption">the image as its boundaries.</p>
+      </div>
+      <div class="canvas-item">
+        <canvas id="canvas-posterized" role="img"
+          aria-label="Original image remapped to its 5 dominant colors"></canvas>
+        <p class="canvas-caption">the image as its 5 measured colors.</p>
+      </div>
+      <div class="canvas-item">
+        <canvas id="canvas-bars" role="img"
+          aria-label="Color bars showing the 5 measured dominant colors by percentage — no spatial information"></canvas>
+        <p class="canvas-caption">the image rebuilt from the numbers alone — every measured color, none of the picture.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="section-handoff" class="hidden">
+    <h2>Hand Off</h2>
+    <textarea id="description-output" readonly
+              aria-label="Data-only description of the image for pasting into an image generator"></textarea>
+    <div style="margin-top: 0.75rem;">
+      <button id="btn-copy" class="btn-teal">Copy</button>
+    </div>
+    <p class="handoff-instruction">Paste this into Duck.ai's image generator and try to get your photo back. Bring the result to discussion.</p>
+  </section>
+
+</div>
+<script>
+// JS added in Task 2
+</script>
+</body>
+</html>
