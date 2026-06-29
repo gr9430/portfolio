@@ -1,3 +1,17 @@
 _site/
 .bundle/
 vendor/bundle/
+
+# AWG INC source originals — normalized outputs live in assets/images/awg-inc/
+creative/graphic/awg-inc/early/
+creative/graphic/awg-inc/mid/
+creative/graphic/awg-inc/late/
+creative/graphic/awg-inc/beat-beach/
+creative/graphic/awg-inc/colonial-wound/
+creative/graphic/awg-inc/misc/
+creative/graphic/awg-inc/*.psd
+creative/graphic/awg-inc/*.pdf
+creative/graphic/awg-inc/*.jfif
+creative/graphic/awg-inc/*.PNG
+creative/graphic/awg-inc/ig.png
+creative/graphic/awg-inc/full.pdf
