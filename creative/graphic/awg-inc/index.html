@@ -1,0 +1,250 @@
+---
+layout: default
+title: AWG INC
+project: true
+tags: [Graphic Art, DIY, Music, Visual Culture, Creative Works]
+---
+
+<p>AWG INC was a nom de plume, not a studio: a name I put on work I didn't want attached to my own. For about five years it was the byline on t-shirts, flyers, and tour posters across the DIY punk and metal scenes of Orlando and Daytona Beach, FL: for bands I played in, bands I booked, and dozens of acts I had no stake in beyond the ocassional handshake that happened to leave some crumpled bills in my palm.</p>
+
+<p>The anonymity wasn't incidental: AWG INC's work was meant to be sarcastic and subversive of the design language that already dominated those scenes. This, however, was a poorly kept secret. The AWG work drew instead on Eurotrash cinema and Situationist spirits: the surreality, the luridness, and even the humor of the films that landed just short of the arthouse prestige cut. A flyer for a basement show could borrow its texture from a half-remembered Clifford Brown poster and nobody booking the room would necessarily know or care. That gap was the point as it satisfied my own fixations.</p>
+
+<style>
+#awg-gallery {
+  margin-left: calc(-50vw + 50%);
+  width: 100vw;
+  background: #0a0a0a;
+  color: #e8e8e8;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
+  margin-top: 2rem;
+}
+
+.awg-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.awg-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  margin-bottom: 2rem;
+  align-items: flex-start;
+}
+
+.awg-filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.awg-filter-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #555;
+  margin-right: 0.25rem;
+  white-space: nowrap;
+}
+
+.awg-filter-btn {
+  background: #111;
+  color: #e8e8e8;
+  border: 1px solid #444;
+  padding: 0.25rem 0.65rem;
+  font-family: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+.awg-filter-btn:hover {
+  border-color: #888;
+}
+
+.awg-filter-btn.active {
+  background: #e8e8e8;
+  color: #0a0a0a;
+  border-color: #e8e8e8;
+}
+
+.awg-clear-btn {
+  background: none;
+  color: #555;
+  border: 1px solid #333;
+  padding: 0.25rem 0.65rem;
+  font-family: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+  margin-left: auto;
+  align-self: center;
+}
+
+.awg-clear-btn:hover {
+  color: #e8e8e8;
+  border-color: #666;
+}
+
+.awg-grid {
+  column-count: 3;
+  column-gap: 0.75rem;
+}
+
+@media (max-width: 900px) {
+  .awg-grid { column-count: 2; }
+}
+
+@media (max-width: 500px) {
+  .awg-grid { column-count: 1; }
+  #awg-gallery { padding: 1.5rem 1rem; }
+}
+
+.awg-item {
+  break-inside: avoid;
+  margin-bottom: 0.75rem;
+}
+
+.awg-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.1s;
+}
+
+.awg-item img:hover {
+  opacity: 0.8;
+}
+
+#awg-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+#awg-lightbox-img {
+  max-width: 90vw;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  display: block;
+  margin: 0;
+  cursor: default;
+}
+</style>
+
+<div id="awg-gallery">
+  <div class="awg-inner">
+
+    <div class="awg-filters">
+      <div class="awg-filter-group">
+        <span class="awg-filter-label">Period</span>
+        <button class="awg-filter-btn" data-cat="era" data-val="early">early</button>
+        <button class="awg-filter-btn" data-cat="era" data-val="mid">mid</button>
+        <button class="awg-filter-btn" data-cat="era" data-val="late">late</button>
+      </div>
+
+      {% if site.data.awg_vocab.bands and site.data.awg_vocab.bands.size > 0 %}
+      <div class="awg-filter-group">
+        <span class="awg-filter-label">Band</span>
+        {% for band in site.data.awg_vocab.bands %}
+        <button class="awg-filter-btn" data-cat="bands" data-val="{{ band }}">{{ band }}</button>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if site.data.awg_vocab.venues and site.data.awg_vocab.venues.size > 0 %}
+      <div class="awg-filter-group">
+        <span class="awg-filter-label">Venue</span>
+        {% for venue in site.data.awg_vocab.venues %}
+        <button class="awg-filter-btn" data-cat="venues" data-val="{{ venue }}">{{ venue }}</button>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <button class="awg-clear-btn" id="awg-clear">Clear filters</button>
+    </div>
+
+    <div class="awg-grid">
+      {% for img in site.data.awg_images %}
+      <div class="awg-item"
+           data-era="{{ img.era }}"
+           data-bands='{{ img.bands | jsonify }}'
+           data-venues='{{ img.venues | jsonify }}'>
+        <img src="{{ site.baseurl }}/assets/images/awg-inc/{{ img.file }}"
+             alt="{{ img.file | remove: '.jpg' | replace: '-', ' ' }}"
+             loading="lazy">
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+<div id="awg-lightbox">
+  <img id="awg-lightbox-img" src="" alt="">
+</div>
+
+<script>
+(function () {
+  const filterState = { era: new Set(), bands: new Set(), venues: new Set() };
+
+  function applyFilters() {
+    document.querySelectorAll('.awg-item').forEach(item => {
+      const eraOk = filterState.era.size === 0 || filterState.era.has(item.dataset.era);
+      const itemBands = JSON.parse(item.dataset.bands) || [];
+      const itemVenues = JSON.parse(item.dataset.venues) || [];
+      const bandsOk = filterState.bands.size === 0 || itemBands.some(b => filterState.bands.has(b));
+      const venuesOk = filterState.venues.size === 0 || itemVenues.some(v => filterState.venues.has(v));
+      item.style.display = (eraOk && bandsOk && venuesOk) ? '' : 'none';
+    });
+  }
+
+  document.querySelectorAll('.awg-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const { cat, val } = btn.dataset;
+      if (filterState[cat].has(val)) {
+        filterState[cat].delete(val);
+        btn.classList.remove('active');
+      } else {
+        filterState[cat].add(val);
+        btn.classList.add('active');
+      }
+      applyFilters();
+    });
+  });
+
+  document.getElementById('awg-clear').addEventListener('click', () => {
+    Object.values(filterState).forEach(s => s.clear());
+    document.querySelectorAll('.awg-filter-btn').forEach(b => b.classList.remove('active'));
+    applyFilters();
+  });
+
+  const lightbox = document.getElementById('awg-lightbox');
+  const lightboxImg = document.getElementById('awg-lightbox-img');
+
+  document.querySelectorAll('.awg-item img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightbox.style.display = 'flex';
+    });
+  });
+
+  lightbox.addEventListener('click', e => {
+    if (e.target !== lightboxImg) lightbox.style.display = 'none';
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') lightbox.style.display = 'none';
+  });
+}());
+</script>
