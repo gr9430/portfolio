@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "title": "Walking the Hero's Path at Slieve Gullion",
+    "author": "",
+    "mode": "fork"
+  },
+  "grammar": {
+    "origin": [
+      "the #noun_anchor# #verb_fails# into the #noun_room#",
+      "#adjective_state# #noun_anchor# against the #noun_room#",
+      "the #noun_room# holds the #noun_anchor#, #adjective_state#",
+      "#verb_fails# into #adjective_state# #noun_room#",
+      "the #adjective_state# #noun_room# receives the #noun_anchor#",
+      "#noun_anchor#: #adjective_state#, #verb_fails#"
+    ],
+    "noun_anchor": ["cairn", "summit", "lake", "heather", "basalt", "ridge", "bog", "stone", "passage tomb", "drumlins"],
+    "noun_room": ["passage", "chamber", "hillfort", "valley", "crater", "heath", "fen", "hollow", "cirque"],
+    "adjective_state": ["ancient", "submerged", "sacred", "eroded", "misted", "calcified", "silted", "windswept", "occluded"],
+    "verb_fails": ["yields", "dissolves", "recedes", "surrenders", "subsides", "erodes", "persists", "holds"]
+  },
+  "images": [
+    { "id": "img_001", "src": "images/slieve-gullion-01.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
+    { "id": "img_002", "src": "images/slieve-gullion-02.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
+    { "id": "img_003", "src": "images/slieve-gullion-03.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
+    { "id": "img_004", "src": "images/slieve-gullion-04.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
+    { "id": "img_005", "src": "images/slieve-gullion-05.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
+    { "id": "img_006", "src": "images/slieve-gullion-06.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
+    { "id": "img_007", "src": "images/slieve-gullion-07.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
+    { "id": "img_008", "src": "images/slieve-gullion-08.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
+    { "id": "img_009", "src": "images/slieve-gullion-09.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
+    { "id": "img_010", "src": "images/slieve-gullion-10.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
+    { "id": "img_011", "src": "images/slieve-gullion-11.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
+    { "id": "img_012", "src": "images/slieve-gullion-12.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } }
+  ],
+  "pages": [
+    { "id": "page_001", "elements": [] }
+  ]
+}
