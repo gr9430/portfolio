@@ -56,12 +56,12 @@ bands:
 locations:
   - California
   - Europe
-  - Gainesville
-  - Largo
-  - New York
-  - Orlando
-  - Saint Petersburg
-  - Tampa
+  - Gainesville, FL
+  - Largo, FL
+  - Brooklyn, NY
+  - Orlando, FL
+  - Saint Petersburg, FL
+  - Tampa, FL
 
 tags:
   - ad

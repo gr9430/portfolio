@@ -16,10 +16,10 @@
 #tab-reduce .activity-prompt h2 { font-family: 'Courier New', Courier, monospace; }
 #tab-reduce .activity-prompt p { font-family: 'Courier New', Courier, monospace; font-size: 0.82rem; }
 
-.reduce-layout { padding: 0 24px 24px; }
+#tab-reduce .reduce-layout { padding: 0 24px 24px; }
 
-.source-toggle { display: flex; gap: 0; margin-bottom: 20px; }
-.source-toggle button {
+#tab-reduce .source-toggle { display: flex; gap: 0; margin-bottom: 20px; }
+#tab-reduce .source-toggle button {
   font-family: 'Courier New', Courier, monospace;
   font-size: 0.75rem;
   letter-spacing: 0.04em;
@@ -29,13 +29,13 @@
   color: #888;
   cursor: pointer;
 }
-.source-toggle button:first-child { border-right: none; }
-.source-toggle button.active { background: #e4e4e4; border-color: #333; color: #1a1a1a; }
-.source-toggle button:focus-visible { outline: 2px solid #333; outline-offset: 2px; }
+#tab-reduce .source-toggle button:first-child { border-right: none; }
+#tab-reduce .source-toggle button.active { background: #e4e4e4; border-color: #333; color: #1a1a1a; }
+#tab-reduce .source-toggle button:focus-visible { outline: 2px solid #333; outline-offset: 2px; }
 
-.source-controls { margin-bottom: 20px; }
+#tab-reduce .source-controls { margin-bottom: 20px; }
 
-.source-controls label {
+#tab-reduce .source-controls label {
   font-family: 'Courier New', Courier, monospace;
   font-size: 0.8rem;
   display: block;
@@ -43,7 +43,7 @@
   color: #555;
 }
 
-.source-controls select {
+#tab-reduce .source-controls select {
   font-family: 'Courier New', Courier, monospace;
   font-size: 0.8rem;
   border: 1px solid #888;
@@ -51,9 +51,9 @@
   padding: 5px 8px;
   color: #1a1a1a;
 }
-.source-controls select:focus-visible { outline: 2px solid #333; }
+#tab-reduce .source-controls select:focus-visible { outline: 2px solid #333; }
 
-.upload-zone {
+#tab-reduce .upload-zone {
   border: 1px dashed #888;
   padding: 24px;
   text-align: center;
@@ -63,8 +63,8 @@
   background: #e8e8e8;
   position: relative;
 }
-.upload-zone:focus-within { outline: 2px solid #333; }
-.upload-zone input[type="file"] {
+#tab-reduce .upload-zone:focus-within { outline: 2px solid #333; }
+#tab-reduce .upload-zone input[type="file"] {
   position: absolute;
   inset: 0;
   opacity: 0;
@@ -73,7 +73,7 @@
   height: 100%;
 }
 
-.preview-img {
+#tab-reduce .preview-img {
   max-width: 300px;
   max-height: 200px;
   border: 1px solid #999;
@@ -81,15 +81,15 @@
   margin-bottom: 20px;
 }
 
-.reduction-canvases {
+#tab-reduce .reduction-canvases {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
   margin-bottom: 20px;
 }
 
-.canvas-block { flex: 1; min-width: 180px; }
-.canvas-block h4 {
+#tab-reduce .canvas-block { flex: 1; min-width: 180px; }
+#tab-reduce .canvas-block h4 {
   font-family: 'Courier New', Courier, monospace;
   font-size: 0.72rem;
   letter-spacing: 0.08em;
@@ -97,44 +97,44 @@
   color: #555;
   margin-bottom: 6px;
 }
-.canvas-block canvas {
+#tab-reduce .canvas-block canvas {
   display: block;
   border: 1px solid #aaa;
   width: 100%;
   height: auto;
 }
 
-.measures-table {
+#tab-reduce .measures-table {
   border-collapse: collapse;
   font-family: 'Courier New', Courier, monospace;
   font-size: 0.8rem;
   margin-bottom: 20px;
 }
-.measures-table td { padding: 4px 12px 4px 0; border-bottom: 1px solid #ddd; }
-.measures-table td:first-child { color: #555; width: 180px; }
-.measures-table .proxy-note { font-size: 0.7rem; color: #888; }
+#tab-reduce .measures-table td { padding: 4px 12px 4px 0; border-bottom: 1px solid #ddd; }
+#tab-reduce .measures-table td:first-child { color: #555; width: 180px; }
+#tab-reduce .measures-table .proxy-note { font-size: 0.7rem; color: #888; }
 
-.dominant-swatches {
+#tab-reduce .dominant-swatches {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
   margin-bottom: 20px;
 }
-.swatch-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-.swatch-item .swatch {
+#tab-reduce .swatch-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+#tab-reduce .swatch-item .swatch {
   width: 40px;
   height: 40px;
   border: 1px solid #888;
   display: block;
 }
-.swatch-item .swatch-text {
+#tab-reduce .swatch-item .swatch-text {
   font-family: 'Courier New', Courier, monospace;
   font-size: 0.65rem;
   color: #444;
   text-align: center;
 }
 
-.save-row { margin-top: 8px; }
+#tab-reduce .save-row { margin-top: 8px; }
 
 #tab-reduce .btn {
   font-family: 'Courier New', Courier, monospace;
