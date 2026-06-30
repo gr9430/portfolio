@@ -231,7 +231,7 @@
       altInput.id = 'alt-' + img.id;
       altInput.value = img.alt || '';
       altInput.setAttribute('aria-label', 'Alt text for ' + img.src.split('/').pop());
-      altInput.addEventListener('input', function(e) {
+      altInput.addEventListener('change', function(e) {
         var images = ZineStore.state.images.slice();
         images[idx] = Object.assign({}, img, { alt: e.target.value });
         ZineStore.update({ images: images });
@@ -247,7 +247,7 @@
       capInput.id = 'cap-' + img.id;
       capInput.value = img.caption || '';
       capInput.setAttribute('aria-label', 'Caption for ' + img.src.split('/').pop());
-      capInput.addEventListener('input', function(e) {
+      capInput.addEventListener('change', function(e) {
         var images = ZineStore.state.images.slice();
         images[idx] = Object.assign({}, img, { caption: e.target.value });
         ZineStore.update({ images: images });
