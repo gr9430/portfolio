@@ -1,10 +1,11 @@
 /* ── Reset ─────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
 
 /* ── Global ─────────────────────────────────────────────── */
 body {
   background: #f5f5f5;
-  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-family: ui-monospace, Menlo, 'Courier New', monospace;
   color: #0a0a0a;
   min-height: 100vh;
   display: flex;
@@ -38,7 +39,7 @@ body {
 }
 
 .meta-title {
-  font-family: 'Special Elite', serif;
+  font-family: ui-monospace, Menlo, 'Courier New', monospace;
   font-size: 0.95rem;
   border: none;
   border-bottom: 1px solid #888;
@@ -50,7 +51,7 @@ body {
 }
 
 .meta-author {
-  font-family: 'Special Elite', serif;
+  font-family: ui-monospace, Menlo, 'Courier New', monospace;
   font-size: 0.85rem;
   border: none;
   border-bottom: 1px solid #888;
@@ -68,7 +69,7 @@ body {
 
 /* ── Buttons ─────────────────────────────────────────────── */
 .btn {
-  font-family: 'Special Elite', serif;
+  font-family: ui-monospace, Menlo, 'Courier New', monospace;
   font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -93,7 +94,7 @@ label.btn:focus-within { outline: 2px solid #0a0a0a; outline-offset: 2px; }
 }
 
 .tab {
-  font-family: 'Special Elite', serif;
+  font-family: ui-monospace, Menlo, 'Courier New', monospace;
   font-size: 0.8rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -219,7 +220,7 @@ main { flex: 1; }
 }
 
 .fragment-card {
-  font-family: 'Special Elite', serif;
+  font-family: ui-monospace, Menlo, 'Courier New', monospace;
   font-size: 0.8rem;
   line-height: 1.5;
   text-align: left;
@@ -261,7 +262,7 @@ main { flex: 1; }
 /* Placed elements */
 .placed {
   position: absolute;
-  font-family: 'Special Elite', serif;
+  font-family: ui-monospace, Menlo, 'Courier New', monospace;
   font-size: 0.85rem;
   line-height: 1.5;
   color: #111;
@@ -333,7 +334,7 @@ main { flex: 1; }
 .editor-meta { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
 .editor-meta label { font-size: 0.8rem; color: #555; display: block; margin-bottom: 4px; }
 .editor-meta input[type="text"] {
-  font-family: 'Special Elite', serif;
+  font-family: ui-monospace, Menlo, 'Courier New', monospace;
   font-size: 0.85rem;
   border: 1px solid #aaa;
   background: #f5f0e8;
@@ -345,7 +346,7 @@ main { flex: 1; }
 
 .fork-toggle { display: flex; gap: 0; margin-bottom: 24px; }
 .fork-toggle button {
-  font-family: 'Special Elite', serif;
+  font-family: ui-monospace, Menlo, 'Courier New', monospace;
   font-size: 0.75rem;
   letter-spacing: 0.06em;
   padding: 8px 16px;
@@ -387,7 +388,7 @@ main { flex: 1; }
 }
 .word-list li span { flex: 1; }
 .word-list .del-btn {
-  font-family: 'Special Elite', serif;
+  font-family: ui-monospace, Menlo, 'Courier New', monospace;
   font-size: 0.65rem;
   border: 1px solid #aaa;
   background: none;
@@ -401,7 +402,7 @@ main { flex: 1; }
 
 .add-word-row { display: flex; gap: 8px; align-items: center; }
 .add-word-row input[type="text"] {
-  font-family: 'Special Elite', serif;
+  font-family: ui-monospace, Menlo, 'Courier New', monospace;
   font-size: 0.8rem;
   border: 1px solid #aaa;
   background: #f5f0e8;
@@ -439,7 +440,7 @@ main { flex: 1; }
 }
 .hex-label { font-size: 0.75rem; color: #555; width: 90px; flex-shrink: 0; }
 .hex-row input[type="text"] {
-  font-family: 'Special Elite', serif;
+  font-family: ui-monospace, Menlo, 'Courier New', monospace;
   font-size: 0.8rem;
   border: 1px solid #aaa;
   background: #fff;
@@ -449,7 +450,7 @@ main { flex: 1; }
 }
 .hex-row input:focus-visible { outline: 2px solid #0a0a0a; }
 .hex-row select {
-  font-family: 'Special Elite', serif;
+  font-family: ui-monospace, Menlo, 'Courier New', monospace;
   font-size: 0.75rem;
   border: 1px solid #aaa;
   background: #f5f0e8;
@@ -473,7 +474,7 @@ main { flex: 1; }
 .image-meta-item .filename { font-size: 0.75rem; color: #888; margin-bottom: 6px; }
 .image-meta-item label { font-size: 0.75rem; display: block; margin-bottom: 3px; color: #555; }
 .image-meta-item input[type="text"] {
-  font-family: 'Special Elite', serif;
+  font-family: ui-monospace, Menlo, 'Courier New', monospace;
   font-size: 0.8rem;
   border: 1px solid #aaa;
   background: #f5f0e8;
