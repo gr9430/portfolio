@@ -125,7 +125,6 @@
     }
     page.elements.push(el);
     ZineStore.update({ pages: pages.slice() });
-    renderPage();
   }
 
   // ── Render page ──────────────────────────────────────────
@@ -206,7 +205,6 @@
       if (document.activeElement === selectedPlaced.el || document.activeElement.closest('.zine-surface')) {
         selectedPlaced.elements.splice(selectedPlaced.idx, 1);
         ZineStore.update({ pages: ZineStore.state.pages.slice() });
-        renderPage();
         selectedPlaced = null;
         e.preventDefault();
       }
@@ -222,7 +220,6 @@
       e.preventDefault();
       selectedPlaced.el.style.left = el.x + 'px';
       selectedPlaced.el.style.top  = el.y + 'px';
-      ZineStore.update({ pages: ZineStore.state.pages.slice() });
     }
   }
 
@@ -234,12 +231,11 @@
     if (currentPageIndex < ZineStore.state.pages.length - 1) { currentPageIndex++; renderPage(); updatePageCounter(); }
   }
   function addNewPage() {
-    var pages = ZineStore.state.pages;
+    var pages = ZineStore.state.pages.slice();
     var id = 'page_' + String(pages.length + 1).padStart(3, '0');
     pages.push({ id: id, elements: [] });
     currentPageIndex = pages.length - 1;
     ZineStore.update({ pages: pages.slice() });
-    renderPage();
     updatePageCounter();
   }
   function updatePageCounter() {
