@@ -214,7 +214,7 @@
   function renderImageMeta() {
     var list = document.getElementById('image-meta-list');
     list.innerHTML = '';
-    ZineStore.state.images.forEach(function(img) {
+    ZineStore.state.images.forEach(function(img, idx) {
       var item = document.createElement('div');
       item.className = 'image-meta-item';
 
@@ -232,8 +232,9 @@
       altInput.value = img.alt || '';
       altInput.setAttribute('aria-label', 'Alt text for ' + img.src.split('/').pop());
       altInput.addEventListener('input', function(e) {
-        img.alt = e.target.value;
-        ZineStore.update({ images: ZineStore.state.images.slice() });
+        var images = ZineStore.state.images.slice();
+        images[idx] = Object.assign({}, img, { alt: e.target.value });
+        ZineStore.update({ images: images });
       });
       item.appendChild(altLabel);
       item.appendChild(altInput);
@@ -247,8 +248,9 @@
       capInput.value = img.caption || '';
       capInput.setAttribute('aria-label', 'Caption for ' + img.src.split('/').pop());
       capInput.addEventListener('input', function(e) {
-        img.caption = e.target.value;
-        ZineStore.update({ images: ZineStore.state.images.slice() });
+        var images = ZineStore.state.images.slice();
+        images[idx] = Object.assign({}, img, { caption: e.target.value });
+        ZineStore.update({ images: images });
       });
       item.appendChild(capLabel);
       item.appendChild(capInput);
