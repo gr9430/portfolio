@@ -37,44 +37,44 @@
 
   <!-- ── Activity 1: Generate ──────────────────────────── -->
   <section id="tab-canvas" role="tabpanel" aria-labelledby="btn-canvas">
-    <div class="activity-prompt">
-      <h2>Activity 1 — Generate</h2>
+    <details class="activity-prompt">
+      <summary>Activity 1 — Generate</summary>
       <p>This tool uses a Tracery grammar — a list of templates and word categories — to generate text fragments. The grammar here is a remix of Nick Montfort's <em>Taroko Gorge</em> (2009), the ur-text of procedural landscape poetry, rewritten with vocabulary drawn from Slieve Gullion, an ancient mountain in County Armagh.</p>
       <p>Throw fragments using the control below. Then <strong>curate, don't just consume</strong>: click a fragment to select it, then click anywhere on the page to place it. Add images from the palette and your own free text. The machine supplies raw material; you arrange it into a page.</p>
-    </div>
+    </details>
 
-    <div class="canvas-controls">
-      <label for="throw-count">Fragments to throw:</label>
+    <div class="canvas-toolbar">
+      <label for="throw-count">Fragments:</label>
       <input id="throw-count" type="number" min="1" max="20" value="6" aria-label="Number of fragments to generate">
-      <button id="throw-btn" class="btn btn--primary">Throw fragments</button>
+      <button id="throw-btn" class="btn btn--primary">Throw</button>
     </div>
 
     <div class="canvas-layout">
-      <div>
-        <p class="tray-header" aria-hidden="true">Fragment tray</p>
+      <div class="canvas-panel canvas-panel--left">
+        <div class="panel-head">Fragment tray</div>
         <div id="fragment-tray" aria-label="Generated fragment tray" aria-live="polite"></div>
       </div>
-      <div>
-        <p class="surface-header" aria-hidden="true">Zine page</p>
-        <div id="zine-surface" role="region" aria-label="Zine page canvas — click to place selected element"></div>
+
+      <div class="canvas-area">
+        <div id="zine-surface" role="region" aria-label="Zine page — click to place selected element"></div>
       </div>
-      <div>
-        <p class="palette-header" aria-hidden="true">Project images</p>
+
+      <div class="canvas-panel canvas-panel--right">
+        <div class="panel-head">Project images</div>
         <div id="image-palette" aria-label="Project image palette"></div>
+        <div class="panel-divider"></div>
+        <div class="free-text-section">
+          <div class="panel-head">Free text</div>
+          <input id="free-text-input" type="text" placeholder="type, then place on page" aria-label="Free text to place on page">
+          <button id="free-text-btn" class="btn btn--sm">Place text</button>
+        </div>
+        <div class="page-nav">
+          <button id="prev-page" class="btn btn--sm" aria-label="Previous page">&#8592;</button>
+          <span id="page-counter" aria-live="polite">Page 1 of 1</span>
+          <button id="next-page" class="btn btn--sm" aria-label="Next page">&#8594;</button>
+          <button id="new-page" class="btn btn--sm">+ Page</button>
+        </div>
       </div>
-    </div>
-
-    <div class="free-text-row">
-      <label for="free-text-input">Add your own text:</label>
-      <input id="free-text-input" type="text" placeholder="type something, then place it on the page">
-      <button id="free-text-btn" class="btn">Add text element</button>
-    </div>
-
-    <div class="page-nav">
-      <button id="prev-page" class="btn btn--sm" aria-label="Previous page">&#8592;</button>
-      <span id="page-counter" aria-live="polite">Page 1 of 1</span>
-      <button id="next-page" class="btn btn--sm" aria-label="Next page">&#8594;</button>
-      <button id="new-page" class="btn btn--sm">New page</button>
     </div>
   </section>
 
