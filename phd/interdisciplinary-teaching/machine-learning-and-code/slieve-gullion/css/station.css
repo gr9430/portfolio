@@ -64,6 +64,7 @@
   position: relative;
 }
 #tab-reduce .upload-zone:focus-within { outline: 2px solid #333; }
+#tab-reduce .upload-zone input[type="file"]:focus-visible { outline: none; }
 #tab-reduce .upload-zone input[type="file"] {
   position: absolute;
   inset: 0;

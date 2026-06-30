@@ -28,9 +28,9 @@
 </header>
 
 <nav class="tab-bar" role="tablist" aria-label="Pipeline activities">
-  <button class="tab" role="tab" aria-selected="true"  aria-controls="tab-canvas" id="btn-canvas">Activity 1 — Generate</button>
-  <button class="tab" role="tab" aria-selected="false" aria-controls="tab-reduce" id="btn-reduce">Activity 2 — Reduce</button>
-  <button class="tab" role="tab" aria-selected="false" aria-controls="tab-editor" id="btn-editor">Activity 3 — Edit Vocabulary</button>
+  <button class="tab" role="tab" aria-selected="true"  aria-controls="tab-canvas" id="btn-canvas" tabindex="0">Activity 1 — Generate</button>
+  <button class="tab" role="tab" aria-selected="false" aria-controls="tab-reduce" id="btn-reduce" tabindex="-1">Activity 2 — Reduce</button>
+  <button class="tab" role="tab" aria-selected="false" aria-controls="tab-editor" id="btn-editor" tabindex="-1">Activity 3 — Edit Vocabulary</button>
 </nav>
 
 <main>
@@ -197,6 +197,7 @@
     tabs.forEach(function (t) {
       var active = (t === target);
       t.setAttribute('aria-selected', active ? 'true' : 'false');
+      t.setAttribute('tabindex', active ? '0' : '-1');
     });
     panels.forEach(function (p) {
       var show = (p.id === target.getAttribute('aria-controls'));
