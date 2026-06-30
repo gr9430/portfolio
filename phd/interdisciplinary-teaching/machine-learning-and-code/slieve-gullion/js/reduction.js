@@ -99,7 +99,7 @@
       contourCount: contours
     };
 
-    renderResults(W, H, gray, edges, thresh, dominant, currentReduction);
+    renderResults(W, H, gray, edges, thresh, dominant, currentReduction, img);
     ZineStore.saveDominantHexes(dominant);
   }
 
@@ -234,9 +234,9 @@
   }
 
   // ── Render results ───────────────────────────────────────
-  function renderResults(W, H, gray, edges, thresh, dominant, measures) {
+  function renderResults(W, H, gray, edges, thresh, dominant, measures, img) {
     renderEdgeMap(W, H, edges);
-    renderPosterization(W, H, gray, dominant);
+    renderPosterization(W, H, gray, dominant, img);
     renderDataRebuild(dominant);
 
     document.getElementById('m-brightness').textContent = measures.brightness;
@@ -266,13 +266,12 @@
     ctx.putImageData(imgData, 0, 0);
   }
 
-  function renderPosterization(W, H, gray, dominant) {
-    // Reconstruct original pixel data from gray (we need rgb — re-draw from preview)
-    var preview = document.getElementById('reduce-preview');
+  function renderPosterization(W, H, gray, dominant, img) {
+    // Reconstruct original pixel data from gray (we need rgb — draw from loaded img)
     var off = document.createElement('canvas');
     off.width = W; off.height = H;
     var offCtx = off.getContext('2d');
-    offCtx.drawImage(preview, 0, 0, W, H);
+    offCtx.drawImage(img, 0, 0, W, H);
     var src = offCtx.getImageData(0, 0, W, H);
 
     var canvas = document.getElementById('canvas-poster');
@@ -338,8 +337,10 @@
     var images = ZineStore.state.images;
     if (currentImageId) {
       var target = images.find(function(i){ return i.id === currentImageId; });
-      if (target) target.reduction = currentReduction;
-      ZineStore.update({ images: images.slice() });
+      if (target) {
+        target.reduction = currentReduction;
+        ZineStore.update({ images: images.slice() });
+      }
     }
     // dominantHexes already set in analyseImage via saveDominantHexes
     alert('Reduction data saved. Switch to Activity 3 to name the dominant colors.');
