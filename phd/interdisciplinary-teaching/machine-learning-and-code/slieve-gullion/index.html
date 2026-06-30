@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Procedural Zine Pipeline</title>
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/zine.css">
+  <link rel="stylesheet" href="css/station.css">
+</head>
+<body>
+
+<header class="top-bar">
+  <div class="top-bar__meta">
+    <label for="meta-title" class="sr-only">Work title</label>
+    <input id="meta-title" class="meta-title" type="text" placeholder="work title" aria-label="Work title">
+    <span class="top-bar__sep" aria-hidden="true">—</span>
+    <label for="meta-author" class="sr-only">Author name</label>
+    <input id="meta-author" class="meta-author" type="text" placeholder="your name" aria-label="Author name">
+  </div>
+  <div class="top-bar__actions">
+    <label class="btn btn--sm" aria-label="Import grammar.json file">
+      Import
+      <input id="import-file" type="file" accept="application/json" class="sr-only">
+    </label>
+    <button id="export-btn" class="btn btn--sm">Export</button>
+  </div>
+</header>
+
+<nav class="tab-bar" role="tablist" aria-label="Pipeline activities">
+  <button class="tab" role="tab" aria-selected="true"  aria-controls="tab-canvas" id="btn-canvas">Activity 1 — Generate</button>
+  <button class="tab" role="tab" aria-selected="false" aria-controls="tab-reduce" id="btn-reduce">Activity 2 — Reduce</button>
+  <button class="tab" role="tab" aria-selected="false" aria-controls="tab-editor" id="btn-editor">Activity 3 — Edit Vocabulary</button>
+</nav>
+
+<main>
+
+  <!-- ── Activity 1: Generate ──────────────────────────── -->
+  <section id="tab-canvas" role="tabpanel" aria-labelledby="btn-canvas">
+    <div class="activity-prompt">
+      <h2>Activity 1 — Generate</h2>
+      <p>This tool uses a Tracery grammar — a list of templates and word categories — to generate text fragments. The grammar here is a remix of Nick Montfort's <em>Taroko Gorge</em> (2009), the ur-text of procedural landscape poetry, rewritten with vocabulary drawn from Slieve Gullion, an ancient mountain in County Armagh.</p>
+      <p>Throw fragments using the control below. Then <strong>curate, don't just consume</strong>: click a fragment to select it, then click anywhere on the page to place it. Add images from the palette and your own free text. The machine supplies raw material; you arrange it into a page.</p>
+    </div>
+
+    <div class="canvas-controls">
+      <label for="throw-count">Fragments to throw:</label>
+      <input id="throw-count" type="number" min="1" max="20" value="6" aria-label="Number of fragments to generate">
+      <button id="throw-btn" class="btn btn--primary">Throw fragments</button>
+    </div>
+
+    <div class="canvas-layout">
+      <div>
+        <p class="tray-header" aria-hidden="true">Fragment tray</p>
+        <div id="fragment-tray" aria-label="Generated fragment tray" aria-live="polite"></div>
+      </div>
+      <div>
+        <p class="surface-header" aria-hidden="true">Zine page</p>
+        <div id="zine-surface" role="region" aria-label="Zine page canvas — click to place selected element"></div>
+      </div>
+      <div>
+        <p class="palette-header" aria-hidden="true">Project images</p>
+        <div id="image-palette" aria-label="Project image palette"></div>
+      </div>
+    </div>
+
+    <div class="free-text-row">
+      <label for="free-text-input">Add your own text:</label>
+      <input id="free-text-input" type="text" placeholder="type something, then place it on the page">
+      <button id="free-text-btn" class="btn">Add text element</button>
+    </div>
+
+    <div class="page-nav">
+      <button id="prev-page" class="btn btn--sm" aria-label="Previous page">&#8592;</button>
+      <span id="page-counter" aria-live="polite">Page 1 of 1</span>
+      <button id="next-page" class="btn btn--sm" aria-label="Next page">&#8594;</button>
+      <button id="new-page" class="btn btn--sm">New page</button>
+    </div>
+  </section>
+
+  <!-- ── Activity 2: Reduce ─────────────────────────────── -->
+  <section id="tab-reduce" role="tabpanel" aria-labelledby="btn-reduce" hidden>
+    <div class="activity-prompt">
+      <h2>Activity 2 — Reduce</h2>
+      <p>Upload one of your own photographs. The tool will reduce it to five measurements and render it three ways. Each rendering strips something the original had — and that loss is the point.</p>
+      <p>Notice what the machine can and cannot recover. The five dominant colors are extracted and offered to you in Activity 3, where you can name them in your own language and add them to the grammar.</p>
+    </div>
+
+    <div class="reduce-layout">
+      <div class="source-toggle" role="group" aria-label="Image source">
+        <button id="src-upload" class="active" aria-pressed="true">Upload image</button>
+        <button id="src-project" aria-pressed="false">Project image</button>
+      </div>
+
+      <div class="source-controls">
+        <div id="upload-controls">
+          <div class="upload-zone" role="button" tabindex="0" aria-label="Upload an image file for reduction analysis">
+            <span>Click or drag an image file here</span>
+            <input id="upload-input" type="file" accept="image/*" aria-label="Upload image file">
+          </div>
+        </div>
+        <div id="project-controls" hidden>
+          <label for="project-image-select">Select a project image:</label>
+          <select id="project-image-select">
+            <option value="">— choose —</option>
+          </select>
+        </div>
+      </div>
+
+      <img id="reduce-preview" class="preview-img" alt="Image preview" hidden>
+
+      <div class="reduction-canvases" id="reduction-canvases" hidden>
+        <div class="canvas-block">
+          <h4>Edge map</h4>
+          <canvas id="canvas-edge" aria-label="Edge map: outlines and boundaries extracted from the image."></canvas>
+        </div>
+        <div class="canvas-block">
+          <h4>Posterization</h4>
+          <canvas id="canvas-poster" aria-label="Posterization: image redrawn using only the five dominant extracted colors."></canvas>
+        </div>
+        <div class="canvas-block">
+          <h4>Data rebuild</h4>
+          <canvas id="canvas-data" aria-label="Data rebuild: the five measured colors as proportional bars — every color, none of the picture."></canvas>
+        </div>
+      </div>
+
+      <table class="measures-table" id="measures-table" hidden>
+        <caption class="sr-only">Computed reduction measures</caption>
+        <tbody>
+          <tr><td>Brightness</td><td id="m-brightness">—</td></tr>
+          <tr><td>Blur (Laplacian variance)</td><td id="m-blur">—</td></tr>
+          <tr><td>Edge density</td><td id="m-edge">—</td></tr>
+          <tr>
+            <td>Contour count <span class="proxy-note">(proxy)</span></td>
+            <td id="m-contour">—</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="dominant-swatches" id="dominant-swatches" hidden aria-label="Dominant colors"></div>
+
+      <div class="save-row" id="save-row" hidden>
+        <button id="save-reduction-btn" class="btn btn--primary">Save to project</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Activity 3: Edit Vocabulary ───────────────────── -->
+  <section id="tab-editor" role="tabpanel" aria-labelledby="btn-editor" hidden>
+    <div class="activity-prompt">
+      <h2>Activity 3 — Edit Vocabulary</h2>
+      <p>Now author your own version of the grammar. Choose whether to fork the instructor's Slieve Gullion vocabulary or start from an empty skeleton. Either way, the categories and templates stay the same — the words are yours.</p>
+      <p>If Activity 2 produced dominant colors from your image, they appear below as candidates. Name each color in your own language, then add it to a category. That is the move: the machine extracted data; you give it meaning. Notice that an empty category makes the generator break visibly — <code>[symbol_name]</code> in the output. That broken syntax is the skeleton showing through.</p>
+    </div>
+
+    <div class="editor-layout">
+      <div class="editor-meta">
+        <div>
+          <label for="edit-title">Work title</label>
+          <input id="edit-title" type="text" placeholder="your work's title" aria-label="Work title">
+        </div>
+        <div>
+          <label for="edit-author">Your name</label>
+          <input id="edit-author" type="text" placeholder="your name" aria-label="Your name">
+        </div>
+      </div>
+
+      <div class="fork-toggle" role="group" aria-label="Starting vocabulary">
+        <button id="fork-btn" class="active" aria-pressed="true">Start from instructor's example</button>
+        <button id="empty-btn" aria-pressed="false">Start empty</button>
+      </div>
+
+      <div id="hex-candidates-panel"></div>
+
+      <div id="category-blocks"></div>
+
+      <details class="images-panel">
+        <summary>Project image captions &amp; alt text</summary>
+        <div id="image-meta-list"></div>
+      </details>
+    </div>
+  </section>
+
+</main>
+
+<script src="js/store.js"></script>
+<script src="js/tracery.js"></script>
+<script src="js/canvas.js"></script>
+<script src="js/reduction.js"></script>
+<script src="js/editor.js"></script>
+<script>
+  // ── Tab switching ───────────────────────────────────────
+  var tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+  var panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+
+  function switchTab(target) {
+    tabs.forEach(function (t) {
+      var active = (t === target);
+      t.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    panels.forEach(function (p) {
+      var show = (p.id === target.getAttribute('aria-controls'));
+      p.hidden = !show;
+    });
+  }
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () { switchTab(tab); });
+    tab.addEventListener('keydown', function (e) {
+      var idx = tabs.indexOf(tab);
+      if (e.key === 'ArrowRight') { e.preventDefault(); tabs[(idx + 1) % tabs.length].focus(); switchTab(tabs[(idx + 1) % tabs.length]); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); tabs[(idx - 1 + tabs.length) % tabs.length].focus(); switchTab(tabs[(idx - 1 + tabs.length) % tabs.length]); }
+    });
+  });
+
+  // ── Top-bar meta inputs ─────────────────────────────────
+  document.getElementById('meta-title').addEventListener('input', function (e) {
+    ZineStore.update({ meta: Object.assign({}, ZineStore.state.meta, { title: e.target.value }) });
+    var editTitle = document.getElementById('edit-title');
+    if (editTitle) editTitle.value = e.target.value;
+  });
+  document.getElementById('meta-author').addEventListener('input', function (e) {
+    ZineStore.update({ meta: Object.assign({}, ZineStore.state.meta, { author: e.target.value }) });
+    var editAuthor = document.getElementById('edit-author');
+    if (editAuthor) editAuthor.value = e.target.value;
+  });
+
+  // ── Import / Export ─────────────────────────────────────
+  document.getElementById('import-file').addEventListener('change', function (e) {
+    var file = e.target.files[0];
+    if (!file) return;
+    ZineStore.importFile(file).then(function () {
+      document.getElementById('meta-title').value = ZineStore.state.meta.title;
+      document.getElementById('meta-author').value = ZineStore.state.meta.author;
+    }).catch(function () {
+      alert('Could not parse that file. Make sure it is a valid grammar.json export.');
+    });
+    e.target.value = '';
+  });
+  document.getElementById('export-btn').addEventListener('click', function () {
+    ZineStore.exportJSON();
+  });
+
+  // ── Initial load ────────────────────────────────────────
+  ZineStore.load('data/grammar.json').then(function () {
+    document.getElementById('meta-title').value  = ZineStore.state.meta.title  || '';
+    document.getElementById('meta-author').value = ZineStore.state.meta.author || '';
+  });
+</script>
+</body>
+</html>
