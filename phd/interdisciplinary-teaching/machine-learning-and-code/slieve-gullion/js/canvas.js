@@ -165,6 +165,7 @@
 
     // Click to re-select a placed element
     div.addEventListener('click', function (e) {
+      if (selectedItem) return; // let click fall through to onSurfaceClick
       e.stopPropagation();
       selectedItem = null;
       document.getElementById('zine-surface').classList.remove('awaiting-placement');
@@ -175,6 +176,7 @@
 
     // Drag to reposition
     div.addEventListener('mousedown', function (e) {
+      if (selectedItem) return; // don't initiate drag in place-mode
       e.stopPropagation();
       var startX = e.clientX - el.x;
       var startY = e.clientY - el.y;
