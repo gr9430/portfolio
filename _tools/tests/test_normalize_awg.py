@@ -79,7 +79,7 @@ class TestLoadExistingFiles:
     def test_returns_filenames_from_yaml(self, tmp_path, monkeypatch):
         f = tmp_path / "awg_images.yml"
         yaml.dump(
-            [{"file": "early-test.jpg", "era": "early", "bands": [], "venues": [], "tags": []}],
+            [{"file": "early-test.jpg", "era": "early", "bands": [], "venues": [], "locations": [], "tags": []}],
             f.open("w"),
         )
         monkeypatch.setattr(normalize_awg, "DATA_FILE", f)
@@ -98,7 +98,7 @@ class TestAppendEntry:
         monkeypatch.setattr(normalize_awg, "DATA_FILE", f)
         normalize_awg.append_entry("early-test.jpg", "early")
         data = yaml.safe_load(f.read_text())
-        assert data == [{"file": "early-test.jpg", "era": "early", "bands": [], "venues": [], "tags": []}]
+        assert data == [{"file": "early-test.jpg", "era": "early", "bands": [], "venues": [], "locations": [], "tags": []}]
 
     def test_appends_to_existing_entries(self, tmp_path, monkeypatch):
         f = tmp_path / "awg_images.yml"
@@ -157,7 +157,7 @@ class TestMain:
         d.mkdir(parents=True)
         make_image(d / "test.png", 100, 100)
         yaml.dump(
-            [{"file": "early-test.jpg", "era": "early", "bands": [], "venues": [], "tags": []}],
+            [{"file": "early-test.jpg", "era": "early", "bands": [], "venues": [], "locations": [], "tags": []}],
             data_file.open("w"),
         )
         normalize_awg.main()

@@ -51,7 +51,7 @@ def append_entry(filename: str, era: str) -> None:
     if DATA_FILE.exists():
         with open(DATA_FILE) as f:
             existing = yaml.safe_load(f) or []
-    existing.append({"file": filename, "era": era, "bands": [], "venues": [], "tags": []})
+    existing.append({"file": filename, "era": era, "bands": [], "venues": [], "locations": [], "tags": []})
     with open(DATA_FILE, "w") as f:
         yaml.dump(existing, f, default_flow_style=False, allow_unicode=True)
 

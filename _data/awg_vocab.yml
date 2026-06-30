@@ -53,6 +53,16 @@ bands:
   - Von Nacht
   - Yashira
 
+locations:
+  - California
+  - Europe
+  - Gainesville
+  - Largo
+  - New York
+  - Orlando
+  - Saint Petersburg
+  - Tampa
+
 tags:
   - ad
   - analog
@@ -72,12 +82,10 @@ tags:
   - mixed-media
   - noise
   - noise-rock
-  - Orlando
   - powerviolence
   - repurposed
   - sludge
   - stamps
-  - Tampa
   - tshirt
   - type
   - unproductive

@@ -166,6 +166,15 @@ tags: [Graphic Art, DIY, Music, Visual Culture, Creative Works]
       </div>
       {% endif %}
 
+      {% if site.data.awg_vocab.locations and site.data.awg_vocab.locations.size > 0 %}
+      <div class="awg-filter-group">
+        <span class="awg-filter-label">Location</span>
+        {% for loc in site.data.awg_vocab.locations %}
+        <button class="awg-filter-btn" data-cat="locations" data-val="{{ loc }}">{{ loc }}</button>
+        {% endfor %}
+      </div>
+      {% endif %}
+
       {% if site.data.awg_vocab.venues and site.data.awg_vocab.venues.size > 0 %}
       <div class="awg-filter-group">
         <span class="awg-filter-label">Venue</span>
@@ -183,6 +192,7 @@ tags: [Graphic Art, DIY, Music, Visual Culture, Creative Works]
       <div class="awg-item"
            data-era="{{ img.era }}"
            data-bands='{{ img.bands | jsonify }}'
+           data-locations='{{ img.locations | jsonify }}'
            data-venues='{{ img.venues | jsonify }}'>
         <img src="{{ site.baseurl }}/assets/images/awg-inc/{{ img.file }}"
              alt="{{ img.file | remove: '.jpg' | replace: '-', ' ' }}"
@@ -209,17 +219,19 @@ tags: [Graphic Art, DIY, Music, Visual Culture, Creative Works]
     items[j] = items[i];
   }
 
-  const filterState = { era: new Set(), bands: new Set(), venues: new Set() };
+  const filterState = { era: new Set(), bands: new Set(), locations: new Set(), venues: new Set() };
 
   function applyFilters() {
     document.querySelectorAll('.awg-item').forEach(item => {
       const eraOk = filterState.era.size === 0 || filterState.era.has(item.dataset.era);
-      let itemBands, itemVenues;
+      let itemBands, itemLocations, itemVenues;
       try { itemBands = JSON.parse(item.dataset.bands) || []; } catch(e) { itemBands = []; }
+      try { itemLocations = JSON.parse(item.dataset.locations) || []; } catch(e) { itemLocations = []; }
       try { itemVenues = JSON.parse(item.dataset.venues) || []; } catch(e) { itemVenues = []; }
       const bandsOk = filterState.bands.size === 0 || itemBands.some(b => filterState.bands.has(b));
+      const locationsOk = filterState.locations.size === 0 || itemLocations.some(l => filterState.locations.has(l));
       const venuesOk = filterState.venues.size === 0 || itemVenues.some(v => filterState.venues.has(v));
-      item.style.display = (eraOk && bandsOk && venuesOk) ? '' : 'none';
+      item.style.display = (eraOk && bandsOk && locationsOk && venuesOk) ? '' : 'none';
     });
   }
 
