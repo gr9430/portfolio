@@ -262,3 +262,186 @@ tags: [PhD, Texts and Technology, Digital Humanities, Network Analysis, Electron
 const EXAMS_DATA = {{ site.data.exams | jsonify }};
 const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+(function () {
+  const CATEGORY_COLOR = {
+    core: 'rgb(122, 6, 97)',
+    primary: 'rgb(6, 97, 122)',
+    secondary: 'rgb(97, 122, 6)'
+  };
+  const CATEGORY_X_FRACTION = { core: 0.2, primary: 0.5, secondary: 0.8 };
+
+  const books = EXAMS_DATA.books;
+  const citations = EXAMS_DATA.citations;
+
+  const citationToBooks = {};
+  books.forEach(b => {
+    (b.citations || []).forEach(key => {
+      if (!citationToBooks[key]) citationToBooks[key] = [];
+      citationToBooks[key].push(b.id);
+    });
+  });
+
+  const edgeMap = {};
+  Object.keys(citationToBooks).forEach(key => {
+    const ids = citationToBooks[key];
+    if (ids.length < 2) return;
+    for (let i = 0; i < ids.length; i++) {
+      for (let j = i + 1; j < ids.length; j++) {
+        const pairKey = [ids[i], ids[j]].sort().join('|||');
+        if (!edgeMap[pairKey]) {
+          edgeMap[pairKey] = { source: ids[i], target: ids[j], sharedCount: 0, sharedKeys: [] };
+        }
+        edgeMap[pairKey].sharedCount += 1;
+        edgeMap[pairKey].sharedKeys.push(key);
+      }
+    }
+  });
+  const edges = Object.values(edgeMap);
+
+  const degree = {};
+  books.forEach(b => { degree[b.id] = 0; });
+  edges.forEach(e => {
+    degree[e.source] += 1;
+    degree[e.target] += 1;
+  });
+
+  const maxDegree = Math.max(1, ...Object.values(degree));
+  const rScale = d3.scaleSqrt().domain([0, maxDegree]).range([10, 34]);
+
+  const svg = d3.select('#exams-svg');
+  const g = svg.append('g');
+  svg.call(d3.zoom().scaleExtent([0.3, 3]).on('zoom', e => g.attr('transform', e.transform)));
+
+  function W() { return document.getElementById('exams-canvas').clientWidth; }
+  function H() { return document.getElementById('exams-canvas').clientHeight; }
+
+  const sim = d3.forceSimulation(books)
+    .force('link', d3.forceLink(edges).id(d => d.id).distance(120).strength(0.4))
+    .force('charge', d3.forceManyBody().strength(-260))
+    .force('center', d3.forceCenter(W() / 2, H() / 2))
+    .force('collision', d3.forceCollide(d => rScale(degree[d.id]) + 8))
+    .force('x', d3.forceX(d => W() * CATEGORY_X_FRACTION[d.category]).strength(0.15))
+    .force('y', d3.forceY(H() / 2).strength(0.06));
+
+  const link = g.append('g').selectAll('line')
+    .data(edges).join('line')
+    .attr('class', 'exams-link')
+    .attr('stroke-width', d => Math.min(1 + d.sharedCount, 6))
+    .attr('stroke-opacity', d => Math.min(0.25 + d.sharedCount * 0.15, 1));
+
+  const nodeG = g.append('g').selectAll('g')
+    .data(books).join('g')
+    .style('cursor', 'pointer')
+    .call(d3.drag()
+      .on('start', (e, d) => { if (!e.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+      .on('drag', (e, d) => { d.fx = e.x; d.fy = e.y; })
+      .on('end', (e, d) => { if (!e.active) sim.alphaTarget(0); d.fx = null; d.fy = null; })
+    )
+    .on('click', (e, d) => openPanel(d))
+    .on('mouseover', (e, d) => {
+      const tt = document.getElementById('exams-tooltip');
+      tt.style.display = 'block';
+      tt.style.left = (e.clientX + 12) + 'px';
+      tt.style.top = (e.clientY - 10) + 'px';
+      tt.textContent = d.title;
+    })
+    .on('mouseout', () => { document.getElementById('exams-tooltip').style.display = 'none'; });
+
+  nodeG.append('circle')
+    .attr('r', d => rScale(degree[d.id]))
+    .attr('fill', d => CATEGORY_COLOR[d.category] + '33')
+    .attr('stroke', d => CATEGORY_COLOR[d.category])
+    .attr('stroke-width', 2);
+
+  nodeG.append('text')
+    .attr('class', 'exams-node-label')
+    .attr('y', d => -rScale(degree[d.id]) - 5)
+    .text(d => d.title.length > 24 ? d.title.slice(0, 24) + '…' : d.title);
+
+  sim.on('tick', () => {
+    link.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+        .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+    nodeG.attr('transform', d => `translate(${d.x},${d.y})`);
+  });
+
+  const activeCategories = new Set();
+  let showLinks = true;
+
+  function applyVisibility() {
+    nodeG.style('display', d => (activeCategories.size === 0 || activeCategories.has(d.category)) ? null : 'none');
+    link.style('display', e => {
+      if (!showLinks) return 'none';
+      const sOk = activeCategories.size === 0 || activeCategories.has(e.source.category);
+      const tOk = activeCategories.size === 0 || activeCategories.has(e.target.category);
+      return (sOk && tOk) ? null : 'none';
+    });
+  }
+
+  document.querySelectorAll('.exams-filter-btn.cat-core, .exams-filter-btn.cat-primary, .exams-filter-btn.cat-secondary')
+    .forEach(btn => {
+      btn.addEventListener('click', () => {
+        const val = btn.dataset.val;
+        if (activeCategories.has(val)) {
+          activeCategories.delete(val);
+          btn.classList.remove('active');
+        } else {
+          activeCategories.add(val);
+          btn.classList.add('active');
+        }
+        applyVisibility();
+      });
+    });
+
+  document.getElementById('exams-links-toggle').addEventListener('click', function () {
+    showLinks = !showLinks;
+    this.classList.toggle('active', showLinks);
+    applyVisibility();
+  });
+
+  document.getElementById('exams-clear').addEventListener('click', () => {
+    activeCategories.clear();
+    showLinks = true;
+    document.querySelectorAll('.exams-filter-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('exams-links-toggle').classList.add('active');
+    applyVisibility();
+  });
+
+  function openPanel(d) {
+    const panel = document.getElementById('exams-panel');
+    panel.classList.add('open');
+    const badge = document.getElementById('exams-panel-badge');
+    badge.textContent = d.category;
+    badge.style.background = CATEGORY_COLOR[d.category];
+    document.getElementById('exams-panel-title').textContent = d.title;
+    document.getElementById('exams-panel-meta').textContent = d.author + ' (' + d.year + ')';
+    document.getElementById('exams-panel-field').textContent = d.field || '';
+
+    const list = document.getElementById('exams-panel-citelist');
+    list.innerHTML = '';
+    (d.citations || []).forEach(key => {
+      const li = document.createElement('li');
+      const sharedWith = citationToBooks[key].filter(id => id !== d.id);
+      li.textContent = citations[key] || key;
+      if (sharedWith.length > 0) {
+        const badge2 = document.createElement('span');
+        badge2.className = 'exams-panel-shared-badge';
+        badge2.textContent = 'shared ×' + sharedWith.length;
+        li.appendChild(badge2);
+      }
+      list.appendChild(li);
+    });
+  }
+
+  document.getElementById('exams-panel-close').addEventListener('click', () => {
+    document.getElementById('exams-panel').classList.remove('open');
+  });
+
+  window.addEventListener('resize', () => {
+    sim.force('center', d3.forceCenter(W() / 2, H() / 2))
+       .force('x', d3.forceX(d => W() * CATEGORY_X_FRACTION[d.category]).strength(0.15));
+    sim.alpha(0.3).restart();
+  });
+}());
+</script>
