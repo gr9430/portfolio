@@ -131,7 +131,13 @@
       "Bash(bash /home/user/.claude/plugins/cache/claude-plugins-official/superpowers/6.0.3/skills/subagent-driven-development/scripts/review-package 508958b HEAD)",
       "Bash(/home/user/.claude/plugins/cache/claude-plugins-official/superpowers/6.0.3/skills/subagent-driven-development/scripts/review-package *)",
       "Bash(node test-tracery.js)",
-      "Bash(node *)"
+      "Bash(node *)",
+      "Bash(command -v nodejs)",
+      "Bash(command -v node)",
+      "Bash(apt list *)",
+      "Bash(command -v deno bun rhino)",
+      "Bash(perl --version)",
+      "Bash(apt-get install *)"
     ]
   }
 }
