@@ -146,39 +146,52 @@
 
   <!-- ── Activity 3: Edit Vocabulary ───────────────────── -->
   <section id="tab-editor" role="tabpanel" aria-labelledby="btn-editor" hidden>
-    <div class="activity-prompt">
-      <h2>Activity 3 — Edit Vocabulary</h2>
-      <p>Now author your own version of the grammar. Choose whether to fork the instructor's Slieve Gullion vocabulary or start from an empty skeleton. Either way, the categories and templates stay the same — the words are yours.</p>
-      <p>If Activity 2 produced dominant colors from your image, they appear below as candidates. Name each color in your own language, then add it to a category. That is the move: the machine extracted data; you give it meaning. Notice that an empty category makes the generator break visibly — <code>[symbol_name]</code> in the output. That broken syntax is the skeleton showing through.</p>
-    </div>
 
-    <div class="editor-layout">
-      <div class="editor-meta">
-        <div>
-          <label for="edit-title">Work title</label>
-          <input id="edit-title" type="text" placeholder="your work's title" aria-label="Work title">
-        </div>
-        <div>
-          <label for="edit-author">Your name</label>
-          <input id="edit-author" type="text" placeholder="your name" aria-label="Your name">
-        </div>
+  <div class="editor-chrome">
+    <div class="editor-meta-row">
+      <div class="editor-meta-field">
+        <label for="edit-title">Title</label>
+        <input id="edit-title" type="text" placeholder="work title" aria-label="Work title">
       </div>
-
+      <div class="editor-meta-field">
+        <label for="edit-author">Author</label>
+        <input id="edit-author" type="text" placeholder="your name" aria-label="Your name">
+      </div>
       <div class="fork-toggle" role="group" aria-label="Starting vocabulary">
-        <button id="fork-btn" class="active" aria-pressed="true">Start from instructor's example</button>
+        <button id="fork-btn" class="active" aria-pressed="true">Instructor vocabulary</button>
         <button id="empty-btn" aria-pressed="false">Start empty</button>
       </div>
+    </div>
+  </div>
 
+  <div class="editor-layout">
+
+    <div class="editor-pane editor-pane--code">
+      <div class="pane-head">
+        <span>grammar.json — edit the word arrays</span>
+        <span id="editor-error" class="editor-error" hidden aria-live="polite"></span>
+      </div>
+      <div class="editor-guide">
+        <p>Each line in a template like <code>"the #noun_anchor# #verb_fails# into the #noun_room#"</code> replaces <code>#symbol#</code> with a random word from that symbol's list. Edit the arrays below — add, remove, or replace strings. Leave a list empty to see <code>[symbol_name]</code> appear in the output: the generator's skeleton made visible.</p>
+      </div>
+      <textarea id="grammar-editor" spellcheck="false" aria-label="Grammar JSON — edit word arrays to change generator output"></textarea>
+    </div>
+
+    <div class="editor-pane editor-pane--preview">
+      <div class="pane-head">
+        <span>Live output</span>
+        <button id="regen-btn" class="btn btn--sm" aria-label="Regenerate preview">Regenerate</button>
+      </div>
+      <div id="live-preview" aria-live="polite" aria-label="Live generated fragments"></div>
       <div id="hex-candidates-panel"></div>
-
-      <div id="category-blocks"></div>
-
       <details class="images-panel">
-        <summary>Project image captions &amp; alt text</summary>
+        <summary>Image alt text &amp; captions</summary>
         <div id="image-meta-list"></div>
       </details>
     </div>
-  </section>
+
+  </div>
+</section>
 
 </main>
 
