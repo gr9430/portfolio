@@ -272,7 +272,7 @@ main { flex: 1; }
 }
 .placed:focus-visible { outline: 2px solid #000; }
 .placed.selected { outline: 2px dashed #000; outline-offset: 2px; }
-.placed--image img { display: block; max-width: 200px; }
+.placed--image img { display: block; max-width: 360px; }
 .placed--fragment { /* inherits .placed */ }
 .placed--text { /* inherits .placed */ }
 

@@ -119,7 +119,7 @@
     if (item.type === 'fragment') {
       el = { type: 'fragment', text: item.text, x: x, y: y };
     } else if (item.type === 'image') {
-      el = { type: 'image', imageId: item.imageId, x: x, y: y, w: 200, h: 150 };
+      el = { type: 'image', imageId: item.imageId, x: x, y: y, w: 360, h: 270 };
     } else {
       el = { type: 'text', text: item.text, x: x, y: y };
     }
