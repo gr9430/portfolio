@@ -191,45 +191,52 @@
       e.stopPropagation();
       var startX = e.clientX - el.x;
       var startY = e.clientY - el.y;
+      // Cache once — avoid per-frame DOM queries
+      var surface = document.getElementById('zine-surface');
+      var guideV  = document.getElementById('guide-v');
+      var guideH  = document.getElementById('guide-h');
+      var SNAP = 8;
+      var sw = surface.offsetWidth;
+      var sh = surface.offsetHeight;
+      var elW = div.offsetWidth;
+      var elH = div.offsetHeight;
+      var rafId = null;
+      var pendingX = el.x;
+      var pendingY = el.y;
+      document.body.classList.add('dragging');
+
       function onMove(e) {
-        var surface = document.getElementById('zine-surface');
-        var SNAP = 8;
-        var sw = surface.offsetWidth;   // 480
-        var sh = surface.offsetHeight;  // 680+
-        var newX = e.clientX - startX;
-        var newY = e.clientY - startY;
-        var elW = div.offsetWidth;
-        var elH = div.offsetHeight;
-
-        var guideV = document.getElementById('guide-v');
-        var guideH = document.getElementById('guide-h');
-
-        // Horizontal center snap
-        var targetX = (sw - elW) / 2;
-        if (Math.abs(newX - targetX) < SNAP) {
-          newX = targetX;
-          if (guideV) guideV.classList.add('active');
-        } else {
-          if (guideV) guideV.classList.remove('active');
-        }
-
-        // Vertical center snap
-        var targetY = (sh - elH) / 2;
-        if (Math.abs(newY - targetY) < SNAP) {
-          newY = targetY;
-          if (guideH) guideH.classList.add('active');
-        } else {
-          if (guideH) guideH.classList.remove('active');
-        }
-
-        el.x = newX;
-        el.y = newY;
-        div.style.left = el.x + 'px';
-        div.style.top  = el.y + 'px';
+        e.preventDefault();
+        pendingX = e.clientX - startX;
+        pendingY = e.clientY - startY;
+        if (rafId) return;
+        rafId = requestAnimationFrame(function () {
+          rafId = null;
+          var newX = pendingX;
+          var newY = pendingY;
+          var targetX = (sw - elW) / 2;
+          if (Math.abs(newX - targetX) < SNAP) {
+            newX = targetX;
+            if (guideV) guideV.classList.add('active');
+          } else {
+            if (guideV) guideV.classList.remove('active');
+          }
+          var targetY = (sh - elH) / 2;
+          if (Math.abs(newY - targetY) < SNAP) {
+            newY = targetY;
+            if (guideH) guideH.classList.add('active');
+          } else {
+            if (guideH) guideH.classList.remove('active');
+          }
+          el.x = newX;
+          el.y = newY;
+          div.style.left = newX + 'px';
+          div.style.top  = newY + 'px';
+        });
       }
       function onUp() {
-        var guideV = document.getElementById('guide-v');
-        var guideH = document.getElementById('guide-h');
+        if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+        document.body.classList.remove('dragging');
         if (guideV) guideV.classList.remove('active');
         if (guideH) guideH.classList.remove('active');
         ZineStore.update({ pages: ZineStore.state.pages.slice() });

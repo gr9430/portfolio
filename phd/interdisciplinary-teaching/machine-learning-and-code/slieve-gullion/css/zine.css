@@ -266,10 +266,11 @@ main { flex: 1; }
   font-size: 0.85rem;
   line-height: 1.5;
   color: #111;
-  cursor: move;
+  cursor: grab;
   user-select: none;
   padding: 2px 4px;
 }
+body.dragging * { cursor: grabbing !important; user-select: none !important; }
 .placed:focus-visible { outline: 2px solid #000; }
 .placed.selected { outline: 2px dashed #000; outline-offset: 2px; }
 .placed--image img { display: block; max-width: 360px; }
