@@ -270,6 +270,11 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     primary: 'rgb(6, 97, 122)',
     secondary: 'rgb(97, 122, 6)'
   };
+  const CATEGORY_FILL = {
+    core: 'rgba(122, 6, 97, 0.2)',
+    primary: 'rgba(6, 97, 122, 0.2)',
+    secondary: 'rgba(97, 122, 6, 0.2)'
+  };
   const CATEGORY_X_FRACTION = { core: 0.2, primary: 0.5, secondary: 0.8 };
 
   const books = EXAMS_DATA.books;
@@ -351,7 +356,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
 
   nodeG.append('circle')
     .attr('r', d => rScale(degree[d.id]))
-    .attr('fill', d => CATEGORY_COLOR[d.category] + '33')
+    .attr('fill', d => CATEGORY_FILL[d.category])
     .attr('stroke', d => CATEGORY_COLOR[d.category])
     .attr('stroke-width', 2);
 
