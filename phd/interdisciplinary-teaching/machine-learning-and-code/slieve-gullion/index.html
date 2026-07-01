@@ -84,11 +84,11 @@
 
   <!-- ── Activity 2: Reduce ─────────────────────────────── -->
   <section id="tab-reduce" role="tabpanel" aria-labelledby="btn-reduce" hidden>
-    <div class="activity-prompt">
-      <h2>Activity 2 — Reduce</h2>
+    <details class="activity-prompt">
+      <summary>Activity 2 — Reduce</summary>
       <p>Upload one of your own photographs. The tool will reduce it to five measurements and render it three ways. Each rendering strips something the original had — and that loss is the point.</p>
       <p>Notice what the machine can and cannot recover. The five dominant colors are extracted and offered to you in Activity 3, where you can name them in your own language and add them to the grammar.</p>
-    </div>
+    </details>
 
     <div class="reduce-layout">
       <div class="source-toggle" role="group" aria-label="Image source">
@@ -151,6 +151,12 @@
 
   <!-- ── Activity 3: Edit Vocabulary ───────────────────── -->
   <section id="tab-editor" role="tabpanel" aria-labelledby="btn-editor" hidden>
+
+    <details class="activity-prompt">
+      <summary>Activity 3 — Edit Vocabulary</summary>
+      <p>The grammar is a JSON object: each key is a symbol name, and each value is an array of strings. Templates in <code>origin</code> use <code>#symbol#</code> to pull a random word from that symbol's list — so <code>"the #noun_anchor# #verb_fails#"</code> might produce <em>"the cairn dissolves."</em> Edit the arrays to replace or extend the vocabulary. Leave an array empty to expose the generator's skeleton: <code>[noun_anchor]</code> appears where a word should be.</p>
+      <p>If you ran Activity 2, your image's dominant colors appear below the live preview. Name each color in your own language, assign it to a symbol category, and click <strong>Add</strong> — the word enters the grammar immediately and the output updates.</p>
+    </details>
 
   <div class="editor-chrome">
     <div class="editor-meta-row">
