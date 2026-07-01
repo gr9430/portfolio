@@ -138,6 +138,17 @@
     page.elements.forEach(function (el, idx) {
       surface.appendChild(makePlacedEl(el, page.elements, idx));
     });
+
+    var gv = document.createElement('div');
+    gv.className = 'guide guide--v';
+    gv.id = 'guide-v';
+    surface.appendChild(gv);
+    var gh = document.createElement('div');
+    gh.className = 'guide guide--h';
+    gh.id = 'guide-h';
+    surface.appendChild(gh);
+
+    renderAccessibility();
   }
 
   function makePlacedEl(el, elements, idx) {
@@ -181,12 +192,46 @@
       var startX = e.clientX - el.x;
       var startY = e.clientY - el.y;
       function onMove(e) {
-        el.x = e.clientX - startX;
-        el.y = e.clientY - startY;
+        var surface = document.getElementById('zine-surface');
+        var SNAP = 8;
+        var sw = surface.offsetWidth;   // 480
+        var sh = surface.offsetHeight;  // 680+
+        var newX = e.clientX - startX;
+        var newY = e.clientY - startY;
+        var elW = div.offsetWidth;
+        var elH = div.offsetHeight;
+
+        var guideV = document.getElementById('guide-v');
+        var guideH = document.getElementById('guide-h');
+
+        // Horizontal center snap
+        var targetX = (sw - elW) / 2;
+        if (Math.abs(newX - targetX) < SNAP) {
+          newX = targetX;
+          if (guideV) guideV.classList.add('active');
+        } else {
+          if (guideV) guideV.classList.remove('active');
+        }
+
+        // Vertical center snap
+        var targetY = (sh - elH) / 2;
+        if (Math.abs(newY - targetY) < SNAP) {
+          newY = targetY;
+          if (guideH) guideH.classList.add('active');
+        } else {
+          if (guideH) guideH.classList.remove('active');
+        }
+
+        el.x = newX;
+        el.y = newY;
         div.style.left = el.x + 'px';
         div.style.top  = el.y + 'px';
       }
       function onUp() {
+        var guideV = document.getElementById('guide-v');
+        var guideH = document.getElementById('guide-h');
+        if (guideV) guideV.classList.remove('active');
+        if (guideH) guideH.classList.remove('active');
         ZineStore.update({ pages: ZineStore.state.pages.slice() });
         document.removeEventListener('mousemove', onMove);
         document.removeEventListener('mouseup', onUp);
@@ -243,6 +288,74 @@
   function updatePageCounter() {
     document.getElementById('page-counter').textContent =
       'Page ' + (currentPageIndex + 1) + ' of ' + ZineStore.state.pages.length;
+  }
+
+  function runAccessibilityChecks() {
+    var pages = ZineStore.state.pages;
+    if (!pages.length) return [{ level: 'info', message: 'No pages.' }];
+    var page = pages[currentPageIndex];
+    var elements = page.elements;
+    var checks = [];
+    var MARGIN = 16;
+    var SW = 480;
+    var SH = document.getElementById('zine-surface').offsetHeight || 680;
+
+    if (!elements.length) {
+      checks.push({ level: 'info', message: 'Page is empty — throw fragments and place them.' });
+      return checks;
+    }
+
+    elements.forEach(function(el) {
+      if (el.type === 'image') {
+        var imgData = ZineStore.state.images.find(function(i) { return i.id === el.imageId; });
+        var name = imgData ? imgData.src.split('/').pop() : el.imageId;
+        if (!imgData || !imgData.alt || !imgData.alt.trim()) {
+          checks.push({ level: 'warning', message: 'No alt text for "' + name + '" — add it in Activity 3.' });
+        } else {
+          checks.push({ level: 'pass', message: '"' + name + '" has alt text.' });
+        }
+        if (el.x < MARGIN || el.y < MARGIN || (el.x + el.w) > (SW - MARGIN) || (el.y + el.h) > (SH - MARGIN)) {
+          checks.push({ level: 'warning', message: 'Image near or outside page margin.' });
+        }
+      } else {
+        // fragment or text — contrast is always #111 on #fff ≈ 18:1 WCAG AAA
+        checks.push({ level: 'pass', message: 'Text contrast: WCAG AAA (18:1).' });
+        if (el.x < MARGIN || el.x > SW - MARGIN) {
+          checks.push({ level: 'warning', message: 'Text element near page edge.' });
+        }
+      }
+    });
+
+    return checks;
+  }
+
+  function renderAccessibility() {
+    var summary = document.getElementById('a11y-summary');
+    var panel = document.getElementById('a11y-checks');
+    if (!summary || !panel) return;
+
+    var checks = runAccessibilityChecks();
+    var errors   = checks.filter(function(c) { return c.level === 'error'; }).length;
+    var warnings = checks.filter(function(c) { return c.level === 'warning'; }).length;
+    var passes   = checks.filter(function(c) { return c.level === 'pass'; }).length;
+
+    summary.textContent = errors + ' error' + (errors !== 1 ? 's' : '') +
+      ' · ' + warnings + ' warning' + (warnings !== 1 ? 's' : '') +
+      ' · ' + passes + ' passed';
+
+    panel.innerHTML = '';
+    checks.forEach(function(check) {
+      var item = document.createElement('div');
+      item.className = 'check-item';
+      var dot = document.createElement('span');
+      dot.className = 'check-dot check-dot--' + check.level;
+      var msg = document.createElement('span');
+      msg.className = 'check-message';
+      msg.textContent = check.message;
+      item.appendChild(dot);
+      item.appendChild(msg);
+      panel.appendChild(item);
+    });
   }
 
   document.addEventListener('DOMContentLoaded', init);
