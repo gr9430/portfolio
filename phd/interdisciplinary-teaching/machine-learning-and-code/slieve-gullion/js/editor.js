@@ -4,6 +4,42 @@
   var _updatingFromTextarea = false;
   var _debounceTimer = null;
 
+  // ── Color vocabulary suggestions ─────────────────────────
+  var COLOR_VOCAB = [
+    { test: function(h,s,l){ return s<0.10&&l<0.20; }, words:['basalt','char','peat','pitch','dark'] },
+    { test: function(h,s,l){ return s<0.10&&l>0.80; }, words:['chalk','cloud','pale','ash','white'] },
+    { test: function(h,s,l){ return s<0.15; },          words:['slate','shale','stone','haze','grey'] },
+    { test: function(h,s,l){ return h<18||h>=340; },    words:['rust','iron','clay','blood','copper'] },
+    { test: function(h,s,l){ return h>=18&&h<50; },     words:['gorse','amber','ochre','loam','burn'] },
+    { test: function(h,s,l){ return h>=50&&h<80; },     words:['sedge','lichen','fern','bog','pale'] },
+    { test: function(h,s,l){ return h>=80&&h<155; },    words:['moss','bracken','oak','verdant','heath'] },
+    { test: function(h,s,l){ return h>=155&&h<200; },   words:['lake','pool','reed','rush','tarn'] },
+    { test: function(h,s,l){ return h>=200&&h<260; },   words:['mist','sky','slate','cold','distant'] },
+    { test: function(h,s,l){ return h>=260&&h<310; },   words:['heather','thistle','dusk','violet','shade'] },
+    { test: function(h,s,l){ return h>=310&&h<340; },   words:['foxglove','dawn','briar','rose','pink'] }
+  ];
+
+  function hexToHsl(hex) {
+    var r=parseInt(hex.slice(1,3),16)/255, g=parseInt(hex.slice(3,5),16)/255, b=parseInt(hex.slice(5,7),16)/255;
+    var max=Math.max(r,g,b), min=Math.min(r,g,b), l=(max+min)/2, s=0, h=0;
+    if (max!==min) {
+      var d=max-min;
+      s = l>0.5 ? d/(2-max-min) : d/(max+min);
+      if      (max===r) h=((g-b)/d+(g<b?6:0))/6;
+      else if (max===g) h=((b-r)/d+2)/6;
+      else              h=((r-g)/d+4)/6;
+    }
+    return { h:h*360, s:s, l:l };
+  }
+
+  function suggestWords(hex) {
+    var hsl = hexToHsl(hex);
+    for (var i=0; i<COLOR_VOCAB.length; i++) {
+      if (COLOR_VOCAB[i].test(hsl.h, hsl.s, hsl.l)) return COLOR_VOCAB[i].words;
+    }
+    return ['earth','stone','light','air','shadow'];
+  }
+
   function init() {
     ZineStore.subscribe(onStoreUpdate);
 
@@ -112,6 +148,9 @@
     wrapper.appendChild(heading);
 
     hexes.forEach(function (d) {
+      var block = document.createElement('div');
+      block.className = 'hex-block';
+
       var row = document.createElement('div');
       row.className = 'hex-row';
 
@@ -158,7 +197,23 @@
       row.appendChild(nameInput);
       row.appendChild(catSelect);
       row.appendChild(addBtn);
-      wrapper.appendChild(row);
+      block.appendChild(row);
+
+      // Suggested words based on hue/saturation/lightness
+      var words = suggestWords(d.hex);
+      var suggRow = document.createElement('div');
+      suggRow.className = 'hex-suggestions';
+      words.forEach(function (word) {
+        var chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'suggestion-chip';
+        chip.textContent = word;
+        chip.addEventListener('click', function () { nameInput.value = word; nameInput.focus(); });
+        suggRow.appendChild(chip);
+      });
+      block.appendChild(suggRow);
+
+      wrapper.appendChild(block);
     });
 
     panel.appendChild(wrapper);

@@ -86,7 +86,7 @@
   <section id="tab-reduce" role="tabpanel" aria-labelledby="btn-reduce" hidden>
     <details class="activity-prompt">
       <summary>Activity 2 — Reduce</summary>
-      <p>Upload one of your own photographs. The tool will reduce it to five measurements and render it three ways. Each rendering strips something the original had — and that loss is the point.</p>
+      <p>Upload a group of your own photographs. The tool will reduce it to five measurements per image and render it three ways. Each rendering strips something the original had — and that loss is the point.</p>
       <p>Notice what the machine can and cannot recover. The five dominant colors are extracted and offered to you in Activity 3, where you can name them in your own language and add them to the grammar.</p>
     </details>
 
@@ -98,9 +98,12 @@
 
       <div class="source-controls">
         <div id="upload-controls">
-          <div class="upload-zone" role="button" tabindex="0" aria-label="Upload an image file for reduction analysis">
-            <span>Click or drag an image file here</span>
-            <input id="upload-input" type="file" accept="image/*" aria-label="Upload image file">
+          <div class="upload-zone" role="button" tabindex="0" aria-label="Upload image files for reduction analysis">
+            <span>Click or drag image files here — select up to 10</span>
+            <input id="upload-input" type="file" accept="image/*" multiple aria-label="Upload image files">
+          </div>
+          <div id="queue-indicator" class="queue-indicator" hidden>
+            <span id="queue-progress"></span>
           </div>
         </div>
         <div id="project-controls" hidden>
@@ -145,6 +148,7 @@
 
       <div class="save-row" id="save-row" hidden>
         <button id="save-reduction-btn" class="btn btn--primary">Save to project</button>
+        <span id="queue-label" class="queue-label"></span>
       </div>
     </div>
   </section>

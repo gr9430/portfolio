@@ -512,6 +512,41 @@ body.dragging * { cursor: grabbing !important; user-select: none !important; }
 }
 .hex-row select:focus-visible { outline: 2px solid #000; }
 
+.hex-block { margin-bottom: 10px; }
+.hex-block .hex-row { margin-bottom: 3px; }
+
+.hex-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding-left: 29px; /* align with name input (swatch + gap) */
+}
+.suggestion-chip {
+  font-family: ui-monospace, Menlo, 'Courier New', monospace;
+  font-size: 0.68rem;
+  padding: 2px 7px;
+  border: 1px solid #ccc;
+  background: #f5f5f5;
+  cursor: pointer;
+  color: #444;
+  line-height: 1.6;
+}
+.suggestion-chip:hover { background: #000; color: #fff; border-color: #000; }
+.suggestion-chip:focus-visible { outline: 2px solid #000; }
+
+/* Queue status (Activity 2) */
+.queue-indicator {
+  font-size: 0.75rem;
+  color: #555;
+  padding: 5px 0;
+  font-family: ui-monospace, Menlo, 'Courier New', monospace;
+}
+.queue-label {
+  font-size: 0.75rem;
+  color: #555;
+  margin-left: 10px;
+}
+
 /* ── Image metadata panel ────────────────────────────── */
 .images-panel { border-top: 1px solid #ddd; flex-shrink: 0; }
 .images-panel summary {

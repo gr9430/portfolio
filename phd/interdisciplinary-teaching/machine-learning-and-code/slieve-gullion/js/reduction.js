@@ -1,6 +1,9 @@
 (function () {
   var currentImageId = null;   // id from images[] if project image selected
   var currentReduction = null; // the computed result
+  var _queue = [];             // File objects waiting to be processed
+  var _queueIdx = 0;
+  var _allDominant = [];       // accumulated colors across the queue session
 
   function init() {
     document.getElementById('src-upload').addEventListener('click', function () { setSourceMode('upload'); });
@@ -38,11 +41,40 @@
 
   // ── Image load ───────────────────────────────────────────
   function onUpload(e) {
-    var file = e.target.files[0];
-    if (!file) return;
+    var files = Array.from(e.target.files);
+    e.target.value = ''; // allow reselecting the same files next time
+    if (!files.length) return;
+    _queue = files;
+    _queueIdx = 0;
+    _allDominant = [];
     currentImageId = null;
+    processQueue();
+  }
+
+  function processQueue() {
+    var file = _queue[_queueIdx];
     var url = URL.createObjectURL(file);
     loadImageAndAnalyse(url, function () { URL.revokeObjectURL(url); });
+    updateQueueUI();
+  }
+
+  function updateQueueUI() {
+    var total = _queue.length;
+    var current = _queueIdx + 1;
+    var indicator = document.getElementById('queue-indicator');
+    var progress  = document.getElementById('queue-progress');
+    var btn       = document.getElementById('save-reduction-btn');
+    var label     = document.getElementById('queue-label');
+    if (total > 1) {
+      indicator.hidden = false;
+      progress.textContent = 'Image ' + current + ' of ' + total;
+      btn.textContent = current < total ? 'Save & continue →' : 'Save & finish';
+      label.textContent = '';
+    } else {
+      indicator.hidden = true;
+      btn.textContent = 'Save to project';
+      label.textContent = '';
+    }
   }
 
   function onProjectSelect(e) {
@@ -341,9 +373,32 @@
         target.reduction = currentReduction;
         ZineStore.update({ images: images.slice() });
       }
+      alert('Reduction data saved. Switch to Activity 3 to name the dominant colors.');
+      return;
     }
-    // dominantHexes already set in analyseImage via saveDominantHexes
-    alert('Reduction data saved. Switch to Activity 3 to name the dominant colors.');
+
+    // Accumulate colors from this image into the session palette
+    _allDominant = _allDominant.concat(currentReduction.dominant);
+    ZineStore.saveDominantHexes(_allDominant);
+
+    // Advance queue
+    if (_queue.length > 1) {
+      _queueIdx++;
+      if (_queueIdx < _queue.length) {
+        processQueue();
+        return;
+      }
+      // All done
+      var total = _queue.length;
+      _queue = [];
+      _queueIdx = 0;
+      document.getElementById('queue-indicator').hidden = true;
+      document.getElementById('save-reduction-btn').textContent = 'Save to project';
+      document.getElementById('queue-label').textContent =
+        total + ' images processed — ' + _allDominant.length + ' colors extracted.';
+    } else {
+      alert('Reduction data saved. Switch to Activity 3 to name the dominant colors.');
+    }
   }
 
   document.addEventListener('DOMContentLoaded', init);
