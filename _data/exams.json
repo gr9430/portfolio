@@ -1,0 +1,35 @@
+{
+  "citations": {
+    "placeholder-shared-source": "Placeholder, A. Shared Source Text. Publisher, 2000.",
+    "placeholder-solo-source": "Placeholder, B. Solo Source Text. Publisher, 2001."
+  },
+  "books": [
+    {
+      "id": "placeholder-core-book",
+      "title": "Placeholder Core Book",
+      "author": "Author One",
+      "year": 2010,
+      "category": "core",
+      "field": "",
+      "citations": ["placeholder-shared-source"]
+    },
+    {
+      "id": "placeholder-primary-book",
+      "title": "Placeholder Primary Book",
+      "author": "Author Two",
+      "year": 2012,
+      "category": "primary",
+      "field": "Electronic Literature",
+      "citations": ["placeholder-shared-source"]
+    },
+    {
+      "id": "placeholder-secondary-book",
+      "title": "Placeholder Secondary Book",
+      "author": "Author Three",
+      "year": 2015,
+      "category": "secondary",
+      "field": "Visual Culture",
+      "citations": ["placeholder-solo-source"]
+    }
+  ]
+}
