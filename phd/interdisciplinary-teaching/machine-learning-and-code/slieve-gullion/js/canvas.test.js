@@ -36,8 +36,10 @@ var _state = {
     adjective_state: ['ancient', 'misted', 'eroded'],
     verb_fails: ['yields', 'dissolves', 'recedes']
   },
+  imageSource: 'both',
   images: [
-    { id: 'img_001', src: 'images/test-01.jpg', alt: 'test image' }
+    { id: 'img_001', src: 'images/test-01.jpg', alt: 'test image', provenance: 'instructor' },
+    { id: 'img_own_1', src: 'data:image/jpeg;base64,AAAA', alt: '', provenance: 'student' }
   ],
   pages: [{ id: 'page_001', elements: [] }]
 };
@@ -83,6 +85,13 @@ function addNewPage(pages) {
 
 function pageCounterText(currentPageIndex, totalPages) {
   return 'Page ' + (currentPageIndex + 1) + ' of ' + totalPages;
+}
+
+function visibleImages() {
+  var src = ZineStore.state.imageSource || 'both';
+  if (src === 'both') return ZineStore.state.images;
+  var want = (src === 'mine') ? 'student' : 'instructor';
+  return ZineStore.state.images.filter(function (img) { return img.provenance === want; });
 }
 
 // ── Test harness ─────────────────────────────────────────────────────────────
@@ -200,6 +209,25 @@ ZineStore.update({ pages: ZineStore.state.pages.slice() });
 
 assert('after delete, 2 elements remain', ZineStore.state.pages[0].elements.length === 2);
 assert('remaining elements are A and C', ZineStore.state.pages[0].elements[0].text === 'A' && ZineStore.state.pages[0].elements[1].text === 'C');
+
+// ── Test 6: Image source filtering ────────────────────────────────────────
+console.log('\n[6] Image source filtering');
+
+ZineStore.update({ imageSource: 'both' });
+assert('both: returns all images', visibleImages().length === 2);
+
+ZineStore.update({ imageSource: 'instructor' });
+var instructorOnly = visibleImages();
+assert('instructor: returns only instructor images', instructorOnly.length === 1 && instructorOnly[0].provenance === 'instructor');
+
+ZineStore.update({ imageSource: 'mine' });
+var mineOnly = visibleImages();
+assert('mine: returns only student images', mineOnly.length === 1 && mineOnly[0].provenance === 'student');
+
+ZineStore.update({ images: [{ id: 'img_001', src: 'images/test-01.jpg', alt: '', provenance: 'instructor' }] });
+assert('mine: returns empty array when no student images exist', visibleImages().length === 0);
+
+ZineStore.update({ imageSource: 'both' }); // reset for any later tests
 
 // ── Summary ──────────────────────────────────────────────────────────────────
 console.log('\n──────────────────────────────────────────');

@@ -46,10 +46,17 @@
   }
 
   // ── Image palette ────────────────────────────────────────
+  function visibleImages() {
+    var src = ZineStore.state.imageSource || 'both';
+    if (src === 'both') return ZineStore.state.images;
+    var want = (src === 'mine') ? 'student' : 'instructor';
+    return ZineStore.state.images.filter(function (img) { return img.provenance === want; });
+  }
+
   function renderImagePalette() {
     var palette = document.getElementById('image-palette');
     palette.innerHTML = '';
-    ZineStore.state.images.forEach(function (img) {
+    visibleImages().forEach(function (img) {
       var btn = document.createElement('button');
       btn.className = 'image-thumb';
       btn.setAttribute('aria-label', (img.alt || img.src));
