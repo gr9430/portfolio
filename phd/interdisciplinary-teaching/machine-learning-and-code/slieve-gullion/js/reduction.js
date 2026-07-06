@@ -60,6 +60,7 @@
       currentUploadDataUrl = e.target.result;
       loadImageAndAnalyse(currentUploadDataUrl);
     };
+    reader.onerror = function () { alert('Could not read the selected file. Please try uploading it again.'); };
     reader.readAsDataURL(file);
     updateQueueUI();
   }
@@ -390,6 +391,7 @@
         target.reduction = currentReduction;
         ZineStore.update({ images: images.slice() });
       }
+      currentReduction = null;
       alert('Reduction data saved. Switch to Activity 3 to name the dominant colors.');
       return;
     }
@@ -402,6 +404,7 @@
     var ownImages = ZineStore.state.images;
     ownImages.push(buildOwnImageEntry(currentReduction, currentUploadDataUrl, _queueIdx));
     ZineStore.update({ images: ownImages.slice() });
+    currentReduction = null;
 
     // Advance queue
     if (_queue.length > 1) {
