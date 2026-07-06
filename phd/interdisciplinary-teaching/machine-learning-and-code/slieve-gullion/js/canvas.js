@@ -171,6 +171,7 @@
         var img = document.createElement('img');
         img.src = imgData.src;
         img.alt = imgData.alt || '';
+        img.draggable = false; // prevent native HTML5 image drag from hijacking the custom mousedown drag-to-reposition
         img.style.width  = el.w + 'px';
         img.style.height = el.h + 'px';
         div.appendChild(img);

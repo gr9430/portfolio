@@ -2160,7 +2160,7 @@ git commit -m "feat: Activity 3 — vocabulary editor, fork/empty, hex candidate
 **Interfaces:**
 - No new interfaces; final verification of round-trip import/export
 
-- [ ] **Step 1: Write `slieve-gullion/index.md`**
+- [x] **Step 1: Write `slieve-gullion/index.md`**
 
 ```markdown
 ---
@@ -2225,14 +2225,14 @@ Open `index.html` directly from the filesystem (no server). Expected:
 - Import button: upload the grammar.json from Desktop → all data loads correctly
 - Tool is fully functional via import
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add phd/interdisciplinary-teaching/machine-learning-and-code/slieve-gullion/index.md
 git commit -m "feat: index.md entry point for slieve-gullion zine pipeline"
 ```
 
-- [ ] **Step 6: Drop your Slieve Gullion images into `images/`**
+- [x] **Step 6: Drop your Slieve Gullion images into `images/`**
 
 Name them `slieve-gullion-01.jpg` through however many you have. Update `data/grammar.json` `images[]` entries to match real filenames and fill in `alt` text for each. If you have fewer than 12, remove extra entries; if more, add entries following the same schema.
 

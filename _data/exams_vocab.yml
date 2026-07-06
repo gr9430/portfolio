@@ -2,9 +2,16 @@ categories:
   - core
   - primary
   - secondary
+  - independent-study
 
 fields:
+  - Texts & Technology
   - Electronic Literature
   - Critical Making
   - Visual Culture
   - Distant Viewing
+
+types:
+  - Book
+  - Article
+  - Chapter

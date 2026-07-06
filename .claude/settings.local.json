@@ -137,7 +137,23 @@
       "Bash(apt list *)",
       "Bash(command -v deno bun rhino)",
       "Bash(perl --version)",
-      "Bash(apt-get install *)"
+      "Bash(apt-get install *)",
+      "Bash(kill -9 10972)",
+      "Bash(awk '/\"id\": \"bogost-games\"/,0' /home/user/portfolio/_data/exams.json)",
+      "Bash(awk '/\"id\": \"bogost-games\"/{f=1} f{print NR\": \"$0} f && /\\\\],/{c++; if\\(c==1\\) exit}' /home/user/portfolio/_data/exams.json)",
+      "Bash(mkdir *)",
+      "Bash(awk '{ print NR\": \"length\\($0\\)\" chars\" }' /home/user/portfolio/phd/exams/claude-design-dev-to-fix.html)",
+      "Bash(sort -t: -k2 -rn)",
+      "Bash(awk '{ print NR\": \"length\\($0\\) }' /tmp/claude-1000/-home-user-portfolio/4fe18d10-029f-474b-b327-c34ca8f98abc/scratchpad/extracted_template.html)",
+      "Bash(echo \"---exit $?\")",
+      "Bash(echo \"started pid $!\")",
+      "Read(//usr/lib/**)",
+      "Bash(npm ls *)",
+      "Bash(pip3 list *)",
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(/home/user/.local/bin/node js/editor.test.js)",
+      "Bash(pkill -f \"jekyll serve\")",
+      "Bash(rm -rf /home/user/portfolio/_site)"
     ]
   }
 }

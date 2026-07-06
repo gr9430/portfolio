@@ -124,7 +124,7 @@
 - bands:
   - Narvee
   - Gutter Girl
-  - Uh-comma
+  - Uh&#44
   - Deformed
   - Acid Baptism
   - Burn to Learn
@@ -395,7 +395,7 @@
   era: early
   file: early-zack-flyer.jpg
   locations:
-  - Saint Petersburg
+  - Saint Petersburg&#44 FL
   tags:
   - commission
   - death metal
@@ -691,7 +691,7 @@
   era: early
   file: early-tumblrow6p2gg6er1wr84vlo11280.jpg
   locations:
-  - Largo
+  - Saint Petersburg&#44 FL
   tags:
   - born-digital
   - collage
@@ -764,7 +764,7 @@
   - Moat Cobra
   era: mid
   file: mid-1228.jpg
-  locations: [Orlando, FL]
+  locations: [Orlando&#44 FL]
   tags:
   - born-digital
   - drawing
@@ -779,7 +779,7 @@
   - Flying Limbs
   era: mid
   file: mid-18-12-6.jpg
-  locations: [Orlando, FL]
+  locations: [Orlando&#44 FL]
   tags:
   - born-digital
   - collage
@@ -797,7 +797,7 @@
   - Burn to Learn
   era: mid
   file: mid-2219.jpg
-  locations: [Orlando, FL]
+  locations: [Orlando&#44 FL]
   tags:
   - flyer
   - hardcore
@@ -813,7 +813,7 @@
   - Iron Lung Records
   era: mid
   file: mid-7.jpg
-  locations: [Chicago, IL]
+  locations: [Chicago&#44 IL]
   tags:
   - born-digital
   - collage
@@ -967,6 +967,7 @@
   - ambient
   venues:
   - Manes Emporium of Doubt
+  - House Show
 - bands:
   - Dolce
   - Rotten Milk
@@ -1011,7 +1012,7 @@
   - Flying Limbs
   era: mid
   file: mid-tcmeatkick.jpg
-  locations: []
+  locations: The Atlantic
   tags:
   - commission
   - born-digital
@@ -1025,7 +1026,7 @@
 - bands: []
   era: mid
   file: mid-thurs.jpg
-  locations: []
+  locations: Daytona Beach&#44 FL
   tags:
   - born-digital
   - collage
@@ -1034,42 +1035,85 @@
   - poster
   venues:
   - Cinematique Theater
-- bands: []
+- bands:
+  - Witchbender
+  - Drug Church
+  - Gouge Away
+  - Seattle&#39;s New Gods
   era: mid
   file: mid-untitled-5.jpg
-  locations: []
-  tags: []
-  venues: []
-- bands: []
+  locations: Orlando&#44 FL
+  tags:
+  - born-digital
+  - collage
+  - type
+  - filmic
+  venues: Will&#39;s Pub
+- bands:
+  - Witchbender
+  - Cheyhawwt
+  - Christian Munro
+  - Curm
+  - Nelward
   era: mid
   file: mid-wb-weekender2.jpg
-  locations: []
-  tags: []
+  locations: Florida
+  tags:
+  - born-digital
+  - type
+  - filmic
+  - tour
+  - poster
+  - hardcore
+  - punk
+  - noise-rock
   venues: []
-- bands: []
+- bands:
+  - Witchbender
+  - Modern Color
+  - No Sun
+  - Throwin&#39; Up
   era: mid
   file: mid-wb1.jpg
-  locations: []
+  locations: Orlando&#44 FL
   tags: []
   venues: []
-- bands: []
+- bands:
+  - Witchbender
+  - Cheyhawwt
+  - Christian Munro
+  - Curm
+  - Nelward
   era: mid
   file: mid-wb-ga.jpg
-  locations: []
-  tags: []
-  venues: []
-- bands: []
+  locations: Decatur&#44 GA
+  tags:
+  - born-digital
+  - type
+  - tour
+  - poster
+  - hardcore
+  - punk
+  - noise-rock
+  venues: House Show
+- bands:
+  - Witchbender
+  - Timelost
+  - Sad Halen
   era: mid
   file: mid-wb210so.jpg
-  locations: []
-  tags: []
-  venues: []
-- bands: []
+  locations: Orlando&#44 FL
+  tags: 
+  venues: Will&#39;s Pub
+- bands:
+  - Witchbender
+  - Hot Snakes
+  - Mannequin Pussy
   era: mid
   file: mid-wbghahaha.jpg
-  locations: []
+  locations: Orlando&#44 FL
   tags: []
-  venues: []
+  venues: The Abbey
 - bands: []
   era: mid
   file: mid-wreath.jpg
@@ -1442,15 +1486,29 @@
   locations: []
   tags: []
   venues: []
-- bands: []
-  era: late
-  file: late-social.jpg
-  locations: []
-  tags: []
-  venues: []
-- bands: []
+- bands:
+  - Sleeping Pills
+  - Matter Room
+  - Dullhaus
+  - Warsaw Pact
+  - Cruel Reflections
+  era: mid
+  file: mid-social.jpg
+  locations: Los Angeles&#44 CA
+  tags:
+    - born-digital
+    - collage
+    - commission
+    - filmic
+    - post-punk
+    - flyer
+  venues: Redwood Bar
+- bands: Weekend Watch Party (Film Streaming)
   era: late
   file: late-wwpig.jpg
   locations: []
-  tags: []
-  venues: []
+  tags: 
+  - born-digital
+  - collage
+  - filmic
+  venues: twitch.tv
