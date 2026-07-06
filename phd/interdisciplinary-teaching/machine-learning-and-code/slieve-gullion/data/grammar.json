@@ -4,6 +4,7 @@
     "author": "",
     "mode": "fork"
   },
+  "imageSource": "both",
   "grammar": {
     "origin": [
       "the #noun_anchor# #verb_fails# into the #noun_room#",
@@ -19,18 +20,19 @@
     "verb_fails": ["yields", "dissolves", "recedes", "surrenders", "subsides", "erodes", "persists", "holds"]
   },
   "images": [
-    { "id": "img_001", "src": "images/slieve-gullion-01.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
-    { "id": "img_002", "src": "images/slieve-gullion-02.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
-    { "id": "img_003", "src": "images/slieve-gullion-03.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
-    { "id": "img_004", "src": "images/slieve-gullion-04.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
-    { "id": "img_005", "src": "images/slieve-gullion-05.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
-    { "id": "img_006", "src": "images/slieve-gullion-06.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
-    { "id": "img_007", "src": "images/slieve-gullion-07.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
-    { "id": "img_008", "src": "images/slieve-gullion-08.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
-    { "id": "img_009", "src": "images/slieve-gullion-09.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
-    { "id": "img_010", "src": "images/slieve-gullion-10.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
-    { "id": "img_011", "src": "images/slieve-gullion-11.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
-    { "id": "img_012", "src": "images/slieve-gullion-12.jpg", "alt": "", "caption": "", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } }
+    { "id": "img_001", "src": "images/slieve-gullion-01.jpg", "alt": "View through overhanging branches down a wooded slope toward a patchwork valley and hills under a partly cloudy sky", "caption": "", "provenance": "instructor", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
+    { "id": "img_002", "src": "images/slieve-gullion-02.jpg", "alt": "Moss-covered boulders on the forest floor beside a mossy fallen trunk, surrounded by ferns and dappled shade", "caption": "", "provenance": "instructor", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
+    { "id": "img_003", "src": "images/slieve-gullion-03.jpg", "alt": "Wide view from a forest edge over green farmland and rolling hills, ferns and a broken branch in the foreground", "caption": "", "provenance": "instructor", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
+    { "id": "img_004", "src": "images/slieve-gullion-04.jpg", "alt": "A large fallen tree with its root ball exposed, leaning across the forest floor near a standing trunk", "caption": "", "provenance": "instructor", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
+    { "id": "img_005", "src": "images/slieve-gullion-05.jpg", "alt": "Trees on a grassy embankment above a gravel path, with a mossy fallen log and two ceramic pipes lying in the grass", "caption": "", "provenance": "instructor", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
+    { "id": "img_006", "src": "images/slieve-gullion-06.jpg", "alt": "A wooden boardwalk curving through the forest beneath a large tree trunk propped at an angle overhead", "caption": "", "provenance": "instructor", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
+    { "id": "img_007", "src": "images/slieve-gullion-07.jpg", "alt": "Dense forest interior with mossy fallen logs and stumps scattered among tall tree trunks", "caption": "", "provenance": "instructor", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
+    { "id": "img_008", "src": "images/slieve-gullion-08.jpg", "alt": "Forest path descending through tall beech and pine trees, with pale broken branches scattered in dappled light", "caption": "", "provenance": "instructor", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
+    { "id": "img_009", "src": "images/slieve-gullion-09.jpg", "alt": "Whimsical wooden fairy-trail cottage on stilts beside a boardwalk, framed by an old fallen tree draped in moss", "caption": "", "provenance": "instructor", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
+    { "id": "img_010", "src": "images/slieve-gullion-10.jpg", "alt": "Colorful storybook-style cottages on stilts along the fairy trail, connected by a boardwalk through the woods", "caption": "", "provenance": "instructor", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
+    { "id": "img_011", "src": "images/slieve-gullion-11.jpg", "alt": "Forest clearing with mossy fallen logs and stumps arranged like a rustic seating area, sunlight filtering through the canopy", "caption": "", "provenance": "instructor", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
+    { "id": "img_012", "src": "images/slieve-gullion-12.jpg", "alt": "An old moss-covered dry-stone wall running through the forest among tall mossy trees", "caption": "", "provenance": "instructor", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } },
+    { "id": "img_013", "src": "images/slieve-gullion-13.jpg", "alt": "Gravel forest path winding between tall pines and a broken, moss-covered tree trunk, opening toward distant hills", "caption": "", "provenance": "instructor", "reduction": { "brightness": null, "blur": null, "dominant": [], "edgeDensity": null, "contourCount": null } }
   ],
   "pages": [
     { "id": "page_001", "elements": [] }

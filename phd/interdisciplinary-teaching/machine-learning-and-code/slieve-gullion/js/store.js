@@ -2,6 +2,7 @@ window.ZineStore = (function () {
   function emptyState() {
     return {
       meta: { title: '', author: '', mode: 'fork' },
+      imageSource: 'both',
       grammar: { origin: [], noun_anchor: [], noun_room: [], adjective_state: [], verb_fails: [] },
       images: [],
       pages: [{ id: 'page_001', elements: [] }]
