@@ -405,6 +405,7 @@
     ownImages.push(buildOwnImageEntry(currentReduction, currentUploadDataUrl, _queueIdx));
     ZineStore.update({ images: ownImages.slice() });
     currentReduction = null;
+    currentUploadDataUrl = null;
 
     // Advance queue
     if (_queue.length > 1) {
