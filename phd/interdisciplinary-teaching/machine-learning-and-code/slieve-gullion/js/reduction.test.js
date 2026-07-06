@@ -163,6 +163,17 @@ function approx(a, b, tol) {
   return Math.abs(a - b) <= (tol !== undefined ? tol : 0.0001);
 }
 
+function buildOwnImageEntry(reduction, dataUrl, uniqueSuffix) {
+  return {
+    id: 'img_own_' + Date.now() + '_' + uniqueSuffix,
+    src: dataUrl,
+    alt: '',
+    caption: '',
+    provenance: 'student',
+    reduction: reduction
+  };
+}
+
 // ── Test harness ─────────────────────────────────────────────────────────────
 
 var passed = 0;
@@ -357,6 +368,21 @@ assert('single-color image: largest cluster pct ~ 1.0', singleColorResult[0].pct
 result.forEach(function(d, i) {
   assert('kMeans result[' + i + '] hex is valid 7-char #rrggbb', /^#[0-9a-f]{6}$/.test(d.hex));
 });
+
+// ── Test: buildOwnImageEntry ──────────────────────────────────────────────
+console.log('\n[buildOwnImageEntry]');
+
+var fakeReduction = { brightness: 0.5, blur: 12.3, dominant: [{ hex: '#336633', pct: 0.4 }], edgeDensity: 0.2, contourCount: 5 };
+var entry = buildOwnImageEntry(fakeReduction, 'data:image/jpeg;base64,AAAA', 0);
+assert('entry has provenance "student"', entry.provenance === 'student');
+assert('entry id matches img_own_<digits>_0 pattern', /^img_own_\d+_0$/.test(entry.id));
+assert('entry src is the passed data URL', entry.src === 'data:image/jpeg;base64,AAAA');
+assert('entry alt starts empty', entry.alt === '');
+assert('entry caption starts empty', entry.caption === '');
+assert('entry carries the passed reduction object', entry.reduction === fakeReduction);
+
+var entry2 = buildOwnImageEntry(fakeReduction, 'data:image/jpeg;base64,BBBB', 1);
+assert('a different uniqueSuffix produces a different id', entry2.id !== entry.id);
 
 // ── Summary ──────────────────────────────────────────────────────────────────
 console.log('\n──────────────────────────────────────────');

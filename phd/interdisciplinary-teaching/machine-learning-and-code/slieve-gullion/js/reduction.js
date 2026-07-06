@@ -1,9 +1,10 @@
 (function () {
-  var currentImageId = null;   // id from images[] if project image selected
-  var currentReduction = null; // the computed result
-  var _queue = [];             // File objects waiting to be processed
+  var currentImageId = null;      // id from images[] if project image selected
+  var currentReduction = null;    // the computed result
+  var currentUploadDataUrl = null; // data: URL for the currently-loaded upload (null when a project image is selected)
+  var _queue = [];                // File objects waiting to be processed
   var _queueIdx = 0;
-  var _allDominant = [];       // accumulated colors across the queue session
+  var _allDominant = [];          // accumulated colors across the queue session
 
   function init() {
     document.getElementById('src-upload').addEventListener('click', function () { setSourceMode('upload'); });
@@ -48,13 +49,18 @@
     _queueIdx = 0;
     _allDominant = [];
     currentImageId = null;
+    currentUploadDataUrl = null;
     processQueue();
   }
 
   function processQueue() {
     var file = _queue[_queueIdx];
-    var url = URL.createObjectURL(file);
-    loadImageAndAnalyse(url, function () { URL.revokeObjectURL(url); });
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      currentUploadDataUrl = e.target.result;
+      loadImageAndAnalyse(currentUploadDataUrl);
+    };
+    reader.readAsDataURL(file);
     updateQueueUI();
   }
 
@@ -81,12 +87,13 @@
     var id = e.target.value;
     if (!id) return;
     currentImageId = id;
+    currentUploadDataUrl = null;
     var imgData = ZineStore.state.images.find(function (i) { return i.id === id; });
     if (!imgData) return;
-    loadImageAndAnalyse(imgData.src, null);
+    loadImageAndAnalyse(imgData.src);
   }
 
-  function loadImageAndAnalyse(src, onDone) {
+  function loadImageAndAnalyse(src) {
     var img = new Image();
     img.crossOrigin = 'anonymous';
     img.onload = function () {
@@ -94,7 +101,6 @@
       preview.src = src;
       preview.hidden = false;
       analyseImage(img);
-      if (onDone) onDone();
     };
     img.onerror = function () { alert('Could not load image. If using a project image, make sure the file exists in the images/ folder.'); };
     img.src = src;
@@ -363,6 +369,17 @@
     });
   }
 
+  function buildOwnImageEntry(reduction, dataUrl, uniqueSuffix) {
+    return {
+      id: 'img_own_' + Date.now() + '_' + uniqueSuffix,
+      src: dataUrl,
+      alt: '',
+      caption: '',
+      provenance: 'student',
+      reduction: reduction
+    };
+  }
+
   // ── Save ─────────────────────────────────────────────────
   function saveReduction() {
     if (!currentReduction) return;
@@ -380,6 +397,11 @@
     // Accumulate colors from this image into the session palette
     _allDominant = _allDominant.concat(currentReduction.dominant);
     ZineStore.saveDominantHexes(_allDominant);
+
+    // Persist this upload as a placeable image
+    var ownImages = ZineStore.state.images;
+    ownImages.push(buildOwnImageEntry(currentReduction, currentUploadDataUrl, _queueIdx));
+    ZineStore.update({ images: ownImages.slice() });
 
     // Advance queue
     if (_queue.length > 1) {
