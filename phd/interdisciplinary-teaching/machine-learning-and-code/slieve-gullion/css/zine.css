@@ -369,8 +369,8 @@ body.dragging * { cursor: grabbing !important; user-select: none !important; }
 }
 .editor-meta-field input:focus-visible { outline: 2px solid #000; }
 
-.fork-toggle { display: flex; }
-.fork-toggle button {
+.fork-toggle, .image-source-toggle { display: flex; }
+.fork-toggle button, .image-source-toggle button {
   font-size: 0.75rem;
   letter-spacing: 0.04em;
   padding: 5px 12px;
@@ -380,9 +380,9 @@ body.dragging * { cursor: grabbing !important; user-select: none !important; }
   cursor: pointer;
   font-family: ui-monospace, Menlo, 'Courier New', monospace;
 }
-.fork-toggle button:first-child { border-right: none; }
-.fork-toggle button.active { background: #000; border-color: #000; color: #fff; }
-.fork-toggle button:focus-visible { outline: 2px solid #000; outline-offset: 2px; }
+.fork-toggle button:not(:last-child), .image-source-toggle button:not(:last-child) { border-right: none; }
+.fork-toggle button.active, .image-source-toggle button.active { background: #000; border-color: #000; color: #fff; }
+.fork-toggle button:focus-visible, .image-source-toggle button:focus-visible { outline: 2px solid #000; outline-offset: 2px; }
 
 /* ── Editor split layout ─────────────────────────────── */
 .editor-layout {

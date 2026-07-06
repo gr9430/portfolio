@@ -55,6 +55,11 @@
     document.getElementById('fork-btn').addEventListener('click', function () { applyMode('fork'); });
     document.getElementById('empty-btn').addEventListener('click', function () { applyMode('empty'); });
 
+    Array.from(document.querySelectorAll('.image-source-toggle button')).forEach(function (btn) {
+      btn.addEventListener('click', function () { setImageSource(btn.getAttribute('data-source')); });
+    });
+    document.getElementById('finalize-btn').addEventListener('click', finalizeAndReturn);
+
     document.getElementById('grammar-editor').addEventListener('input', function () {
       clearTimeout(_debounceTimer);
       _debounceTimer = setTimeout(onTextareaChange, 400);
@@ -92,6 +97,12 @@
     }
     renderHexCandidates();
     renderImageMeta();
+    var currentSource = ZineStore.state.imageSource || 'both';
+    Array.from(document.querySelectorAll('.image-source-toggle button')).forEach(function (btn) {
+      var active = (btn.getAttribute('data-source') === currentSource);
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
   }
 
   function syncTextarea() {
@@ -132,6 +143,20 @@
     document.getElementById('empty-btn').classList.toggle('active', mode === 'empty');
     document.getElementById('empty-btn').setAttribute('aria-pressed', mode === 'empty' ? 'true' : 'false');
     _edited = false;
+  }
+
+  function setImageSource(source) {
+    ZineStore.update({ imageSource: source });
+    Array.from(document.querySelectorAll('.image-source-toggle button')).forEach(function (btn) {
+      var active = (btn.getAttribute('data-source') === source);
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+  }
+
+  function finalizeAndReturn() {
+    setImageSource(ZineStore.state.imageSource || 'both');
+    document.getElementById('btn-canvas').click();
   }
 
   function renderHexCandidates() {
