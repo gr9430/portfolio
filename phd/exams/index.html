@@ -1447,9 +1447,15 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
       [bookEdges.length, 'shared-citation pairs'],
       [sharedSourceCount, 'shared sources']
     ];
+    const coreBooks = books.filter(b => (b.categories || []).includes('core'));
+    const coreTitled = coreBooks.filter(b => b.title);
+    const coreTbd = coreBooks.length - coreTitled.length;
+    const coreSelected = coreTitled.filter(b => b.selected !== false).length;
+    const corePillHtml = '<span class="exams-stat-pill">Core: <strong>' + coreSelected +
+      '</strong> of <strong>' + coreTitled.length + '</strong> selected · <strong>' + coreTbd + '</strong> TBD</span>';
     barEl.innerHTML = stats.map(([n, label]) =>
       '<span class="exams-stat-pill"><strong>' + n + '</strong> ' + label + '</span>'
-    ).join('');
+    ).join('') + corePillHtml;
   }
   renderStatsBar();
 
