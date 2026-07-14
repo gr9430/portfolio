@@ -9265,7 +9265,8 @@
       ],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "barthes-image-music-text",
@@ -9284,7 +9285,8 @@
       "citations": [],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "baudrillard-simulacra",
@@ -9303,7 +9305,8 @@
       "citations": [],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "benjamin-reproduction",
@@ -9318,7 +9321,8 @@
       "citations": [],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "bogost-games",
@@ -9859,7 +9863,8 @@
       ],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "bolter-space",
@@ -10178,7 +10183,8 @@
       ],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "chun-same",
@@ -10477,7 +10483,8 @@
       ],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "costanza-chock-justice",
@@ -10972,7 +10979,8 @@
       ],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "data-feminism",
@@ -11618,7 +11626,8 @@
       ],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "drucker-coursebook",
@@ -12858,7 +12867,8 @@
       ],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "eubanks-inequality",
@@ -14673,7 +14683,8 @@
       ],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "foucault-order",
@@ -14691,7 +14702,8 @@
       "citations": [],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "debates-23",
@@ -14711,7 +14723,8 @@
       "citations": [],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "hall-e-d",
@@ -14726,7 +14739,8 @@
       "citations": [],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "haraway-cyborgs",
@@ -15353,7 +15367,8 @@
       ],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "hayles-posthuman",
@@ -17166,7 +17181,8 @@
       ],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "interdisciplining-dh",
@@ -19151,7 +19167,8 @@
           "triple efficacy",
           "aggregate activity"
         ]
-      }
+      },
+      "selected": true
     },
     {
       "id": "actor-network",
@@ -19563,7 +19580,8 @@
       ],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "core-tbd-19",
@@ -19578,7 +19596,8 @@
       "citations": [],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "cultural-analytics",
@@ -21651,7 +21670,8 @@
       ],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "exploratory",
@@ -21827,7 +21847,8 @@
       ],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "mueller-network",
@@ -22044,7 +22065,8 @@
       ],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "nakamura-digitizing",
@@ -22067,7 +22089,8 @@
       "citations": [],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "noble",
@@ -22403,7 +22426,8 @@
       ],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "ong",
@@ -22649,7 +22673,8 @@
       ],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "risam-poco-dh",
@@ -24741,7 +24766,8 @@
       ],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "rose-visual",
@@ -24760,7 +24786,8 @@
       "citations": [],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "orientalism",
@@ -26659,7 +26686,8 @@
       ],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "core-tbd-29",
@@ -26674,7 +26702,8 @@
       "citations": [],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "new-media",
@@ -26695,7 +26724,8 @@
       "citations": [],
       "categories": [
         "core"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "output",
@@ -26710,7 +26740,8 @@
       "citations": [],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "borsuk-book",
@@ -26873,7 +26904,8 @@
       ],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "chang",
@@ -28484,7 +28516,8 @@
       ],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "chess-feminist",
@@ -28647,7 +28680,8 @@
       "categories": [
         "primary",
         "independent-study"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "consalvo",
@@ -29591,7 +29625,8 @@
       ],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "drucker-word",
@@ -29606,7 +29641,8 @@
       "citations": [],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "ensslin-literary-gaming",
@@ -31082,7 +31118,8 @@
       ],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "well-read-game",
@@ -31097,7 +31134,8 @@
       "citations": [],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "uncreative-writing",
@@ -31873,7 +31911,8 @@
       ],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "twine-revolution",
@@ -31888,7 +31927,8 @@
       "citations": [],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "pr-manifesto",
@@ -31903,7 +31943,8 @@
       "citations": [],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "electronic-literature",
@@ -31918,7 +31959,8 @@
       "citations": [],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "experimental-games",
@@ -34594,7 +34636,8 @@
       ],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "jenkins-game-design",
@@ -34609,7 +34652,8 @@
       "citations": [],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "salter-johnson-critical-making",
@@ -34624,7 +34668,8 @@
       "citations": [],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "transgression-games-play",
@@ -34639,7 +34684,8 @@
       "citations": [],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "bitstreams",
@@ -34654,7 +34700,8 @@
       "citations": [],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "research-creation",
@@ -34669,7 +34716,8 @@
       "citations": [],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "hamlet-holodeck",
@@ -34684,7 +34732,8 @@
       "citations": [],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "zen-slow-games",
@@ -34699,7 +34748,8 @@
       "citations": [],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "practice-research",
@@ -34714,7 +34764,8 @@
       "citations": [],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "playframes",
@@ -34729,7 +34780,8 @@
       "citations": [],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "reading-machines",
@@ -34744,7 +34796,8 @@
       "citations": [],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "critical-making",
@@ -34759,7 +34812,8 @@
       "citations": [],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "diy-citizen",
@@ -34774,7 +34828,8 @@
       "citations": [],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "playing-the-outsider",
@@ -34789,7 +34844,8 @@
       "citations": [],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "e-lit",
@@ -35038,7 +35094,8 @@
       ],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "undertale",
@@ -35054,7 +35111,8 @@
       "categories": [
         "primary",
         "independent-study"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "twining",
@@ -35397,7 +35455,8 @@
       ],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "primary-tbd-16",
@@ -35412,7 +35471,8 @@
       "citations": [],
       "categories": [
         "primary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "placeholder-secondary-book",
@@ -35427,7 +35487,8 @@
       "citations": [],
       "categories": [
         "secondary"
-      ]
+      ],
+      "selected": true
     },
     {
       "id": "game-poems",
@@ -35716,7 +35777,8 @@
       ],
       "categories": [
         "independent-study"
-      ]
+      ],
+      "selected": true
     }
   ]
 }
