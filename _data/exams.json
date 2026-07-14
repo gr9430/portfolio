@@ -35779,6 +35779,438 @@
         "independent-study"
       ],
       "selected": true
+    },
+    {
+      "id": "bailey-misogynoir",
+      "title": "Misogynoir Transformed: Black Women's Digital Resistance",
+      "author": "Bailey, Moya",
+      "year": 2021,
+      "field": "Texts & Technology",
+      "subject": "data-algorithmic-justice",
+      "container": "",
+      "type": "Book",
+      "publisher": "NYU Press",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "benjamin-race-tech",
+      "title": "Race After Technology: Abolitionist Tools for the New Jim Code",
+      "author": "Benjamin, Ruha",
+      "year": 2019,
+      "field": "Texts & Technology",
+      "subject": "data-algorithmic-justice",
+      "container": "",
+      "type": "Book",
+      "publisher": "Polity",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "brock-distributed-blackness",
+      "title": "Distributed Blackness: African American Cybercultures",
+      "author": "Brock, Jr., André",
+      "year": 2020,
+      "field": "Texts & Technology",
+      "subject": "data-algorithmic-justice",
+      "container": "",
+      "type": "Book",
+      "publisher": "NYU Press",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "cohen-rosenzweig-digital-history",
+      "title": "Digital History: A Guide to Gathering, Preserving, and Presenting the Past on the Web",
+      "author": "Cohen, Daniel J. and Roy Rosenzweig",
+      "year": 2005,
+      "field": "Texts & Technology",
+      "subject": "dh-field-methods",
+      "container": "",
+      "type": "Book",
+      "publisher": "University of Pennsylvania Press",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "crymble-technology-historian",
+      "title": "Technology and the Historian: Transformations in the Digital Age",
+      "author": "Crymble, Adam",
+      "year": 2021,
+      "field": "Texts & Technology",
+      "subject": "dh-field-methods",
+      "container": "",
+      "type": "Book",
+      "publisher": "University of Illinois Press",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "dekosnik-rogue-archives",
+      "title": "Rogue Archives: Digital Cultural Memory and Media Fandom",
+      "author": "De Kosnik, Abigail",
+      "year": 2016,
+      "field": "Texts & Technology",
+      "subject": "dh-field-methods",
+      "container": "",
+      "type": "Book",
+      "publisher": "MIT Press",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "gonzales-multilingual",
+      "title": "Designing Multilingual Experiences in Technical Communication",
+      "author": "Gonzales, Laura",
+      "year": 2022,
+      "field": "Texts & Technology",
+      "subject": "dh-field-methods",
+      "container": "",
+      "type": "Book",
+      "publisher": "Utah State University Press",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "gray-intersectional-tech",
+      "title": "Intersectional Tech: Black Users in Digital Gaming",
+      "author": "Gray, Kishonna L.",
+      "year": 2020,
+      "field": "Texts & Technology",
+      "subject": "game-studies",
+      "container": "",
+      "type": "Book",
+      "publisher": "LSU Press",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "headrick-information-age",
+      "title": "When Information Came of Age: Technologies of Knowledge in the Age of Reason and Revolution, 1700-1850",
+      "author": "Headrick, Daniel R.",
+      "year": 2002,
+      "field": "Texts & Technology",
+      "subject": "dh-field-methods",
+      "container": "",
+      "type": "Book",
+      "publisher": "Oxford University Press",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "jackson-hashtagactivism",
+      "title": "#HashtagActivism: Networks of Race and Gender Justice",
+      "author": "Jackson, Sarah J., Moya Bailey, and Brooke Foucault Welles",
+      "year": 2020,
+      "field": "Texts & Technology",
+      "subject": "data-algorithmic-justice",
+      "container": "",
+      "type": "Book",
+      "publisher": "MIT Press",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "kuhn-structure-scientific-revolutions",
+      "title": "The Structure of Scientific Revolutions",
+      "author": "Kuhn, Thomas S.",
+      "year": 2012,
+      "field": "Texts & Technology",
+      "subject": "dh-field-methods",
+      "container": "",
+      "type": "Book",
+      "publisher": "University of Chicago Press",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "lehrer-curating-difficult-knowledge",
+      "title": "Curating Difficult Knowledge: Violent Pasts in Public Places",
+      "author": "Lehrer, E., C. Milton, and M. Patterson, eds.",
+      "year": 2011,
+      "field": "Texts & Technology",
+      "subject": "postcolonial-visual-theory",
+      "container": "",
+      "type": "Book",
+      "publisher": "Palgrave MacMillan",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "littman-code-to-joy",
+      "title": "Code to Joy: Why Everyone Should Learn a Little Programming",
+      "author": "Littman, Michael L.",
+      "year": 2023,
+      "field": "Texts & Technology",
+      "subject": "critical-making-practice",
+      "container": "",
+      "type": "Book",
+      "publisher": "MIT Press",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "losh-wernimont-bodies-of-information",
+      "title": "Bodies of Information: Intersectional Feminism and the Digital Humanities",
+      "author": "Losh, Elizabeth and Jacqueline Wernimont, eds.",
+      "year": 2019,
+      "field": "Texts & Technology",
+      "subject": "data-algorithmic-justice",
+      "container": "",
+      "type": "Book",
+      "publisher": "Univ Of Minnesota Press",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "martinez-counterstory",
+      "title": "Counterstory: The Rhetoric and Writing of Critical Race Theory",
+      "author": "Martinez, Aja Y.",
+      "year": 2020,
+      "field": "Texts & Technology",
+      "subject": "data-algorithmic-justice",
+      "container": "",
+      "type": "Book",
+      "publisher": "National Council of Teachers of English",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "mckinney-information-activism",
+      "title": "Information Activism: A Queer History of Lesbian Media Technologies",
+      "author": "McKinney, Cait",
+      "year": 2020,
+      "field": "Texts & Technology",
+      "subject": "data-algorithmic-justice",
+      "container": "",
+      "type": "Book",
+      "publisher": "Duke University Press",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "milligan-history-abundance",
+      "title": "History in the Age of Abundance?: How the Web Is Transforming Historical Research",
+      "author": "Milligan, Ian",
+      "year": 2019,
+      "field": "Texts & Technology",
+      "subject": "dh-field-methods",
+      "container": "",
+      "type": "Book",
+      "publisher": "McGill-Queen's University Press",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "miron-indigenous-archival-activism",
+      "title": "Indigenous Archival Activism: Mohican Interventions in Public History and Memory",
+      "author": "Miron, Rose",
+      "year": 2024,
+      "field": "Texts & Technology",
+      "subject": "postcolonial-visual-theory",
+      "container": "",
+      "type": "Book",
+      "publisher": "Univ Of Minnesota Press",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "misa-leonardo-internet",
+      "title": "Leonardo to the Internet: Technology and Culture from the Renaissance to the Present",
+      "author": "Misa, Thomas J.",
+      "year": 2022,
+      "field": "Texts & Technology",
+      "subject": "media-tech-theory",
+      "container": "",
+      "type": "Book",
+      "publisher": "JHU Press",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "mullaney-your-computer-is-on-fire",
+      "title": "Your Computer Is on Fire",
+      "author": "Mullaney, Thomas S., Benjamin Peters, Mar Hicks, and Kavita Philip, eds.",
+      "year": 2021,
+      "field": "Texts & Technology",
+      "subject": "media-tech-theory",
+      "container": "",
+      "type": "Book",
+      "publisher": "MIT Press",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "raign-origins-professional-writing",
+      "title": "The Origins of the Art and Practice of Professional Writing: The Written Word as a Tool for Social Justice Then and Now",
+      "author": "Raign, Kathryn Rosser",
+      "year": 2024,
+      "field": "Texts & Technology",
+      "subject": "dh-field-methods",
+      "container": "",
+      "type": "Book",
+      "publisher": "State University of New York Press",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "rose-holloway-interpreting-difficult-history",
+      "title": "Interpreting Difficult History at Museums and Historic Sites",
+      "author": "Rose, Julia and Jonathan Holloway",
+      "year": 2016,
+      "field": "Texts & Technology",
+      "subject": "postcolonial-visual-theory",
+      "container": "",
+      "type": "Book",
+      "publisher": "Rowman & Littlefield",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "steele-digital-black-feminism",
+      "title": "Digital Black Feminism",
+      "author": "Steele, Catherine Knight",
+      "year": 2021,
+      "field": "Texts & Technology",
+      "subject": "data-algorithmic-justice",
+      "container": "",
+      "type": "Book",
+      "publisher": "NYU Press",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "steele-lu-winstead-black-dh",
+      "title": "Doing Black Digital Humanities with Radical Intentionality",
+      "author": "Steele, Catherine Knight, Jessica H. Lu, and Kevin C. Winstead",
+      "year": 2023,
+      "field": "Texts & Technology",
+      "subject": "data-algorithmic-justice",
+      "container": "",
+      "type": "Book",
+      "publisher": "Routledge",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "tham-design-thinking",
+      "title": "Design Thinking in Technical Communication: Solving Problems through Making and Collaboration",
+      "author": "Tham, Jason",
+      "year": 2021,
+      "field": "Texts & Technology",
+      "subject": "dh-field-methods",
+      "container": "",
+      "type": "Book",
+      "publisher": "Routledge",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "vee-coding-literacy",
+      "title": "Coding Literacy: How Computer Programming Is Changing Writing",
+      "author": "Vee, Annette",
+      "year": 2017,
+      "field": "Texts & Technology",
+      "subject": "critical-making-practice",
+      "container": "",
+      "type": "Book",
+      "publisher": "MIT Press",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
+    },
+    {
+      "id": "walton-moore-jones-technical-communication",
+      "title": "Technical Communication After the Social Justice Turn: Building Coalitions for Action",
+      "author": "Walton, Rebecca, Kristen Moore, and Natasha Jones",
+      "year": 2019,
+      "field": "Texts & Technology",
+      "subject": "dh-field-methods",
+      "container": "",
+      "type": "Book",
+      "publisher": "Routledge",
+      "citations": [],
+      "categories": [
+        "core"
+      ],
+      "selected": false
     }
   ]
 }
