@@ -540,6 +540,14 @@ tags: [Texts and Technology, Digital Humanities, Network Analysis, Electronic Li
   font-style: italic;
 }
 
+.exams-subject-book.unselected .exams-subject-book-title {
+  color: #bbb;
+}
+
+.exams-subject-book.unselected .exams-subject-book-stat {
+  color: #bbb;
+}
+
 .exams-subject-book-meta {
   display: flex;
   align-items: center;
@@ -1373,25 +1381,33 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
       col.appendChild(countEl);
       sorted.forEach(b => {
         const populated = (b.citations || []).length > 0;
+        const unselected = b.selected === false;
         const row = document.createElement('div');
-        row.className = 'exams-subject-book' + (populated ? '' : ' untranscribed');
+        row.className = 'exams-subject-book' + (unselected ? ' unselected' : (populated ? '' : ' untranscribed'));
         const titleEl = document.createElement('div');
         titleEl.className = 'exams-subject-book-title';
         titleEl.textContent = b.title || '(untitled)';
         row.appendChild(titleEl);
         const metaEl = document.createElement('div');
         metaEl.className = 'exams-subject-book-meta';
-        (b.categories || []).forEach(cat => {
-          const dot = document.createElement('span');
-          dot.className = 'exams-subject-book-catdot';
-          dot.style.background = CATEGORY_COLOR[cat] || '#999';
-          dot.title = cat;
-          metaEl.appendChild(dot);
-        });
+        if (!unselected) {
+          (b.categories || []).forEach(cat => {
+            const dot = document.createElement('span');
+            dot.className = 'exams-subject-book-catdot';
+            dot.style.background = CATEGORY_COLOR[cat] || '#999';
+            dot.title = cat;
+            metaEl.appendChild(dot);
+          });
+        }
         const authorEl = document.createElement('span');
         authorEl.textContent = (b.author || '') + (b.year ? ' · ' + b.year : '');
         metaEl.appendChild(authorEl);
-        if (populated) {
+        if (unselected) {
+          const statEl = document.createElement('span');
+          statEl.className = 'exams-subject-book-stat';
+          statEl.textContent = 'not selected';
+          metaEl.appendChild(statEl);
+        } else if (populated) {
           const hubCount = (b.citations || []).filter(entry => established.has(citationKey(entry))).length;
           const statEl = document.createElement('span');
           statEl.className = 'exams-subject-book-stat';
