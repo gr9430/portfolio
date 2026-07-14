@@ -77,6 +77,8 @@ tags: [Texts and Technology, Digital Humanities, Network Analysis, Electronic Li
 .exams-filter-btn.reco-type-btn.type-fiction.active { background: rgb(163, 6, 6); color: #f8f8ff; }
 .exams-filter-btn.reco-type-btn.type-academic.active { background: #555; color: #f8f8ff; }
 .exams-filter-btn.reco-type-btn.type-online.active { background: rgb(6, 97, 122); color: #f8f8ff; }
+.exams-filter-btn.fullfield-btn { color: #777; border-color: #999; }
+.exams-filter-btn.fullfield-btn.active { background: #777; color: #f8f8ff; }
 
 .exams-controls input[type="range"] {
   accent-color: rgb(122, 6, 97);
@@ -602,6 +604,7 @@ tags: [Texts and Technology, Digital Humanities, Network Analysis, Electronic Li
       <div class="exams-filter-group">
         <button class="exams-filter-btn links-btn active" id="exams-links-toggle">Links</button>
         <button class="exams-filter-btn reco-btn active" id="exams-recommended-toggle">Recommended</button>
+        <button class="exams-filter-btn fullfield-btn" id="exams-fullfield-toggle">Show Full Field</button>
       </div>
       <div class="exams-filter-group">
         <span class="exams-filter-label">Recommended Type</span>
@@ -649,6 +652,7 @@ tags: [Texts and Technology, Digital Humanities, Network Analysis, Electronic Li
       <span>Node size = number of books connected to this one (shared citation or publisher)</span>
       <button class="exams-legend-btn" id="exams-publisher-rank-toggle" type="button" aria-expanded="false">Rank publishers by book count ▾</button>
       <span><span class="exams-legend-diamond"></span>Recommended: a citation shared by enough of the transcribed books to count as established infrastructure</span>
+      <span><span class="exams-legend-dot" style="background: rgba(120,120,120,0.5)"></span>Full Field (toggle): Core reading-list texts I didn't select</span>
     </div>
     <div id="exams-publisher-rank-list" class="exams-publisher-rank-list"></div>
     </div>
@@ -716,6 +720,9 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
 
   const RECOMMENDED_COLOR = 'rgb(163, 122, 8)';
   const RECOMMENDED_FILL = 'rgba(163, 122, 8, 0.22)';
+
+  const UNSELECTED_FILL = 'rgba(120, 120, 120, 0.14)';
+  const UNSELECTED_STROKE = 'rgba(120, 120, 120, 0.45)';
 
   // Subject is a hand-curated, single-value classification independent of the
   // category system above — it groups every book (transcribed or not) by
@@ -944,7 +951,8 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
   function redrawNodeSizes() {
     nodeG.select('circle')
       .attr('r', d => nodeRadius(d.id))
-      .attr('fill', d => CATEGORY_FILL[d.categories[0]]);
+      .attr('fill', d => d.selected === false ? UNSELECTED_FILL : CATEGORY_FILL[d.categories[0]])
+      .attr('stroke', d => d.selected === false ? UNSELECTED_STROKE : null);
     nodeG.select('.exams-node-diamond')
       .attr('d', d => diamondPath(nodeRadius(d.id)))
       .attr('fill', RECOMMENDED_FILL)
@@ -956,7 +964,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
       const r = nodeRadius(d.id);
       const arcGen = d3.arc().innerRadius(r).outerRadius(r + 3);
       d3.select(this).selectAll('path')
-        .data(CATEGORY_PIE(d.categories))
+        .data(CATEGORY_PIE(d.selected === false ? [] : d.categories))
         .join('path')
         .attr('d', arcGen)
         .attr('fill', p => CATEGORY_COLOR[p.data]);
@@ -1006,6 +1014,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
   const activeRecoTypes = new Set();
   let showLinks = true;
   let showRecommended = true;
+  let showFullField = false;
 
   function categoryMatch(cats) {
     return activeCategories.size === 0 || (cats && cats.some(c => activeCategories.has(c)));
@@ -1018,6 +1027,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
       if (activeCategories.size === 0) return true;
       return d.citedBy.some(id => bookById[id] && categoryMatch(bookById[id].categories));
     }
+    if (d.selected === false && !showFullField) return false;
     return categoryMatch(d.categories);
   }
 
@@ -1068,6 +1078,12 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
   document.getElementById('exams-recommended-toggle').addEventListener('click', function () {
     showRecommended = !showRecommended;
     this.classList.toggle('active', showRecommended);
+    applyVisibility();
+  });
+
+  document.getElementById('exams-fullfield-toggle').addEventListener('click', function () {
+    showFullField = !showFullField;
+    this.classList.toggle('active', showFullField);
     applyVisibility();
   });
 
@@ -1124,6 +1140,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     activeRecoTypes.clear();
     showLinks = true;
     showRecommended = true;
+    showFullField = false;
     recoThresholdPercent = 30;
     minSharedThreshold = 2;
     document.querySelectorAll('.exams-filter-btn').forEach(b => b.classList.remove('active'));
@@ -1246,13 +1263,21 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     panel.classList.add('open');
     const badgesEl = document.getElementById('exams-panel-badges');
     badgesEl.innerHTML = '';
-    d.categories.forEach(cat => {
+    if (d.selected === false) {
       const pill = document.createElement('span');
       pill.className = 'exams-panel-badge';
-      pill.textContent = cat;
-      pill.style.background = CATEGORY_COLOR[cat];
+      pill.textContent = 'core · not selected';
+      pill.style.background = '#777';
       badgesEl.appendChild(pill);
-    });
+    } else {
+      d.categories.forEach(cat => {
+        const pill = document.createElement('span');
+        pill.className = 'exams-panel-badge';
+        pill.textContent = cat;
+        pill.style.background = CATEGORY_COLOR[cat];
+        badgesEl.appendChild(pill);
+      });
+    }
     document.getElementById('exams-panel-title').textContent = d.title;
     document.getElementById('exams-panel-meta').textContent = d.author + ' (' + d.year + ')';
     setOptionalRow('exams-panel-type', d.type);
