@@ -1,9 +1,9 @@
 ---
 layout: default
-title: "Comprehensive Exams — Citation Network"
+title: "PhD Comprehensive Exams"
 description: "A force-directed network graph mapping shared citations across the Core, Primary, and Secondary comprehensive exam reading lists"
 project: true
-tags: [PhD, Texts and Technology, Digital Humanities, Network Analysis, Electronic Literature, Critical Making, Visual Culture, Distant Viewing]
+tags: [Texts and Technology, Digital Humanities, Network Analysis, Electronic Literature, Critical Making, Visual Cultures, Distant Viewing]
 ---
 
 <p>My comprehensive exams reading list is organized into four parts: a Core list shared across the whole exam, a Primary list spanning Electronic Literature and Critical Making, a Secondary list spanning Visual Culture and Distant Viewing, and an Independent Study list for additional self-directed reading. Some texts belong to more than one part at once — those nodes show a split ring, one color band per category they belong to. The graph below treats each book as a node and draws a line between any two books that cite the same source. Books that share a publisher aren't linked with a line, but drift toward each other in the layout. A citation shared by enough of the transcribed books gets promoted to its own diamond-shaped node — a rough, bibliometric picture of which texts, presses, and outside sources function as shared infrastructure across fields I'm otherwise treating as distinct.</p>
@@ -340,6 +340,52 @@ tags: [PhD, Texts and Technology, Digital Humanities, Network Analysis, Electron
   margin-right: 5px;
 }
 
+.exams-legend-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  font-size: 0.75rem;
+  color: #555;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.exams-legend-btn:hover,
+.exams-legend-btn.active {
+  color: rgb(122, 6, 97);
+}
+
+.exams-publisher-rank-list {
+  display: none;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  max-width: 420px;
+  font-size: 0.75rem;
+  color: #555;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.exams-publisher-rank-list.open {
+  display: flex;
+}
+
+.exams-publisher-rank-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.exams-publisher-rank-row .exams-publisher-rank-count {
+  color: rgb(122, 6, 97);
+  font-weight: 600;
+  flex: none;
+}
+
 .exams-legend-diamond {
   display: inline-block;
   width: 8px;
@@ -575,18 +621,18 @@ tags: [PhD, Texts and Technology, Digital Humanities, Network Analysis, Electron
       </div>
       <div class="exams-filter-group">
         <span class="exams-filter-label">Repel Force</span>
-        <input type="range" id="exams-force-slider" min="-600" max="-50" step="10" value="-220">
-        <span class="exams-force-value" id="exams-force-value">-220</span>
+        <input type="range" id="exams-force-slider" min="-600" max="-50" step="10" value="-250">
+        <span class="exams-force-value" id="exams-force-value">-250</span>
       </div>
       <div class="exams-filter-group">
         <span class="exams-filter-label">Link Distance</span>
-        <input type="range" id="exams-distance-slider" min="40" max="300" step="10" value="200">
-        <span class="exams-force-value" id="exams-distance-value">200</span>
+        <input type="range" id="exams-distance-slider" min="40" max="300" step="10" value="300">
+        <span class="exams-force-value" id="exams-distance-value">300</span>
       </div>
       <div class="exams-filter-group">
         <span class="exams-filter-label">Node Size</span>
-        <input type="range" id="exams-size-slider" min="0.3" max="1.5" step="0.05" value="0.7">
-        <span class="exams-force-value" id="exams-size-value">70%</span>
+        <input type="range" id="exams-size-slider" min="0.3" max="1.5" step="0.05" value="0.5">
+        <span class="exams-force-value" id="exams-size-value">50%</span>
       </div>
       <button class="exams-clear-btn" id="exams-clear">Clear filters</button>
     </div>
@@ -601,9 +647,10 @@ tags: [PhD, Texts and Technology, Digital Humanities, Network Analysis, Electron
       <span><span class="exams-legend-dot" style="background: rgb(97, 122, 6)"></span>Secondary</span>
       <span><span class="exams-legend-dot" style="background: rgb(122, 60, 6)"></span>Independent Study</span>
       <span>Node size = number of books connected to this one (shared citation or publisher)</span>
-      <span>Shared publisher pulls books together without drawing a line</span>
+      <button class="exams-legend-btn" id="exams-publisher-rank-toggle" type="button" aria-expanded="false">Rank publishers by book count ▾</button>
       <span><span class="exams-legend-diamond"></span>Recommended: a citation shared by enough of the transcribed books to count as established infrastructure</span>
     </div>
+    <div id="exams-publisher-rank-list" class="exams-publisher-rank-list"></div>
     </div>
 
     <div class="exams-reading-list" id="exams-reading-list">
@@ -822,7 +869,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
   let degree = {};
   let maxDegree = 1;
   let rScale = d3.scaleSqrt().domain([0, 1]).range([10, 34]);
-  let sizeMultiplier = 0.7;
+  let sizeMultiplier = 0.5;
 
   function recomputeDegree() {
     neighborSets = {};
@@ -1086,14 +1133,14 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     document.getElementById('exams-reco-value').textContent = '30%';
     document.getElementById('exams-minshared-slider').value = 2;
     document.getElementById('exams-minshared-value').textContent = '2';
-    document.getElementById('exams-force-slider').value = -220;
-    document.getElementById('exams-force-value').textContent = -220;
-    document.getElementById('exams-distance-slider').value = 200;
-    document.getElementById('exams-distance-value').textContent = 200;
-    document.getElementById('exams-size-slider').value = 0.7;
-    document.getElementById('exams-size-value').textContent = '70%';
-    sizeMultiplier = 0.7;
-    sim.force('charge', d3.forceManyBody().strength(-220));
+    document.getElementById('exams-force-slider').value = -250;
+    document.getElementById('exams-force-value').textContent = -250;
+    document.getElementById('exams-distance-slider').value = 300;
+    document.getElementById('exams-distance-value').textContent = 300;
+    document.getElementById('exams-size-slider').value = 0.5;
+    document.getElementById('exams-size-value').textContent = '50%';
+    sizeMultiplier = 0.5;
+    sim.force('charge', d3.forceManyBody().strength(-250));
     rebuildAndRestart();
   });
 
@@ -1503,6 +1550,27 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
   document.getElementById('exams-view-network').addEventListener('click', () => setView('network'));
   document.getElementById('exams-view-reading').addEventListener('click', () => setView('reading'));
   document.getElementById('exams-view-matrix').addEventListener('click', () => setView('matrix'));
+
+  const publisherRankBtn = document.getElementById('exams-publisher-rank-toggle');
+  const publisherRankList = document.getElementById('exams-publisher-rank-list');
+  let publisherRankBuilt = false;
+  publisherRankBtn.addEventListener('click', () => {
+    const open = !publisherRankList.classList.contains('open');
+    if (open && !publisherRankBuilt) {
+      const ranked = Object.keys(publisherToBooks)
+        .map(pub => ({ publisher: pub, count: publisherToBooks[pub].length }))
+        .sort((a, b) => b.count - a.count || a.publisher.localeCompare(b.publisher));
+      publisherRankList.innerHTML = ranked.map(r =>
+        '<div class="exams-publisher-rank-row"><span>' + r.publisher + '</span><span class="exams-publisher-rank-count">' +
+        r.count + (r.count === 1 ? ' book' : ' books') + '</span></div>'
+      ).join('');
+      publisherRankBuilt = true;
+    }
+    publisherRankList.classList.toggle('open', open);
+    publisherRankBtn.classList.toggle('active', open);
+    publisherRankBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    publisherRankBtn.textContent = 'Rank publishers by book count ' + (open ? '▴' : '▾');
+  });
 
   window.addEventListener('resize', () => {
     sim.force('center', d3.forceCenter(W() / 2, H() / 2))
