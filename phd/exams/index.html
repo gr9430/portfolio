@@ -621,9 +621,9 @@ tags: [Texts and Technology, Digital Humanities, Network Analysis, Electronic Li
         <button class="exams-filter-btn reco-type-btn type-online" data-reco-type="online">Recommended - Websites</button>
       </div>
       <div class="exams-filter-group">
-        <span class="exams-filter-label">Recommended Threshold</span>
-        <input type="range" id="exams-reco-slider" min="5" max="60" step="5" value="30">
-        <span class="exams-force-value" id="exams-reco-value">30%</span>
+        <span class="exams-filter-label">Min Shared Books</span>
+        <input type="range" id="exams-reco-slider" min="2" max="10" step="1" value="4">
+        <span class="exams-force-value" id="exams-reco-value">4</span>
       </div>
       <div class="exams-filter-group">
         <span class="exams-filter-label">Min Shared Citations</span>
@@ -803,7 +803,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     publisherToBooks[b.publisher].push(b.id);
   });
 
-  let recoThresholdPercent = 30;
+  let recoThreshold = 4;
   let minSharedThreshold = 2;
   let citationNodes = [];
   let bookEdges = [];
@@ -824,8 +824,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
   }
 
   function establishedKeys() {
-    const threshold = Math.max(2, Math.ceil((recoThresholdPercent / 100) * populatedBookCount));
-    return Object.keys(citationToBooks).filter(k => citationToBooks[k].length >= threshold);
+    return Object.keys(citationToBooks).filter(k => citationToBooks[k].length >= recoThreshold);
   }
 
   function rebuildCitationGraph() {
@@ -1113,8 +1112,8 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
   });
 
   document.getElementById('exams-reco-slider').addEventListener('input', function () {
-    recoThresholdPercent = +this.value;
-    document.getElementById('exams-reco-value').textContent = recoThresholdPercent + '%';
+    recoThreshold = +this.value;
+    document.getElementById('exams-reco-value').textContent = recoThreshold;
     rebuildAndRestart();
   });
 
@@ -1151,13 +1150,13 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     showLinks = true;
     showRecommended = true;
     showFullField = false;
-    recoThresholdPercent = 30;
+    recoThreshold = 4;
     minSharedThreshold = 2;
     document.querySelectorAll('.exams-filter-btn').forEach(b => b.classList.remove('active'));
     document.getElementById('exams-links-toggle').classList.add('active');
     document.getElementById('exams-recommended-toggle').classList.add('active');
-    document.getElementById('exams-reco-slider').value = 30;
-    document.getElementById('exams-reco-value').textContent = '30%';
+    document.getElementById('exams-reco-slider').value = 4;
+    document.getElementById('exams-reco-value').textContent = '4';
     document.getElementById('exams-minshared-slider').value = 2;
     document.getElementById('exams-minshared-value').textContent = '2';
     document.getElementById('exams-force-slider').value = -250;
