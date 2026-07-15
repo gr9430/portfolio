@@ -111,7 +111,7 @@ tags: [Texts and Technology, Digital Humanities, Network Analysis, Electronic Li
 #exams-canvas {
   position: relative;
   width: 100%;
-  height: 640px;
+  height: 900px;
   border: 1px solid rgba(122, 6, 97, 0.2);
   background: #fff;
   overflow: hidden;
@@ -911,12 +911,16 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
 
   function nodeRadius(id) { return rScale(degree[id] || 0) * sizeMultiplier; }
 
-  const svg = d3.select('#exams-svg');
-  const g = svg.append('g');
-  svg.call(d3.zoom().scaleExtent([0.3, 3]).on('zoom', e => g.attr('transform', e.transform)));
+  const SIM_W = 1800;
+  const SIM_H = 1600;
 
-  function W() { return document.getElementById('exams-canvas').clientWidth; }
-  function H() { return document.getElementById('exams-canvas').clientHeight; }
+  const svg = d3.select('#exams-svg').attr('viewBox', `0 0 ${SIM_W} ${SIM_H}`);
+  const g = svg.append('g');
+  const zoomBehavior = d3.zoom().scaleExtent([0.3, 3]).on('zoom', e => g.attr('transform', e.transform));
+  svg.call(zoomBehavior);
+
+  function W() { return SIM_W; }
+  function H() { return SIM_H; }
   function currentDistance() { return +document.getElementById('exams-distance-slider').value; }
   function currentForce() { return +document.getElementById('exams-force-slider').value; }
   function xStrength(d) { return d.nodeType === 'citation' ? 0.03 : 0.15; }
@@ -927,7 +931,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     .force('linkCite', d3.forceLink(citeEdges).id(d => d.id).distance(currentDistance()).strength(0.5))
     .force('charge', d3.forceManyBody().strength(currentForce()))
     .force('center', d3.forceCenter(W() / 2, H() / 2))
-    .force('collision', d3.forceCollide(d => nodeRadius(d.id) + 8))
+    .force('collision', d3.forceCollide(d => nodeRadius(d.id) + 16))
     .force('x', d3.forceX(categoryXTarget).strength(xStrength))
     .force('y', d3.forceY(H() / 2).strength(0.06));
 
@@ -1018,6 +1022,21 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     nodeG.attr('transform', d => `translate(${d.x},${d.y})`);
   });
 
+  sim.on('end', () => {
+    const ns = allNodes().filter(d => typeof d.x === 'number' && typeof d.y === 'number');
+    if (!ns.length) return;
+    const pad = 60;
+    const x0 = Math.min(...ns.map(d => d.x)) - pad;
+    const x1 = Math.max(...ns.map(d => d.x)) + pad;
+    const y0 = Math.min(...ns.map(d => d.y)) - pad;
+    const y1 = Math.max(...ns.map(d => d.y)) + pad;
+    const scale = Math.max(0.3, Math.min(SIM_W / (x1 - x0), SIM_H / (y1 - y0), 3));
+    const tx = (SIM_W - scale * (x0 + x1)) / 2;
+    const ty = (SIM_H - scale * (y0 + y1)) / 2;
+    svg.transition().duration(750)
+      .call(zoomBehavior.transform, d3.zoomIdentity.translate(tx, ty).scale(scale));
+  });
+
   const activeCategories = new Set();
   const activeRecoTypes = new Set();
   let showLinks = true;
@@ -1053,7 +1072,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     sim.force('link', d3.forceLink(currentBookEdges()).id(d => d.id).distance(currentDistance()).strength(0.4));
     sim.force('linkPublisher', d3.forceLink(publisherEdges).id(d => d.id).distance(currentDistance()).strength(0.4));
     sim.force('linkCite', d3.forceLink(citeEdges).id(d => d.id).distance(currentDistance()).strength(0.5));
-    sim.force('collision', d3.forceCollide(d => nodeRadius(d.id) + 8));
+    sim.force('collision', d3.forceCollide(d => nodeRadius(d.id) + 16));
     redrawGraph();
     sim.alpha(0.6).restart();
     renderReadingList();
@@ -1139,7 +1158,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     sizeMultiplier = +this.value;
     document.getElementById('exams-size-value').textContent = Math.round(sizeMultiplier * 100) + '%';
     redrawNodeSizes();
-    sim.force('collision', d3.forceCollide(d => nodeRadius(d.id) + 8));
+    sim.force('collision', d3.forceCollide(d => nodeRadius(d.id) + 16));
     sim.alpha(0.3).restart();
   });
 
@@ -1619,10 +1638,5 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     publisherRankBtn.textContent = 'Rank publishers by book count ' + (open ? '▴' : '▾');
   });
 
-  window.addEventListener('resize', () => {
-    sim.force('center', d3.forceCenter(W() / 2, H() / 2))
-       .force('x', d3.forceX(categoryXTarget).strength(xStrength));
-    sim.alpha(0.3).restart();
-  });
 }());
 </script>
