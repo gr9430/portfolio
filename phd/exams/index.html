@@ -128,6 +128,8 @@ tags: [Texts and Technology, Digital Humanities, Network Analysis, Electronic Li
   fill: #555;
   pointer-events: none;
   text-anchor: middle;
+  opacity: 0;
+  transition: opacity 0.12s ease;
 }
 
 .exams-link {
@@ -903,6 +905,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
   const g = svg.append('g');
   const zoomBehavior = d3.zoom().scaleExtent([0.3, 3]).on('zoom', e => g.attr('transform', e.transform));
   svg.call(zoomBehavior);
+  svg.on('click', () => { if (focusedNodeId) clearFocus(); });
 
   function W() { return SIM_W; }
   function H() { return SIM_H; }
@@ -941,8 +944,14 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     tt.style.left = (e.clientX + 12) + 'px';
     tt.style.top = (e.clientY - 10) + 'px';
     tt.textContent = d.title;
+    d3.select(e.currentTarget).select('.exams-node-label').attr('opacity', 1);
   }
-  function nodeMouseOut() { document.getElementById('exams-tooltip').style.display = 'none'; }
+  function nodeMouseOut(e, d) {
+    document.getElementById('exams-tooltip').style.display = 'none';
+    if (d.id !== focusedNodeId) {
+      d3.select(e.currentTarget).select('.exams-node-label').attr('opacity', 0);
+    }
+  }
 
   function redrawNodeSizes() {
     nodeG.select('circle')
@@ -981,7 +990,11 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
         const sel = enter.append('g')
           .style('cursor', 'pointer')
           .call(dragBehavior())
-          .on('click', (e, d) => d.nodeType === 'citation' ? openCitationPanel(d) : openPanel(d))
+          .on('click', (e, d) => {
+            e.stopPropagation();
+            focusNode(d);
+            d.nodeType === 'citation' ? openCitationPanel(d) : openPanel(d);
+          })
           .on('mouseover', nodeMouseOver)
           .on('mouseout', nodeMouseOut);
         sel.filter(d => d.nodeType !== 'citation').append('circle');
@@ -1026,6 +1039,24 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
   let showLinks = true;
   let showRecommended = true;
   let showFullField = false;
+  let focusedNodeId = null;
+
+  function focusNode(d) {
+    focusedNodeId = d.id;
+    const neighbors = neighborSets[d.id] || new Set();
+    nodeG.select('.exams-node-label').attr('opacity', n => n.id === d.id ? 1 : 0);
+    nodeG.style('opacity', n => n.id === d.id || neighbors.has(n.id) ? 1 : 0.12);
+    link.style('opacity', l => (l.source.id === d.id || l.target.id === d.id) ? null : 0.05);
+    citeLink.style('opacity', l => (l.source.id === d.id || l.target.id === d.id) ? null : 0.05);
+  }
+
+  function clearFocus() {
+    focusedNodeId = null;
+    nodeG.select('.exams-node-label').attr('opacity', 0);
+    nodeG.style('opacity', 1);
+    link.style('opacity', null);
+    citeLink.style('opacity', null);
+  }
 
   function categoryMatch(cats) {
     return activeCategories.size === 0 || (cats && cats.some(c => activeCategories.has(c)));
