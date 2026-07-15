@@ -803,19 +803,6 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     publisherToBooks[b.publisher].push(b.id);
   });
 
-  const publisherEdgeMap = {};
-  Object.keys(publisherToBooks).forEach(pub => {
-    const ids = publisherToBooks[pub];
-    if (ids.length < 2) return;
-    for (let i = 0; i < ids.length; i++) {
-      for (let j = i + 1; j < ids.length; j++) {
-        const pairKey = [ids[i], ids[j]].sort().join('|||');
-        publisherEdgeMap[pairKey] = { source: ids[i], target: ids[j], publisher: pub };
-      }
-    }
-  });
-  const publisherEdges = Object.values(publisherEdgeMap);
-
   let recoThresholdPercent = 30;
   let minSharedThreshold = 2;
   let citationNodes = [];
@@ -899,7 +886,6 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
       });
     }
     addEdges(currentBookEdges());
-    addEdges(publisherEdges);
     addEdges(citeEdges);
     degree = {};
     allNodes().forEach(n => { degree[n.id] = neighborSets[n.id].size; });
@@ -927,7 +913,6 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
 
   const sim = d3.forceSimulation(allNodes())
     .force('link', d3.forceLink(currentBookEdges()).id(d => d.id).distance(currentDistance()).strength(0.4))
-    .force('linkPublisher', d3.forceLink(publisherEdges).id(d => d.id).distance(currentDistance()).strength(0.4))
     .force('linkCite', d3.forceLink(citeEdges).id(d => d.id).distance(currentDistance()).strength(0.5))
     .force('charge', d3.forceManyBody().strength(currentForce()))
     .force('center', d3.forceCenter(W() / 2, H() / 2))
@@ -1070,7 +1055,6 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     recomputeDegree();
     sim.nodes(allNodes());
     sim.force('link', d3.forceLink(currentBookEdges()).id(d => d.id).distance(currentDistance()).strength(0.4));
-    sim.force('linkPublisher', d3.forceLink(publisherEdges).id(d => d.id).distance(currentDistance()).strength(0.4));
     sim.force('linkCite', d3.forceLink(citeEdges).id(d => d.id).distance(currentDistance()).strength(0.5));
     sim.force('collision', d3.forceCollide(d => nodeRadius(d.id) + 16));
     redrawGraph();
@@ -1149,7 +1133,6 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
   document.getElementById('exams-distance-slider').addEventListener('input', function () {
     document.getElementById('exams-distance-value').textContent = this.value;
     sim.force('link', d3.forceLink(bookEdges).id(d => d.id).distance(+this.value).strength(0.4));
-    sim.force('linkPublisher', d3.forceLink(publisherEdges).id(d => d.id).distance(+this.value).strength(0.4));
     sim.force('linkCite', d3.forceLink(citeEdges).id(d => d.id).distance(+this.value).strength(0.5));
     sim.alpha(0.3).restart();
   });
