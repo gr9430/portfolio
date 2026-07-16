@@ -893,6 +893,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
   function H() { return SIM_H; }
   function currentDistance() { return +document.getElementById('exams-distance-slider').value; }
   function currentForce() { return +document.getElementById('exams-force-slider').value; }
+  function centerStrength(d) { return (degree[d.id] || 0) === 0 ? 0.15 : 0.02; }
 
   const sim = d3.forceSimulation(allNodes())
     .force('link', d3.forceLink(currentBookEdges()).id(d => d.id).distance(currentDistance()).strength(0.4))
@@ -900,8 +901,8 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     .force('charge', d3.forceManyBody().strength(currentForce()))
     .force('center', d3.forceCenter(W() / 2, H() / 2))
     .force('collision', d3.forceCollide(d => nodeRadius(d.id) + 28))
-    .force('x', d3.forceX(SIM_W / 2).strength(0.02))
-    .force('y', d3.forceY(SIM_H / 2).strength(0.02));
+    .force('x', d3.forceX(SIM_W / 2).strength(centerStrength))
+    .force('y', d3.forceY(SIM_H / 2).strength(centerStrength));
 
   const linkLayer = g.append('g');
   const citeLinkLayer = g.append('g');
