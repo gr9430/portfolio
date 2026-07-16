@@ -634,8 +634,8 @@ tags: [Texts and Technology, Digital Humanities, Network Analysis, Electronic Li
       </div>
       <div class="exams-filter-group">
         <span class="exams-filter-label">Repel Force</span>
-        <input type="range" id="exams-force-slider" min="-600" max="-50" step="10" value="-250">
-        <span class="exams-force-value" id="exams-force-value">-250</span>
+        <input type="range" id="exams-force-slider" min="-600" max="-50" step="10" value="-600">
+        <span class="exams-force-value" id="exams-force-value">-600</span>
       </div>
       <div class="exams-filter-group">
         <span class="exams-filter-label">Link Distance</span>
@@ -909,7 +909,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     .force('linkCite', d3.forceLink(citeEdges).id(d => d.id).distance(currentDistance()).strength(0.5))
     .force('charge', d3.forceManyBody().strength(currentForce()))
     .force('center', d3.forceCenter(W() / 2, H() / 2))
-    .force('collision', d3.forceCollide(d => nodeRadius(d.id) + 16))
+    .force('collision', d3.forceCollide(d => nodeRadius(d.id) + 28))
     .force('x', d3.forceX(SIM_W / 2).strength(0.02))
     .force('y', d3.forceY(SIM_H / 2).strength(0.02));
 
@@ -1077,7 +1077,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     sim.nodes(allNodes());
     sim.force('link', d3.forceLink(currentBookEdges()).id(d => d.id).distance(currentDistance()).strength(0.4));
     sim.force('linkCite', d3.forceLink(citeEdges).id(d => d.id).distance(currentDistance()).strength(0.5));
-    sim.force('collision', d3.forceCollide(d => nodeRadius(d.id) + 16));
+    sim.force('collision', d3.forceCollide(d => nodeRadius(d.id) + 28));
     redrawGraph();
     sim.alpha(0.6).restart();
     renderReadingList();
@@ -1162,7 +1162,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     sizeMultiplier = +this.value;
     document.getElementById('exams-size-value').textContent = Math.round(sizeMultiplier * 100) + '%';
     redrawNodeSizes();
-    sim.force('collision', d3.forceCollide(d => nodeRadius(d.id) + 16));
+    sim.force('collision', d3.forceCollide(d => nodeRadius(d.id) + 28));
     sim.alpha(0.3).restart();
   });
 
@@ -1181,14 +1181,14 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     document.getElementById('exams-reco-value').textContent = '4';
     document.getElementById('exams-minshared-slider').value = 2;
     document.getElementById('exams-minshared-value').textContent = '2';
-    document.getElementById('exams-force-slider').value = -250;
-    document.getElementById('exams-force-value').textContent = -250;
+    document.getElementById('exams-force-slider').value = -600;
+    document.getElementById('exams-force-value').textContent = -600;
     document.getElementById('exams-distance-slider').value = 300;
     document.getElementById('exams-distance-value').textContent = 300;
     document.getElementById('exams-size-slider').value = 0.5;
     document.getElementById('exams-size-value').textContent = '50%';
     sizeMultiplier = 0.5;
-    sim.force('charge', d3.forceManyBody().strength(-250));
+    sim.force('charge', d3.forceManyBody().strength(-600));
     rebuildAndRestart();
   });
 
