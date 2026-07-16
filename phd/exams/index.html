@@ -793,9 +793,8 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     return Object.keys(counts).sort((a, b) => counts[b] - counts[a])[0];
   }
 
-  // Denominator is books actually transcribed so far, not the full reading list —
-  // most of the list still has an empty citations array, so a percentage of all
-  // 61 books would never clear the threshold until the list is nearly complete.
+  // Count of books with at least one transcribed citation — used in the
+  // tooltip/stats "Cited by X of Y transcribed books" display text.
   const populatedBookCount = books.filter(b => (b.citations || []).length > 0).length;
 
   const publisherToBooks = {};
@@ -944,12 +943,12 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     tt.style.left = (e.clientX + 12) + 'px';
     tt.style.top = (e.clientY - 10) + 'px';
     tt.textContent = d.title;
-    d3.select(e.currentTarget).select('.exams-node-label').attr('opacity', 1);
+    d3.select(e.currentTarget).select('.exams-node-label').style('opacity', 1);
   }
   function nodeMouseOut(e, d) {
     document.getElementById('exams-tooltip').style.display = 'none';
     if (d.id !== focusedNodeId) {
-      d3.select(e.currentTarget).select('.exams-node-label').attr('opacity', 0);
+      d3.select(e.currentTarget).select('.exams-node-label').style('opacity', 0);
     }
   }
 
@@ -1044,7 +1043,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
   function focusNode(d) {
     focusedNodeId = d.id;
     const neighbors = neighborSets[d.id] || new Set();
-    nodeG.select('.exams-node-label').attr('opacity', n => n.id === d.id ? 1 : 0);
+    nodeG.select('.exams-node-label').style('opacity', n => n.id === d.id ? 1 : 0);
     nodeG.style('opacity', n => n.id === d.id || neighbors.has(n.id) ? 1 : 0.12);
     link.style('opacity', l => (l.source.id === d.id || l.target.id === d.id) ? null : 0.05);
     citeLink.style('opacity', l => (l.source.id === d.id || l.target.id === d.id) ? null : 0.05);
@@ -1052,7 +1051,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
 
   function clearFocus() {
     focusedNodeId = null;
-    nodeG.select('.exams-node-label').attr('opacity', 0);
+    nodeG.select('.exams-node-label').style('opacity', 0);
     nodeG.style('opacity', 1);
     link.style('opacity', null);
     citeLink.style('opacity', null);
