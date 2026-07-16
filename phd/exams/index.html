@@ -719,14 +719,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     secondary: 'rgba(97, 122, 6, 0.2)',
     'independent-study': 'rgba(122, 60, 6, 0.2)'
   };
-  const CATEGORY_X_FRACTION = { core: 0.125, primary: 0.375, secondary: 0.625, 'independent-study': 0.875 };
   const CATEGORY_PIE = d3.pie().value(1).sort(null);
-
-  function categoryXTarget(d) {
-    if (!d.categories || d.categories.length === 0) return W() * 0.5;
-    const xs = d.categories.map(c => CATEGORY_X_FRACTION[c]);
-    return W() * (xs.reduce((a, b) => a + b, 0) / xs.length);
-  }
 
   const RECOMMENDED_COLOR = 'rgb(163, 122, 8)';
   const RECOMMENDED_FILL = 'rgba(163, 122, 8, 0.22)';
@@ -910,7 +903,6 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
   function H() { return SIM_H; }
   function currentDistance() { return +document.getElementById('exams-distance-slider').value; }
   function currentForce() { return +document.getElementById('exams-force-slider').value; }
-  function xStrength(d) { return d.nodeType === 'citation' ? 0.03 : 0.15; }
 
   const sim = d3.forceSimulation(allNodes())
     .force('link', d3.forceLink(currentBookEdges()).id(d => d.id).distance(currentDistance()).strength(0.4))
@@ -918,8 +910,8 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     .force('charge', d3.forceManyBody().strength(currentForce()))
     .force('center', d3.forceCenter(W() / 2, H() / 2))
     .force('collision', d3.forceCollide(d => nodeRadius(d.id) + 16))
-    .force('x', d3.forceX(categoryXTarget).strength(xStrength))
-    .force('y', d3.forceY(H() / 2).strength(0.06));
+    .force('x', d3.forceX(SIM_W / 2).strength(0.02))
+    .force('y', d3.forceY(SIM_H / 2).strength(0.02));
 
   const linkLayer = g.append('g');
   const citeLinkLayer = g.append('g');
