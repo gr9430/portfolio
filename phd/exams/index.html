@@ -895,7 +895,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
 
   const svg = d3.select('#exams-svg').attr('viewBox', `0 0 ${SIM_W} ${SIM_H}`);
   const g = svg.append('g');
-  const zoomBehavior = d3.zoom().scaleExtent([0.3, 3]).on('zoom', e => g.attr('transform', e.transform));
+  const zoomBehavior = d3.zoom().scaleExtent([0.05, 3]).on('zoom', e => g.attr('transform', e.transform));
   svg.call(zoomBehavior);
   svg.on('click', () => { if (focusedNodeId) clearFocus(); });
 
@@ -1018,7 +1018,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     const x1 = Math.max(...ns.map(d => d.x)) + pad;
     const y0 = Math.min(...ns.map(d => d.y)) - pad;
     const y1 = Math.max(...ns.map(d => d.y)) + pad;
-    const scale = Math.max(0.3, Math.min(SIM_W / (x1 - x0), SIM_H / (y1 - y0), 3));
+    const scale = Math.max(0.05, Math.min(SIM_W / (x1 - x0), SIM_H / (y1 - y0), 3));
     const tx = (SIM_W - scale * (x0 + x1)) / 2;
     const ty = (SIM_H - scale * (y0 + y1)) / 2;
     svg.transition().duration(750)
