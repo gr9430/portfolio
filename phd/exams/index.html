@@ -669,6 +669,7 @@ tags: [Texts and Technology, Digital Humanities, Network Analysis, Electronic Li
       <span>Node size = number of books connected to this one by shared citations</span>
       <button class="exams-legend-btn" id="exams-publisher-rank-toggle" type="button" aria-expanded="false">Rank publishers by book count ▾</button>
       <span><span class="exams-legend-diamond"></span>Recommended: a citation shared by enough of the transcribed books to count as established infrastructure</span>
+      <span><span class="exams-legend-dot" style="background: rgb(70, 90, 140)"></span>Anthology chapter: one essay of a multi-chapter volume (see spokes to its parent)</span>
       <span><span class="exams-legend-dot" style="background: rgba(120,120,120,0.5)"></span>Full Field (toggle): Core reading-list texts I didn't select</span>
     </div>
     <div id="exams-publisher-rank-list" class="exams-publisher-rank-list"></div>
@@ -821,7 +822,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
 
   // Count of books with at least one transcribed citation — used in the
   // tooltip/stats "Cited by X of Y transcribed books" display text.
-  const populatedBookCount = books.filter(b => (b.citations || []).length > 0).length;
+  const populatedBookCount = mainBooks.filter(b => (b.citations || []).length > 0).length;
 
   const publisherToBooks = {};
   books.forEach(b => {
@@ -1430,7 +1431,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     if (!gridEl) return;
     const established = new Set(establishedKeys());
     const groups = {};
-    books.forEach(b => {
+    mainBooks.forEach(b => {
       const s = b.subject || 'uncategorized';
       if (!groups[s]) groups[s] = [];
       groups[s].push(b);
@@ -1516,13 +1517,13 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     if (!barEl) return;
     const sharedSourceCount = Object.keys(citationToBooks).filter(k => citationToBooks[k].length >= 2).length;
     const stats = [
-      [books.length, 'books'],
+      [mainBooks.length, 'books'],
       [populatedBookCount, 'transcribed'],
       [SUBJECT_ORDER.length, 'subjects'],
       [bookEdges.length, 'shared-citation pairs'],
       [sharedSourceCount, 'shared sources']
     ];
-    const coreBooks = books.filter(b => (b.categories || []).includes('core'));
+    const coreBooks = mainBooks.filter(b => (b.categories || []).includes('core'));
     const coreTitled = coreBooks.filter(b => b.title);
     const coreTbd = coreBooks.length - coreTitled.length;
     const coreSelected = coreTitled.filter(b => b.selected !== false).length;
@@ -1547,7 +1548,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
   }
 
   function matrixOrder() {
-    const populated = books.filter(b => (b.citations || []).length > 0);
+    const populated = mainBooks.filter(b => (b.citations || []).length > 0);
     const groups = {};
     populated.forEach(b => {
       const s = b.subject || 'uncategorized';
