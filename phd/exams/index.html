@@ -915,6 +915,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     }
     addEdges(currentBookEdges());
     addEdges(citeEdges);
+    addEdges(partOfEdges);
     degree = {};
     allNodes().forEach(n => { degree[n.id] = neighborSets[n.id].size; });
     maxDegree = Math.max(1, ...Object.values(degree));
@@ -1087,6 +1088,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     nodeG.style('opacity', n => n.id === d.id || neighbors.has(n.id) ? 1 : 0.12);
     link.style('opacity', l => (l.source.id === d.id || l.target.id === d.id) ? null : 0.05);
     citeLink.style('opacity', l => (l.source.id === d.id || l.target.id === d.id) ? null : 0.05);
+    partOfLink.style('opacity', l => (l.source.id === d.id || l.target.id === d.id) ? null : 0.05);
   }
 
   function clearFocus() {
@@ -1095,6 +1097,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     nodeG.style('opacity', 1);
     link.style('opacity', null);
     citeLink.style('opacity', null);
+    partOfLink.style('opacity', null);
   }
 
   function categoryMatch(cats) {
@@ -1116,6 +1119,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     nodeG.style('display', d => nodeVisible(d) ? null : 'none');
     link.style('display', d => (showLinks && categoryMatch(d.source.categories) && categoryMatch(d.target.categories)) ? null : 'none');
     citeLink.style('display', d => (nodeVisible(d.source) && nodeVisible(d.target)) ? null : 'none');
+    partOfLink.style('display', d => (nodeVisible(d.source) && nodeVisible(d.target)) ? null : 'none');
   }
 
   function rebuildAndRestart() {
@@ -1124,6 +1128,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     sim.nodes(allNodes());
     sim.force('link', d3.forceLink(currentBookEdges()).id(d => d.id).distance(currentDistance()).strength(0.4));
     sim.force('linkCite', d3.forceLink(citeEdges).id(d => d.id).distance(currentDistance()).strength(0.5));
+    sim.force('linkPartOf', d3.forceLink(partOfEdges).id(d => d.id).distance(PARTOF_DISTANCE).strength(PARTOF_STRENGTH));
     sim.force('collision', d3.forceCollide(d => nodeRadius(d.id) + 28));
     redrawGraph();
     sim.alpha(0.6).restart();
