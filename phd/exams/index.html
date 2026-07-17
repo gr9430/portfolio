@@ -788,12 +788,21 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
   function citationType(entry) { return typeof entry === 'string' ? null : (entry.type || null); }
 
   const citationToBooks = {};
+  const citationToFamilies = {};
   const citationTypeCounts = {};
   books.forEach(b => {
     (b.citations || []).forEach(entry => {
       const key = citationKey(entry);
       if (!citationToBooks[key]) citationToBooks[key] = [];
       citationToBooks[key].push(b.id);
+      // A "family" collapses an anthology's chapters back to one voter for
+      // hub-threshold purposes (see rebuildCitationGraph's establishedKeys),
+      // so a citation reused across several chapters of the same volume
+      // can't alone cross the threshold the way genuinely independent books
+      // citing it would. citationToBooks itself is untouched — the hub's
+      // spoke list (citedBy) still shows every individual citing chapter.
+      if (!citationToFamilies[key]) citationToFamilies[key] = new Set();
+      citationToFamilies[key].add(familyId(b.id));
       const type = citationType(entry);
       if (!type) return;
       if (!citationTypeCounts[key]) citationTypeCounts[key] = {};
@@ -826,13 +835,14 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
   let citationNodes = [];
   let bookEdges = [];
   let citeEdges = [];
+  let partOfEdges = [];
 
   function currentBookEdges() {
     return bookEdges.filter(e => e.sharedCount >= minSharedThreshold);
   }
 
   function establishedKeys() {
-    return Object.keys(citationToBooks).filter(k => citationToBooks[k].length >= recoThreshold);
+    return Object.keys(citationToBooks).filter(k => citationToFamilies[k].size >= recoThreshold);
   }
 
   function rebuildCitationGraph() {
@@ -854,6 +864,13 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
       if (ids.length < 2) return;
       for (let i = 0; i < ids.length; i++) {
         for (let j = i + 1; j < ids.length; j++) {
+          // Siblings (chapters of the same anthology) constantly cite the
+          // same cross-references within their own volume — that relatedness
+          // is already shown by the partOf spokes below, so skip it here to
+          // avoid a dense, uninformative clique on top of those spokes.
+          const familyI = familyId(ids[i]);
+          const familyJ = familyId(ids[j]);
+          if (familyI === familyJ && familyI !== ids[i]) continue;
           const pairKey = [ids[i], ids[j]].sort().join('|||');
           if (!bookEdgeMap[pairKey]) {
             bookEdgeMap[pairKey] = { source: ids[i], target: ids[j], sharedCount: 0, sharedKeys: [] };
@@ -869,6 +886,10 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     citationNodes.forEach(node => {
       node.citedBy.forEach(bookId => { citeEdges.push({ source: node.id, target: bookId }); });
     });
+
+    partOfEdges = books
+      .filter(b => b.partOf)
+      .map(b => ({ source: b.id, target: b.partOf }));
   }
   rebuildCitationGraph();
 
