@@ -1515,7 +1515,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
   function renderStatsBar() {
     const barEl = document.getElementById('exams-stats-bar');
     if (!barEl) return;
-    const sharedSourceCount = Object.keys(citationToBooks).filter(k => citationToBooks[k].length >= 2).length;
+    const sharedSourceCount = Object.keys(citationToBooks).filter(k => citationToFamilies[k].size >= 2).length;
     const stats = [
       [mainBooks.length, 'books'],
       [populatedBookCount, 'transcribed'],
@@ -1570,7 +1570,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     const order = matrixOrder();
     const n = order.length;
     document.getElementById('exams-matrix-note').textContent =
-      n + ' transcribed books shown · ' + (books.length - n) + ' not yet transcribed are omitted from this view.';
+      n + ' transcribed books shown · ' + (mainBooks.length - n) + ' not yet transcribed are omitted from this view.';
 
     const cell = 16, padL = 190, padT = 10, w = padL + n * cell + 10, h = padT + n * cell + 10;
     const idx = {}; order.forEach((b, i) => { idx[b.id] = i; });
