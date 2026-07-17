@@ -939,9 +939,17 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
   function currentForce() { return +document.getElementById('exams-force-slider').value; }
   function centerStrength(d) { return (degree[d.id] || 0) === 0 ? 0.15 : 0.02; }
 
+  // partOf spokes are a structural, not content-similarity, relationship —
+  // fixed short distance and strong pull (not slider-controlled like the
+  // other two link types) so chapters visibly cluster tight around their
+  // anthology regardless of the distance/force slider settings.
+  const PARTOF_DISTANCE = 60;
+  const PARTOF_STRENGTH = 0.8;
+
   const sim = d3.forceSimulation(allNodes())
     .force('link', d3.forceLink(currentBookEdges()).id(d => d.id).distance(currentDistance()).strength(0.4))
     .force('linkCite', d3.forceLink(citeEdges).id(d => d.id).distance(currentDistance()).strength(0.5))
+    .force('linkPartOf', d3.forceLink(partOfEdges).id(d => d.id).distance(PARTOF_DISTANCE).strength(PARTOF_STRENGTH))
     .force('charge', d3.forceManyBody().strength(currentForce()))
     .force('center', d3.forceCenter(W() / 2, H() / 2))
     .force('collision', d3.forceCollide(d => nodeRadius(d.id) + 28))
@@ -950,9 +958,11 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
 
   const linkLayer = g.append('g');
   const citeLinkLayer = g.append('g');
+  const partOfLinkLayer = g.append('g');
   const nodeLayer = g.append('g');
   let link = linkLayer.selectAll('line');
   let citeLink = citeLinkLayer.selectAll('line');
+  let partOfLink = partOfLinkLayer.selectAll('line');
   let nodeG = nodeLayer.selectAll('g');
 
   function diamondPath(r) { return `M0,${-r} L${r},0 L0,${r} L${-r},0 Z`; }
@@ -982,8 +992,8 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
   function redrawNodeSizes() {
     nodeG.select('circle')
       .attr('r', d => nodeRadius(d.id))
-      .attr('fill', d => d.selected === false ? UNSELECTED_FILL : CATEGORY_FILL[d.categories[0]])
-      .attr('stroke', d => d.selected === false ? UNSELECTED_STROKE : null);
+      .attr('fill', d => d.nodeType === 'chapter' ? CHAPTER_FILL : (d.selected === false ? UNSELECTED_FILL : CATEGORY_FILL[d.categories[0]]))
+      .attr('stroke', d => d.nodeType === 'chapter' ? CHAPTER_STROKE : (d.selected === false ? UNSELECTED_STROKE : null));
     nodeG.select('.exams-node-diamond')
       .attr('d', d => diamondPath(nodeRadius(d.id)))
       .attr('fill', RECOMMENDED_FILL)
@@ -1008,6 +1018,9 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
 
     citeLink = citeLinkLayer.selectAll('line').data(citeEdges).join('line')
       .attr('class', 'exams-link-cite');
+
+    partOfLink = partOfLinkLayer.selectAll('line').data(partOfEdges).join('line')
+      .attr('class', 'exams-link-partof');
 
     nodeG = nodeLayer.selectAll('g').data(allNodes(), d => d.id).join(
       enter => {
@@ -1039,6 +1052,8 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     link.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
         .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
     citeLink.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+        .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+    partOfLink.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
         .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
     nodeG.attr('transform', d => `translate(${d.x},${d.y})`);
   });
