@@ -870,7 +870,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
           // avoid a dense, uninformative clique on top of those spokes.
           const familyI = familyId(ids[i]);
           const familyJ = familyId(ids[j]);
-          if (familyI === familyJ && familyI !== ids[i]) continue;
+          if (familyI === familyJ && familyI !== ids[i] && familyJ !== ids[j]) continue;
           const pairKey = [ids[i], ids[j]].sort().join('|||');
           if (!bookEdgeMap[pairKey]) {
             bookEdgeMap[pairKey] = { source: ids[i], target: ids[j], sharedCount: 0, sharedKeys: [] };
