@@ -143,6 +143,12 @@ tags: [Texts and Technology, Digital Humanities, Network Analysis, Electronic Li
   stroke-opacity: 0.45;
 }
 
+.exams-link-partof {
+  stroke: rgb(70, 90, 140);
+  stroke-width: 2;
+  stroke-opacity: 0.5;
+}
+
 .exams-node-diamond {
   stroke-width: 1.5;
 }
@@ -728,6 +734,13 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
   const UNSELECTED_FILL = 'rgba(120, 120, 120, 0.14)';
   const UNSELECTED_STROKE = 'rgba(120, 120, 120, 0.45)';
 
+  // Chapter sub-nodes (books with a `partOf` parent) get their own third
+  // color family, distinct from both the category fills and the "unselected
+  // field text" gray — that gray already means something else (a core-list
+  // text the user declined to read), which doesn't apply to chapters.
+  const CHAPTER_FILL = 'rgba(70, 90, 140, 0.18)';
+  const CHAPTER_STROKE = 'rgb(70, 90, 140)';
+
   // Subject is a hand-curated, single-value classification independent of the
   // category system above — it groups every book (transcribed or not) by
   // topic, whereas category tracks which part(s) of the exam list it's on.
@@ -755,6 +768,16 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
   const citations = EXAMS_DATA.citations;
   const bookById = {};
   books.forEach(b => { bookById[b.id] = b; });
+
+  // Books with a `partOf` value are chapters of a larger anthology (see
+  // debates-23's 27 chapter entries). They're tagged nodeType: 'chapter' here
+  // (parallel to citation-hub nodes' nodeType: 'citation') so the rest of the
+  // code can treat them as a third node kind: still real book-circle nodes
+  // with their own detail panel, but excluded from the "every book,
+  // flattened" aggregate views below via `mainBooks`.
+  books.forEach(b => { if (b.partOf) b.nodeType = 'chapter'; });
+  function familyId(id) { const b = bookById[id]; return (b && b.partOf) || id; }
+  const mainBooks = books.filter(b => b.nodeType !== 'chapter');
 
   // A book's citations array holds either plain key strings (legacy, untagged)
   // or {key, topic} objects for books whose source bibliography is itself
