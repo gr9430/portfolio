@@ -3382,7 +3382,6 @@
     "armstrong1990": "Armstrong, Elizabeth. Before Copyright: The French Book Privilege System 1498-1526. Cambridge: Cambridge University Press, 1990.",
     "avrin1991": "Avrin, Leila. Scribes, Script, and Books: The Book Arts from Antiquity to the Renaissance. Chicago: The American Library Association, 1991.",
     "barker1992": "Barker, Nicholas. Aldus Manutius and the Development of Greek Script and Type in the Fifteenth Century. New York: Fordham University Press, 1992.",
-    "benjamin2003": "Benjamin, Walter. \"The Work of Art in the Age of Its Technological Reproducibility.\" In Selected Writings, Volume 4: 1938-1940, ed. Howard Eiland and Michael W. Jennings, 251-283. Cambridge, MA: Belknap Press of Harvard University Press, 2003.",
     "blake2008": "Blake, William. The Complete Poetry and Prose of William Blake. Ed. David V. Erdman. Berkeley: University of California Press, 2008.",
     "blanchot1993": "Blanchot, Maurice. The Infinite Conversation. Trans. Susan Hanson. Minneapolis: University of Minnesota Press, 1993.",
     "brantley2009": "Brantley, Jessica. \"The Prehistory of the Book.\" PMLA: Publications of the Modern Language Association of America 124, no. 2 (2009): 632-639.",
@@ -8021,7 +8020,6 @@
     "feldman2000": "Morton Feldman, \"The Anxiety of Art\" (1965), in Give My Regards to Eighth Street, ed. B. H. Friedman (Cambridge: Exact Change, 2000), p. 32.",
     "lippard1973": "Lucy Lippard, Six Years: The Dematerialization of the Art Object (New York: Praeger, 1973), p. 203.",
     "languagend": "\"Language as Sculpture\": Physical/Topological Concepts, accessed February 12, 2009.",
-    "benjaminnd": "Walter Benjamin, \"The Work of Art in the Age of Mechanical Reproduction,\" accessed December 25, 2010.",
     "cukier2010": "Kenneth Cukier, \"Data, Data Everywhere,\" Economist, February 25, 2010.",
     "conversation2007": "Lawrence Weiner as told to the author in conversation, August 9, 2007.",
     "chopinnd": "Henri Chopin, \"Rouge,\" unpublished, transcribed from the audio by Sebastian Dicenaire.",
@@ -32688,7 +32686,7 @@
         "armstrong1990",
         "avrin1991",
         "barker1992",
-        "benjamin2003",
+        "benjamin2008",
         "birkerts1996",
         "blake2008",
         "blanchot1993",
@@ -37265,7 +37263,7 @@
           "type": "online"
         },
         {
-          "key": "benjaminnd",
+          "key": "benjamin2008",
           "topic": "3 - Anticipating Instability",
           "type": "academic"
         },
