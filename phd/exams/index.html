@@ -899,7 +899,10 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     Object.keys(citationToBooks).forEach(key => {
       const linkedBookId = citationKeyToBookId[key];
       if (!linkedBookId) return;
-      citationToBooks[key].forEach(bookId => { citeEdges.push({ source: bookId, target: linkedBookId }); });
+      citationToBooks[key].forEach(bookId => {
+        if (bookId === linkedBookId) return; // a book citing its own linked key (e.g. an editorial note about which edition it is) isn't a real relationship to graph
+        citeEdges.push({ source: bookId, target: linkedBookId });
+      });
     });
 
     partOfEdges = books
