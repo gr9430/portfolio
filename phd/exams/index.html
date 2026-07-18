@@ -811,6 +811,15 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     });
   });
 
+  // Books that are themselves cited by other transcribed books (e.g. Foucault's
+  // The Order of Things, cited by haraway-cyborgs/orientalism/hayles-posthuman)
+  // carry a `citationKey` pointing at their own bibliography entry. This reverse
+  // lookup lets rebuildCitationGraph route citations of that key straight to the
+  // real book node instead of promoting a redundant synthetic diamond for a work
+  // that's already on the reading list.
+  const citationKeyToBookId = {};
+  books.forEach(b => { if (b.citationKey) citationKeyToBookId[b.citationKey] = b.id; });
+
   // A citation's "type" (fiction/academic/online/etc.) is only recorded by
   // whichever citing books happen to tag it; when multiple books disagree
   // (rare — the same work should carry one type), the most frequent tag wins.
@@ -843,7 +852,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
   }
 
   function establishedKeys() {
-    return Object.keys(citationToBooks).filter(k => citationToFamilies[k].size >= recoThreshold);
+    return Object.keys(citationToBooks).filter(k => !citationKeyToBookId[k] && citationToFamilies[k].size >= recoThreshold);
   }
 
   function rebuildCitationGraph() {
@@ -860,7 +869,7 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
 
     const bookEdgeMap = {};
     Object.keys(citationToBooks).forEach(key => {
-      if (established.has(key)) return;
+      if (established.has(key) || citationKeyToBookId[key]) return;
       const ids = citationToBooks[key];
       if (ids.length < 2) return;
       for (let i = 0; i < ids.length; i++) {
@@ -886,6 +895,11 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
     citeEdges = [];
     citationNodes.forEach(node => {
       node.citedBy.forEach(bookId => { citeEdges.push({ source: node.id, target: bookId }); });
+    });
+    Object.keys(citationToBooks).forEach(key => {
+      const linkedBookId = citationKeyToBookId[key];
+      if (!linkedBookId) return;
+      citationToBooks[key].forEach(bookId => { citeEdges.push({ source: bookId, target: linkedBookId }); });
     });
 
     partOfEdges = books
