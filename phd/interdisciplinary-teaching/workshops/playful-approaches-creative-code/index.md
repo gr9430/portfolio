@@ -1,3 +1,9 @@
+---
+layout: default
+title: Playful Approaches and Creative Code
+project: true
+tags: [Interdisciplinary Teaching, Texts and Technology, Pedagogy, Visual Cultures, Interdisciplinary Teaching in Texts and Technology, Digital Humanities]
+---
 # Reflection
 Writing this policy forced me to notice where my instincts as a critical-making practitioner and my instincts as an instructor pull in different directions. The copyright question turned out easier than I expected, mostly because I built around it rather than into it: using a public-domain text for the one assignment where AI and copyrighted material could actually collide meant I never had to write rules about fair use or derivative work. That's a design choice, not a policy solution, and I want to be honest about the difference. A student working with a text still under copyright would need guidance this document doesn't give them.
 
