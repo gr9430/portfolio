@@ -1,9 +1,9 @@
 ---
 layout: default
-title: "Walking the Hero's Path at Slieve Gullion"
+title: "Slieve Gullion"
 description: "A three-activity procedural zine pipeline: Tracery grammar remix of Taroko Gorge, client-side image reduction, and vocabulary authoring — all sharing one JSON file."
 project: true
-tags: [Texts and Technology, E-Lit, Generative, Procedural, Critical Making in Texts and Technology, Tracery, Machine Learning, Experimental Literature]
+tags: [Texts and Technology, Electronic Literature, Interdisciplinary Teaching, Tracery, Digital Humanities, Experimental Literature, Visual Cultures]
 ---
 
 # Walking the Hero's Path at Slieve Gullion

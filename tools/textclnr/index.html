@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Text Cleaner</title>
+
+<!--
+  If you drop this into the site and want the shared header/nav,
+  uncomment the line below and delete the duplicated base rules here.
+  <link rel="stylesheet" href="/assets/main.css">
+-->
+
+<style>
+/* =====================================================================
+   TOKENS — derived from main.css
+     accent  rgb(122, 6, 97)    magenta    — headings, borders, buttons
+     alt     rgb(6, 97, 122)    teal       — the "creative" counterpart
+     surface rgb(248,248,255)   ghostwhite — .site-header background
+   Dark values lift both accents until they hold contrast on a dark ground.
+   ===================================================================== */
+
+:root,
+[data-theme="light"]{
+  --bg:            #fdfdfd;
+  --surface:       rgb(248, 248, 255);
+  --surface-2:     #f6f8fa;
+  --text:          #111;
+  --muted:         rgb(85, 85, 85);
+  --faint:         #828282;
+  --line:          #d1d5da;
+  --line-soft:     #e8e8e8;
+  --accent:        rgb(122, 6, 97);
+  --accent-strong: rgb(98, 5, 78);
+  --accent-soft:   rgba(122, 6, 97, .08);
+  --accent-on:     #ffffff;
+  --alt:           rgb(6, 97, 122);
+  --alt-soft:      rgba(6, 97, 122, .08);
+  --shadow:        rgba(122, 6, 97, .15);
+}
+
+[data-theme="dark"]{
+  --bg:            #16131b;
+  --surface:       #1e1a25;
+  --surface-2:     #241f2c;
+  --text:          #ece9f0;
+  --muted:         #a79db0;
+  --faint:         #7d7386;
+  --line:          #3a3343;
+  --line-soft:     #2c2634;
+  --accent:        #e05fc0;
+  --accent-strong: #f486d3;
+  --accent-soft:   rgba(224, 95, 192, .12);
+  --accent-on:     #16131b;
+  --alt:           #4fb8d8;
+  --alt-soft:      rgba(79, 184, 216, .12);
+  --shadow:        rgba(0, 0, 0, .45);
+}
+
+/* ===================== base ===================== */
+
+*{box-sizing:border-box}
+html{overflow-x:clip}
+
+body{
+  margin:0;
+  font-family:"Liberation Mono","Courier New",Consolas,Monaco,"Andale Mono","Ubuntu Mono",monospace;
+  font-size:16px;
+  line-height:1.5;
+  color:var(--text);
+  background-color:var(--bg);
+  overflow-x:hidden;
+  transition:background-color .25s ease,color .25s ease;
+}
+
+h1,h2{color:var(--accent);font-weight:400;margin:0}
+p{margin:0 0 15px}
+.wrapper{max-width:1080px;margin:0 auto;padding:0 20px}
+
+/* ===================== header ===================== */
+
+.site-header{
+  background:var(--surface);
+  border-bottom:2px solid var(--accent);
+  padding:2rem 0;
+  text-align:center;
+}
+
+.animated-header{
+  display:inline-block;
+  font-size:2.5rem;
+  color:var(--accent);
+  border-bottom:2px solid var(--accent);
+  padding-bottom:.5rem;
+  margin-bottom:1.5rem;
+}
+
+.thermal-text{
+  overflow:hidden;
+  white-space:nowrap;
+  animation:thermal-print 1.6s steps(14,end) forwards;
+  position:relative;
+}
+.thermal-text::after{
+  content:"|";
+  color:var(--accent);
+  animation:thermal-cursor 1s infinite;
+  position:absolute;
+  right:-2px;
+}
+@keyframes thermal-print{from{width:0;opacity:0}to{width:100%;opacity:1}}
+@keyframes thermal-cursor{0%,50%{opacity:1}51%,100%{opacity:0}}
+
+.lede{
+  max-width:72ch;
+  margin:0 auto;
+  color:var(--muted);
+  font-size:.9rem;
+  text-align:left;
+}
+.lede strong{color:var(--text);font-weight:bold}
+
+/* ===================== theme toggle ===================== */
+
+.floating-buttons{position:fixed;top:20px;right:20px;z-index:1000}
+
+.floating-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  min-width:50px;
+  height:50px;
+  padding:0 14px;
+  border:2px solid var(--accent);
+  border-radius:25px;
+  background-color:var(--bg);
+  color:var(--accent);
+  font-family:inherit;
+  font-size:.85rem;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 2px 10px var(--shadow);
+  transition:all .3s ease;
+}
+.floating-btn:hover{
+  background-color:var(--accent);
+  color:var(--accent-on);
+  transform:translateY(-2px);
+}
+.floating-btn:focus-visible{outline:3px solid var(--alt);outline-offset:2px}
+
+@media (max-width:600px){
+  .floating-buttons{top:15px;right:15px}
+  .floating-btn{height:45px;min-width:45px;padding:0 10px;font-size:.75rem}
+}
+
+/* ===================== layout ===================== */
+
+.page-content{padding:30px 0 0}
+
+.columns{
+  display:grid;
+  grid-template-columns:minmax(340px,440px) 1fr;
+  gap:24px;
+  align-items:start;
+}
+@media (max-width:900px){.columns{grid-template-columns:1fr}}
+
+.panel{
+  background:var(--bg);
+  border:2px solid var(--accent);
+  border-radius:6px;
+  overflow:hidden;
+}
+.panel + .panel{margin-top:24px}
+
+.panel-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 16px;
+  background:var(--surface);
+  border-bottom:2px solid var(--accent);
+}
+.panel-head h2{
+  font-size:1rem;
+  font-weight:bold;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.panel-head .hint{font-size:.75rem;color:var(--muted);font-style:italic}
+
+/* ===================== source ===================== */
+
+#drop{
+  display:block;
+  padding:28px 16px;
+  margin:16px;
+  background:var(--surface-2);
+  border:2px dashed var(--line);
+  border-radius:4px;
+  color:var(--muted);
+  font-size:.85rem;
+  text-align:center;
+  cursor:pointer;
+  transition:all .3s ease;
+}
+#drop:hover,#drop:focus-visible,#drop.armed{
+  border-color:var(--accent);
+  color:var(--text);
+  background:var(--accent-soft);
+  outline:none;
+}
+#drop.armed{border-style:solid}
+#drop b{display:block;color:var(--accent);margin-bottom:4px;font-size:1rem}
+
+#file{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+
+.loaded{
+  display:none;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px 16px;
+  border-top:1px solid var(--line-soft);
+  font-size:.75rem;
+  color:var(--muted);
+}
+.loaded.on{display:flex}
+.loaded b{color:var(--accent);word-break:break-all}
+
+/* ===================== pipeline ===================== */
+
+.stage{
+  padding:12px 16px;
+  font-size:.7rem;
+  font-weight:bold;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--alt);
+  background:var(--surface-2);
+  border-top:1px solid var(--line-soft);
+  border-bottom:1px solid var(--line-soft);
+}
+
+.step{border-bottom:1px solid var(--line-soft)}
+.step:last-child{border-bottom:0}
+
+.step-row{
+  display:grid;
+  grid-template-columns:32px 1fr auto;
+  gap:10px;
+  align-items:start;
+  padding:12px 16px;
+  cursor:pointer;
+  position:relative;
+  transition:background-color .2s ease;
+}
+.step-row:hover{background:var(--accent-soft)}
+.step-row:has(input:focus-visible){outline:3px solid var(--alt);outline-offset:-3px}
+.step-row > input{position:absolute;opacity:0;width:1px;height:1px}
+
+.num{font-size:.8rem;font-weight:bold;color:var(--line);padding-top:3px}
+.step.on .num{color:var(--accent)}
+
+.label{font-size:.85rem;line-height:1.45;color:var(--muted)}
+.step.on .label{color:var(--text)}
+
+.desc{
+  display:block;
+  font-size:.75rem;
+  color:var(--faint);
+  margin-top:3px;
+  line-height:1.45;
+}
+
+.tag{
+  display:inline-block;
+  font-size:.6rem;
+  font-weight:bold;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  padding:1px 6px;
+  margin-left:6px;
+  border-radius:12px;
+  border:1px solid var(--accent);
+  color:var(--accent);
+  vertical-align:1px;
+}
+.step.on .tag{background:var(--accent);color:var(--accent-on)}
+
+.delta{font-size:.75rem;color:var(--faint);white-space:nowrap;padding-top:3px}
+.step.on .delta{color:var(--alt);font-weight:bold}
+
+/* per-rule settings */
+
+.opts{
+  display:none;
+  padding:0 16px 14px 58px;
+  background:var(--accent-soft);
+}
+.step.on .opts{display:block}
+
+.opt{display:block;margin-top:10px}
+.opt span{
+  display:block;
+  font-size:.7rem;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:4px;
+}
+.opt input,
+.opt textarea{
+  width:100%;
+  font-family:inherit;
+  font-size:.75rem;
+  padding:.45rem .6rem;
+  color:var(--text);
+  background:var(--bg);
+  border:2px solid var(--line);
+  border-radius:4px;
+  transition:border-color .2s ease;
+}
+.opt textarea{
+  height:120px;
+  resize:vertical;
+  line-height:1.6;
+  white-space:pre-wrap;
+}
+.opt input:focus,
+.opt textarea:focus{outline:none;border-color:var(--accent)}
+.opt input::placeholder{color:var(--faint);font-style:italic}
+
+.opt-count{
+  float:right;
+  font-weight:normal;
+  letter-spacing:0;
+  text-transform:none;
+  color:var(--alt);
+}
+
+.opt-note{
+  margin:8px 0 0;
+  font-size:.7rem;
+  color:var(--faint);
+  line-height:1.45;
+}
+
+/* ===================== warnings ===================== */
+
+#warnings{display:none;margin-bottom:20px}
+#warnings.on{display:block}
+
+.warn{
+  border:1px solid var(--alt);
+  border-left:4px solid var(--alt);
+  border-radius:4px;
+  background:var(--alt-soft);
+  padding:12px 16px;
+  margin-bottom:10px;
+  font-size:.8rem;
+  line-height:1.55;
+  color:var(--text);
+}
+.warn b{
+  display:block;
+  color:var(--alt);
+  font-size:.75rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:4px;
+}
+.warn code{
+  font-family:inherit;
+  background:var(--surface-2);
+  border:1px solid var(--line);
+  border-radius:3px;
+  padding:0 4px;
+}
+
+/* ===================== output ===================== */
+
+.tabs{display:flex}
+
+.tab{
+  font-family:inherit;
+  font-size:.8rem;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  padding:8px 18px;
+  cursor:pointer;
+  border:2px solid var(--accent);
+  border-bottom:0;
+  border-radius:6px 6px 0 0;
+  background:transparent;
+  color:var(--accent);
+  margin-right:-2px;
+  transition:all .3s ease;
+}
+.tab:hover{background:var(--accent-soft)}
+.tab[aria-selected="true"]{background:var(--accent);color:var(--accent-on)}
+.tab:focus-visible{outline:3px solid var(--alt);outline-offset:2px}
+
+.panel.output{border-radius:0 6px 6px 6px}
+
+#view{
+  margin:0;
+  padding:20px;
+  height:min(56vh,600px);
+  overflow:auto;
+  white-space:pre-wrap;
+  word-break:break-word;
+  background:var(--surface-2);
+  border:0;
+  font-family:inherit;
+  font-size:.8rem;
+  line-height:1.7;
+  color:var(--text);
+}
+#view.empty{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:var(--faint);
+  font-style:italic;
+}
+#view::-webkit-scrollbar{width:10px}
+#view::-webkit-scrollbar-track{background:var(--surface)}
+#view::-webkit-scrollbar-thumb{background:var(--accent);border-radius:4px}
+#view::-webkit-scrollbar-thumb:hover{background:var(--accent-strong)}
+
+.trunc{
+  display:none;
+  padding:8px 16px;
+  border-top:1px solid var(--line-soft);
+  background:var(--alt-soft);
+  color:var(--alt);
+  font-size:.75rem;
+}
+.trunc.on{display:block}
+
+.stats{display:flex;flex-wrap:wrap;border-top:2px solid var(--accent)}
+
+.stat{
+  flex:1 1 auto;
+  min-width:104px;
+  padding:12px 16px;
+  border-right:1px solid var(--line-soft);
+}
+.stat:last-child{border-right:0}
+.stat .k{
+  display:block;
+  font-size:.65rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:2px;
+}
+.stat .v{font-size:1.15rem;font-weight:bold;color:var(--text)}
+.stat .v.cut{color:var(--accent)}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  padding:16px;
+  border-top:1px solid var(--line-soft);
+  background:var(--surface);
+}
+
+.act{
+  font-family:inherit;
+  font-size:.85rem;
+  font-weight:600;
+  padding:.55rem 1.1rem;
+  border:2px solid var(--accent);
+  border-radius:4px;
+  background-color:var(--accent);
+  color:var(--accent-on);
+  cursor:pointer;
+  transition:all .3s ease;
+}
+.act:hover:not(:disabled){
+  background-color:var(--accent-strong);
+  border-color:var(--accent-strong);
+  transform:translateY(-2px);
+}
+.act.ghost{background-color:transparent;color:var(--accent)}
+.act.ghost:hover:not(:disabled){
+  background-color:var(--accent);
+  color:var(--accent-on);
+  transform:translateY(-2px);
+}
+.act:disabled{opacity:.4;cursor:not-allowed}
+.act:focus-visible{outline:3px solid var(--alt);outline-offset:2px}
+
+/* ===================== footer ===================== */
+
+.site-footer{
+  border-top:2px solid var(--accent);
+  margin-top:40px;
+  padding:30px 0 50px;
+  background:var(--surface);
+}
+.site-footer p{
+  max-width:80ch;
+  color:var(--muted);
+  font-size:.8rem;
+  line-height:1.6;
+}
+.site-footer p:last-child{margin-bottom:0}
+
+/* ===================== motion ===================== */
+
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important;animation:none !important}
+  .thermal-text{width:100%;opacity:1;white-space:normal}
+  .thermal-text::after{opacity:0}
+  .act:hover,.floating-btn:hover{transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="floating-buttons">
+  <button class="floating-btn" id="theme" aria-label="Switch to dark mode">
+    <span id="theme-icon">◐</span><span id="theme-label">Dark</span>
+  </button>
+</div>
+
+<header class="site-header">
+  <div class="wrapper">
+    <h1 class="animated-header thermal-text">Text Cleaner</h1>
+    <p class="lede">Upload a <strong>.txt</strong> file — a Project Gutenberg download, a transcription, anything plain — and switch cleaning rules on and off. Rules run <strong>top to bottom</strong>, and each one reports what it changed. Nothing is uploaded anywhere; the file never leaves your browser.</p>
+  </div>
+</header>
+
+<main class="page-content">
+  <div class="wrapper">
+    <div class="columns">
+
+      <!-- ============ LEFT: source + pipeline ============ -->
+      <section>
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Source</h2>
+            <span class="hint">.txt only</span>
+          </div>
+          <label id="drop" for="file" tabindex="0">
+            <b>Choose a .txt file</b>
+            or drag one onto this box
+          </label>
+          <input type="file" id="file" accept=".txt,text/plain">
+          <div class="loaded" id="loaded">
+            <span>Loaded <b id="fname">—</b></span>
+            <span id="fsize"></span>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Pipeline</h2>
+            <span class="hint">order matters</span>
+          </div>
+          <div id="pipeline"></div>
+        </div>
+      </section>
+
+      <!-- ============ RIGHT: warnings + output ============ -->
+      <section>
+        <div id="warnings"></div>
+
+        <div class="tabs" role="tablist">
+          <button class="tab" role="tab" id="tab-clean" aria-selected="true">Cleaned</button>
+          <button class="tab" role="tab" id="tab-orig" aria-selected="false">Original</button>
+        </div>
+
+        <div class="panel output">
+          <pre id="view" class="empty">No file loaded yet.</pre>
+          <div class="trunc" id="trunc">Preview shows the first 50,000 characters. The download contains the whole text.</div>
+          <div class="stats">
+            <div class="stat"><span class="k">Characters</span><span class="v" id="s-chars">0</span></div>
+            <div class="stat"><span class="k">Words</span><span class="v" id="s-words">0</span></div>
+            <div class="stat"><span class="k">Lines</span><span class="v" id="s-lines">0</span></div>
+            <div class="stat"><span class="k">Removed</span><span class="v cut" id="s-cut">0%</span></div>
+          </div>
+          <div class="actions">
+            <button class="act" id="download" disabled>Download cleaned text</button>
+            <button class="act ghost" id="copy" disabled>Copy to clipboard</button>
+            <button class="act ghost" id="reset" disabled>Reset rules</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrapper">
+    <p>Cleaning is never neutral. Every rule throws something away, and what counts as noise depends on what you plan to do next. A word-frequency count and a close reading want different texts. Turn rules off when they take something you need.</p>
+    <p>The Gutenberg licence has a machine-readable marker. A book's own title page and table of contents do not — they are part of the edition, so no rule can find them with certainty. Rule 04 makes its best guess, tells you exactly where it cut, and lets you say otherwise.</p>
+  </div>
+</footer>
+
+<script>
+/* =======================================================================
+   THEME
+   ======================================================================= */
+
+const root = document.documentElement;
+const themeBtn = document.getElementById('theme');
+
+function readStored(){ try{ return localStorage.getItem('tc-theme'); }catch{ return null; } }
+function store(v){ try{ localStorage.setItem('tc-theme', v); }catch{ /* no-op */ } }
+
+function setTheme(mode){
+  root.setAttribute('data-theme', mode);
+  const next = mode === 'dark' ? 'light' : 'dark';
+  document.getElementById('theme-icon').textContent = mode === 'dark' ? '◑' : '◐';
+  document.getElementById('theme-label').textContent = next === 'dark' ? 'Dark' : 'Light';
+  themeBtn.setAttribute('aria-label', 'Switch to ' + next + ' mode');
+  store(mode);
+}
+
+setTheme(readStored() || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+themeBtn.addEventListener('click', () => {
+  setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
+
+/* =======================================================================
+   HELPERS
+   ======================================================================= */
+
+const esc = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const escHtml = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+/* Turn a typed phrase into a regex that ignores how the source wraps lines:
+   "DOWN THE RABBIT-HOLE" will match even if the file broke it across lines. */
+function loosePhrase(phrase){
+  const parts = phrase.trim().split(/\s+/).map(esc);
+  return new RegExp(parts.join('\\s+'), 'i');
+}
+
+/* A one-line snippet of context, for reporting where a cut landed. */
+function snippet(text, index, len = 46){
+  const line = text.slice(index).split('\n')[0].trim();
+  return line.length > len ? line.slice(0, len) + '…' : line;
+}
+
+
+/* =======================================================================
+   DEFAULT STOP WORD LIST
+   -----------------------------------------------------------------------
+   The conventional English list, of the kind used in information retrieval.
+   It is a DEFAULT, not an authority. It was built to answer "what is this
+   document about", and it deletes every negation, pronoun and modal in the
+   language to get there. It is editable in the interface for that reason.
+
+   The negations are grouped on their own line so they are easy to find and
+   easy to delete.
+   ======================================================================= */
+
+const DEFAULT_STOPWORDS = [
+  "no not nor cannot can't don't doesn't didn't won't wouldn't shouldn't couldn't isn't aren't wasn't weren't hasn't haven't hadn't mustn't shan't",
+  "a an the this that these those",
+  "i me my myself we our ours ourselves you your yours yourself yourselves",
+  "he him his himself she her hers herself it its itself they them their theirs themselves",
+  "what which who whom whose where when why how",
+  "am is are was were be been being have has had having do does did doing",
+  "would should could ought will shall may might must can",
+  "and but if or because as until while of at by for with about against between into through during before after above below to from up down in out on off over under",
+  "again further then once here there all any both each few more most other some such only own same so than too very just now",
+  "i'm i've i'd i'll you're you've you'd you'll he's he'd he'll she's she'd she'll it's we're we've we'd we'll they're they've they'd they'll",
+  "that's there's here's what's who's let's"
+].join('\n');
+
+
+/* =======================================================================
+   THE RULE LIBRARY
+   -----------------------------------------------------------------------
+   Every rule is a pure function: (text, opts) => string
+                              or: (text, opts) => { text, warnings }
+   `opts` holds the values typed into that rule's own settings, if it has any.
+   The original upload is never touched — the output is recomputed from
+   scratch every time you toggle a rule or change a setting.
+
+   TO ADD A RULE: drop a new object into this array at the position where it
+   should run. Order is load-bearing; see the notes in `desc`.
+   ======================================================================= */
+
+const RULES = [
+  {
+    id: 'encoding',
+    stage: 'Repair',
+    on: true,
+    label: 'Normalize encoding and line endings',
+    desc: 'Windows/Mac line breaks become Unix. Removes the invisible byte-order mark. Run first — every rule after this assumes it.',
+    fn: (t) => t.replace(/^\uFEFF/, '').normalize('NFC').replace(/\r\n?/g, '\n')
+  },
+
+  {
+    id: 'gutenberg',
+    stage: 'Repair',
+    on: true,
+    label: 'Remove Project Gutenberg header and footer',
+    desc: 'Cuts the licence boilerplate at both ends, using the *** START *** and *** END *** markers. Warns instead of guessing if they are missing.',
+    fn: (t) => {
+      const warnings = [];
+      const startRe = /\*\*\*\s*START OF (?:THE|THIS) PROJECT GUTENBERG EBOOK[\s\S]*?\*\*\*/i;
+      const endRe   = /\*\*\*\s*END OF (?:THE|THIS) PROJECT GUTENBERG EBOOK[\s\S]*?\*\*\*/i;
+      const oldEnd  = /^End of (?:the )?Project Gutenberg.*$/im;
+
+      const s = t.match(startRe);
+      const e = t.match(endRe) || t.match(oldEnd);
+
+      if (!s && !e) {
+        warnings.push({
+          title: 'No Gutenberg markers found',
+          body: 'This file has no <code>*** START OF THE PROJECT GUTENBERG EBOOK ***</code> line, so nothing was trimmed. If it is a Gutenberg text, check you downloaded the Plain Text UTF-8 version. If it is not, switch this rule off.'
+        });
+        return { text: t, warnings };
+      }
+      if (!s || !e) {
+        warnings.push({
+          title: 'Only one Gutenberg marker found',
+          body: 'Found the ' + (s ? 'start' : 'end') + ' marker but not the other, so only that side was trimmed. Skim the ' + (s ? 'end' : 'beginning') + ' of the output for leftover licence text.'
+        });
+      }
+
+      const from = s ? s.index + s[0].length : 0;
+      const to   = e ? e.index : t.length;
+      if (to <= from) {
+        warnings.push({
+          title: 'Gutenberg markers are out of order',
+          body: 'The end marker appears before the start marker, which usually means the file is truncated. Left the text untouched.'
+        });
+        return { text: t, warnings };
+      }
+      return { text: t.slice(from, to).trim(), warnings };
+    }
+  },
+
+  {
+    id: 'credits',
+    stage: 'Repair',
+    on: true,
+    label: 'Remove transcriber and production credits',
+    desc: 'Drops "Produced by…" lines and transcriber\'s notes. Standard for distant reading: these are the digitizer\'s words, not the author\'s, and they skew counts. Switch off if the making of the edition is itself your object of study.',
+    fn: (t) => t
+      .replace(/^[ \t]*(?:Produced by|E-?text (?:prepared|produced) by|Transcribed (?:from|by)|Updated editions? will)[\s\S]*?(?=\n[ \t]*\n|$)/gim, '')
+      .replace(/^[ \t]*\[?Transcriber'?s?[ \t]+Notes?\b[\s\S]*?(?=\n[ \t]*\n|$)/gim, '')
+  },
+
+  {
+    id: 'frontmatter',
+    stage: 'Repair',
+    on: true,
+    label: 'Trim front matter and back matter',
+    desc: 'The title page, imprint, price, dedication and table of contents sit *inside* the Gutenberg markers, so rule 02 cannot reach them. There is no reliable marker for where a book actually begins, so this rule guesses and then tells you exactly where it cut. Correct it below if the guess is wrong.',
+    options: [
+      { key:'start', label:'Body begins at', placeholder:'leave blank to guess' },
+      { key:'end',   label:'Body ends before', placeholder:'leave blank to guess' }
+    ],
+    note: 'Type a distinctive phrase from the first (or last) line you want to keep — spacing and line breaks are ignored, so "DOWN THE RABBIT-HOLE" works even if the file wrapped it.',
+    fn: (t, opts = {}) => {
+      const warnings = [];
+      let from = 0, to = t.length;
+
+      /* ---- where does the body begin? ---- */
+      const wanted = (opts.start || '').trim();
+      if (wanted) {
+        const m = t.match(loosePhrase(wanted));
+        if (m) {
+          from = m.index;
+        } else {
+          warnings.push({
+            title: 'Opening phrase not found',
+            body: 'Could not find <code>' + escHtml(wanted) + '</code> anywhere in the text, so no front matter was cut. Check the spelling against the Original tab.'
+          });
+        }
+      } else {
+        /* Guess. The trap: a table of contents is full of chapter-like lines,
+           so a naive "cut at CHAPTER I" lands inside the TOC. Look for a
+           chapter heading that comes AFTER any contents block instead. */
+        const chapterRe = /^[ \t]*(?:CHAPTER|CHAP\.?|PART|BOOK)[ \t]+(?:[IVXLCDM]+|\d+|ONE|TWO|THREE)\b.*$/gim;
+        const tocRe     = /^[ \t]*(?:CONTENTS|TABLE OF CONTENTS|LIST OF (?:CHAPTERS|ILLUSTRATIONS))\b.*$/im;
+
+        const toc = t.match(tocRe);
+        const after = toc ? toc.index + toc[0].length : 0;
+
+        let hit = null;
+        for (const m of t.matchAll(chapterRe)) {
+          if (m.index > after) { hit = m; break; }
+        }
+
+        /* Fallback: the decorative divider that usually closes a contents block. */
+        if (!hit && toc) {
+          const div = t.slice(after).match(/^[ \t]*(?:\*[ \t]*){3,}$/m);
+          if (div) hit = { index: after + div.index + div[0].length, 0: '' };
+        }
+
+        if (hit) {
+          from = hit.index;
+          warnings.push({
+            title: 'Front matter trimmed by guess',
+            body: 'Cut ' + from.toLocaleString() + ' characters, starting the body at <code>' +
+                  escHtml(snippet(t, from)) + '</code>. If that is not where the book begins, type the correct opening phrase into the rule\'s settings.'
+          });
+        } else {
+          warnings.push({
+            title: 'Could not find where the body begins',
+            body: 'No chapter heading or contents block was found, so nothing was trimmed. If this text has front matter, type its first real line into the rule\'s settings.'
+          });
+        }
+      }
+
+      /* ---- where does the body end? ---- */
+      const wantedEnd = (opts.end || '').trim();
+      if (wantedEnd) {
+        const m = t.slice(from).match(loosePhrase(wantedEnd));
+        if (m) {
+          to = from + m.index + m[0].length;
+        } else {
+          warnings.push({
+            title: 'Closing phrase not found',
+            body: 'Could not find <code>' + escHtml(wantedEnd) + '</code> after the start of the body, so no back matter was cut.'
+          });
+        }
+      } else {
+        const end = t.slice(from).match(/^[ \t]*THE END[ \t.]*$/im);
+        if (end) to = from + end.index + end[0].length;
+      }
+
+      if (to <= from) return { text: t, warnings };
+      return { text: t.slice(from, to).trim(), warnings };
+    }
+  },
+
+  {
+    id: 'dehyphen',
+    stage: 'Reflow',
+    on: true,
+    label: 'Rejoin words broken across lines',
+    desc: '"exam-\\nple" becomes "example". Must run before the next rule, or the hyphen gets welded into the middle of the word.',
+    fn: (t) => t.replace(/([A-Za-z])-\n([a-z])/g, '$1$2')
+  },
+
+  {
+    id: 'unwrap',
+    stage: 'Reflow',
+    on: true,
+    label: 'Unwrap hard line breaks into paragraphs',
+    desc: 'Gutenberg wraps lines at about 70 characters. This makes each paragraph one long line; blank lines still separate paragraphs. Switch off when line breaks carry meaning — poetry, drama, verse.',
+    fn: (t) => t
+      .split(/\n\s*\n/)
+      .map(block => block.replace(/\s*\n\s*/g, ' ').trim())
+      .filter(Boolean)
+      .join('\n\n')
+  },
+
+  {
+    id: 'emphasis',
+    stage: 'Normalize',
+    on: true,
+    label: 'Strip underscore emphasis markup',
+    desc: 'Gutenberg marks italics as _like this_. The underscores are typesetting notation, not the author\'s punctuation — leave them in and a word counter reads _word_ and word as two different tokens. Runs after unwrapping so it can catch emphasis that spanned a line break.',
+    fn: (t) => t.replace(/_([^_\n]+)_/g, '$1')
+  },
+
+  {
+    id: 'dividers',
+    stage: 'Normalize',
+    on: true,
+    label: 'Remove decorative dividers',
+    desc: 'Lines made only of asterisks, hyphens or equals signs — * * * * * and the like. Ornament, not text.',
+    fn: (t) => t.replace(/^[ \t]*(?:[*\-=_~+][ \t]*){3,}$/gm, '')
+  },
+
+  {
+    id: 'brackets',
+    stage: 'Normalize',
+    on: false,
+    label: 'Remove editorial insertions in brackets',
+    desc: 'Strips [Illustration: …], [Footnote: …], [Sidenote: …]. Also digitizer additions, but riskier: a stray bracket in the text can make the rule swallow more than you meant.',
+    fn: (t) => t.replace(/\[(?:Illustration|Footnote|Sidenote)\b[\s\S]*?\]/gi, '')
+  },
+
+  {
+    id: 'footnotes',
+    stage: 'Normalize',
+    on: false,
+    label: 'Remove footnote reference markers',
+    desc: 'Deletes markers like [1] or {12} left in the running text. Run before any broader bracket rule you add later.',
+    fn: (t) => t.replace(/\[\d+\]|\{\d+\}/g, '')
+  },
+
+  {
+    id: 'headings',
+    stage: 'Normalize',
+    on: false,
+    label: 'Remove chapter headings',
+    desc: 'Deletes lines like "CHAPTER IV." For a word count they are apparatus, repeated once per chapter. For anything that cares about structure, they are the structure — keep them.',
+    fn: (t) => t.replace(/^[ \t]*(?:CHAPTER|CHAP\.?|PART|BOOK)[ \t]+(?:[IVXLCDM]+|\d+)[.:]?[ \t]*$/gim, '')
+  },
+
+  {
+    id: 'quotes',
+    stage: 'Normalize',
+    on: false,
+    label: 'Flatten curly quotes and dashes to plain ASCII',
+    desc: 'Curly quotes become straight, em- and en-dashes become hyphens, ellipses become three dots. Useful when a tool would otherwise count two spellings of the same word.',
+    fn: (t) => t
+      .replace(/[\u2018\u2019\u201A\u201B]/g, "'")
+      .replace(/[\u201C\u201D\u201E\u201F]/g, '"')
+      .replace(/[\u2013\u2014\u2015]/g, '-')
+      .replace(/\u2026/g, '...')
+      .replace(/\u00A0/g, ' ')
+  },
+
+  {
+    id: 'whitespace',
+    stage: 'Normalize',
+    on: true,
+    label: 'Tidy whitespace',
+    desc: 'Trims trailing spaces, collapses runs of blank lines down to one, cuts leading and trailing space from the file. Run near the end, after the rules that leave gaps behind.',
+    fn: (t) => t
+      .replace(/[ \t]+$/gm, '')
+      .replace(/\n{3,}/g, '\n\n')
+      .replace(/[ \t]{2,}/g, ' ')
+      .trim()
+  },
+
+  {
+    id: 'lower',
+    stage: 'Flatten',
+    on: false,
+    destructive: true,
+    label: 'Lowercase everything',
+    desc: 'For frequency counts, where "The" and "the" should be one word. Destroys proper nouns and sentence starts.',
+    fn: (t) => t.toLowerCase()
+  },
+
+  {
+    id: 'stopwords',
+    stage: 'Flatten',
+    on: false,
+    destructive: true,
+    label: 'Remove stop words',
+    desc: 'Deletes the words on the list below. Runs BEFORE punctuation removal on purpose: strip the punctuation first and "don\'t" becomes "dont", which matches nothing and survives. Paragraph breaks are kept; word order within a paragraph is not disturbed, only thinned.',
+    options: [
+      { key:'list', type:'textarea', label:'Stop word list', default: DEFAULT_STOPWORDS }
+    ],
+    note: 'This list is the usual one, borrowed from information retrieval, where the goal was to find what a document is ABOUT. It deletes every negation (no, not, nor, cannot), every pronoun, and every modal. If your question involves who speaks, who is addressed, what is denied, or how a claim is hedged, then those are not "non-content words" and you should cut them from this list. Edit freely — one word per line or separated by spaces or commas.',
+    fn: (t, opts = {}) => {
+      const list = (opts.list || '')
+        .split(/[\s,]+/)
+        .map(w => w.trim().toLowerCase().replace(/[\u2018\u2019]/g, "'"))
+        .filter(Boolean);
+
+      if (!list.length) {
+        return { text: t, warnings: [{
+          title: 'Stop word list is empty',
+          body: 'Nothing was removed. Type words into the list, or switch the rule off.'
+        }] };
+      }
+
+      const stop = new Set(list);
+
+      /* Compare on a normalized form of each token, so that "The," and "the"
+         and “don’t” all test against the same key — but keep the original
+         token when it survives. */
+      const key = tok => tok
+        .toLowerCase()
+        .replace(/[\u2018\u2019]/g, "'")
+        .replace(/^[^\p{L}\p{N}']+|[^\p{L}\p{N}']+$/gu, '');
+
+      const text = t
+        .split(/\n/)
+        .map(line => line
+          .split(/\s+/)
+          .filter(tok => tok && !stop.has(key(tok)))
+          .join(' '))
+        .join('\n');
+
+      return text;
+    }
+  },
+
+  {
+    id: 'punct',
+    stage: 'Flatten',
+    on: false,
+    destructive: true,
+    label: 'Remove punctuation',
+    desc: 'Keeps letters, numbers, apostrophes and spaces. Sentence boundaries are gone after this — do not use it for anything that needs to know where sentences end.',
+    fn: (t) => t.replace(/[^\p{L}\p{N}\s']/gu, '').replace(/[ \t]{2,}/g, ' ')
+  },
+
+  {
+    id: 'numerals',
+    stage: 'Flatten',
+    on: false,
+    destructive: true,
+    label: 'Remove numerals and stray single letters',
+    desc: 'Deletes bare numbers, whole-line Roman numerals (page and chapter markers), and orphaned single letters — the debris other rules leave behind. Run last: it cleans up after everything above it. Roman numerals are only cut when they occupy a line alone, because DID, MIX and CIVIL are also spelled in Roman letters.',
+    fn: (t) => t
+      .replace(/^[ \t]*[IVXLCDM]+[.:]?[ \t]*$/gm, '')
+      .replace(/\b\d+(?:[.,]\d+)*\b/g, '')
+      .replace(/(^|\s)[b-hj-z](?=\s|$)/gi, '$1')
+      .replace(/[ \t]{2,}/g, ' ')
+      .replace(/^[ \t]+|[ \t]+$/gm, '')
+  }
+];
+
+/* =======================================================================
+   STATE — the uploaded text is held once and never modified.
+   ======================================================================= */
+
+let sourceText = '';
+let fileName   = '';
+let cleanText  = '';
+
+const enabled = new Map(RULES.map(r => [r.id, r.on]));
+const settings = new Map();          // "ruleId:optKey" -> string
+RULES.forEach(r => (r.options || []).forEach(o => settings.set(r.id + ':' + o.key, o.default || '')));
+
+const PREVIEW_LIMIT = 50000;
+
+/* ---------- the pipeline: fold the enabled rules over the source ---------- */
+
+function optsFor(rule){
+  const o = {};
+  (rule.options || []).forEach(opt => { o[opt.key] = settings.get(rule.id + ':' + opt.key) || ''; });
+  return o;
+}
+
+function run(){
+  let text = sourceText;
+  const deltas = {};
+  const warnings = [];
+
+  for (const rule of RULES) {
+    if (!enabled.get(rule.id)) { deltas[rule.id] = null; continue; }
+    const before = text.length;
+    const result = rule.fn(text, optsFor(rule));
+    if (typeof result === 'string') {
+      text = result;
+    } else {
+      text = result.text;
+      if (result.warnings) warnings.push(...result.warnings);
+    }
+    deltas[rule.id] = text.length - before;
+  }
+
+  return { text, deltas, warnings };
+}
+
+/* ---------- rendering ---------- */
+
+const pipelineEl = document.getElementById('pipeline');
+const viewEl     = document.getElementById('view');
+const warnEl     = document.getElementById('warnings');
+const truncEl    = document.getElementById('trunc');
+let showing = 'clean';
+
+function buildPipeline(){
+  let lastStage = null;
+
+  RULES.forEach((rule, i) => {
+    if (rule.stage !== lastStage) {
+      const h = document.createElement('div');
+      h.className = 'stage';
+      h.textContent = rule.stage;
+      pipelineEl.appendChild(h);
+      lastStage = rule.stage;
+    }
+
+    const step = document.createElement('div');
+    step.className = 'step';
+    step.dataset.id = rule.id;
+
+    const row = document.createElement('label');
+    row.className = 'step-row';
+    row.innerHTML =
+      '<span class="num">' + String(i + 1).padStart(2, '0') + '</span>' +
+      '<span class="label">' + rule.label +
+        (rule.destructive ? '<span class="tag">changes words</span>' : '') +
+        '<span class="desc">' + rule.desc + '</span>' +
+      '</span>' +
+      '<span class="delta"></span>';
+
+    const box = document.createElement('input');
+    box.type = 'checkbox';
+    box.checked = rule.on;
+    box.addEventListener('change', () => {
+      enabled.set(rule.id, box.checked);
+      render();
+    });
+    row.prepend(box);
+    step.appendChild(row);
+
+    if (rule.options) {
+      const opts = document.createElement('div');
+      opts.className = 'opts';
+      rule.options.forEach(opt => {
+        const l = document.createElement('label');
+        l.className = 'opt';
+
+        const s = document.createElement('span');
+        s.textContent = opt.label;
+
+        const count = document.createElement('em');
+        count.className = 'opt-count';
+        if (opt.type === 'textarea') s.appendChild(count);
+
+        const inp = document.createElement(opt.type === 'textarea' ? 'textarea' : 'input');
+        if (opt.type !== 'textarea') inp.type = 'text';
+        inp.placeholder = opt.placeholder || '';
+        inp.value = opt.default || '';
+        inp.dataset.opt = rule.id + ':' + opt.key;
+
+        const tally = () => {
+          if (opt.type !== 'textarea') return;
+          const n = inp.value.split(/[\s,]+/).filter(Boolean).length;
+          count.textContent = n + (n === 1 ? ' word' : ' words');
+        };
+        tally();
+
+        inp.addEventListener('input', () => {
+          settings.set(inp.dataset.opt, inp.value);
+          tally();
+          render();
+        });
+
+        l.append(s, inp);
+        opts.appendChild(l);
+      });
+      if (rule.note) {
+        const p = document.createElement('p');
+        p.className = 'opt-note';
+        p.textContent = rule.note;
+        opts.appendChild(p);
+      }
+      step.appendChild(opts);
+    }
+
+    pipelineEl.appendChild(step);
+  });
+}
+
+const fmt = n => n.toLocaleString();
+const countWords = t => (t.trim().match(/\S+/g) || []).length;
+
+function render(){
+  const { text, deltas, warnings } = sourceText ? run() : { text:'', deltas:{}, warnings:[] };
+  cleanText = text;
+
+  for (const rule of RULES) {
+    const step = pipelineEl.querySelector('.step[data-id="' + rule.id + '"]');
+    const on = enabled.get(rule.id);
+    step.classList.toggle('on', on);
+    const d = step.querySelector('.delta');
+    if (!sourceText || !on || deltas[rule.id] === null) d.textContent = '';
+    else if (deltas[rule.id] === 0) d.textContent = 'no change';
+    else d.textContent = (deltas[rule.id] > 0 ? '+' : '−') + fmt(Math.abs(deltas[rule.id]));
+  }
+
+  warnEl.innerHTML = '';
+  warnEl.classList.toggle('on', warnings.length > 0);
+  for (const w of warnings) {
+    const el = document.createElement('div');
+    el.className = 'warn';
+    el.innerHTML = '<b>' + w.title + '</b>' + w.body;
+    warnEl.appendChild(el);
+  }
+
+  const shown = showing === 'clean' ? cleanText : sourceText;
+  if (!sourceText) {
+    viewEl.classList.add('empty');
+    viewEl.textContent = 'No file loaded yet.';
+    truncEl.classList.remove('on');
+  } else {
+    viewEl.classList.remove('empty');
+    const over = shown.length > PREVIEW_LIMIT;
+    viewEl.textContent = over ? shown.slice(0, PREVIEW_LIMIT) : shown;
+    truncEl.classList.toggle('on', over);
+  }
+
+  document.getElementById('s-chars').textContent = fmt(cleanText.length);
+  document.getElementById('s-words').textContent = fmt(countWords(cleanText));
+  document.getElementById('s-lines').textContent = fmt(cleanText ? cleanText.split('\n').length : 0);
+  const cut = sourceText.length ? Math.max(0, Math.round((1 - cleanText.length / sourceText.length) * 100)) : 0;
+  document.getElementById('s-cut').textContent = cut + '%';
+
+  const ready = sourceText.length > 0;
+  document.getElementById('download').disabled = !ready;
+  document.getElementById('copy').disabled = !ready;
+  document.getElementById('reset').disabled = !ready;
+}
+
+/* ---------- file input ---------- */
+
+const drop = document.getElementById('drop');
+const fileInput = document.getElementById('file');
+
+function load(file){
+  if (!file) return;
+  if (!/\.txt$/i.test(file.name)) {
+    sourceText = '';
+    warnEl.classList.add('on');
+    warnEl.innerHTML = '<div class="warn"><b>That is not a .txt file</b>This tool reads plain text only. On Project Gutenberg, choose the "Plain Text UTF-8" link rather than EPUB, Kindle or HTML.</div>';
+    render();
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = () => {
+    sourceText = String(reader.result);
+    fileName = file.name;
+    document.getElementById('fname').textContent = fileName;
+    document.getElementById('fsize').textContent = fmt(Math.round(file.size / 1024)) + ' KB';
+    document.getElementById('loaded').classList.add('on');
+    render();
+  };
+  reader.onerror = () => {
+    warnEl.classList.add('on');
+    warnEl.innerHTML = '<div class="warn"><b>The file could not be read</b>Try opening it in a text editor and saving it again as UTF-8 plain text.</div>';
+  };
+  reader.readAsText(file, 'utf-8');
+}
+
+fileInput.addEventListener('change', e => load(e.target.files[0]));
+drop.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }
+});
+['dragenter','dragover'].forEach(ev =>
+  drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('armed'); })
+);
+['dragleave','drop'].forEach(ev =>
+  drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('armed'); })
+);
+drop.addEventListener('drop', e => load(e.dataTransfer.files[0]));
+
+/* ---------- tabs ---------- */
+
+const tabClean = document.getElementById('tab-clean');
+const tabOrig  = document.getElementById('tab-orig');
+
+function setTab(which){
+  showing = which;
+  tabClean.setAttribute('aria-selected', which === 'clean');
+  tabOrig.setAttribute('aria-selected', which === 'orig');
+  render();
+}
+tabClean.addEventListener('click', () => setTab('clean'));
+tabOrig.addEventListener('click', () => setTab('orig'));
+
+/* ---------- actions ---------- */
+
+document.getElementById('download').addEventListener('click', () => {
+  const blob = new Blob([cleanText], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = fileName.replace(/\.txt$/i, '') + '-cleaned.txt';
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+
+document.getElementById('copy').addEventListener('click', async (e) => {
+  try {
+    await navigator.clipboard.writeText(cleanText);
+    const b = e.currentTarget;
+    const old = b.textContent;
+    b.textContent = 'Copied';
+    setTimeout(() => { b.textContent = old; }, 1400);
+  } catch {
+    warnEl.classList.add('on');
+    warnEl.innerHTML = '<div class="warn"><b>Clipboard access was blocked</b>Your browser would not allow the copy. Use the download button instead.</div>';
+  }
+});
+
+document.getElementById('reset').addEventListener('click', () => {
+  RULES.forEach(r => {
+    enabled.set(r.id, r.on);
+    pipelineEl.querySelector('.step[data-id="' + r.id + '"] input[type=checkbox]').checked = r.on;
+    (r.options || []).forEach(o => {
+      const val = o.default || '';
+      settings.set(r.id + ':' + o.key, val);
+      const inp = pipelineEl.querySelector('[data-opt="' + r.id + ':' + o.key + '"]');
+      if (inp) {
+        inp.value = val;
+        inp.dispatchEvent(new Event('input', { bubbles: false }));
+      }
+    });
+  });
+  render();
+});
+
+/* ---------- go ---------- */
+
+buildPipeline();
+render();
+</script>
+</body>
+</html>

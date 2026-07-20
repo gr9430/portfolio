@@ -3,7 +3,7 @@ layout: default
 title: "Walk to School"
 description: "A place-based critical making project mapping a childhood walk to school circa 2007, excavating gentrification and memory through Google Earth's temporal archive"
 project: true
-tags: [Texts and Technology, Critical Making in Texts and Technology, Data Visualization, Archives, Place and Space]
+tags: [Texts and Technology, Critical Making in Texts and Technology, Data Visualization, Archives, Digital Humanities]
 ---
 
 # Walk to School, ~'07

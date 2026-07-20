@@ -3,7 +3,7 @@ layout: default
 title: "Ulster Cycle Network"
 description: "Interactive network visualization mapping the Ulster Cycle mythology and its interconnected narrative structure"
 project: true
-tags: [Data Visualization, Network, Irish Literature, Medieval, Texts and Technology, Theories of Texts and Technology]
+tags: [Data Visualization, Network Analysis, Irish Literature, Medieval, Texts and Technology, Theories of Texts and Technology, Digital Humanities]
 ---
 
 # Ulster Cycle Network

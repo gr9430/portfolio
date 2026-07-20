@@ -15,7 +15,7 @@ A central question animates all of it: How do we democratize who gets to make me
     <span class="legend-item"><span class="legend-dot hg-project-dot"></span> Project</span>
     <span class="legend-item"><span class="legend-dot hg-course-dot"></span> Course</span>
     <span class="legend-item"><span class="legend-dot hg-tag-dot"></span> Topic</span>
-    <span class="legend-item"><span class="legend-dot hg-uct-dot"></span> UCF Affiliated</span>
+    <span class="legend-item"><span class="legend-dot hg-uct-dot"></span> PhD</span>
     </div>
     <div id="home-graph-legend">
     <p class="legend-hint">Click a project or course to open · Click a topic to highlight connections · Drag to explore</p>

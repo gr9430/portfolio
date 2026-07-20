@@ -2,7 +2,7 @@
 layout: default
 title: "ePortfolio Resources"
 description: "Interactive network tools and glossary interfaces for composition pedagogy and ePortfolio instruction"
-project: true
+project: false
 tags: [Pedagogy, Network, Data Visualization, Composition, Critical Making]
 ---
 

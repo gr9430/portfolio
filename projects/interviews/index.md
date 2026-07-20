@@ -3,7 +3,7 @@ layout: default
 title: "Published Interviews"
 description: "Video interviews with non-academic writers, produced and published for pedagogical use in first-year composition courses"
 project: true
-tags: [Pedagogy, Multimodality, Visual Culture, Experimental Literature]
+tags: [Pedagogy, Multimodality, Visual Culturs, Experimental Literature]
 ---
 
 # Published Interviews

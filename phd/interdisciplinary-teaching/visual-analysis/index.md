@@ -2,7 +2,7 @@
 layout: default
 title: Visual Analysis
 project: true
-tags: [Interdisciplinary Teaching, Texts and Technology, Pedagogy, Visual Analysis, Interdisciplinary Teaching in Texts and Technology]
+tags: [Interdisciplinary Teaching, Texts and Technology, Pedagogy, Visual Cultures, Interdisciplinary Teaching in Texts and Technology, Digital Humanities]
 ---
 
 # Visual Analysis with AI
