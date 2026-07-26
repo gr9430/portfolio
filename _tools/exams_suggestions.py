@@ -44,3 +44,40 @@ def build_citation_key_to_book_id(books):
     """Reverse lookup from a book's own citationKey (when the book is
     itself already representing a citation entry) to its book id."""
     return {book["citationKey"]: book["id"] for book in books if book.get("citationKey")}
+
+
+def main_books(books):
+    """Every book except chapters of a split anthology (partOf set) —
+    a chapter isn't a distinct book on the reading list."""
+    return [b for b in books if not b.get("partOf")]
+
+
+def children_by_parent(books):
+    """Maps an anthology parent's id to the list of its chapter books."""
+    result = {}
+    for book in books:
+        parent = book.get("partOf")
+        if parent:
+            result.setdefault(parent, []).append(book)
+    return result
+
+
+def effective_citations(book, children_map):
+    """A book's own citation keys, unioned with its chapters' citation
+    keys if it's a split-anthology parent. Anthologies split into
+    chapters always carry an empty `citations` array on the parent by
+    convention — the bibliography lives entirely on the chapters. Without
+    folding it back up here, the parent would be permanently invisible to
+    scoring: never flagged as isolated, but also never credited for the
+    connectivity its chapters actually have."""
+    keys = {citation_key(e) for e in book.get("citations", [])}
+    for child in children_map.get(book["id"], []):
+        keys.update(citation_key(e) for e in child.get("citations", []))
+    return keys
+
+
+def scored_books(books, children_map):
+    """Main (non-chapter) books with a non-empty effective citations
+    profile. An empty bibliography means "not evaluated yet," not
+    "doesn't belong" — it must never show up as low-fit."""
+    return [b for b in main_books(books) if effective_citations(b, children_map)]

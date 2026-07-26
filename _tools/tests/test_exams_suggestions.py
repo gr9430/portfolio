@@ -56,3 +56,55 @@ class TestBuildCitationKeyToBookId:
             {"id": "no-key-book"},
         ]
         assert es.build_citation_key_to_book_id(books) == {"hayles1999": "hayles-posthuman"}
+
+
+class TestMainBooks:
+    def test_excludes_chapters(self):
+        books = [{"id": "p"}, {"id": "p-ch1", "partOf": "p"}]
+        assert [b["id"] for b in es.main_books(books)] == ["p"]
+
+
+class TestChildrenByParent:
+    def test_groups_chapters_under_their_parent_id(self):
+        books = [
+            {"id": "p"},
+            {"id": "p-ch1", "partOf": "p"},
+            {"id": "p-ch2", "partOf": "p"},
+            {"id": "other"},
+        ]
+        children = es.children_by_parent(books)
+        assert sorted(b["id"] for b in children["p"]) == ["p-ch1", "p-ch2"]
+        assert "other" not in children
+
+
+class TestEffectiveCitations:
+    def test_plain_book_uses_its_own_citations(self):
+        book = {"id": "a", "citations": ["k1", "k2"]}
+        assert es.effective_citations(book, {}) == {"k1", "k2"}
+
+    def test_anthology_parent_unions_its_chapters(self):
+        parent = {"id": "p", "citations": []}
+        children_map = {
+            "p": [
+                {"id": "p-ch1", "partOf": "p", "citations": ["k5", "k6"]},
+                {"id": "p-ch2", "partOf": "p", "citations": ["k6", "k7"]},
+            ]
+        }
+        assert es.effective_citations(parent, children_map) == {"k5", "k6", "k7"}
+
+    def test_untranscribed_book_with_no_children_is_empty(self):
+        book = {"id": "c", "citations": []}
+        assert es.effective_citations(book, {}) == set()
+
+
+class TestScoredBooks:
+    def test_excludes_untranscribed_and_chapters_but_keeps_transcribed_anthology_parent(self):
+        books = [
+            {"id": "a", "citations": ["k1"]},
+            {"id": "untranscribed", "citations": []},
+            {"id": "p", "citations": []},
+            {"id": "p-ch1", "partOf": "p", "citations": ["k5"]},
+        ]
+        children_map = es.children_by_parent(books)
+        ids = [b["id"] for b in es.scored_books(books, children_map)]
+        assert sorted(ids) == ["a", "p"]
