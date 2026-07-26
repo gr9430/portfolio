@@ -1,3 +1,4 @@
+import json
 import sys
 from pathlib import Path
 
@@ -220,3 +221,48 @@ class TestAddCandidates:
                 "titles": ["Book A", "Book B", "Book C", "Book D"],
             }
         ]
+
+
+class TestFormatReport:
+    def test_report_contains_both_section_headers_and_flagged_content(self):
+        reconsider = [{"id": "c", "title": "Isolated Book", "author": "Author C", "categories": ["core"], "subject": "game-studies"}]
+        degrees = {"c": {"degree": 0, "weight": 0}}
+        add_cands = [
+            {"key": "k1", "citation": "Foucault, Michel. Discipline and Punish.", "family_count": 4, "titles": ["Book A", "Book B"]}
+        ]
+        report = es.format_report(reconsider, degrees, add_cands, scored_count=10, percentile=0.15, hub_threshold=4)
+        assert "=== Reconsider (bottom 15% by connectivity, 1 of 10 scored books) ===" in report
+        assert "Isolated Book" in report
+        assert "Author C" in report
+        assert "=== Consider adding (cited by >=4 books, not already on the list) ===" in report
+        assert "Foucault, Michel. Discipline and Punish." in report
+        assert "cited by: Book A, Book B" in report
+
+
+class TestLoadData:
+    def test_reads_json_file(self, tmp_path):
+        path = tmp_path / "exams.json"
+        path.write_text(json.dumps({"books": [], "citations": {}}), encoding="utf-8")
+        assert es.load_data(path) == {"books": [], "citations": {}}
+
+
+class TestOrchestrate:
+    def test_end_to_end_on_a_small_synthetic_dataset(self):
+        data = {
+            "citations": {"k2": "Shared Source. 2000."},
+            "books": [
+                {"id": "a", "title": "Book A", "author": "Author A", "categories": ["core"], "subject": "game-studies", "citations": ["k1", "k2"]},
+                {"id": "b", "title": "Book B", "author": "Author B", "categories": ["core"], "subject": "game-studies", "citations": ["k2", "k3"]},
+                {"id": "c", "title": "Book C", "author": "Author C", "categories": ["primary"], "subject": "electronic-literature", "citations": ["k4"]},
+            ],
+        }
+        report = es.orchestrate(data, percentile=0.4, hub_threshold=2)
+        assert "Book C" in report  # degree 0, lowest-connectivity, flagged
+        assert "Shared Source. 2000." in report  # k2 cited by a and b, hub_threshold=2
+
+    def test_smoke_test_against_the_real_exams_data(self):
+        real_path = Path(__file__).parent.parent.parent / "_data" / "exams.json"
+        data = es.load_data(real_path)
+        report = es.orchestrate(data)
+        assert "=== Reconsider" in report
+        assert "=== Consider adding" in report

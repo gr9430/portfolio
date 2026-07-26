@@ -5,7 +5,10 @@ Run from repo root: python3 _tools/exams_suggestions.py
 No external dependencies.
 """
 
+import argparse
+import json
 import math
+from pathlib import Path
 
 
 def citation_key(entry):
@@ -145,3 +148,62 @@ def add_candidates(keys, citation_to_books, citation_to_families, citations, boo
             }
         )
     return result
+
+
+def format_report(reconsider, degrees, add_cands, scored_count, percentile, hub_threshold):
+    lines = []
+    lines.append(
+        f"=== Reconsider (bottom {percentile:.0%} by connectivity, "
+        f"{len(reconsider)} of {scored_count} scored books) ==="
+    )
+    for book in reconsider:
+        d = degrees[book["id"]]
+        cats = "/".join(book.get("categories", []))
+        subject = book.get("subject", "")
+        lines.append(
+            f"{d['degree']} {d['weight']}  {book['title']} — {book['author']}  [{cats}/{subject}]"
+        )
+    lines.append("")
+    lines.append(f"=== Consider adding (cited by >={hub_threshold} books, not already on the list) ===")
+    for cand in add_cands:
+        lines.append(f"{cand['family_count']}  {cand['citation']}")
+        lines.append(f"    cited by: {', '.join(cand['titles'])}")
+    return "\n".join(lines)
+
+
+def load_data(path):
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def orchestrate(data, percentile=0.15, hub_threshold=4):
+    books = data["books"]
+    citations = data["citations"]
+
+    children_map = children_by_parent(books)
+    scored = scored_books(books, children_map)
+    degrees = compute_degrees(scored, children_map)
+    flagged = reconsider_list(scored, degrees, percentile)
+
+    citation_to_books, citation_to_families = build_citation_index(books)
+    citation_key_to_book_id = build_citation_key_to_book_id(books)
+    keys = established_keys(citation_to_families, citation_key_to_book_id, hub_threshold)
+    book_by_id = {b["id"]: b for b in books}
+    cands = add_candidates(keys, citation_to_books, citation_to_families, citations, book_by_id)
+
+    return format_report(flagged, degrees, cands, len(scored), percentile, hub_threshold)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Suggest reading-list changes from the exams citation graph.")
+    parser.add_argument("--percentile", type=float, default=0.15, help="Fraction of scored books to flag as low-connectivity (default: 0.15)")
+    parser.add_argument("--hub-threshold", type=int, default=4, help="Minimum distinct citing families for an add-candidate (default: 4)")
+    parser.add_argument("--data", type=Path, default=Path(__file__).parent.parent / "_data" / "exams.json", help="Path to exams.json")
+    args = parser.parse_args()
+
+    data = load_data(args.data)
+    print(orchestrate(data, args.percentile, args.hub_threshold))
+
+
+if __name__ == "__main__":
+    main()
