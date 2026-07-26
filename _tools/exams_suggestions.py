@@ -113,3 +113,35 @@ def reconsider_list(books, degrees, percentile):
     ranked = sorted(books, key=lambda b: (degrees[b["id"]]["degree"], b["id"]))
     n_flagged = math.ceil(percentile * len(ranked))
     return ranked[:n_flagged]
+
+
+def established_keys(citation_to_families, citation_key_to_book_id, hub_threshold):
+    """A citation key is a real add-candidate if it isn't already
+    representing a book on the list (no citationKey owner) and is cited
+    by at least `hub_threshold` distinct families — mirrors the live
+    page's establishedKeys() hub-promotion rule verbatim."""
+    keys = [
+        key
+        for key, families in citation_to_families.items()
+        if key not in citation_key_to_book_id and len(families) >= hub_threshold
+    ]
+    keys.sort(key=lambda k: (-len(citation_to_families[k]), k))
+    return keys
+
+
+def add_candidates(keys, citation_to_books, citation_to_families, citations, book_by_id):
+    """Resolves each established key to its citation string, citing
+    family count, and the titles of the books that cite it."""
+    result = []
+    for key in keys:
+        citing_ids = citation_to_books[key]
+        titles = sorted({book_by_id[bid]["title"] for bid in citing_ids if bid in book_by_id})
+        result.append(
+            {
+                "key": key,
+                "citation": citations.get(key, key),
+                "family_count": len(citation_to_families[key]),
+                "titles": titles,
+            }
+        )
+    return result

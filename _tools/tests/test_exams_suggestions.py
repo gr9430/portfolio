@@ -179,3 +179,44 @@ class TestReconsiderList:
         degrees = {"a": {"degree": 5, "weight": 5}, "b": {"degree": 9, "weight": 9}}
         flagged = es.reconsider_list(books, degrees, percentile=0.01)
         assert [b["id"] for b in flagged] == ["a"]
+
+
+class TestEstablishedKeys:
+    def test_includes_keys_at_or_above_threshold(self):
+        citation_to_families = {"k1": {"a", "b", "c", "d"}, "k2": {"a", "b", "c"}}
+        flagged = es.established_keys(citation_to_families, {}, hub_threshold=4)
+        assert flagged == ["k1"]
+
+    def test_excludes_keys_already_owned_by_a_real_book(self):
+        citation_to_families = {"k1": {"a", "b", "c", "d"}}
+        citation_key_to_book_id = {"k1": "some-book-already-on-the-list"}
+        assert es.established_keys(citation_to_families, citation_key_to_book_id, hub_threshold=4) == []
+
+    def test_sorted_by_citing_family_count_descending(self):
+        citation_to_families = {
+            "k1": {"a", "b", "c", "d"},
+            "k2": {"a", "b", "c", "d", "e"},
+        }
+        assert es.established_keys(citation_to_families, {}, hub_threshold=4) == ["k2", "k1"]
+
+
+class TestAddCandidates:
+    def test_resolves_citation_string_family_count_and_citing_titles(self):
+        citation_to_books = {"k1": ["a", "b", "c", "d"]}
+        citation_to_families = {"k1": {"a", "b", "c", "d"}}
+        citations = {"k1": "Foucault, Michel. Discipline and Punish."}
+        book_by_id = {
+            "a": {"id": "a", "title": "Book A"},
+            "b": {"id": "b", "title": "Book B"},
+            "c": {"id": "c", "title": "Book C"},
+            "d": {"id": "d", "title": "Book D"},
+        }
+        result = es.add_candidates(["k1"], citation_to_books, citation_to_families, citations, book_by_id)
+        assert result == [
+            {
+                "key": "k1",
+                "citation": "Foucault, Michel. Discipline and Punish.",
+                "family_count": 4,
+                "titles": ["Book A", "Book B", "Book C", "Book D"],
+            }
+        ]
