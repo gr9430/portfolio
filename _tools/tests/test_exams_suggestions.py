@@ -145,3 +145,36 @@ class TestComputeDegrees:
         degrees = es.compute_degrees(books, children_map)
         assert degrees["a"] == {"degree": 1, "weight": 2}
         assert degrees["b"] == {"degree": 1, "weight": 2}
+
+
+class TestReconsiderList:
+    def test_flags_the_lowest_degree_book_at_a_tight_percentile(self):
+        books = [{"id": "a"}, {"id": "b"}, {"id": "c"}, {"id": "d"}, {"id": "e"}]
+        degrees = {
+            "a": {"degree": 1, "weight": 1},
+            "b": {"degree": 1, "weight": 1},
+            "c": {"degree": 0, "weight": 0},
+            "d": {"degree": 1, "weight": 1},
+            "e": {"degree": 1, "weight": 1},
+        }
+        flagged = es.reconsider_list(books, degrees, percentile=0.2)
+        assert [b["id"] for b in flagged] == ["c"]
+
+    def test_widening_percentile_flags_more_books_with_stable_tie_break(self):
+        books = [{"id": "a"}, {"id": "b"}, {"id": "c"}, {"id": "d"}, {"id": "e"}]
+        degrees = {
+            "a": {"degree": 1, "weight": 1},
+            "b": {"degree": 1, "weight": 1},
+            "c": {"degree": 0, "weight": 0},
+            "d": {"degree": 1, "weight": 1},
+            "e": {"degree": 1, "weight": 1},
+        }
+        flagged = es.reconsider_list(books, degrees, percentile=0.4)
+        # c (degree 0) first, then the lowest-id degree-1 book as a tie-break
+        assert [b["id"] for b in flagged] == ["c", "a"]
+
+    def test_percentile_rounds_up_to_at_least_one_book(self):
+        books = [{"id": "a"}, {"id": "b"}]
+        degrees = {"a": {"degree": 5, "weight": 5}, "b": {"degree": 9, "weight": 9}}
+        flagged = es.reconsider_list(books, degrees, percentile=0.01)
+        assert [b["id"] for b in flagged] == ["a"]

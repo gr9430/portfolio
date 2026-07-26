@@ -5,6 +5,8 @@ Run from repo root: python3 _tools/exams_suggestions.py
 No external dependencies.
 """
 
+import math
+
 
 def citation_key(entry):
     """A book's `citations` array holds either plain string keys or
@@ -102,3 +104,12 @@ def compute_degrees(books, children_map):
             result[ids[i]]["weight"] += len(shared)
             result[ids[j]]["weight"] += len(shared)
     return result
+
+
+def reconsider_list(books, degrees, percentile):
+    """Bottom `percentile` fraction of `books` by degree (ties broken by
+    id for determinism), ascending — worst-connected first. Always flags
+    at least one book if `books` is non-empty."""
+    ranked = sorted(books, key=lambda b: (degrees[b["id"]]["degree"], b["id"]))
+    n_flagged = math.ceil(percentile * len(ranked))
+    return ranked[:n_flagged]
