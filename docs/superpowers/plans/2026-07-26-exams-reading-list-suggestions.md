@@ -756,7 +756,7 @@ git commit -m "exams_suggestions: add report formatting, orchestration, and CLI 
 
 After Task 7 is committed, spot-check the real output by hand:
 
-- Pick 2–3 flagged "reconsider" books that are *not* one of the four split anthologies. Open `phd/exams/`, click each node, and count its distinct connections — it should match the script's printed degree.
+- Pick 2–3 flagged "reconsider" books that are *not* one of the four split anthologies. Open `phd/exams/`, click each node, and count its distinct connections — expect the script's printed degree to be *higher*, not equal: the page excludes hub-promoted and book-owned citation keys from book-to-book edges entirely, and additionally filters displayed edges by a `minSharedThreshold` the script doesn't apply. A large gap is expected, not a bug — see the design spec's Verification Plan item 2 for the full reasoning.
 - For a split anthology parent (e.g. `debates-23`) if one appears in the reconsider output, confirm its printed degree by manually summing the distinct external books each of its chapters connects to (the page currently shows the parent node itself with zero edges, so this won't match the page directly — expected, per the design spec).
 - Pick 2–3 "add-candidates" entries and confirm by hand in `_data/exams.json` that the citing-family count matches, and that the key isn't already some book's `citationKey`.
 - Confirm no book with an empty effective-citations profile (no citations of its own, and, if it's an anthology parent, none from its chapters either) appears in the reconsider output.
