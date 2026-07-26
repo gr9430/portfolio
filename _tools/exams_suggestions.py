@@ -81,3 +81,24 @@ def scored_books(books, children_map):
     profile. An empty bibliography means "not evaluated yet," not
     "doesn't belong" — it must never show up as low-fit."""
     return [b for b in main_books(books) if effective_citations(b, children_map)]
+
+
+def compute_degrees(books, children_map):
+    """Raw structural degree: any effective-citation overlap >= 1 counts
+    as an edge between two distinct scored books, graph-wide (not scoped
+    to category or subject). `degree` is the neighbor count; `weight` is
+    the total size of all shared-key intersections, reported as
+    tie-break context, not used for ranking."""
+    profiles = {b["id"]: effective_citations(b, children_map) for b in books}
+    ids = list(profiles.keys())
+    result = {bid: {"degree": 0, "weight": 0} for bid in ids}
+    for i in range(len(ids)):
+        for j in range(i + 1, len(ids)):
+            shared = profiles[ids[i]] & profiles[ids[j]]
+            if not shared:
+                continue
+            result[ids[i]]["degree"] += 1
+            result[ids[j]]["degree"] += 1
+            result[ids[i]]["weight"] += len(shared)
+            result[ids[j]]["weight"] += len(shared)
+    return result

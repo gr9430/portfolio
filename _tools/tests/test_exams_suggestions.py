@@ -108,3 +108,40 @@ class TestScoredBooks:
         children_map = es.children_by_parent(books)
         ids = [b["id"] for b in es.scored_books(books, children_map)]
         assert sorted(ids) == ["a", "p"]
+
+
+class TestComputeDegrees:
+    def test_degree_and_weight_across_a_small_graph(self):
+        # a/b share k2 (1 key). c is isolated. p (anthology parent, folded
+        # via children_map) and d share k6 (1 key) through p's chapters.
+        books = [
+            {"id": "a", "citations": ["k1", "k2"]},
+            {"id": "b", "citations": ["k2", "k3"]},
+            {"id": "c", "citations": ["k4"]},
+            {"id": "p", "citations": []},
+            {"id": "p-ch1", "partOf": "p", "citations": ["k5", "k6"]},
+            {"id": "p-ch2", "partOf": "p", "citations": ["k6", "k7"]},
+            {"id": "d", "citations": ["k6"]},
+        ]
+        children_map = es.children_by_parent(books)
+        scored = es.scored_books(books, children_map)
+        degrees = es.compute_degrees(scored, children_map)
+
+        assert degrees["a"] == {"degree": 1, "weight": 1}
+        assert degrees["b"] == {"degree": 1, "weight": 1}
+        assert degrees["c"] == {"degree": 0, "weight": 0}
+        assert degrees["p"] == {"degree": 1, "weight": 1}
+        assert degrees["d"] == {"degree": 1, "weight": 1}
+        # chapters are never individually scored
+        assert "p-ch1" not in degrees
+        assert "p-ch2" not in degrees
+
+    def test_weight_accumulates_multiple_shared_keys_with_one_neighbor(self):
+        books = [
+            {"id": "a", "citations": ["k1", "k2", "k3"]},
+            {"id": "b", "citations": ["k1", "k2", "k9"]},
+        ]
+        children_map = {}
+        degrees = es.compute_degrees(books, children_map)
+        assert degrees["a"] == {"degree": 1, "weight": 2}
+        assert degrees["b"] == {"degree": 1, "weight": 2}
