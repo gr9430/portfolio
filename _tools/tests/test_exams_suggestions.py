@@ -161,7 +161,8 @@ class TestReconsiderList:
         assert [b["id"] for b in flagged] == ["c"]
 
     def test_widening_percentile_flags_more_books_with_stable_tie_break(self):
-        books = [{"id": "a"}, {"id": "b"}, {"id": "c"}, {"id": "d"}, {"id": "e"}]
+        # Shuffle input order to ensure tie-break by id is actually used, not relying on input order
+        books = [{"id": "e"}, {"id": "c"}, {"id": "b"}, {"id": "d"}, {"id": "a"}]
         degrees = {
             "a": {"degree": 1, "weight": 1},
             "b": {"degree": 1, "weight": 1},
