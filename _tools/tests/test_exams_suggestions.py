@@ -222,6 +222,25 @@ class TestAddCandidates:
             }
         ]
 
+    def test_citing_chapters_of_the_same_anthology_collapse_to_the_parents_title(self):
+        citation_to_books = {"k1": ["p-ch1", "p-ch2"]}
+        citation_to_families = {"k1": {"p"}}
+        citations = {"k1": "Shared Source. 2000."}
+        book_by_id = {
+            "p": {"id": "p", "title": "Debates in the Digital Humanities 2023"},
+            "p-ch1": {"id": "p-ch1", "partOf": "p", "title": "The Queer Gap in Cultural Analytics"},
+            "p-ch2": {"id": "p-ch2", "partOf": "p", "title": "Game Studies, Endgame?"},
+        }
+        result = es.add_candidates(["k1"], citation_to_books, citation_to_families, citations, book_by_id)
+        assert result == [
+            {
+                "key": "k1",
+                "citation": "Shared Source. 2000.",
+                "family_count": 1,
+                "titles": ["Debates in the Digital Humanities 2023"],
+            }
+        ]
+
 
 class TestFormatReport:
     def test_report_contains_both_section_headers_and_flagged_content(self):

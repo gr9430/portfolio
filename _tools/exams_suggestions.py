@@ -134,11 +134,16 @@ def established_keys(citation_to_families, citation_key_to_book_id, hub_threshol
 
 def add_candidates(keys, citation_to_books, citation_to_families, citations, book_by_id):
     """Resolves each established key to its citation string, citing
-    family count, and the titles of the books that cite it."""
+    family count, and the titles of the books that cite it. Each citing
+    id is resolved to its family first (a chapter collapses to its
+    parent anthology, per family_id) so the titles list attributes the
+    citation to the actual reading-list entry, never to an individual
+    chapter."""
     result = []
     for key in keys:
         citing_ids = citation_to_books[key]
-        titles = sorted({book_by_id[bid]["title"] for bid in citing_ids if bid in book_by_id})
+        resolved_ids = {family_id(book_by_id[bid]) for bid in citing_ids if bid in book_by_id}
+        titles = sorted({book_by_id[rid]["title"] for rid in resolved_ids if rid in book_by_id})
         result.append(
             {
                 "key": key,
