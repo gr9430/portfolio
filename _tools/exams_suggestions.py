@@ -111,10 +111,10 @@ def compute_degrees(books, children_map):
 
 def reconsider_list(books, degrees, percentile):
     """Bottom `percentile` fraction of `books` by degree (ties broken by
-    id for determinism), ascending — worst-connected first. Always flags
-    at least one book if `books` is non-empty."""
+    id for determinism), ascending — worst-connected first. Flags at
+    least one book for any percentile > 0, given non-empty `books`."""
     ranked = sorted(books, key=lambda b: (degrees[b["id"]]["degree"], b["id"]))
-    n_flagged = math.ceil(percentile * len(ranked))
+    n_flagged = max(0, math.ceil(percentile * len(ranked)))
     return ranked[:n_flagged]
 
 
@@ -165,8 +165,10 @@ def format_report(reconsider, degrees, add_cands, scored_count, percentile, hub_
         d = degrees[book["id"]]
         cats = "/".join(book.get("categories", []))
         subject = book.get("subject", "")
+        title = book.get("title", book["id"])
+        author = book.get("author", "")
         lines.append(
-            f"{d['degree']} {d['weight']}  {book['title']} — {book['author']}  [{cats}/{subject}]"
+            f"{d['degree']} {d['weight']}  {title} — {author}  [{cats}/{subject}]"
         )
     lines.append("")
     lines.append(f"=== Consider adding (cited by >={hub_threshold} books, not already on the list) ===")

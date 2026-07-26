@@ -181,6 +181,12 @@ class TestReconsiderList:
         flagged = es.reconsider_list(books, degrees, percentile=0.01)
         assert [b["id"] for b in flagged] == ["a"]
 
+    def test_negative_percentile_flags_nothing_rather_than_inverting(self):
+        books = [{"id": "a"}, {"id": "b"}]
+        degrees = {"a": {"degree": 1, "weight": 1}, "b": {"degree": 5, "weight": 5}}
+        flagged = es.reconsider_list(books, degrees, percentile=-0.1)
+        assert flagged == []
+
 
 class TestEstablishedKeys:
     def test_includes_keys_at_or_above_threshold(self):
