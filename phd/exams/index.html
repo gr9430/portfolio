@@ -670,7 +670,7 @@ tags: [Texts and Technology, Digital Humanities, Network Analysis, Electronic Li
       <button class="exams-legend-btn" id="exams-publisher-rank-toggle" type="button" aria-expanded="false">Rank publishers by book count ▾</button>
       <span><span class="exams-legend-diamond"></span>Recommended: a citation shared by enough of the transcribed books to count as established infrastructure</span>
       <span><span class="exams-legend-dot" style="background: rgb(70, 90, 140)"></span>Anthology chapter: one essay of a multi-chapter volume (see spokes to its parent)</span>
-      <span><span class="exams-legend-dot" style="background: rgba(120,120,120,0.5)"></span>Full Field (toggle): Core reading-list texts I didn't select</span>
+      <span><span class="exams-legend-dot" style="background: rgba(120,120,120,0.5)"></span>Full Field (toggle): T&amp;T field texts not on my Core reading list</span>
     </div>
     <div id="exams-publisher-rank-list" class="exams-publisher-rank-list"></div>
     </div>
@@ -1129,7 +1129,12 @@ const EXAMS_VOCAB = {{ site.data.exams_vocab | jsonify }};
       if (activeCategories.size === 0) return true;
       return d.citedBy.some(id => bookById[id] && categoryMatch(bookById[id].categories));
     }
-    if (d.selected === false && !showFullField) return false;
+    // A chapter has no reading-list status of its own — it follows whatever
+    // its parent book is (so a Full-Field-only parent's chapters hide with
+    // it, and both reappear together once Full Field is toggled on).
+    const parent = d.partOf && bookById[d.partOf];
+    const effectiveSelected = parent ? parent.selected : d.selected;
+    if (effectiveSelected === false && !showFullField) return false;
     return categoryMatch(d.categories);
   }
 
