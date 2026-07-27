@@ -36,6 +36,15 @@ By the end of the course, students will be able to:
 - Johnson, Emily K. and Anastasia Salter. *Critical Making in the Age of AI*, 2025, Amherst College Press. Open-Access Text [here](https://www.fulcrum.org/epubs/ns064895z?locale=en).
 - I will provide other PDFs and readings links on an as-needed basis.
 
+### Software and Tools
+All tools used in this course are free and, with the single exception of Handy, run entirely in a browser — meaning they are fully available on campus library computers. **No paid subscriptions are required.**
+- **Duck.AI** (DuckDuckGo's privacy-mediated AI interface) — our AI environment for the course
+- **Firefox** with the **Simple Translate** extension — recommended browser and reading-access tool
+- **Voyant Tools** — browser-based text analysis
+- **Twine / SugarCube** — interactive/hypertext authoring
+- **The course procedural pipeline** (Reduce · Edit Vocabulary · Generate) — provided by the instructor
+- **Handy** (optional) — offline, open-source speech-to-text for drafting
+
 ## AI Policy
 ### TL;DR
 - Unauthorized AI use (no credit, no documentation of process) results in an automatic 15% deduction.
@@ -117,13 +126,39 @@ Everyone continues to evolve their understanding of AI's potential and limitatio
 **New Media Object Draft & Peer Review** (60 pts + 40 pts). A working draft of the capstone (Week 14) and structured peer review of a classmate's draft (Week 15). Both are assessed as process work: the draft on its evidence of genuine iteration, the review on the usefulness of the feedback you give. (SLOs 3, 6)
 
 ## Grading Policy
-|Major Assignments 50%|Participation 30%|Drafting & Peer Review 20%|
-|-|-|-|
-|Textual Analysis Reflection (150 pts)|Attendance (100 pts)|Pipeline Activity 2 Reflection (30 pts)|
-|Visual Analysis Reflection (150 pts)|Reading Reflections (5 reflections; 200 pts total)|Pipeline Activity 1 Reflection (30 pts)
-|New Media Object (200 pts)||Format Commitment / Concept Finalization (40 pts)|
-|||Major Assignment 3 Draft (60 pts)|
-|||Major Assignment 3 Peer Review (40 pts)|
+
+<table class="syllabus-table">
+  <thead>
+    <tr><th>Major Assignments — 50%</th><th>Participation — 30%</th><th>Drafting &amp; Peer Review — 20%</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Textual Analysis Reflection (150 pts)</td>
+      <td>Attendance (100 pts)</td>
+      <td>Pipeline Activity 2 Reflection (30 pts)</td>
+    </tr>
+    <tr>
+      <td>Visual Analysis Reflection (150 pts)</td>
+      <td>Reading Reflections (5 × 40 = 200 pts)</td>
+      <td>Pipeline Activity 1 Reflection (30 pts)</td>
+    </tr>
+    <tr>
+      <td>New Media Object (200 pts)</td>
+      <td></td>
+      <td>Format Commitment / Concept Finalization (40 pts)</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>New Media Object Draft (60 pts)</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>New Media Object Peer Review (40 pts)</td>
+    </tr>
+  </tbody>
+</table>
 
 **1,000 Points Total**
 
@@ -135,42 +170,132 @@ If you are concerned about not submitting an assignment on time, I encourage you
 Assignments build on each other in this course. Falling behind creates compounding difficulty. The late policy exists for genuine emergencies, not routine time management.
 
 ### Grading Scale
-|Letter Grade|Percentage|Grade Point Value|
-|-|-|-|
-|A|94-100%|4.00|
-|A-|90-93%|3.75|
-|B+|87-89%|3.25|
-|B|84-86%|3.00|
-|B-|80-83%|2.75|
-|C+|77-79%|2.25|
-|C|74-76%|2.00|
-|C-|70-73%|1.75|
-|D+|67-69%|1.25|
-|D|64-66%|1.00|
-|D-|61-63%|0.75|
-|F|0-60%|0.00|
-* * *
+<table class="syllabus-table">
+  <thead>
+    <tr><th>Letter Grade</th><th>Percentage</th><th>Grade Point Value</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>A</td><td>94–100%</td><td>4.00</td></tr>
+    <tr><td>A-</td><td>90–93%</td><td>3.75</td></tr>
+    <tr><td>B+</td><td>87–89%</td><td>3.25</td></tr>
+    <tr><td>B</td><td>84–86%</td><td>3.00</td></tr>
+    <tr><td>B-</td><td>80–83%</td><td>2.75</td></tr>
+    <tr><td>C+</td><td>77–79%</td><td>2.25</td></tr>
+    <tr><td>C</td><td>74–76%</td><td>2.00</td></tr>
+    <tr><td>C-</td><td>70–73%</td><td>1.75</td></tr>
+    <tr><td>D+</td><td>67–69%</td><td>1.25</td></tr>
+    <tr><td>D</td><td>64–66%</td><td>1.00</td></tr>
+    <tr><td>D-</td><td>61–63%</td><td>0.75</td></tr>
+    <tr><td>F</td><td>0–60%</td><td>0.00</td></tr>
+  </tbody>
+</table>
+
 ## Course Schedule
-|Week (Dates)|Topic|Read Before Class|Due Friday 11:59 PM|
-|-|-|-|-|
-|**Unit 1**|**Computational Analyses**|||
-|1<br>(1/11-15)|Introductions; DH in the English department|<p>**Monday**:<ul><li>[Kirschenbaum, Matthew G. "What Is Digital humanities and What’s It Doing in English Departments?", *ADE Bulletin*, No. 150, 2010.](https://mkirschenbaum.wordpress.com/wp-content/uploads/2011/01/kirschenbaum_ade150.pdf)"</li></ul></p><p>**Wednesday**:<ul><li>[Burdick, et, al. "1: Humanities to Digital Humanities," *Digital_Humanities*, MIT Press, 2012.](https://direct.mit.edu/books/book/5346/chapter/3837845/Humanities-to-Digital-Humanities)</li></ul>|Academic Engagement Activity (University Requirement)|
-|2<br>(1/18–22)|Methods, genres, reading at a distance|<p>**Monday**:<ul><li>No Class for MLK Jr. Day</li></ul></p><p>**Wednesday**:<ul><li>[Burdick, et, al. "2: Emerging Methods and Genres," *Digital_Humanities*, MIT Press, 2012.](https://direct.mit.edu/books/book/5346/chapter/3837846/Emerging-Methods-and-Genres)<li>[Rambsy, Kenton and Peace Ossom-Williamson. "1.4 What is Distant Reading?" *The Data Notebook*, Mavs Open Press, 2021.](https://uta.pressbooks.pub/datanotebook/chapter/1-4-distant-reading/)</li><li>[Underwood, Ted. "A Geneaology of Distant Reading," *Digital Humanities Quarterly*, vol. 11 no. 2, 2017.](https://dhq.digitalhumanities.org/vol/11/2/000317/000317.html)</li></p></ul>|Reading Reflection #1|
-|3<br>(1/25–29)|Reading the image; the social life of the field|<p>**Monday**:<ul><li>[Barthes, Roland. "The Rhetoric of the Image," in  *Classic Essays on Photography* eds. Alan Trachtenberg, Leete's Island Books, 1977, pp. 269-283. (PDF)](https://monoskop.org/images/8/8a/Barthes_Roland_rhetoric_of_the_image.pdf)</li></ul></p><p>**Wednesday**:<ul><li>[Burdick, et, al. "3: The Social Life of the Digital Humanities," *Digital_Humanities*, MIT Press, 2012.](https://direct.mit.edu/books/book/5346/chapter/3837847/The-Social-Life-of-the-Digital-Humanities)</li></li></ul></p>|Reading Reflection #2|
-|4<br>(2/1–5)|Provocations: Down the rabbit hole & making as method|<p>**Monday**:<ul><li>[Burdick, et, al. "4: Provocations," *Digital_Humanities*, MIT Press, 2012.](https://direct.mit.edu/books/book/5346/chapter/3837848/Provocations)</li><li>Johnson & Salter, Critical Making in the Age of AI — Introduction ("Provocations for Making")</li></ul></p><p>**Wednesday**:<ul><li>[Carroll, Lewis. *Alice's Adventures Under Ground*, I-III](https://www.gutenberg.org/ebooks/19002)</li></ul>|Reading Reflection #3|
-|5<br>(2/8–12)|Critical making; distant-reading Alice|<p>**Monday**:<ul><li>Matt Ratto, "Critical Making: Conceptual and Material Studies in Technology and Social Life." (PDF)</li><li>Johnson & Salter, ch. 8 ("Analysis" / Voyant)</li></ul></p><p>**Wednesday**:<ul><li>[Complete Carroll, Lewis. *Alice's Adventures Under Ground*](https://www.gutenberg.org/ebooks/19002)</li></ul>|Major Assignment 1: Textual Analysis Reflection|
-|**Unit 2**|**E-Lit + Procedural Authorship**|||
-|6<br>(2/15–19)|Alice as data; the remediation model|<p>**Monday**:<ul><li>Salter, Alice in Dataland — preface + "Making" notes</li></ul></p><p>**Wednesday**:<ul><li>Salter, Alice in Dataland — node VII (Twinkle Bat) + one node of choice</li></ul>|Reading Reflection #4|
-|7<br>(2/22–26)|Procedural poetics; the grammar|<p>**Monday**:<ul><li>Montfort, Taroko Gorge (run it) + ELMCIP Taroko Gorge Remixes series</li></ul></p><p>**Wednesday**:<ul><li>Compton, Tracery zine</li><li>Marino, "Critical Code Studies" (citation TBD from ebr)</li><li>Johnson & Salter, ch. 7 ("Bots" / Tracery)</li></ul></p>|Reading Reflection #5|
-|8<br>(3/1–5)|Reduce: the photograph as data|<p>Studio — no new reading.</p><p>Pipeline Activity 2 (Reduce): reduce your own photographs; sit with the "Data rebuild" loss.</p>|Pipeline Activity 2 Reflection|
-|9<br>(3/8–12)|Vocabulary and critical generation|<p>Studio — no new reading.</p><p>Pipeline Activity 3 (Edit Vocabulary): name your extracted colors; fork the instructor grammar or start empty.</p>|Major Assignment 2: Visual Analysis Reflection|
-|10<br>(3/15–19)|Spring Break|No class|
-|11<br>(3/22–26)|Generate & curate|<p>**Monday**:<ul><li>Johnson & Salter, ch. 9 ("Generation" / Generative AI)</li></ul></p><p>**Wednesday**:<ul><li>Studio. Pipeline Activity 1 (Generate): throw, curate, paginate.</li></ul></p>| Pipeline Activity 1 Reflection|
-|12<br>(3/29–4/2)|Twine as remediation|<p>**Monday**:<ul><li>Johnson & Salter, ch. 5 ("Hypertext" / Twine)</li></ul></p><p>**Wednesday**:<ul><li>Twine Cookbook — SugarCube (selected sections)</li></ul></p>|**Withdrawal Deadline**|
-|13<br>(4/5–9)|Format choice; remediation paths|<p>**Monday**:<ul><li>Risam & Gil, "Introduction: The Questions of Minimal Computing"</li></ul></p><p>**Wednesday**:<ul><li>Format decision (zine · print · Twine); concept finalized against minimal-computing stakes.</li></ul></p>|Format Commitment / Concept Finalization| 
-|14<br>(4/12–16)|Workshop|Studio — build.|Major Assignment 3 Draft
-|15<br>(4/19–23)|Workshop → handoff|Studio — assembly.|Major Assignment 3 Peer Review
-|16<br>(4/26–30)|Wrapping up|<p>**Monday**</p><ul><li>Final Workshop (last day of class)</li></ul>|Final New Media Object|
+<table class="syllabus-table">
+  <thead>
+    <tr><th>Week (Dates)</th><th>Topic</th><th>Read Before Class</th><th>Due Friday 11:59 PM</th></tr>
+  </thead>
+  <tbody>
+    <tr class="unit-row"><td colspan="4">Unit 1 · Computational Analyses</td></tr>
+    <tr>
+      <td>1<br>(1/11–15)</td>
+      <td>Introductions; DH in the English department</td>
+      <td><p><strong>Monday:</strong></p><ul><li>Kirschenbaum, "What Is Digital Humanities and What's It Doing in English Departments?" (<em>ADE Bulletin</em> 150, 2010)</li></ul><p><strong>Wednesday:</strong></p><ul><li>Burdick et al., "1: Humanities to Digital Humanities," <em>Digital_Humanities</em></li></ul></td>
+      <td>Academic Engagement Activity <em>(University Requirement)</em></td>
+    </tr>
+    <tr>
+      <td>2<br>(1/18–22)</td>
+      <td>Methods, genres, reading at a distance</td>
+      <td><p><strong>Monday:</strong></p><ul><li>No class — MLK Jr. Day</li></ul><p><strong>Wednesday:</strong></p><ul><li>Burdick et al., "2: Emerging Methods and Genres"</li><li>Rambsy &amp; Ossom-Williamson, "1.4 What Is Distant Reading?" (<em>The Data Notebook</em>, 2021)</li><li>Underwood, "A Genealogy of Distant Reading" (<em>DHQ</em> 11.2, 2017)</li></ul></td>
+      <td>Reading Reflection #1</td>
+    </tr>
+    <tr>
+      <td>3<br>(1/25–29)</td>
+      <td>Reading the image; the social life of the field</td>
+      <td><p><strong>Monday:</strong></p><ul><li>Barthes, "The Rhetoric of the Image" (1977 trans.)</li></ul><p><strong>Wednesday:</strong></p><ul><li>Burdick et al., "3: The Social Life of the Digital Humanities"</li></ul></td>
+      <td>Reading Reflection #2</td>
+    </tr>
+    <tr>
+      <td>4<br>(2/1–5)</td>
+      <td>Provocations: down the rabbit hole &amp; making as method</td>
+      <td><p><strong>Monday:</strong></p><ul><li>Burdick et al., "4: Provocations"</li><li>Johnson &amp; Salter, <em>Critical Making in the Age of AI</em> — Introduction ("Provocations for Making")</li></ul><p><strong>Wednesday:</strong></p><ul><li>Carroll, <em>Alice's Adventures Under Ground</em>, I–III</li></ul></td>
+      <td>Reading Reflection #3</td>
+    </tr>
+    <tr>
+      <td>5<br>(2/8–12)</td>
+      <td>Critical making; distant-reading <em>Alice</em></td>
+      <td><p><strong>Monday:</strong></p><ul><li>Ratto, "Critical Making: Conceptual and Material Studies in Technology and Social Life"</li><li>Johnson &amp; Salter, ch. 8 ("Analysis" / Voyant)</li></ul><p><strong>Wednesday:</strong></p><ul><li>Complete Carroll, <em>Alice's Adventures Under Ground</em> — <em>studio: run Alice through Voyant</em></li></ul></td>
+      <td>Major Assignment 1: Textual Analysis Reflection</td>
+    </tr>
+    <tr class="unit-row"><td colspan="4">Unit 2 · E-Lit + Procedural Authorship</td></tr>
+    <tr>
+      <td>6<br>(2/15–19)</td>
+      <td><em>Alice</em> as data; the remediation model</td>
+      <td><p><strong>Monday:</strong></p><ul><li>Salter, <em>Alice in Dataland</em> — preface + "Making" notes</li></ul><p><strong>Wednesday:</strong></p><ul><li>Salter, <em>Alice in Dataland</em> — node VII (Twinkle Bat) + one node of choice</li></ul></td>
+      <td>Reading Reflection #4</td>
+    </tr>
+    <tr>
+      <td>7<br>(2/22–26)</td>
+      <td>Procedural poetics; the grammar; reading code</td>
+      <td><p><strong>Monday:</strong></p><ul><li>Montfort, <em>Taroko Gorge</em> (run it) + ELMCIP <em>Taroko Gorge</em> Remixes series</li></ul><p><strong>Wednesday:</strong></p><ul><li>Compton, <em>Tracery</em> zine</li><li>Marino, "Critical Code Studies," <em>electronic book review</em>, 2006</li><li>Johnson &amp; Salter, ch. 7 ("Bots" / Tracery)</li></ul></td>
+      <td>Reading Reflection #5</td>
+    </tr>
+    <tr>
+      <td>8<br>(3/1–5)</td>
+      <td>Reduce: the photograph as data</td>
+      <td><p><em>Studio — no new reading.</em></p><p>Pipeline Activity 2 (Reduce): reduce your own photographs; sit with the "Data rebuild" loss.</p></td>
+      <td>Pipeline Activity 2 Reflection</td>
+    </tr>
+    <tr>
+      <td>9<br>(3/8–12)</td>
+      <td>Vocabulary and critical generation</td>
+      <td><p><em>Studio — no new reading.</em></p><p>Pipeline Activity 3 (Edit Vocabulary): name your extracted colors; fork the instructor grammar or start empty.</p></td>
+      <td>Major Assignment 2: Visual Analysis Reflection</td>
+    </tr>
+    <tr>
+      <td>10<br>(3/15–19)</td>
+      <td>Spring Break</td>
+      <td>No class</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>11<br>(3/22–26)</td>
+      <td>Generate &amp; curate</td>
+      <td><p><strong>Monday:</strong></p><ul><li>Johnson &amp; Salter, ch. 9 ("Generation" / Generative AI)</li></ul><p><strong>Wednesday:</strong></p><ul><li><em>Studio.</em> Pipeline Activity 1 (Generate): throw, curate, paginate.</li></ul></td>
+      <td>Pipeline Activity 1 Reflection · <strong>Withdrawal Deadline</strong></td>
+    </tr>
+    <tr>
+      <td>12<br>(3/29–4/2)</td>
+      <td>Twine as remediation</td>
+      <td><p><strong>Monday:</strong></p><ul><li>Johnson &amp; Salter, ch. 5 ("Hypertext" / Twine)</li></ul><p><strong>Wednesday:</strong></p><ul><li>Twine Cookbook — SugarCube (selected sections)</li></ul></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>13<br>(4/5–9)</td>
+      <td>Format choice; remediation paths</td>
+      <td><p><strong>Monday:</strong></p><ul><li>Risam &amp; Gil, "Introduction: The Questions of Minimal Computing"</li></ul><p><strong>Wednesday:</strong></p><ul><li>Format decision (zine · print · Twine); concept finalized against minimal-computing stakes.</li></ul></td>
+      <td>Format Commitment / Concept Finalization</td>
+    </tr>
+    <tr>
+      <td>14<br>(4/12–16)</td>
+      <td>Workshop</td>
+      <td><em>Studio — build.</em></td>
+      <td>New Media Object Draft</td>
+    </tr>
+    <tr>
+      <td>15<br>(4/19–23)</td>
+      <td>Workshop → handoff</td>
+      <td><em>Studio — assembly.</em></td>
+      <td>New Media Object Peer Review</td>
+    </tr>
+    <tr>
+      <td>16<br>(4/26–30)</td>
+      <td>Wrapping up</td>
+      <td><p><strong>Monday:</strong></p><ul><li>Final Workshop (last day of class)</li></ul></td>
+      <td>New Media Object (final)</td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
